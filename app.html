@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>neeedo.com</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media
+   queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+
+        .navbar-brand {
+            font-size:1.8em;
+        }
+
+        .navbar{
+            background-color: #1E2422;
+        }
+
+        #topContainer {
+            height:400px;
+            width:100%;
+            background-image:url("img/background.jpg");
+            background-size:cover;
+        }
+
+        #topRow {
+            margin-top:100px;
+            text-align:center;
+        }
+
+        #topRow h1 {
+            font-size:300%;
+        }
+
+        .contentContainer .row{
+            margin-top: 100px;
+        }
+
+
+    </style>
+</head>
+
+<body data-spy="scroll" data-target=".navbar-collapse">
+
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" datatarget=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">neeedo</a>
+        </div>
+
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#topContainer">Home</a></li>
+                <li><a href="index.html#details">About</a></li>
+                <li><a href="index.html#footer">Download The App</a></li>
+            </ul>
+            <div class="nav navbar-nav navbar-right">
+                <button class="btn-default btn" data-toggle="modal" data-target="#searchModal"><span class="glyphicon glyphicon-search"></span></button>
+                <button class="btn-default btn" data-toggle="modal" data-target="#addModal"><span class="glyphicon glyphicon-plus"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="searchModalLabel">Ich suche...</h4>
+                </div>
+
+                <div class="media-body">
+
+                    <input type="text" placeholder="Titel"/>
+
+                    <textarea class="form-control" rows="5" cols="10" placeholder="Kurzbeschreibung"></textarea>
+
+                    <input class="form-control" id="tagsOffer" type="text" placeholder="Titel"/>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                                <input type="number" class="form-control" placeholder="von"/>
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-lg-6 -->
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                                <input type="number" class="form-control" placeholder="bis"/>
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-lg-6 -->
+                    </div><!-- /.row -->
+
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">speichern</button>
+                <button type="button" class="btn btn-primary">abschicken</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="container">
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="addModalLabel">Ich biete</h4>
+                </div>
+                <div class="modal-body">
+
+                    <input type="text" placeholder="Titel"/>
+
+                    <textarea class="form-control" rows="5" cols="10" placeholder="Kurzbeschreibung"></textarea>
+
+                    <input class="form-control" id="tags" type="text" placeholder="Titel"/>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                                <input type="number" class="form-control" placeholder="von"/>
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-lg-6 -->
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                                <input type="number" class="form-control" placeholder="bis"/>
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-lg-6 -->
+                    </div><!-- /.row -->
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">speichern</button>
+                <button type="button" class="btn btn-primary">abschicken</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container contentContainer " id="topContainer">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img src="..." alt="...">
+                    <div class="caption">
+                        <h3>Thumbnail label</h3>
+                        <p>...</p>
+                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/
+jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as
+needed -->
+<script src="js/bootstrap.min.js"></script>
+
+<script>
+
+    $(".contentContainer").css("min-height",$(window).height());
+</script>
+</body>
+</html>
