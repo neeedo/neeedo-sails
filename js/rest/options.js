@@ -19,7 +19,8 @@ this.de.neeedo.webapp.rest.demands = this.de.neeedo.webapp.rest.demands || {};
     de.neeedo.webapp.rest.options = {      
         urls : {
             base : baseUrl,
-            createDemand : baseUrl + '/demands'
+            createDemand : baseUrl + '/demands',
+            createOffer : baseUrl + '/offers'
         }
     };
     

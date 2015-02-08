@@ -41,7 +41,7 @@ if (typeof jQuery === 'undefined') {
             shouldTagsList = this.restUtil.createTagList(inputShouldTags.val());
         } catch (e) {
             this.showErrorMsgToUser(e);
-            return;
+            return false;
         }
 
         return {
@@ -68,7 +68,13 @@ if (typeof jQuery === 'undefined') {
     }
 
     de.neeedo.webapp.rest.demands.DemandsConnector.prototype.createDemand = function() {
-        var demandJson = JSON.stringify(this.readFromForm());
+        var demandObj = this.readFromForm();
+        
+        if (false === demandObj) {
+            return;
+        }
+        
+        var demandJson = JSON.stringify(demandObj);
         
         console.log('createDemand: will send JSON:');
         console.log(demandJson);
