@@ -18,9 +18,10 @@ if (typeof jQuery === 'undefined') {
 (function() {
     var __this;
     
-    de.neeedo.webapp.rest.offers.OffersConnector = function(connectionOptions, formFields, restUtil) {
+    de.neeedo.webapp.rest.offers.OffersConnector = function(connectionOptions, formFields, viewElements, restUtil) {
         this.connectionOptions = connectionOptions;
         this.formFields = formFields;
+        this.viewElements = viewElements;
         this.restUtil = restUtil;
         
         __this = this;
@@ -64,7 +65,7 @@ if (typeof jQuery === 'undefined') {
     de.neeedo.webapp.rest.offers.OffersConnector.prototype.readFromServerResponse = function(jsonResponse) {
         var offer = jsonResponse.offer;
 
-        this.showSuccessMsgToUser('Created offer with ID ' + offer.id);
+        this.showSuccessMsgToUser('Eine Biete-Karte mit der ID ' + offer.id + ' wurde angelegt.');
     }
 
     de.neeedo.webapp.rest.offers.OffersConnector.prototype.createOffer = function() {
@@ -96,6 +97,7 @@ if (typeof jQuery === 'undefined') {
     de.neeedo.webapp.rest.offers.OffersConnector.prototype.onCreateOfferSuccess = function(responseData, textStatus, xhr) {
         if (201 == xhr.status) {
             __this.readFromServerResponse(responseData);
+            $(__this.viewElements.modal).modal('hide');
         } else {
             __this.showErrorMsgToUser('Could not create your offer.');
             
@@ -116,15 +118,13 @@ if (typeof jQuery === 'undefined') {
     }
 
     de.neeedo.webapp.rest.offers.OffersConnector.prototype.showErrorMsgToUser = function(msg) {
-        var errorRenderer = $(this.formFields.errorRenderer);
+        var errorRenderer = $(this.viewElements.errorRenderer);
         
         errorRenderer.text(msg);
     }
     
     de.neeedo.webapp.rest.offers.OffersConnector.prototype.showSuccessMsgToUser = function(msg) {
-        var successRenderer = $(this.formFields.successRenderer);
-
-        successRenderer.text(msg);
+        __this.restUtil.showSuccess(msg);
     }
 }());
 

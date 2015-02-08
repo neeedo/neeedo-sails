@@ -18,9 +18,10 @@ if (typeof jQuery === 'undefined') {
 (function() {
 
     var __this;
-    de.neeedo.webapp.rest.demands.DemandsConnector = function(connectionOptions, formFields, restUtil) {
+    de.neeedo.webapp.rest.demands.DemandsConnector = function(connectionOptions, formFields, viewElements, restUtil) {
         this.connectionOptions = connectionOptions;
         this.formFields = formFields;
+        this.viewElements = viewElements;
         this.restUtil = restUtil;
         
         __this = this;
@@ -89,7 +90,7 @@ if (typeof jQuery === 'undefined') {
     de.neeedo.webapp.rest.demands.DemandsConnector.prototype.readFromServerResponse = function(jsonResponse) {
         var demand = jsonResponse.demand;
 
-        this.showSuccessMsgToUser('Created demand with ID ' + demand.id);
+        this.showSuccessMsgToUser('Eine Suche-Karte mit ID ' + demand.id + ' wurde erfolgreich angelegt.');
     }
 
     de.neeedo.webapp.rest.demands.DemandsConnector.prototype.createDemand = function() {
@@ -121,6 +122,7 @@ if (typeof jQuery === 'undefined') {
     de.neeedo.webapp.rest.demands.DemandsConnector.prototype.onCreateDemandSuccess = function(responseData, textStatus, xhr) {
         if (201 == xhr.status) {
             __this.readFromServerResponse(responseData);
+            $(__this.viewElements.modal).modal('hide');
         } else {
             __this.showErrorMsgToUser('Could not create your demand.');
             
@@ -141,15 +143,13 @@ if (typeof jQuery === 'undefined') {
     }
 
     de.neeedo.webapp.rest.demands.DemandsConnector.prototype.showErrorMsgToUser = function(msg) {
-        var errorRenderer = $(this.formFields.errorRenderer);
+        var errorRenderer = $(this.viewElements.errorRenderer);
         
         errorRenderer.text(msg);
     }
     
     de.neeedo.webapp.rest.demands.DemandsConnector.prototype.showSuccessMsgToUser = function(msg) {
-        var successRenderer = $(this.formFields.successRenderer);
-
-        successRenderer.text(msg);
+        __this.restUtil.showSuccess(msg);
     }
 }());
 

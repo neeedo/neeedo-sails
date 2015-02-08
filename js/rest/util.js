@@ -1,5 +1,5 @@
 /*!
- * Demands REST service connector class.
+ * Demands REST service util class.
  *
  * Copyright (c) 2015 neeedo 
  */
@@ -12,7 +12,8 @@ this.de.neeedo.webapp.rest = this.de.neeedo.webapp.rest || {};
 this.de.neeedo.webapp.rest.demands = this.de.neeedo.webapp.rest.demands || {};
 
 (function() {
-
+    var alertDiv = '#alert_placeholder';
+    
     de.neeedo.webapp.rest.Util = function() {
               
     }
@@ -34,6 +35,14 @@ this.de.neeedo.webapp.rest.demands = this.de.neeedo.webapp.rest.demands || {};
         }
         
         return tagList;
+    }
+
+    /**
+     * Show a bootstrap success message.
+     * @param message
+     */
+    de.neeedo.webapp.rest.Util.prototype.showSuccess = function(message) {
+        $(alertDiv).html('<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert">&times;</a><p id="successMessage"><strong>Erfolg!</strong> ' + message + '</p></div>');
     }
 
     // singleton
