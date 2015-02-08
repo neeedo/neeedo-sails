@@ -12,8 +12,9 @@ this.de.neeedo.webapp.rest = this.de.neeedo.webapp.rest || {};
 this.de.neeedo.webapp.rest.demands = this.de.neeedo.webapp.rest.demands || {};
 
 (function() {
-    var alertDiv = '#alert_placeholder';
-    
+    var successAlertDiv = '#success_alert_placeholder';
+    var errorAlertDiv = '#error_alert_placeholder';
+
     de.neeedo.webapp.rest.Util = function() {
               
     }
@@ -42,8 +43,16 @@ this.de.neeedo.webapp.rest.demands = this.de.neeedo.webapp.rest.demands || {};
      * @param message
      */
     de.neeedo.webapp.rest.Util.prototype.showSuccess = function(message) {
-        $(alertDiv).html('<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert">&times;</a><p id="successMessage"><strong>Erfolg!</strong> ' + message + '</p></div>');
+        $(successAlertDiv).html('<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert">&times;</a><p id="successMessage"><strong>Erfolg!</strong> ' + message + '</p></div>');
     }
+    /**
+     * Show a bootstrap error message.
+     * @param message
+     */
+    de.neeedo.webapp.rest.Util.prototype.showError = function(message) {
+        $(errorAlertDiv).html('<div class="alert alert-error"><a href="#" class="close" data-dismiss="alert">&times;</a><p id="successMessage"><strong>Fehler!</strong> ' + message + '</p></div>');
+    }
+
 
     // singleton
     de.neeedo.webapp.rest.util = new de.neeedo.webapp.rest.Util();

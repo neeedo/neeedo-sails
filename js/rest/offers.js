@@ -97,20 +97,21 @@ if (typeof jQuery === 'undefined') {
     de.neeedo.webapp.rest.offers.OffersConnector.prototype.onCreateOfferSuccess = function(responseData, textStatus, xhr) {
         if (201 == xhr.status) {
             __this.readFromServerResponse(responseData);
-            $(__this.viewElements.modal).modal('hide');
         } else {
-            __this.showErrorMsgToUser('Could not create your offer.');
+            __this.restUtil.showError('Fehler beim Anlegen der Biete-Karte');
             
             console.log('onCreateOfferSuccess:');
             console.log(xhr);
             console.log(responseData);
             console.log('');
         }
+        
+        $(__this.viewElements.modal).modal('hide');
     }    
 
     de.neeedo.webapp.rest.offers.OffersConnector.prototype.onCreateOfferError = function(xhr, ajaxOptions,
                                                                                               thrownError) {
-        alert('Could not create your offer.');
+        __this.restUtil.showError('Could not create your offer.');
         console.log('onCreateOfferError:');
         console.log(xhr);
         console.log(thrownError);

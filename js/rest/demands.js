@@ -91,6 +91,11 @@ if (typeof jQuery === 'undefined') {
         var demand = jsonResponse.demand;
 
         this.showSuccessMsgToUser('Eine Suche-Karte mit ID ' + demand.id + ' wurde erfolgreich angelegt.');
+        
+        // TODO do something with returned demand
+        
+        // refresh view of all demands
+        this.getAllDemands();
     }
 
     de.neeedo.webapp.rest.demands.DemandsConnector.prototype.createDemand = function() {
@@ -122,21 +127,73 @@ if (typeof jQuery === 'undefined') {
     de.neeedo.webapp.rest.demands.DemandsConnector.prototype.onCreateDemandSuccess = function(responseData, textStatus, xhr) {
         if (201 == xhr.status) {
             __this.readFromServerResponse(responseData);
-            $(__this.viewElements.modal).modal('hide');
         } else {
-            __this.showErrorMsgToUser('Could not create your demand.');
+            __this.restUtil.showError('Fehler beim Anlegen der Suche-karte');
             
             console.log('onCreateDemandSuccess:');
             console.log(xhr);
             console.log(responseData);
             console.log('');
         }
+
+        $(__this.viewElements.modal).modal('hide');
     }    
 
     de.neeedo.webapp.rest.demands.DemandsConnector.prototype.onCreateDemandError = function(xhr, ajaxOptions,
                                                                                               thrownError) {
         alert('Could not create your demand.');
         console.log('onCreateDemandError:');
+        console.log(xhr);
+        console.log(thrownError);
+        console.log('');
+    }
+
+    de.neeedo.webapp.rest.demands.DemandsConnector.prototype.getAllDemands = function() {
+        var url = this.connectionOptions.urls.listAllDemands;
+
+        var _this = this;
+        $.ajax({
+            type : "GET",
+            url : url,
+            accept : "application/json",
+            success : _this.onGetAllDemmandsSuccess,
+            error : _this.onGetAllDemandsError
+        });
+    }
+
+    de.neeedo.webapp.rest.demands.DemandsConnector.prototype.onGetAllDemmandsSuccess = function(responseData, textStatus, xhr) {
+        if (200 == xhr.status) {
+            __this.showDemands(responseData);
+        } else {
+            __this.restUtil.showError('Could not get all demands');
+
+            console.log('onGetAllOfferSuccess:');
+            console.log(xhr);
+            console.log(responseData);
+            console.log('');
+        }
+    }
+
+    de.neeedo.webapp.rest.demands.DemandsConnector.prototype.showDemands = function(responseData)
+    {
+        for (pos in responseData.demands) {
+            __this.showSingleDemand(responseData.demands[pos]);
+        }
+    }
+
+    de.neeedo.webapp.rest.demands.DemandsConnector.prototype.showSingleDemand = function(demand)
+    {
+        // TODO render as container and display in view
+        
+        console.log('demand... ');
+        console.log(demand);      
+        console.log('');
+    }
+
+    de.neeedo.webapp.rest.demands.DemandsConnector.prototype.onGetAllDemandsError = function(xhr, ajaxOptions,
+                                                                                          thrownError) {
+        alert('Could not get all demands.');
+        console.log('onGetAllDemandsError:');
         console.log(xhr);
         console.log(thrownError);
         console.log('');

@@ -49,4 +49,7 @@ $(document).ready(function() {
     btnCreateDemand.click(function() {
         demandsConnector.createDemand();
     });
+    
+    // initially show all demands
+    demandsConnector.getAllDemands();
 });

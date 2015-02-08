@@ -20,7 +20,8 @@ this.de.neeedo.webapp.rest.demands = this.de.neeedo.webapp.rest.demands || {};
         urls : {
             base : baseUrl,
             createDemand : baseUrl + '/demands',
-            createOffer : baseUrl + '/offers'
+            createOffer : baseUrl + '/offers',
+            listAllDemands : baseUrl + '/matching/demands'
         }
     };
     
