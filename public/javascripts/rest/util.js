@@ -1,5 +1,5 @@
 /*!
- * Demands REST service connector class.
+ * Demands REST service util class.
  *
  * Copyright (c) 2015 neeedo 
  */
@@ -12,6 +12,8 @@ this.de.neeedo.webapp.rest = this.de.neeedo.webapp.rest || {};
 this.de.neeedo.webapp.rest.demands = this.de.neeedo.webapp.rest.demands || {};
 
 (function() {
+    var successAlertDiv = '#success_alert_placeholder';
+    var errorAlertDiv = '#error_alert_placeholder';
 
     de.neeedo.webapp.rest.Util = function() {
               
@@ -35,6 +37,22 @@ this.de.neeedo.webapp.rest.demands = this.de.neeedo.webapp.rest.demands || {};
         
         return tagList;
     }
+
+    /**
+     * Show a bootstrap success message.
+     * @param message
+     */
+    de.neeedo.webapp.rest.Util.prototype.showSuccess = function(message) {
+        $(successAlertDiv).html('<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert">&times;</a><p id="successMessage"><strong>Erfolg!</strong> ' + message + '</p></div>');
+    }
+    /**
+     * Show a bootstrap error message.
+     * @param message
+     */
+    de.neeedo.webapp.rest.Util.prototype.showError = function(message) {
+        $(errorAlertDiv).html('<div class="alert alert-error"><a href="#" class="close" data-dismiss="alert">&times;</a><p id="successMessage"><strong>Fehler!</strong> ' + message + '</p></div>');
+    }
+
 
     // singleton
     de.neeedo.webapp.rest.util = new de.neeedo.webapp.rest.Util();

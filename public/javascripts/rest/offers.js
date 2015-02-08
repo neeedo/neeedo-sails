@@ -16,24 +16,35 @@ if (typeof jQuery === 'undefined') {
 }
 
 (function() {
-
-    de.neeedo.webapp.rest.offers.OffersConnector = function(connectionOptions, formFields, restUtil) {
+    var __this;
+    
+    de.neeedo.webapp.rest.offers.OffersConnector = function(connectionOptions, formFields, viewElements, restUtil) {
         this.connectionOptions = connectionOptions;
         this.formFields = formFields;
+        this.viewElements = viewElements;
         this.restUtil = restUtil;
+        
+        __this = this;
     }
 
 
     de.neeedo.webapp.rest.offers.OffersConnector.prototype.readFromForm = function() {
         var formName = $(this.formFields.formName);
-        var inputTags = $(this.formFields.tags);
-        var inputPrice = $(this.formFields.price);
-        var inputLocationLat = $(this.formFields.locationLat);
-        var inputLocationLon = $(this.formFields.locationLon);
+        var inputTags = $(this.formFields.tags).val();
+        var inputPrice = parseFloat($(this.formFields.price).val());
+
+        // validate price
+        if (isNaN(inputPrice)) {
+            this.showErrorMsgToUser('Bitte geben Sie einen Preis an');
+            return false;
+        }
+        
+        var inputLocationLat = parseFloat($(this.formFields.locationLat).val());
+        var inputLocationLon = parseFloat($(this.formFields.locationLon).val());
 
         var tagsList = [];
         try {
-            tagsList = this.restUtil.createTagList(inputTags.val());
+            tagsList = this.restUtil.createTagList(inputTags);
         } catch (e) {
             this.showErrorMsgToUser(e);
             return false;
@@ -44,17 +55,17 @@ if (typeof jQuery === 'undefined') {
             "userId" : "1",
             "tags": tagsList,
             "location" : {
-                "lat" : inputLocationLat.val(),
-                "lon" : inputLocationLon.val()
+                "lat" : inputLocationLat,
+                "lon" : inputLocationLon
             },
-            "price" : inputPrice.val()
+            "price" : inputPrice
         };
     }
 
     de.neeedo.webapp.rest.offers.OffersConnector.prototype.readFromServerResponse = function(jsonResponse) {
         var offer = jsonResponse.offer;
 
-        this.showSuccessMsgToUser('Created offer with ID ' + offer.id);
+        this.showSuccessMsgToUser('Eine Biete-Karte mit der ID ' + offer.id + ' wurde angelegt.');
     }
 
     de.neeedo.webapp.rest.offers.OffersConnector.prototype.createOffer = function() {
@@ -85,20 +96,22 @@ if (typeof jQuery === 'undefined') {
     
     de.neeedo.webapp.rest.offers.OffersConnector.prototype.onCreateOfferSuccess = function(responseData, textStatus, xhr) {
         if (201 == xhr.status) {
-            this.readFromServerResponse(responseData);
+            __this.readFromServerResponse(responseData);
         } else {
-            this.showErrorMsgToUser('Could not create your offer.');
+            __this.restUtil.showError('Fehler beim Anlegen der Biete-Karte');
             
             console.log('onCreateOfferSuccess:');
             console.log(xhr);
             console.log(responseData);
             console.log('');
         }
+        
+        $(__this.viewElements.modal).modal('hide');
     }    
 
     de.neeedo.webapp.rest.offers.OffersConnector.prototype.onCreateOfferError = function(xhr, ajaxOptions,
                                                                                               thrownError) {
-        alert('Could not create your offer.');
+        __this.restUtil.showError('Could not create your offer.');
         console.log('onCreateOfferError:');
         console.log(xhr);
         console.log(thrownError);
@@ -106,15 +119,13 @@ if (typeof jQuery === 'undefined') {
     }
 
     de.neeedo.webapp.rest.offers.OffersConnector.prototype.showErrorMsgToUser = function(msg) {
-        var errorRenderer = $(this.formFields.errorRenderer);
+        var errorRenderer = $(this.viewElements.errorRenderer);
         
         errorRenderer.text(msg);
     }
     
     de.neeedo.webapp.rest.offers.OffersConnector.prototype.showSuccessMsgToUser = function(msg) {
-        var successRenderer = $(this.formFields.successRenderer);
-
-        successRenderer.text(msg);
+        __this.restUtil.showSuccess(msg);
     }
 }());
 

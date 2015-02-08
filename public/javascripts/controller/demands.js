@@ -1,5 +1,5 @@
 /*!
- * Demands REST service connector class.
+ * Demands REST service controller class.
  *
  * Copyright (c) 2015 neeedo 
  */
@@ -30,19 +30,26 @@ $(document).ready(function() {
          // TODO
          locationLat : '#latDemand',
          // TODO
-         locationLon : '#lonDemand',
-         errorRenderer : '#demandsError',
-         successRenderer : '#demandsSuccess'
+         locationLon : '#lonDemand'
      };
+    var viewElements = {
+        errorRenderer : '#demandsError',
+        successRenderer : '#demandsSuccess',
+        modal : '#searchModal'
+    };
     var btnCreateDemand = $('#btnCreateDemand');
     
     var demandsConnector = new de.neeedo.webapp.rest.demands.DemandsConnector(
          connectionOptions, 
          formFields,
+         viewElements,
          restUtil);
     
     // bind button click on demandsConnector
     btnCreateDemand.click(function() {
         demandsConnector.createDemand();
     });
+    
+    // initially show all demands
+    demandsConnector.getAllDemands();
 });

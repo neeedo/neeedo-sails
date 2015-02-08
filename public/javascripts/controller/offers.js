@@ -1,5 +1,5 @@
 /*!
- * Demands REST service connector class.
+ * Offers REST service controller class.
  *
  * Copyright (c) 2015 neeedo 
  */
@@ -30,11 +30,17 @@ $(document).ready(function() {
          errorRenderer : '#offersError',
          successRenderer : '#offersSuccess'
      };
+    var viewElements = {
+        errorRenderer : '#offersError',
+        successRenderer : '#offersSuccess',
+        modal : '#addModal'
+    };
     var btnCreateOffer = $('#btnCreateOffer');
     
     var offersConnector = new de.neeedo.webapp.rest.offers.OffersConnector(
          connectionOptions, 
          formFields,
+         viewElements,
          restUtil);
     
     // bind button click on offersConnector

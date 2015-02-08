@@ -18,9 +18,10 @@ if (typeof jQuery === 'undefined') {
 (function() {
 
     var __this;
-    de.neeedo.webapp.rest.demands.DemandsConnector = function(connectionOptions, formFields, restUtil) {
+    de.neeedo.webapp.rest.demands.DemandsConnector = function(connectionOptions, formFields, viewElements, restUtil) {
         this.connectionOptions = connectionOptions;
         this.formFields = formFields;
+        this.viewElements = viewElements;
         this.restUtil = restUtil;
         
         __this = this;
@@ -89,7 +90,12 @@ if (typeof jQuery === 'undefined') {
     de.neeedo.webapp.rest.demands.DemandsConnector.prototype.readFromServerResponse = function(jsonResponse) {
         var demand = jsonResponse.demand;
 
-        this.showSuccessMsgToUser('Created demand with ID ' + demand.id);
+        this.showSuccessMsgToUser('Eine Suche-Karte mit ID ' + demand.id + ' wurde erfolgreich angelegt.');
+        
+        // TODO do something with returned demand
+        
+        // refresh view of all demands
+        this.getAllDemands();
     }
 
     de.neeedo.webapp.rest.demands.DemandsConnector.prototype.createDemand = function() {
@@ -122,13 +128,15 @@ if (typeof jQuery === 'undefined') {
         if (201 == xhr.status) {
             __this.readFromServerResponse(responseData);
         } else {
-            __this.showErrorMsgToUser('Could not create your demand.');
+            __this.restUtil.showError('Fehler beim Anlegen der Suche-karte');
             
             console.log('onCreateDemandSuccess:');
             console.log(xhr);
             console.log(responseData);
             console.log('');
         }
+
+        $(__this.viewElements.modal).modal('hide');
     }    
 
     de.neeedo.webapp.rest.demands.DemandsConnector.prototype.onCreateDemandError = function(xhr, ajaxOptions,
@@ -140,16 +148,65 @@ if (typeof jQuery === 'undefined') {
         console.log('');
     }
 
+    de.neeedo.webapp.rest.demands.DemandsConnector.prototype.getAllDemands = function() {
+        var url = this.connectionOptions.urls.listAllDemands;
+
+        var _this = this;
+        $.ajax({
+            type : "GET",
+            url : url,
+            accept : "application/json",
+            success : _this.onGetAllDemmandsSuccess,
+            error : _this.onGetAllDemandsError
+        });
+    }
+
+    de.neeedo.webapp.rest.demands.DemandsConnector.prototype.onGetAllDemmandsSuccess = function(responseData, textStatus, xhr) {
+        if (200 == xhr.status) {
+            __this.showDemands(responseData);
+        } else {
+            __this.restUtil.showError('Could not get all demands');
+
+            console.log('onGetAllOfferSuccess:');
+            console.log(xhr);
+            console.log(responseData);
+            console.log('');
+        }
+    }
+
+    de.neeedo.webapp.rest.demands.DemandsConnector.prototype.showDemands = function(responseData)
+    {
+        for (pos in responseData.demands) {
+            __this.showSingleDemand(responseData.demands[pos]);
+        }
+    }
+
+    de.neeedo.webapp.rest.demands.DemandsConnector.prototype.showSingleDemand = function(demand)
+    {
+        // TODO render as container and display in view
+        
+        console.log('demand... ');
+        console.log(demand);      
+        console.log('');
+    }
+
+    de.neeedo.webapp.rest.demands.DemandsConnector.prototype.onGetAllDemandsError = function(xhr, ajaxOptions,
+                                                                                          thrownError) {
+        alert('Could not get all demands.');
+        console.log('onGetAllDemandsError:');
+        console.log(xhr);
+        console.log(thrownError);
+        console.log('');
+    }
+
     de.neeedo.webapp.rest.demands.DemandsConnector.prototype.showErrorMsgToUser = function(msg) {
-        var errorRenderer = $(this.formFields.errorRenderer);
+        var errorRenderer = $(this.viewElements.errorRenderer);
         
         errorRenderer.text(msg);
     }
     
     de.neeedo.webapp.rest.demands.DemandsConnector.prototype.showSuccessMsgToUser = function(msg) {
-        var successRenderer = $(this.formFields.successRenderer);
-
-        successRenderer.text(msg);
+        __this.restUtil.showSuccess(msg);
     }
 }());
 
