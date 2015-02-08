@@ -146,18 +146,21 @@
                 </div>
                 <div class="modal-body">
 
-                    <input type="text" placeholder="Titel"/>
-
-                    <textarea class="form-control" rows="5" cols="10" placeholder="Kurzbeschreibung"></textarea>
-
+                    <label for="tagsOffer">Tags: </label>
                     <input class="form-control" id="tagsOffer" type="text" value="tag1,tag2,..." placeholder="Titel"/>
 
+                    <label for="priceOffer">Preis: </label>
                     <input type="number" id="priceOffer" class="form-control" placeholder="Preis"/>
 
                     <input type="hidden" id="latOffer" value="13.534212" />
 
                     <input type="hidden" id="lonOffer" value="52.468562" />
 
+                    <div class="row" id="offersError">
+                    </div>
+
+                    <div class="row" id="offersSuccess">
+                    </div>
                 </div>
 
             </div>

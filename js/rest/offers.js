@@ -16,24 +16,34 @@ if (typeof jQuery === 'undefined') {
 }
 
 (function() {
-
+    var __this;
+    
     de.neeedo.webapp.rest.offers.OffersConnector = function(connectionOptions, formFields, restUtil) {
         this.connectionOptions = connectionOptions;
         this.formFields = formFields;
         this.restUtil = restUtil;
+        
+        __this = this;
     }
 
 
     de.neeedo.webapp.rest.offers.OffersConnector.prototype.readFromForm = function() {
         var formName = $(this.formFields.formName);
-        var inputTags = $(this.formFields.tags);
-        var inputPrice = $(this.formFields.price);
-        var inputLocationLat = $(this.formFields.locationLat);
-        var inputLocationLon = $(this.formFields.locationLon);
+        var inputTags = $(this.formFields.tags).val();
+        var inputPrice = parseFloat($(this.formFields.price).val());
+
+        // validate price
+        if (isNaN(inputPrice)) {
+            this.showErrorMsgToUser('Bitte geben Sie einen Preis an');
+            return false;
+        }
+        
+        var inputLocationLat = parseFloat($(this.formFields.locationLat).val());
+        var inputLocationLon = parseFloat($(this.formFields.locationLon).val());
 
         var tagsList = [];
         try {
-            tagsList = this.restUtil.createTagList(inputTags.val());
+            tagsList = this.restUtil.createTagList(inputTags);
         } catch (e) {
             this.showErrorMsgToUser(e);
             return false;
@@ -44,10 +54,10 @@ if (typeof jQuery === 'undefined') {
             "userId" : "1",
             "tags": tagsList,
             "location" : {
-                "lat" : inputLocationLat.val(),
-                "lon" : inputLocationLon.val()
+                "lat" : inputLocationLat,
+                "lon" : inputLocationLon
             },
-            "price" : inputPrice.val()
+            "price" : inputPrice
         };
     }
 
@@ -85,9 +95,9 @@ if (typeof jQuery === 'undefined') {
     
     de.neeedo.webapp.rest.offers.OffersConnector.prototype.onCreateOfferSuccess = function(responseData, textStatus, xhr) {
         if (201 == xhr.status) {
-            this.readFromServerResponse(responseData);
+            __this.readFromServerResponse(responseData);
         } else {
-            this.showErrorMsgToUser('Could not create your offer.');
+            __this.showErrorMsgToUser('Could not create your offer.');
             
             console.log('onCreateOfferSuccess:');
             console.log(xhr);
