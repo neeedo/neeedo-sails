@@ -44,8 +44,7 @@ if (typeof jQuery === 'undefined') {
             return;
         }
 
-        var _this = this;
-        var demandObj = {
+        return {
             // TODO adjust userId
             "userId" : "1",
             "mustTags": mustTagsList,
@@ -60,27 +59,29 @@ if (typeof jQuery === 'undefined') {
                 "max" : inputMaxPrice.val()
             }
         };
-        
-        return demandObj;
     }
 
     de.neeedo.webapp.rest.demands.DemandsConnector.prototype.readFromServerResponse = function(jsonResponse) {
         var demand = jsonResponse.demand;
 
-        this.showErrorMsgToUser('Created demand with ID ' + demand.id);
+        this.showSuccessMsgToUser('Created demand with ID ' + demand.id);
     }
 
     de.neeedo.webapp.rest.demands.DemandsConnector.prototype.createDemand = function() {
-        var demandObj = this.readFromForm();
+        var demandJson = JSON.stringify(this.readFromForm());
+        
+        console.log('createDemand: will send JSON:');
+        console.log(demandJson);
+        console.log('');
         
         var url = this.connectionOptions.urls.createDemand;
         
         var _this = this;
         $.ajax({
+            type : "POST",
             url : url,
-            data : JSON.stringify(demandObj),
-            contentType : 'application/json',
-            type : 'POST',
+            data : demandJson,
+            contentType : "application/json",
             success : _this.onCreateDemandSuccess,
             error : _this.onCreateDemandError
         });
@@ -112,6 +113,12 @@ if (typeof jQuery === 'undefined') {
         var errorRenderer = $(this.formFields.errorRenderer);
         
         errorRenderer.text(msg);
+    }
+    
+    de.neeedo.webapp.rest.demands.DemandsConnector.prototype.showSuccessMsgToUser = function(msg) {
+        var successRenderer = $(this.formFields.successRenderer);
+
+        successRenderer.text(msg);
     }
 }());
 

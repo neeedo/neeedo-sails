@@ -31,7 +31,8 @@ $(document).ready(function() {
          locationLat : '#latDemand',
          // TODO
          locationLon : '#lonDemand',
-         errorRenderer : '#demandsError'
+         errorRenderer : '#demandsError',
+         successRenderer : '#demandsSuccess'
      };
     var btnCreateDemand = $('#btnCreateDemand');
     
@@ -39,7 +40,6 @@ $(document).ready(function() {
          connectionOptions, 
          formFields,
          restUtil);
-    
     
     // bind button click on demandsConnector
     btnCreateDemand.click(function() {

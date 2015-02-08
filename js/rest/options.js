@@ -14,7 +14,8 @@ this.de.neeedo.webapp.rest.demands = this.de.neeedo.webapp.rest.demands || {};
 
 (function() {
     var baseUrl = 'http://localhost:9000';
-    
+    //var baseUrl = 'http://178.62.252.23:9000';
+
     de.neeedo.webapp.rest.options = {      
         urls : {
             base : baseUrl,
