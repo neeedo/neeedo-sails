@@ -6,16 +6,19 @@
 
 
 // namespaces
+this.de = this.de || {};
+this.de.neeedo = this.de.neeedo || {};
 this.de.neeedo.webapp = this.de.neeedo.webapp || {};
 this.de.neeedo.webapp.rest = this.de.neeedo.webapp.rest || {};
 this.de.neeedo.webapp.rest.demands = this.de.neeedo.webapp.rest.demands || {};
 
 (function() {
-
+    var baseUrl = 'http://localhost:9000';
+    
     de.neeedo.webapp.rest.options = {      
         urls : {
-            base : 'http://localhost:9000',
-            createDemand : base + '/demands'
+            base : baseUrl,
+            createDemand : baseUrl + '/demands'
         }
     };
     

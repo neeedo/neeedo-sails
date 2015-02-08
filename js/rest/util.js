@@ -5,6 +5,8 @@
  */
 
 // namespaces
+this.de = this.de || {};
+this.de.neeedo = this.de.neeedo || {};
 this.de.neeedo.webapp = this.de.neeedo.webapp || {};
 this.de.neeedo.webapp.rest = this.de.neeedo.webapp.rest || {};
 this.de.neeedo.webapp.rest.demands = this.de.neeedo.webapp.rest.demands || {};
@@ -22,14 +24,18 @@ this.de.neeedo.webapp.rest.demands = this.de.neeedo.webapp.rest.demands || {};
      */
     de.neeedo.webapp.rest.Util.prototype.createTagList = function(inputStr) {
         if ("string" !== typeof inputStr) {
-            throw new Exception('Type of inputStr must be string.');
+            throw 'Type of inputStr must be string. Given value: ' + inputStr;
         }
         
-        var tagList = inputStr.split(',');
+        var tagList = inputStr.replace(' ', '').split(',');
+        
+        if (0 == tagList.length) {
+            throw 'Please hand in a list of comma-separated tags.';
+        }
         
         return tagList;
     }
 
     // singleton
-    de.neeedo.webapp.rest.util = new Util();
+    de.neeedo.webapp.rest.util = new de.neeedo.webapp.rest.Util();
 }());

@@ -6,6 +6,8 @@
 
 
 // namespaces
+this.de = this.de || {};
+this.de.neeedo = this.de.neeedo || {};
 this.de.neeedo.webapp = this.de.neeedo.webapp || {};
 this.de.neeedo.webapp.rest = this.de.neeedo.webapp.rest || {};
 this.de.neeedo.webapp.rest.demands = this.de.neeedo.webapp.rest.demands || {};
@@ -19,16 +21,17 @@ $(document).ready(function() {
      var restUtil = de.neeedo.webapp.rest.util;
      var formFields = {
          formName : '',
-         inputMustTags : '#mustTagsDemand',
-         inputShouldTags : '#shouldTagsDemand',
+         mustTags : '#mustTagsDemand',
+         shouldTags : '#shouldTagsDemand',
          minPrice : '#minPriceDemand',
          maxPrice : '#maxPriceDemand',
          // TODO
-         distance : 10,
+         distance : '#distanceDemand',
          // TODO
-         locationLat : 13.534212,
+         locationLat : '#latDemand',
          // TODO
-         locationLon : 52.468562
+         locationLon : '#lonDemand',
+         errorRenderer : '#demandsError'
      };
     var btnCreateDemand = $('#btnCreateDemand');
     
