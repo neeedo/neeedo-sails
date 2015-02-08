@@ -17,46 +17,71 @@ if (typeof jQuery === 'undefined') {
 
 (function() {
 
+    var __this;
     de.neeedo.webapp.rest.demands.DemandsConnector = function(connectionOptions, formFields, restUtil) {
         this.connectionOptions = connectionOptions;
         this.formFields = formFields;
         this.restUtil = restUtil;
+        
+        __this = this;
     }
 
 
     de.neeedo.webapp.rest.demands.DemandsConnector.prototype.readFromForm = function() {
         var formName = $(this.formFields.formName);
-        var inputMustTags = $(this.formFields.mustTags);
-        var inputShouldTags = $(this.formFields.shouldTags);
-        var inputMinPrice = $(this.formFields.minPrice);
-        var inputMaxPrice = $(this.formFields.maxPrice);
-        var inputDistance = $(this.formFields.distance);
-        var inputLocationLat = $(this.formFields.locationLat);
-        var inputLocationLon = $(this.formFields.locationLon);
+        var inputMustTags = $(this.formFields.mustTags).val();
+        var inputShouldTags = $(this.formFields.shouldTags).val();
+        var inputMinPrice = parseFloat($(this.formFields.minPrice).val());
 
+        // validate min price
+        if (isNaN(inputMinPrice)) {
+            this.showErrorMsgToUser('Bitte geben Sie einen minimalen Preis an');
+            return false;
+        }
+        
+        // validate max price
+        var inputMaxPrice = parseFloat($(this.formFields.maxPrice).val());
+        if (isNaN(inputMaxPrice)) {
+            this.showErrorMsgToUser('Bitte geben Sie einen maximalen Preis an');
+            return false;
+        }
+        
+        // validate distance
+        var inputDistance = parseInt($(this.formFields.distance).val());
+        if (isNaN(inputDistance)) {
+            this.showErrorMsgToUser('Bitte geben Sie eine Distanz an');
+            return false;
+        }
+        
+        var inputLocationLat = parseFloat($(this.formFields.locationLat).val());
+        var inputLocationLon = parseFloat($(this.formFields.locationLon).val());
+
+        // validate tags
         var mustTagsList = [];
         var shouldTagsList = [];
         try {
-            mustTagsList = this.restUtil.createTagList(inputMustTags.val());
-            shouldTagsList = this.restUtil.createTagList(inputShouldTags.val());
+            mustTagsList = this.restUtil.createTagList(inputMustTags);
+            shouldTagsList = this.restUtil.createTagList(inputShouldTags);
         } catch (e) {
+            throw e;
             this.showErrorMsgToUser(e);
             return false;
         }
 
+        // build object to be marshalled
         return {
             // TODO adjust userId
             "userId" : "1",
             "mustTags": mustTagsList,
             "shouldTags": shouldTagsList,
             "location" : {
-                "lat" : inputLocationLat.val(),
-                "lon" : inputLocationLon.val()
+                "lat" : inputLocationLat,
+                "lon" : inputLocationLon
             },
-            "distance" : inputDistance.val(),
+            "distance" : inputDistance,
             "price" : {
-                "min" : inputMinPrice.val(),
-                "max" : inputMaxPrice.val()
+                "min" : inputMinPrice,
+                "max" : inputMaxPrice
             }
         };
     }
@@ -95,9 +120,9 @@ if (typeof jQuery === 'undefined') {
     
     de.neeedo.webapp.rest.demands.DemandsConnector.prototype.onCreateDemandSuccess = function(responseData, textStatus, xhr) {
         if (201 == xhr.status) {
-            this.readFromServerResponse(responseData);
+            __this.readFromServerResponse(responseData);
         } else {
-            this.showErrorMsgToUser('Could not create your demand.');
+            __this.showErrorMsgToUser('Could not create your demand.');
             
             console.log('onCreateDemandSuccess:');
             console.log(xhr);

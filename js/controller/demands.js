@@ -26,7 +26,7 @@ $(document).ready(function() {
          minPrice : '#minPriceDemand',
          maxPrice : '#maxPriceDemand',
          // TODO
-         distance : '#distanceDemand',
+         distance : '#maxDistanceDemand',
          // TODO
          locationLat : '#latDemand',
          // TODO

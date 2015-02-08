@@ -94,13 +94,10 @@
                 </div>
 
                 <div class="media-body">
-
-                    <input type="text" placeholder="Titel"/>
-
-                    <textarea class="form-control" rows="5" cols="10" placeholder="Kurzbeschreibung"></textarea>
-
+                     <label for="mustTagsDemand">muss haben</label>
                     <input class="form-control" id="mustTagsDemand" type="text" value="muss haben" placeholder="Titel"/>
-                    
+
+                    <label for="shouldTagsDemand">sollte haben</label>
                     <input class="form-control" id="shouldTagsDemand" type="text" value="sollte haben" placeholder="Titel"/>
                     
                     <input type="hidden" id="latDemand" value="13.534212" />
@@ -110,15 +107,20 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="input-group">
+                                <label for="minPriceDemand">Preis von</label>
                                 <input type="number" id="minPriceDemand" class="form-control" placeholder="von"/>
                             </div><!-- /input-group -->
                         </div><!-- /.col-lg-6 -->
                         <div class="col-lg-6">
                             <div class="input-group">
+                                <label for="maxPriceDemand">Preis bis</label>
                                 <input type="number" id="maxPriceDemand" class="form-control" placeholder="bis"/>
                             </div><!-- /input-group -->
                         </div><!-- /.col-lg-6 -->
                     </div><!-- /.row -->
+
+                    <label for="maxPriceDemand">Max. Distanz</label>
+                    <input type="number" id="maxDistanceDemand" class="form-control" placeholder="bis"/>
 
                     <div class="row" id="demandsError">
                     </div>

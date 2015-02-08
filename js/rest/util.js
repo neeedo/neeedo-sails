@@ -30,7 +30,7 @@ this.de.neeedo.webapp.rest.demands = this.de.neeedo.webapp.rest.demands || {};
         var tagList = inputStr.replace(' ', '').split(',');
         
         if (0 == tagList.length) {
-            throw 'Please hand in a list of comma-separated tags.';
+            throw 'Bitte geben Sie Tags in der Form tag1,tag2 ... ein.';
         }
         
         return tagList;
