@@ -91,17 +91,19 @@
 
                     <textarea class="form-control" rows="5" cols="10" placeholder="Kurzbeschreibung"></textarea>
 
-                    <input class="form-control" id="tagsOffer" type="text" placeholder="Titel"/>
+                    <input class="form-control" id="mustTagsDemand" type="text" placeholder="Titel"/>
+                    
+                    <input class="form-control" id="shouldTagsDemand" type="text" placeholder="Titel"/>
 
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="input-group">
-                                <input type="number" class="form-control" placeholder="von"/>
+                                <input type="number" id="minPriceDemand" class="form-control" placeholder="von"/>
                             </div><!-- /input-group -->
                         </div><!-- /.col-lg-6 -->
                         <div class="col-lg-6">
                             <div class="input-group">
-                                <input type="number" class="form-control" placeholder="bis"/>
+                                <input type="number" id="maxPriceDemand" class="form-control" placeholder="bis"/>
                             </div><!-- /input-group -->
                         </div><!-- /.col-lg-6 -->
                     </div><!-- /.row -->
@@ -109,7 +111,7 @@
                 </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">speichern</button>
-                <button type="button" class="btn btn-primary">abschicken</button>
+                <button type="button" id="btnCreateDemand" class="btn btn-primary">abschicken</button>
             </div>
         </div>
 
