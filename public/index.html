@@ -32,6 +32,11 @@
             background-color: #1E2422;
         }
 
+        .contentContainer{
+            color: #88BEB1;
+            font-size: 1.6em;
+        }
+
         #topContainer {
             height:400px;
             width:100%;
@@ -46,10 +51,6 @@
 
         #topRow h1 {
             font-size:300%;
-        }
-
-        #emailSignup {
-            margin-top:50px;
         }
 
         .bold {
@@ -69,7 +70,7 @@
         }
 
         #footer {
-            background-color:#B0D1FB;
+            background-color:#718A94;
             padding-top:70px;
             width:100%;
         }
@@ -79,6 +80,29 @@
         }
         .appstoreImage {
             width:250px;
+        }
+
+        #brandImage{
+            padding-bottom: 5px;
+            max-height: 30px;
+        }
+        #brandImageLg{
+            max-width: 300px;
+        }
+
+        #checkOut{
+            background-color: #FF006D;
+            border-color: #FF006D;
+        }
+
+        .background{
+            background-color: rgba(113,138,148,0.2);
+            border-radius: 10px;
+            padding: 30px;
+        }
+
+        .shadow{
+            text-shadow: 1px 0 #1E2422, 0 1px #1E2422, 1px 0 #1E2422, 0 1px #1E2422;
         }
 
     </style>
@@ -94,7 +118,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand">neeedo</a>
+            <a class="navbar-brand"><img id="brandImage" src="images/neeedo_blue.png"/></a>
         </div>
 
         <div class="collapse navbar-collapse">
@@ -113,33 +137,24 @@
 
         <div class="col-md-6 col-md-offset-3" id="topRow">
 
-            <h1 class="marginTop">My Awesome App</h1>
+            <h1 class="marginTop"><img id="brandImageLg" src="images/neeedo_blue.png"/></h1>
 
-            <p class="lead">This is why should download this fantastic app.</p>
+            <div class="background shadow">
+            <p class="lead shadow">Der übersättigte E-Commerce-Markt macht es immer wichtiger, innovative Konzepte zu entwickeln, um aus den vielen gleichartigen Plattformen hervorzustechen.</p>
 
-            <p>Some more information about the app. You can go into a little
-                more detail here if you want to.</p>
+            <p>
 
-            <p class="bold marginTop">Interested? Join our mailing list!</p>
+                Das Projekt neeedo hat es sich zum Ziel gesetzt, antizipative Benutzererlebnisse mit einer modernen E-Commerce-Lösung zu verknüpfen.
+                Im ersten Abschnitt dieses Projektes liegt der Fokus maßgeblich auf der Konzeption und dem Design (optisch und technisch).
+                Besonders wichtig sind uns dabei die Themen Skalierbarkeit (Non-Blocking und Reactive Principle), eine effiziente auf Web-Services basierende Architektur (SPHERE.IO) und intuitive Interfaces (Mobile- und Web-App).
 
-            <form class="marginTop">
+               </p>
 
-                <div class="input-group">
-                    <span class="input-group-addon">@</span>
+            <p class="bold shadow marginTop"> Überzeugen Sie sich doch einfach selbst </p>
 
-                    <input type="email" class="form-control"
-                           placeholder="Your email" />
-                </div>
+                <a type="button" class="btn btn-success btn-lg marginTop" id="checkOut" href="app.html">Jetzt ausprobieren</a>
 
-                <a type="button" class="btn btn-success btn-lg marginTop" href="app.html">check it out</a>
-
-
-
-
-            </form>
-
-
-
+            </div>
         </div>
 
 
@@ -152,36 +167,33 @@
 
     <div class="row" class="center">
 
-        <h1 class="center title">Why This App Is Awesome</h1>
-        <p class="lead center">Summary of the app's awesomeness</p>
+        <h1 class="center shadow title">Warum wir anders sind als andere?</h1>
+        <p class="lead center"></p>
 
 
     </div>
     <div class="row marginBottom">
 
         <div class="col-md-4 marginTop">
-            <h2><span class="glyphicon glyphicon-music"></span> Suche was du wirklich brauchst</h2>
-            <p>A brief description of one of the best features of your app.
-                Maybe a little more text. A brief description of one of the best features of
-                your app. Maybe a little more text.</p>
+            <h2 class="shadow" ><span class="glyphicon glyphicon-search"></span> Suche was du wirklich brauchst</h2>
+            <p>Für uns als Einkäufer gibt es nichts nervigeres als sich erst durch Seiten von Angeboten zu klicken bevor man das findet was man sucht.
+                Wir haben daher unsere Suche so aufgebaut, dass der Kunde exakt das eingeben kann was für ihn wichtig ist, und das auch findet. </p>
             <button class="btn btn-success marginTop">Sign Up!</button>
 
         </div>
 
         <div class="col-md-4 marginTop">
-            <h2><span class="glyphicon glyphicon-off"></span> Finde was du wirklich suchst</h2>
-            <p>A brief description of one of the best features of your app.
-                Maybe a little more text. A brief description of one of the best features of
-                your app. Maybe a little more text.</p>
+            <h2 class="shadow"><span class="glyphicon glyphicon-tags"></span> Finde was du wirklich suchst</h2>
+            <p>Wir nutzen verschiedene Methoden um das Einkaufen für unsere Nutzer zu vereinfachen.
+                Das bedeutet für uns auch, dass ihm in erster Linie die Sachen angeboten werden die er auch finden möchte.</p>
             <button class="btn btn-success marginTop">Sign Up!</button>
 
         </div>
 
         <div class="col-md-4 marginTop">
-            <h2><span class="glyphicon glyphicon-pencil"></span> Alles in deiner Nähe</h2>
-            <p>A brief description of one of the best features of your app.
-                Maybe a little more text. A brief description of one of the best features of
-                your app. Maybe a little more text.</p>
+            <h2 class="shadow"><span class="glyphicon glyphicon-heart-empty"></span> Alles in deiner Nähe</h2>
+            <p>Es lag uns von Beginn an am Herzen den regionalen Markt zu unsterstützen.
+                Daher legen wir besonderen Wert darauf, dass die angebotenen Waren so gut erreichbar wie möglich sind</p>
             <button class="btn btn-success marginTop">Sign Up!</button>
 
         </div>
@@ -190,16 +202,18 @@
 
 <div class="container contentContainer" id="footer">
 
+    <div class="container">
+
     <div class="row">
 
-        <h1 class="center title">Download The App!</h1>
+        <h1 class="center shadow title">"Gibt's das auch als App?"</h1>
 
-        <p class="lead center">Really, why should I download this app?</p>
+        <p class="lead center">Wir arbeiten hart an der Umsetzung unsere Mobile App. Einen Prototyp können Sie hier am Stand bereits betrachten</p>
 
         <p class="center"><img src="images/appStore.png" class="appstoreImage" />
 
     </div>
-
+    </div>
 
 </div>
 
