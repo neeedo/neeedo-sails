@@ -25,11 +25,26 @@
 
     <style>
 
-        .navbar-brand { 	 	 font-size:1.8em;
+        .navbar-brand {
+            font-size:1.8em;
         }
 
         .navbar {
             background-color: #1E2422;
+            border-bottom-color: #1E2422;
+
+        }
+        .navbar-default .navbar-nav > .active{
+            color: #88BEB1;
+            text-shadow: 1px 0 #1E2422, 0 1px #1E2422, 1px 0 #1E2422, 0 1px #1E2422;
+
+            background: #FF006D;
+        }
+        .navbar-default .navbar-nav > .active > a,
+        .navbar-default .navbar-nav > .active > a:hover,
+        .navbar-default .navbar-nav > .active > a:focus {
+            color: #88BEB1;
+            background: #FF006D;
         }
 
         .contentContainer{
