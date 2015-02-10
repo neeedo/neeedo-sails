@@ -32,7 +32,13 @@
         .navbar {
             background-color: #1E2422;
             border-bottom-color: #1E2422;
+        }
 
+        .navbar-default .navbar-nav > li > a {
+            color: #88BEB1;
+        }
+        .navbar-default .navbar-nav > li > a:hover{
+            color: #FF006D;
         }
         .navbar-default .navbar-nav > .active{
             color: #88BEB1;
@@ -47,6 +53,12 @@
             background: #FF006D;
         }
 
+        .search{
+            background-color: #88BEB1;
+        }
+        .offer{
+            background-color: #718A94;
+        }
 
         #topContainer {
             height:400px;
@@ -71,10 +83,22 @@
             padding-bottom: 5px;
             max-height: 30px;
         }
-        #brandImageLg{
-            max-width: 300px;
+        .centered {
+            margin-top: 7px;
         }
 
+        .btn-default {
+            background-color: #88BEB1;
+            border-color: #88BEB1;
+        }
+        .btn-default:hover{
+            background-color: #FF006D;
+            border-color: #FF006D;
+        }
+        .btn-default:focus{
+            background-color: #88BEB1;
+            border-color: #88BEB1;
+        }
     </style>
 </head>
 
@@ -98,18 +122,18 @@
                 <li><a href="index.html#footer">Download The App</a></li>
             </ul>
             <div class="nav navbar-nav navbar-right">
-                <button class="btn-default btn" data-toggle="modal" data-target="#searchModal"><span class="glyphicon glyphicon-search"></span></button>
-                <button class="btn-default btn" data-toggle="modal" data-target="#addModal"><span class="glyphicon glyphicon-plus"></span></button>
+                <button class="btn-default btn centered" data-toggle="modal" data-target="#searchModal"><span class="glyphicon glyphicon-search"></span></button>
+                <button class="btn-default btn centered" data-toggle="modal" data-target="#addModal"><span class="glyphicon glyphicon-plus"></span></button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Create Demand -->
-<div class="container">
-    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+<div class="container ">
+    <div class="modal  fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content search">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="searchModalLabel">Ich suche...</h4>
@@ -162,7 +186,7 @@
 <div class="container">
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content offer">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Ich biete</h4>
