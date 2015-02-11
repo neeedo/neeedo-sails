@@ -1,0 +1,21 @@
+language: scala
+scala:
+- 2.11.4
+jdk:
+- oraclejdk8
+notifications:
+  email: false
+  hipchat:
+    rooms:
+      secure: H2g8rdi7W4ZiU49IGozXTFvaugch84rqp/XiNnIAB1rID4R68p8TV7Khxz8JaitNqu4U4Iw2Z5y0aYJLdu+MyrrMsmpZ1aKvOaVfyDh+oRLpuM+pjsyCrzQVWpnYKFLJ7eesTK5ELx74I/h1tsuM7o8sCgLf5Wf7oDuXP737V20=
+    on_success: change
+    on_failure: change
+    notify: true
+deploy:
+  provider: heroku
+  api_key:
+    secure: WTfZdvlarFSLhNOQDn5MrYJEb51fwZkZ5SS8dEsItlGoyDNJ3PriYQ8d9s6/1pn4zOoQ2bGO6WV0zYy2jU7HZSZbpX8v9aiL0tsMiHC9SH1WSXd+Ox9Fn+lUjaLjaTJMiBeiHtsb4TLWPoQ/DfBMpElDOV7tftYW6aU7BtW4Kb4=
+  app: neeedo-webapp
+  on:
+    branch: master
+    repo: anotherSasFeld/deploymentExample
