@@ -1,0 +1,126 @@
+/*navbar*/
+.navbar-brand {
+    font-size:1.8em;
+}
+.navbar-brand > img{
+    padding-bottom: 5px;
+    max-height: 30px;
+}
+
+.navbar {
+    background-color: #1E2422;
+    border-bottom-color: #1E2422;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #88BEB1;
+}
+.navbar-default .navbar-nav > li > a:hover{
+    color: #FF006D;
+}
+.navbar-default .navbar-nav > .active{
+    color: #88BEB1;
+    background: #FF006D;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #88BEB1;
+    background: #FF006D;
+}
+.navbar-right{
+    padding-top: 7px;
+}
+
+/*ContentContainer*/
+
+.contentContainer{
+    padding-top: 10%;
+}
+
+#alertContainer{
+    padding-top: 5%;
+    position: fixed;
+}
+#topContainer {
+    width: 100%;
+    background-image:url("../images/background.jpg");
+    background-size:cover;
+}
+#appContainer {
+    background-color:#718A94;
+    width:100%;
+}
+.modal{
+    margin-top: 10%;
+}
+.carousel-item > h3{
+    color: #88BEB1;
+}
+.carousel-item{
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+/*Buttons*/
+.btn-default {
+    background-color: #88BEB1;
+    border-color: #88BEB1;
+}
+.btn-default:hover{
+    background-color: #FF006D;
+    border-color: #FF006D;
+}
+.btn-default:focus{
+    background-color: #88BEB1;
+    border-color: #88BEB1;
+}
+
+.btn-info {
+    background-color: #FF006D;
+    border-color: #FF006D;
+}
+.btn-info:hover{
+    background-color: #88BEB1;
+    border-color: #88BEB1;
+}
+.btn-info:focus{
+    background-color: #FF006D;
+    border-color: #FF006D;
+}
+.center {
+    text-align:center;
+}
+
+/*header*/
+
+.title {
+    margin-bottom: 5%;
+    font-size:300%;
+}
+
+.centralImage {
+    max-width:250px;
+}
+
+.shadow{
+    text-shadow: 1px 0 #1E2422, 0 1px #1E2422, 1px 0 #1E2422, 0 1px #1E2422;
+}
+
+.search{
+    background-color: #88BEB1;
+}
+.offer{
+    background-color: #718A94;
+}
+
+.panel-heading{
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.panel-body{
+    font-style: italic;
+}
+
