@@ -1,4 +1,4 @@
-FROM debian:7.0
+FROM debian:7
 MAINTAINER Sascha Feldmann "sascha.feldmann@gmx.de"
 
 RUN apt-get install curl
