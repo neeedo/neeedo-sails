@@ -34,7 +34,8 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  }
+  },
+  '/app': 'CardController.app'
 
   /***************************************************************************
   *                                                                          *

@@ -1,0 +1,307 @@
+<!-- Create Demand -->
+<div class="container ">
+    <div class="modal  fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content search">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="searchModalLabel">Ich suche...</h4>
+                </div>
+
+                <div class="modal-body">
+                    <label for="mustTagsDemand">Der Artikel muss unbedingt haben:</label>
+                    <input class="form-control" id="mustTagsDemand" type="text" placeholder="fahrrad, klapprig"/>
+
+                    <label for="shouldTagsDemand">und sollte wenn möglich haben</label>
+                    <input class="form-control" id="shouldTagsDemand" type="text" placeholder="ledersattel,licht"/>
+
+                    <input type="hidden" id="latDemand" value="13.534212"/>
+
+                    <input type="hidden" id="lonDemand" value="52.468562"/>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                                <label for="minPriceDemand">Preis von</label>
+                                <input type="number" id="minPriceDemand" class="form-control" placeholder="von"/>
+                            </div>
+                            <!-- /input-group -->
+                        </div>
+                        <!-- /.col-lg-6 -->
+
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                                <label for="maxPriceDemand">Preis bis</label>
+                                <input type="number" id="maxPriceDemand" class="form-control" placeholder="bis"/>
+                            </div>
+                            <!-- /input-group -->
+                        </div>
+                        <!-- /.col-lg-6 -->
+                    </div>
+                    <!-- /.row -->
+
+                    <label for="maxPriceDemand">Max. Distanz</label>
+                    <input type="number" id="maxDistanceDemand" class="form-control" placeholder="bis"/>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="col-md-6">
+                        <div class="row " id="demandsError"></div>
+
+                        <div class="row " id="demandsSuccess"></div>
+                    </div>
+                    <div class="col-md-6">
+                 <!--   <button type="button" class="btn btn-default" data-dismiss="modal">speichern</button>-->
+                    <button type="button" id="btnCreateDemand" class="btn btn-primary">abschicken</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--CreateOffer-->
+<div class="container">
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content offer">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Ich biete</h4>
+                </div>
+                <div class="modal-body">
+                    <label for="tagsOffer">Tags: </label>
+                    <input class="form-control" id="tagsOffer" type="text" placeholder="tag1,tag2,..."/>
+
+                    <label for="priceOffer">Preis: </label>
+                    <input type="number" id="priceOffer" class="form-control" placeholder="Preis"/>
+
+                    <input type="hidden" id="latOffer" value="13.534212"/>
+
+                    <input type="hidden" id="lonOffer" value="52.468562"/>
+
+
+                </div>
+                <div class="modal-footer">
+
+                    <div class="col-md-6">
+                    <div class="row" id="offersError"></div>
+
+                    <div class="row" id="offersSuccess"></div>
+                    </div>
+                    <div class="col-md-6">
+                 <!--   <button type="button" class="btn btn-default" data-dismiss="modal">speichern</button>-->
+                    <button type="button" id="btnCreateOffer" class="btn btn-primary">abschicken</button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+</div>
+
+<div class="container"> <!--alerts-->
+    <!-- !! do not remove, toast messages are shown here!!! -->
+    <div class="container center" id="alertContainer">
+        <div class="container">
+            <div class="row">
+                <!-- success messages -->
+                <div id="success_alert_placeholder">
+
+                </div>
+                <!-- error messages -->
+                <div id="error_alert_placeholder">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--alerts-->
+
+<div class="container" id="topContainer">
+
+    <div class="container contentContainer"  >    <!-- Carousel-->
+
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox" id="innerCarousel">
+                <div class="item active">
+                    <div class="carousel-caption">
+                        ...
+                    </div>
+                </div>
+                <div class="item">
+
+                    <div class="carousel-caption">
+                        ...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>    <!-- Carousel-->
+</div>
+
+<script id="demand-template" type="text/x-handlebars-template">
+
+    <div class="item active">
+        <div class="carousel-item ">
+
+            <h3>Ich suche</h3>
+            <hr/>
+            <div class="panel panel-default search">
+                <div class="panel-heading"> Der Artikel muss haben:</div>
+                <div class="panel-body">
+                    <ul>
+                        {{#each firstDemand.mustTags}}
+                        <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="panel-heading"> Der Artikel sollte haben:</div>
+                <div class="panel-body">
+                    <ul>
+                        {{#each firstDemand.shouldTags}}
+                        <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="panel-heading"> Der Preis sollte in einem Bereich liegen von:</div>
+                <div class="panel-body">
+                    <ul class="list-inline">
+                        <li>von: {{price.min}} <span class="glyphicon glyphicon-euro"></span></li>
+                        <li>bis: {{price.max}} <span class="glyphicon glyphicon-euro"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{#each demands}}
+    <div class="item">
+        <div class="carousel-item row ">
+            <h3> Ich suche </h3>
+                <hr/>
+
+                <div class="panel panel-default search">
+                    <div class="panel-heading"> Der Artikel muss haben:</div>
+                    <div class="panel-body">
+                        <ul>
+                            {{#each mustTags}}
+                            <li>{{this}}</li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                    <div class="panel-heading"> Der Artikel sollte haben:</div>
+                    <div class="panel-body">
+                        <ul>
+                            {{#each shouldTags}}
+                            <li>{{this}}</li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                    <div class="panel-heading"> Preis</div>
+                    <div class="panel-body">
+                        <ul class="list-inline">
+                            <li>von: {{price.min}} <span class="glyphicon glyphicon-euro"></span></li>
+                            <li>bis: {{price.max}} <span class="glyphicon glyphicon-euro"></span></li>
+                        </ul>
+                    </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+
+<script id="offer-template" type="text/x-handlebars-template">
+
+    <div class="item active">
+        <div class="carousel-item ">
+
+            <h3>Angebote die auf deine Suche passen:</h3>
+            <hr/>
+            <div class="panel panel-default offer">
+                <div class="panel-heading"> Der Artikel:</div>
+                <div class="panel-body">
+                    <ul>
+                        {{#each firstOffer.tags}}
+                        <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="panel-heading"> Preis:</div>
+                <div class="panel-body">
+                    <ul class="list-inline">
+                        <li>{{firstOffer.price}} <span class="glyphicon glyphicon-euro"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{#each offers}}
+    <div class="item">
+        <div class="carousel-item row">
+            <h3>Angebote die auf deine Suche passen:</h3>
+            <hr/>
+            <div class="panel panel-default offer">
+                <div class="panel-heading"> Der Artikel:</div>
+                <div class="panel-body">
+                    <ul>
+                        {{#each tags}}
+                        <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="panel-heading"> Preis</div>
+                <div class="panel-body">
+                    <ul class="list-inline">
+                        <li>{{price}} <span class="glyphicon glyphicon-euro"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+
+<script id="no-demands-template" type="text/x-handlebars-template">
+    <div class="item active">
+        Aktuell gibt es keine Gesuche. Mit dem '+' - Button oben rechts kannst du sofort loslegen.
+    </div>
+</script>
+
+<script id="no-offers-template" type="text/x-handlebars-template">
+    <div class="item active">
+        Aktuell gibt es keine passenden Angebote auf dein Gesucht.
+    </div>
+</script>
+
+
+<script>
+    $('.navbar-collapse ul li a').click(function(){
+        $('.navbar-toggle:visible').click();
+    });
+    $('.navbar-right button').click(function(){
+        $('.navbar-toggle:visible').click();
+    })
+</script>
