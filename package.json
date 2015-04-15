@@ -24,6 +24,8 @@
     "grunt-contrib-coffee": "~0.10.1"
   },
   "devDependencies": {
+    "grunt-mocha-istanbul": "^2.3.1",
+    "istanbul": "0.3.13",
     "mocha": "*",
     "should": ">= 0.0.1",
     "supertest": "0.15.0"
@@ -31,7 +33,7 @@
   "scripts": {
     "start": "node app.js",
     "debug": "node debug app.js",
-    "test": "./node_modules/.bin/mocha test/bootstrap.js test/**/*.test.js"
+    "test": "./node_modules/.bin/mocha test/bootstrap.test.js test/**/*.test.js"
   },
   "main": "app.js",
   "repository": {
