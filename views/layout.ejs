@@ -56,7 +56,7 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   </head>
 
-<body data-spy="scroll" data-target=".navbar-collapse">
+<body data-spy="scroll" data-target=".navbar-collapse" data-apiUrl="<%= sails.config.neeedo.apiUrl %>">
     <%- partial ('./partials/navigation.ejs') %>
     <%- body %>
        <!--TEMPLATES-->

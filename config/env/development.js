@@ -20,5 +20,13 @@ module.exports = {
   // models: {
   //   connection: 'someMongodbServer'
   // }
-
+  /***************************************************************************
+   *                                                                         *
+   * NEEEDO Services                                                         *
+   *                                                                         *
+   ***************************************************************************/
+  neeedo: {
+    // URL to development neeedo-api
+    apiUrl : 'http://localhost:9000'
+  }
 };
