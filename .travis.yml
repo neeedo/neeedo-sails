@@ -7,6 +7,10 @@ notifications:
   email:
     - sascha.feldmann@gmx.de
 
-after_success:
-  - istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js && rm -rf ./coverage
-  - codecov
+deploy:
+  provider: heroku
+  api_key:
+    secure: RGOOvtd08safEwxbopdpJPpTSjbXl0PreR97Lg006EPsZkx5yajJID7873RmxEFTV0mSJf4JD+MfdzPqnRpC9Uys3wiWaPdAHlpnGszOobOq7WRLPUWU+AaaxiE4e/AlZa3suJE4yEMHxa5jL4AeA65k08WErVqo+Sz5b80DdEQ=
+  app: neeedo-webapp
+  on:
+    repo: neeedo/neeedo-sails
