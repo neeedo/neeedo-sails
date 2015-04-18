@@ -12,10 +12,19 @@ Installation
 git clone https://github.com/neeedo/neeedo-sails.git
 npm install
 ```
+- If you want to make use of grunt (e.g. to run the code coverage task more smoothly), please install Grunt and set up the Grunt CLI (-> http://gruntjs.com/getting-started ).
+
 
 Run the project
 ----------
 
 ```bash
 npm start
+```
+
+Generate test coverage report
+----------
+
+```bash
+grunt mocha_istanbul
 ```
