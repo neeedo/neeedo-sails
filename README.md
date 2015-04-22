@@ -1,4 +1,6 @@
-# neeedo-webapp <a href='https://travis-ci.org/neeedo/neeedo-webapp'><img src="https://travis-ci.org/neeedo/neeedo-webapp.svg?branch=master" alt="Travis Build Status"/></a> 
+# neeedo-webapp 
+
+<a href='https://travis-ci.org/neeedo/neeedo-webapp'><img src="https://travis-ci.org/neeedo/neeedo-webapp.svg?branch=master" alt="Travis Build Status"/></a> 
 
 <a href='https://www.versioneye.com/user/projects/552e45184379b22cee000004'><img src='https://www.versioneye.com/user/projects/552e45184379b22cee000004/badge.svg?style=flat' alt="Dependency Status" /></a>
 
