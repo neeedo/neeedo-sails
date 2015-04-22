@@ -14,4 +14,4 @@ deploy:
     secure: Sun8AZKcwf4OqZfZpu9yR3VvHzdhvObOnACbS0h9tCmdGvV4cDJbC0DpnGf8hVcGva3+3UwBbxqMNpsZu9pNIBt9lKGKHFlt1/4BV3EKV3y6ljfDLWqpZCv4bxwebVGX6MV0aXtuqSodeNVJqGu8cq0oUctcpsmkiwJK0BgxTok=
   app: neeedo-webapp
   on:
-    repo: neeedo/neeedo-sails
+    repo: neeedo/neeedo-webapp
