@@ -15,13 +15,14 @@ npm install
 ```
 - If you want to make use of grunt (e.g. to run the code coverage task more smoothly), please install Grunt and set up the Grunt CLI (-> http://gruntjs.com/getting-started ).
 
-
 Run the project
 ----------
 
 ```bash
 npm start
 ```
+
+- The default environment is 'development'. On production systems, set the NODE_ENV environment variable to 'production'.
 
 Generate test coverage report
 ----------
