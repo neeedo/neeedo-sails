@@ -13,6 +13,7 @@ Installation
 git clone https://github.com/neeedo/neeedo-webapp.git
 npm install
 ```
+
 - If you want to make use of grunt (e.g. to run the code coverage task more smoothly), please install Grunt and set up the Grunt CLI (-> http://gruntjs.com/getting-started ).
 
 Run the project
