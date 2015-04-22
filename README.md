@@ -27,5 +27,5 @@ Generate test coverage report
 ----------
 
 ```bash
-grunt mocha_istanbul
+grunt testcoverage
 ```
