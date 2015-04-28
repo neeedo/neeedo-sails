@@ -35,7 +35,8 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
-  '/app': 'CardController.app'
+  '/app': 'CardController.app',
+  '/register': 'RegistrationController.registration'
 
   /***************************************************************************
   *                                                                          *
