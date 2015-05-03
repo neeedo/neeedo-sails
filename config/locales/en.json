@@ -1,4 +1,5 @@
 {
 	"Welcome": "Welcome",
-	"A brand new app.": "A brand new app."
+	"A brand new app.": "A brand new app.",
+  "technical_error_on_registration": "There was an error during registration. Please try again in several minutes. Sorry for the inconvenience."
 }
