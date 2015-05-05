@@ -1,5 +1,15 @@
 {
 	"Welcome": "Welcome",
 	"A brand new app.": "A brand new app.",
-  "technical_error_on_registration": "There was an error during registration. Please try again in several minutes. Sorry for the inconvenience."
+  "Username": "Username",
+  "E-Mail": "E-Mail",
+  "Password": "Password",
+  "Register": "Register",
+  "Registration": "Registration",
+  "Login": "Login",
+  "Neeedo Member Area": "Neeedo Member Area",
+  "technical_error_on_registration": "There was an error during registration. Please try again in several minutes. Sorry for the inconvenience.",
+  "Welcome to Neeedo, %s!": "Welcome to Neeedo, %s!",
+  "Hello %s!": "Hello %s!",
+  "Have fun here on Neeedo.com!": "Have fun here on Neeedo.com!"
 }

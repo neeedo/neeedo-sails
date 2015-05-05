@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
-  <title>Registration</title>
+  <title><%= i18n('Registration') %></title>
   <style>#register{ margin-top: 50px; padding-top: 30px; }
     #sendbtn{ margin: 10px; }
   </style>
@@ -10,7 +10,7 @@
 <body>
 
 <div id="register">
-  <p>Welcome to neeedo, <%= username %></p>
+  <p><%= i18n('Welcome to Neeedo, %s!', username) %></p>
 </div>
 
 </body>

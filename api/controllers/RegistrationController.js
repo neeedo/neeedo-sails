@@ -12,7 +12,7 @@ module.exports = {
 
       // show registration success view TODO
 
-      res.view('Users/success', {
+      res.view('Users/registration-success', {
         locals: {
           username: registeredUser.getUsername(),
           email: registeredUser.getEMail()

@@ -13,7 +13,7 @@ var apiClient = require('neeedo-api-nodejs-client');
 var initializeNeeedoApiNpmClient = function () {
   console.log("initializing neeedo api client... " + sails.config.neeedo.apiUrl);
   // initialize by api URL from env config
-  apiClient.initClient(sails.config.neeedo.apiUrl);
+  apiClient.initClient(sails.config.neeedo.apiUrl, sails.config.security.https.allow_self_signed_cert);
 
 }
 

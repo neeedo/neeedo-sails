@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <title><%= i18n('Login') %></title>
+  <style>#login{ margin-top: 50px; padding-top: 30px; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <form method="POST" id="login">
+    <div class="row">
+      <div class="col-md-1">
+        <label for="email"><%= i18n('E-Mail') %></label>
+      </div>
+      <div class="col-md-4">
+        <input type="email" name="email" required/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <input type="submit" value="<%= i18n('Login') %>" id="sendbtn" />
+      </div>
+    </div>
+  </form>
+</div>
+</body>
+</html>

@@ -42,5 +42,11 @@ module.exports = {
   neeedo: {
     // URL to production neeedo-api
     apiUrl : 'https://api.neeedo.com'
+  },
+  security: {
+    https : {
+      // whether to allow self-signed TLS certificates
+      allow_self_signed_cert : true
+    }
   }
 };

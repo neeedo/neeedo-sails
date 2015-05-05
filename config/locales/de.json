@@ -1,5 +1,16 @@
 {
   "Welcome": "Willkommen",
   "A brand new app.": "Eine neue App.",
-  "technical_error_on_registration": "Leider ist bei der Registierung ein Fehler aufgetreten. Bitte versuche es später noch einmal"
+  "Username": "Benutzername",
+  "E-Mail": "E-Mail-Adresse",
+  "Password": "Passwort",
+  "Register": "Registrieren",
+  "Registration": "Registrierung",
+  "Login": "Login",
+  "Neeedo Member Area": "Neeedo Member Area",
+  "technical_error_on_registration": "Leider ist bei der Registierung ein Fehler aufgetreten. Bitte versuche es später noch einmal",
+  "Welcome to Neeedo, %s!": "Willkommen bei Neeedo, %s!",
+  "Hello %s!": "Hallo %s!",
+  "Have fun here on Neeedo.com!": "Viel Spaß auf Neeedo.com!",
+  "login_no_success": "Ungültige Zugangsdaten. Bitte versuche es noch einmal!"
 }
