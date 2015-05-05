@@ -41,6 +41,6 @@ module.exports = {
    ***************************************************************************/
   neeedo: {
     // URL to production neeedo-api
-    apiUrl : 'http://178.62.252.23:9000'
+    apiUrl : 'https://api.neeedo.com'
   }
 };
