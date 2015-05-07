@@ -27,12 +27,15 @@ module.exports = {
    ***************************************************************************/
   neeedo: {
     // URL to development neeedo-api
-    apiUrl : 'https://localhost:9443'
-  },
-  security: {
-    https : {
-      // whether to allow self-signed TLS certificates
-      allow_self_signed_cert : true
+    apiClient : {
+      apiUrl: 'https://localhost:9443',
+      debugMode: true,
+      security: {
+        https : {
+          // whether to allow self-signed TLS certificates
+          allow_self_signed_cert : true
+        }
+      }
     }
   }
 };

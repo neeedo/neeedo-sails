@@ -15,9 +15,14 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="<%= UrlService.to('/') %>">Home</a></li>
-          <li><a href="<%= UrlService.to('/#detailsContainer') %>">About</a></li>
-          <li><a href="<%= UrlService.to('/#appContainer') %>">Download The App</a></li>
+          <li class="active"><a href="<%= UrlService.to('/') %>"><%= i18n('Home') %></a></li>
+          <li><a href="<%= UrlService.to('/register') %>"><%= i18n('Register') %></a></li>
+          <li><a href="<%= UrlService.to('/login') %>"><%= i18n('Login') %></a></li>
+          <li>
+                <div>
+                      <%- partial ('./login.ejs') %>
+                </div>
+          </li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div>

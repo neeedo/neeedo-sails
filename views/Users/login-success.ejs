@@ -10,7 +10,7 @@
 <body>
 
 <div id="member-area">
-  <p><%= i18n('Hello %s!', username) %></p>
+  <p><%= i18n('Hello %s!', LoginService.getCurrentUser(req).getUsername()) %></p>
 
   <p><%= i18n('Have fun here on Neeedo.com!') %></p>
 </div>

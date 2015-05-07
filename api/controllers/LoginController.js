@@ -2,6 +2,9 @@ var util = require('util');
 
 module.exports = {
   login: function (req, res) {
+    /*
+     * ---------- callbacks ----------
+     */
     var onSuccessCallback = function(loggedInUser) {
       if (ApiClientService.client.options.isDevelopment()) {
         console.log("User " + util.inspect(loggedInUser, {
@@ -9,6 +12,9 @@ module.exports = {
           depth: null
         }) + " was logged in successfully.");
       }
+
+      // delegate to LoginService to persist User (with his/her access token)
+      LoginService.storeUserInSession(loggedInUser, req);
 
       res.view('Users/login-success', {
         locals: {
@@ -29,6 +35,13 @@ module.exports = {
       res.redirect('/login');
     };
 
+    /*
+     * ---------- functionality ----------
+     */
+    if (LoginService.userIsLoggedIn(req)) {
+      res.view('Users/login');
+    }
+
     if ("POST" == req.method) {
       var email = req.param("email");
       var password = req.param("password");
@@ -37,5 +50,10 @@ module.exports = {
     } else {
       res.view('Users/login');
     }
+  },
+  logout: function (req, res) {
+    LoginService.logoutUser(req);
+
+    res.redirect('/login');
   }
 }

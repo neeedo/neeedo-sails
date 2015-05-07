@@ -1,7 +1,7 @@
 var apiClient = require('neeedo-api-nodejs-client');
 
-var Register = apiClient.models.register;
-var RegisterService = apiClient.services.register;
+var Register = apiClient.models.Register;
+var RegisterService = apiClient.services.Register;
 
 module.exports = {
   /**

@@ -1,7 +1,9 @@
-var apiClient = require('neeedo-api-nodejs-client');
+var apiClient = require('neeedo-api-nodejs-client'),
+    util = require('util');
 
-var Login = apiClient.models.login;
-var LoginService = apiClient.services.login;
+var Login = apiClient.models.Login;
+var LoginService = apiClient.services.Login;
+var User = apiClient.models.User;
 
 module.exports = {
   /**
@@ -30,13 +32,31 @@ module.exports = {
       throw new Error("Type of user must be object.");
     }
 
+    if (ApiClientService.client.options.isDevelopment()) {
+      console.info('Stored user in session');
+    }
+
     req.session.user = user;
   },
   userIsLoggedIn: function(req) {
-    if ("user" in req.session && undefined !== req.session.user) {
+    if (undefined !== this.getCurrentUser(req)
+      && undefined !== this.getCurrentUser(req).hasAccessToken()) {
       return true;
     }
 
     return false;
+  },
+  getCurrentUser: function(req) {
+    if ("user" in req.session) {
+      console.info('user in session: ' + util.inspect(req.session.user));
+
+      var user = new User();
+      return user.loadFromSerialized(req.session.user);
+    }
+
+    return undefined;
+  },
+  redirectUserIfLoggedIn: function(req) {
+
   }
 };

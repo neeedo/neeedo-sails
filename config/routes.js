@@ -37,7 +37,8 @@ module.exports.routes = {
   },
   '/app': 'CardController.app',
   '/register': 'RegistrationController.registration',
-  '/login': 'LoginController.login'
+  '/login': 'LoginController.login',
+  '/logout': 'LoginController.logout'
 
   /***************************************************************************
   *                                                                          *
