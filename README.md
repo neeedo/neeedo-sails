@@ -24,8 +24,22 @@ npm install
 
 - If you want to make use of grunt (e.g. to run the code coverage task more smoothly), please install Grunt and set up the Grunt CLI (-> http://gruntjs.com/getting-started ).
 
+
+Configuration
+----------
+
+You can set a custom configuration if desired. Therefore, please copy config/env/development.js to config/env/custom.js or similiar and adjust the configuration. 
+
+Afterwards, set the environment before running the app:
+
+```bash
+NODE_ENV = custom
+```
+
 Run the project
 ----------
+
+Make sure to have the neeedo Api running according to your config/env/development.js configuration or the custom one.
 
 ```bash
 npm start
