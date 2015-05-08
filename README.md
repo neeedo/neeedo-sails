@@ -1,14 +1,15 @@
 # neeedo-webapp 
 
-<a href='https://travis-ci.org/neeedo/neeedo-webapp'><img src="https://travis-ci.org/neeedo/neeedo-webapp.svg?branch=master" alt="Travis Build Status"/></a> 
-
-<a href='https://www.versioneye.com/user/projects/552e45184379b22cee000004'><img src='https://www.versioneye.com/user/projects/552e45184379b22cee000004/badge.svg?style=flat' alt="Dependency Status" /></a>
-
-[![codecov.io](https://codecov.io/github/neeedo/neeedo-webapp/coverage.svg?branch=master)](https://codecov.io/github/neeedo/neeedo-webapp?branch=master)
-
-![codecov.io](https://codecov.io/github/neeedo/neeedo-webapp/branch.svg?branch=master)
-
 a [Sails](http://sailsjs.org) application
+
+[![Travis Build Status][travis-image]][travis-url]
+
+[![Dependency Status][dependencies-image]][dependencies-url]
+
+[![codecov.io][codecov-image]][codecov-url]
+
+![codecov.io][codecov-report]
+
 
 Installation
 ----------
@@ -38,3 +39,10 @@ Generate test coverage report
 ```bash
 grunt testcoverage
 ```
+[travis-image]: https://travis-ci.org/neeedo/neeedo-webapp.svg?branch=master
+[travis-url]: https://travis-ci.org/neeedo/neeedo-webapp
+[dependencies-image]: https://www.versioneye.com/user/projects/552e45184379b22cee000004/badge.svg?style=flat
+[dependencies-url]: https://www.versioneye.com/user/projects/552e45184379b22cee000004
+[codecov-image]: https://codecov.io/github/neeedo/neeedo-webapp/coverage.svg?branch=master
+[codecov-url]: https://codecov.io/github/neeedo/neeedo-webapp?branch=master
+[codecov-report]: https://codecov.io/github/neeedo/neeedo-webapp/branch.svg?branch=master
