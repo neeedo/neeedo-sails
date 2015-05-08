@@ -1,7 +1,7 @@
 var util = require('util');
 
 module.exports = {
-  login: function (req, res) {
+  create: function (req, res) {
     /*
      * ---------- callbacks ----------
      */
@@ -38,6 +38,7 @@ module.exports = {
     /*
      * ---------- functionality ----------
      */
+
     if ("POST" == req.method) {
       var email = req.param("email");
       var password = req.param("password");
@@ -47,9 +48,13 @@ module.exports = {
       res.view('Users/login');
     }
   },
-  logout: function (req, res) {
-    LoginService.logoutUser(req);
+  update: function (req, res) {
 
-    res.redirect('/login');
+  },
+  delete: function (req, res) {
+
+  },
+  uploadImage: function (req, res) {
+
   }
 }

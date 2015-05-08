@@ -48,8 +48,6 @@ module.exports = {
   },
   getCurrentUser: function(req) {
     if ("user" in req.session) {
-      console.info('user in session: ' + util.inspect(req.session.user));
-
       var user = new User();
       return user.loadFromSerialized(req.session.user);
     }

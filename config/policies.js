@@ -21,31 +21,23 @@ module.exports.policies = {
 
   /***************************************************************************
   *                                                                          *
-  * Default policy for all controllers and actions (`true` allows public     *
-  * access)                                                                  *
+  * Neeedo WebApp policies                                                   *
+  *                                                                          *
   *                                                                          *
   ***************************************************************************/
 
-  // '*': true,
+  OfferController: {
+    '*': 'isLoggedIn'
+  },
+  LoginController: {
+    '*': false, // default policy for login controller actions
 
-  /***************************************************************************
-  *                                                                          *
-  * Here's an example of mapping some policies to run before a controller    *
-  * and its actions                                                          *
-  *                                                                          *
-  ***************************************************************************/
-	// RabbitController: {
+    'login' : 'isNotLoggedIn',
+    'logout' : 'isLoggedIn'
+  },
+  RegistrationController: {
+    '*': false, // default policy for registration controller actions
 
-		// Apply the `false` policy as the default for all of RabbitController's actions
-		// (`false` prevents all access, which ensures that nothing bad happens to our rabbits)
-		// '*': false,
-
-		// For the action `nurture`, apply the 'isRabbitMother' policy
-		// (this overrides `false` above)
-		// nurture	: 'isRabbitMother',
-
-		// Apply the `isNiceToAnimals` AND `hasRabbitFood` policies
-		// before letting any users feed our rabbits
-		// feed : ['isNiceToAnimals', 'hasRabbitFood']
-	// }
+    'registration' : 'isNotLoggedIn'
+  }
 };
