@@ -7,7 +7,7 @@ module.exports = {
      */
     var onSuccessCallback = function(loggedInUser) {
       if (ApiClientService.client.options.isDevelopment()) {
-        console.log("User " + util.inspect(loggedInUser, {
+        sails.log.info("User " + util.inspect(loggedInUser, {
           showHidden: false,
           depth: null
         }) + " was logged in successfully.");
@@ -24,14 +24,10 @@ module.exports = {
       });
     };
 
-    var onErrorCallback = function(response) {
-      if ('statusCode' in response) {
-        console.log("Error during login: NEEEDO API sent response status " + response.statusCode);
-      } else {
-        console.log("Exception during login: " + response);
-      }
+    var onErrorCallback = function(errorModel) {
+      ApiClientService.logMessages(errorModel);
+      ApiClientService.addFlashMessages(req, errorModel);
 
-      req.flash('message', 'login_no_success');
       res.redirect('/login');
     };
 

@@ -33,7 +33,7 @@ module.exports = {
     }
 
     if (ApiClientService.client.options.isDevelopment()) {
-      console.info('Stored user in session');
+      sails.log.info('Stored user in session');
     }
 
     req.session.user = user;

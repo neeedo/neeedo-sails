@@ -4,7 +4,7 @@ module.exports = {
   registration: function (req, res) {
     var onSuccessCallback = function(registeredUser) {
       if (ApiClientService.client.options.isDevelopment()) {
-        console.log("User " + util.inspect(registeredUser, {
+        sails.log.info("User " + util.inspect(registeredUser, {
           showHidden: false,
           depth: null
         }) + " was registered successfully.");
@@ -20,14 +20,10 @@ module.exports = {
       });
     };
 
-    var onErrorCallback = function(response) {
-      if ('statusCode' in response) {
-        console.log("Error during registration: NEEEDO API sent response status " + response.statusCode);
-      } else {
-        console.log("Exception during registration: " + response);
-      }
+    var onErrorCallback = function(errorModel) {
+      ApiClientService.logMessages(errorModel);
+      ApiClientService.addFlashMessages(req, errorModel);
 
-      req.flash('message', 'technical_error_on_registration');
       res.redirect('/register');
     };
 
