@@ -15,17 +15,18 @@ module.exports = {
    * @param onSuccessCallback will be called by the registered user instance delivered from neeedo API
    * @param onErrorCallBack will be called with an HTTP response object on error
    */
-  createOffer: function(tags, latitude, longitude, price, onSuccessCallback, onErrorCallBack) {
+  createOffer: function(tags, latitude, longitude, price, user, onSuccessCallback, onErrorCallBack) {
     try {
       var offerModel = new Offer();
       offerModel.setTags(ApiClientService.toTagArray(tags))
-        .setLocation(ApiClientService.newLocation(latitude, longitude))
-        .setPrice(price);
+        .setLocation(ApiClientService.newLocation(parseFloat(latitude), parseFloat(longitude)))
+        .setPrice(parseFloat(price))
+        .setUser(user);
 
       var offerService = new OfferService();
       offerService.createOffer(offerModel, onSuccessCallback, onErrorCallBack);
     } catch (e) {
-      onErrorCallBack(ApiClientService.newError(e.message, 'Your inputs were not valid.'));
+      onErrorCallBack(ApiClientService.newError("createOffer:" + e.message, 'Your inputs were not valid.'));
     }
   }
 };

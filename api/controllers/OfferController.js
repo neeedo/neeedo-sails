@@ -34,7 +34,7 @@ module.exports = {
       var lat = req.param("lat");
       var lng = req.param("lng");
 
-      OfferService.createOffer(tags, lat, lng, price, onSuccessCallback, onErrorCallback);
+      OfferService.createOffer(tags, lat, lng, price, LoginService.getCurrentUser(req), onSuccessCallback, onErrorCallback);
     } else {
       res.view('offer/create');
     }
