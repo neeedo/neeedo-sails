@@ -7,9 +7,9 @@ module.exports = {
       sails.log.error(errorModel.getLogMessages()[i]);
     }
   },
-  addFlashMessages : function(req, errorModel) {
-    for (var i = 0; i < errorModel.getErrorMessages(); i++) {
-      req.flash('message', errorModel.getErrorMessages()[i]);
+  addFlashMessages : function(req, res, errorModel) {
+    for (var i = 0; i < errorModel.getErrorMessages().length; i++) {
+      req.flash('message', res.i18n(errorModel.getErrorMessages()[i]));
     }
   }
 };
