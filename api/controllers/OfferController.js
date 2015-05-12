@@ -11,7 +11,7 @@ module.exports = {
           depth: null
         }) + " was created successfully.");
 
-      FlashMessagesService.setSuccessMessage('Your offer was created successfully', req, res);
+      FlashMessagesService.setSuccessMessage('Your offer was created successfully.', req, res);
 
       res.view('offer/create', {
 

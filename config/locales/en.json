@@ -29,5 +29,7 @@
   "Tags" : "Tags",
   "Price" : "Price",
   "Submit" : "Submit",
-  "Your inputs were not valid." : "Your inputs were not valid."
+  "Your inputs were not valid." : "Your inputs were not valid.",
+  "Your offer was created successfully." : "Your offer was created successfully.",
+  "Create offer" : "Create Offer"
 }

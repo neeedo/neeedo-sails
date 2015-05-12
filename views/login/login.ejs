@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="container">
-  <form method="POST" id="login">
+  <form method="POST" id="login" action="<%= UrlService.to('/login') %>">
     <div class="row">
       <div class="col-md-1">
         <label for="email"><%= i18n('E-Mail') %></label>

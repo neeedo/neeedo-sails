@@ -30,5 +30,7 @@
   "Tags" : "Tags",
   "Price" : "Preis",
   "Submit" : "Absenden",
-  "Your inputs were not valid." : "Deine Eingaben sind leider ungültig."
+  "Your inputs were not valid." : "Deine Eingaben sind leider ungültig.",
+  "Your offer was created successfully." : "Deine Biete-Karte wurde angelegt.",
+  "Create offer" : "Neues Angebot"
 }
