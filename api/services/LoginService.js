@@ -33,9 +33,7 @@ module.exports = {
       throw new Error("Type of user must be object.");
     }
 
-    if (ApiClientService.client.options.isDevelopment()) {
-      sails.log.info('Stored user in session');
-    }
+    sails.log.info('Stored user in session');
 
     req.session.user = user;
   },

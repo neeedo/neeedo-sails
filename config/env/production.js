@@ -30,10 +30,9 @@ module.exports = {
   /***************************************************************************
    * Set the log level in production environment to "silent"                 *
    ***************************************************************************/
-
-  // log: {
-  //   level: "silent"
-  // }
+  log: {
+    level: "silent"
+  },
   /***************************************************************************
    *                                                                         *
    * NEEEDO Services                                                         *
@@ -52,6 +51,7 @@ module.exports = {
       }
     }
   },
+  // session invalidation time
   session: {
     cookie: {
       maxAge: 10 * 60 * 1000

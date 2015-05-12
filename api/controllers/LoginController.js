@@ -6,12 +6,10 @@ module.exports = {
      * ---------- callbacks ----------
      */
     var onSuccessCallback = function(loggedInUser) {
-      if (ApiClientService.client.options.isDevelopment()) {
-        sails.log.info("User " + util.inspect(loggedInUser, {
+       sails.log.info("User " + util.inspect(loggedInUser, {
           showHidden: false,
           depth: null
         }) + " was logged in successfully.");
-      }
 
       // delegate to LoginService to persist User (with his/her access token)
       LoginService.storeUserInSession(loggedInUser, req);

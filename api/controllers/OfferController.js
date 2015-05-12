@@ -5,34 +5,26 @@ module.exports = {
     /*
      * ---------- callbacks ----------
      */
-    var onSuccessCallback = function(loggedInUser) {
-      if (ApiClientService.client.options.isDevelopment()) {
-        console.log("User " + util.inspect(loggedInUser, {
+    var onSuccessCallback = function(createdOffer) {
+       sails.log.info("Offer " + util.inspect(createdOffer, {
           showHidden: false,
           depth: null
-        }) + " was logged in successfully.");
-      }
+        }) + " was created successfully.");
+
 
       // delegate to LoginService to persist User (with his/her access token)
-      LoginService.storeUserInSession(loggedInUser, req);
+      LoginService.storeUserInSession(createdOffer, req);
 
       res.view('Users/login-success', {
         locals: {
-          username: loggedInUser.getUsername(),
-          email: loggedInUser.getEMail()
+          username: createdOffer.getUsername(),
+          email: createdOffer.getEMail()
         }
       });
     };
 
-    var onErrorCallback = function(response) {
-      if ('statusCode' in response) {
-        console.log("Error during login: NEEEDO API sent response status " + response.statusCode);
-      } else {
-        console.log("Exception during login: " + response);
-      }
+    var onErrorCallback = function(errorModel) {
 
-      req.flash('message', 'login_no_success');
-      res.redirect('/login');
     };
 
     /*
