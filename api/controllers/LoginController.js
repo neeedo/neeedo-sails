@@ -26,7 +26,7 @@ module.exports = {
 
     var onErrorCallback = function(errorModel) {
       ApiClientService.logMessages(errorModel);
-      ApiClientService.addFlashMessages(req, errorModel);
+      ApiClientService.addFlashMessages(req, res, errorModel);
 
       res.redirect('/login');
     };
