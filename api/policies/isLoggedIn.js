@@ -11,6 +11,9 @@ module.exports = function(req, res, next) {
     return next();
   }
 
+  // store current URL in session so that use can be redirected to it after login
+  LoginService.setAfterLoginRedirectUrl(req);
+
   // User is not logged in where he / she is not supposed to be, so redirect to login
-  return res.view('Users/login');
+  return res.view('login/login');
 };

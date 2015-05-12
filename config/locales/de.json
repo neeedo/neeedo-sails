@@ -25,5 +25,10 @@
   "The offer couldn't be updated. Please contact Neeedo customer care." : "Ihr Angebot konnte nicht aktualisiert werden. Bitte kontaktieren Sie den Neeedo-Kundenservice.",
   "The offer couldn't be deleted. Please contact Neeedo customer care." : "Ihr Angebot konnte nicht gelöscht werden. Bitte kontaktieren Sie den Neeedo-Kundenservice.",
   "The image couldn't be added to your offer. Please contact Neeedo customer care." : "Das Bild konnte nicht hinzugefügt werden. Bitte kontaktieren Sie den Neeedo-Kundenservice.",
-  "Your login credentials are incorrect." : "Deine Login-Informationen sind leider falsch. Bitte versuche es noch einmal."
+  "Your login credentials are incorrect." : "Deine Login-Informationen sind leider falsch. Bitte versuche es noch einmal.",
+  "I'm offering" : "Ich biete",
+  "Tags" : "Tags",
+  "Price" : "Preis",
+  "Submit" : "Absenden",
+  "Your inputs were not valid." : "Deine Eingaben sind leider ungültig."
 }

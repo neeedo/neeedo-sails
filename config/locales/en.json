@@ -24,5 +24,10 @@
   "update_offer_internal_error" : "The offer couldn't be updated. Please contact Neeedo customer care.",
   "delete_offer_internal_error" : "The offer couldn't be deleted. Please contact Neeedo customer care.",
   "add_image_to_offer_internal_error" : "The image couldn't be added to your offer. Please contact Neeedo customer care.",
-  "login_wrong_password" : "The password is incorrect."
+  "login_wrong_password" : "The password is incorrect.",
+  "I'm offering" : "I'm offering",
+  "Tags" : "Tags",
+  "Price" : "Price",
+  "Submit" : "Submit",
+  "Your inputs were not valid." : "Your inputs were not valid."
 }

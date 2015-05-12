@@ -12,5 +12,5 @@ module.exports = function(req, res, next) {
   }
 
   // User is logged in where he / she is not supposed to be, so redirect to login-success
-  return res.view('Users/login-success');
+  return res.view('login/login-success');
 };

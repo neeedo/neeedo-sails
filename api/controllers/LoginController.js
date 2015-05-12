@@ -14,12 +14,14 @@ module.exports = {
       // delegate to LoginService to persist User (with his/her access token)
       LoginService.storeUserInSession(loggedInUser, req);
 
-      res.view('login/login-success', {
-        locals: {
-          username: loggedInUser.getUsername(),
-          email: loggedInUser.getEMail()
-        }
-      });
+      if (!LoginService.redirectToAfterLoginUrl(req, res)) {
+        res.view('login/login-success', {
+          locals: {
+            username: loggedInUser.getUsername(),
+            email: loggedInUser.getEMail()
+          }
+        });
+      }
     };
 
     var onErrorCallback = function(errorModel) {

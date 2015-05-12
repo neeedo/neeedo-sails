@@ -11,33 +11,32 @@ module.exports = {
           depth: null
         }) + " was created successfully.");
 
+      FlashMessagesService.setSuccessMessage('Your offer was created successfully', req, res);
 
-      // delegate to LoginService to persist User (with his/her access token)
-      LoginService.storeUserInSession(createdOffer, req);
+      res.view('offer/create', {
 
-      res.view('Users/login-success', {
-        locals: {
-          username: createdOffer.getUsername(),
-          email: createdOffer.getEMail()
-        }
       });
     };
 
     var onErrorCallback = function(errorModel) {
+      ApiClientService.logMessages(errorModel);
+      ApiClientService.addFlashMessages(req, res, errorModel);
 
+      res.redirect('/offer/create');
     };
 
     /*
      * ---------- functionality ----------
      */
-
     if ("POST" == req.method) {
-      var email = req.param("email");
-      var password = req.param("password");
+      var tags = req.param("tags");
+      var price = req.param("price");
+      var lat = req.param("lat");
+      var lng = req.param("lng");
 
-      LoginService.queryUser(email, password, onSuccessCallback, onErrorCallback);
+      OfferService.createOffer(tags, lat, lng, price, onSuccessCallback, onErrorCallback);
     } else {
-      res.view('Users/login');
+      res.view('offer/create');
     }
   },
   update: function (req, res) {

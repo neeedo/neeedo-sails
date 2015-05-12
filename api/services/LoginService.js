@@ -11,8 +11,8 @@ module.exports = {
    *
    * @param email
    * @param password
-   * @param onSuccessCallback, will be called by the registered user instance delivered from neeedo API
-   * @param onErrorCallBack, will be called with an HTTP response object on error
+   * @param onSuccessCallback will be called by the registered user instance delivered from neeedo API
+   * @param onErrorCallBack will be called with an error object
    */
   queryUser: function(email, password, onSuccessCallback, onErrorCallBack) {
      var loginModel = new Login();
@@ -53,7 +53,15 @@ module.exports = {
 
     return undefined;
   },
-  redirectUserIfLoggedIn: function(req) {
+  setAfterLoginRedirectUrl: function(req) {
+    req.session.redirectUrl = req.url;
+  },
+  redirectToAfterLoginUrl: function(req, res) {
+    if ("redirectUrl" in req.session) {
+      res.redirect(req.session.redirectUrl);
+      return true;
+    }
 
+    return false;
   }
 };

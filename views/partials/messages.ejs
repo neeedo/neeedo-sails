@@ -1,3 +1,7 @@
-<div id="message">
-   <%- req.flash('message') %>
+<div id="errorMessage">
+   <%- FlashMessagesService.getErrorMessage(req) %>
+</div>
+
+<div id="successMessage">
+   <%- FlashMessagesService.getSuccessMessage(req) %>
 </div>
