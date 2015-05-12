@@ -11,5 +11,18 @@
   "technical_error_on_registration": "There was an error during registration. Please try again in several minutes. Sorry for the inconvenience.",
   "Welcome to Neeedo, %s!": "Welcome to Neeedo, %s!",
   "Hello %s!": "Hello %s!",
-  "Have fun here on Neeedo.com!": "Have fun here on Neeedo.com!"
+  "Have fun here on Neeedo.com!": "Have fun here on Neeedo.com!",
+  "register_internal_error" : "An internal error occured during the registration. Please contact Neeedo customer care.",
+  "login_internal_error" : "An error occured during login. Please contact Neeedo customer care.",
+  "login_user_not_found" : "We didn't find any user registered with given eMail address.",
+  "create_demand_internal_error" : "The demand couldn't be created. Please contact Neeedo customer care.",
+  "demand_not_found" : "We didn't find any demand matching your input.",
+  "update_demand_internal_error" : "The demand couldn't be updated. Please contact Neeedo customer care.",
+  "delete_demand_internal_error" : "The demand couldn't be deleted. Please contact Neeedo customer care.",
+  "create_offer_internal_error" : "The offer couldn't be created. Please contact Neeedo customer care.",
+  "offer_not_found" : "We didn't find any offer matching your input.",
+  "update_offer_internal_error" : "The offer couldn't be updated. Please contact Neeedo customer care.",
+  "delete_offer_internal_error" : "The offer couldn't be deleted. Please contact Neeedo customer care.",
+  "add_image_to_offer_internal_error" : "The image couldn't be added to your offer. Please contact Neeedo customer care.",
+  "login_wrong_password" : "The password is incorrect."
 }

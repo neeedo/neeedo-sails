@@ -12,5 +12,18 @@
   "Welcome to Neeedo, %s!": "Willkommen bei Neeedo, %s!",
   "Hello %s!": "Hallo %s!",
   "Have fun here on Neeedo.com!": "Viel Spaß auf Neeedo.com!",
-  "login_no_success": "Ungültige Zugangsdaten. Bitte versuche es noch einmal!"
+  "login_no_success": "Ungültige Zugangsdaten. Bitte versuche es noch einmal!",
+  "An internal error occured during the registration. Please contact Neeedo customer care." : " Es ist ein interner Fehler aufgetreten. Bitte kontaktieren Sie den Neeedo-Kundenservice.",
+  "An error occured during login. Please contact Neeedo customer care." : "Während des Logins ist ein Fehler aufgetreten. Bitte kontaktieren Sie den Neeedo-Kundenservice.",
+  "We didn't find any user registered with given eMail address." : "Es konnte kein registrierter Nutzer mit der angegebenen Email-adresse gefunden werden.",
+  "The demand couldn't be created. Please contact Neeedo customer care." : "Ihr Gesuch konnte nicht erstellt werden. Bitte kontaktieren Sie den Neeedo-Kundenservice.",
+  "We didn't find any demand matching your input." : "Es konnte kein Treffer für ihre Eingaben gefunden werden",
+  "The demand couldn't be updated. Please contact Neeedo customer care." : "Ihr Gesuch konnte nicht aktualisiert werden. Bitte kontaktieren Sie den Neeedo-Kundenservice.",
+  "The demand couldn't be deleted. Please contact Neeedo customer care." : "Ihr Gesuch konnte nicht gelöscht werden. Bitte kontaktieren Sie den Neeedo-Kundenservice.",
+  "The offer couldn't be created. Please contact Neeedo customer care." : "Ihr Angebot konnte nicht erstellte werden. Bitte kontaktieren Sie den Neeedo-Kundenservice.",
+  "We didn't find any offer matching your input." : "Es konnten keine Treffer für ihre Eingabe gefunden werden",
+  "The offer couldn't be updated. Please contact Neeedo customer care." : "Ihr Angebot konnte nicht aktualisiert werden. Bitte kontaktieren Sie den Neeedo-Kundenservice.",
+  "The offer couldn't be deleted. Please contact Neeedo customer care." : "Ihr Angebot konnte nicht gelöscht werden. Bitte kontaktieren Sie den Neeedo-Kundenservice.",
+  "The image couldn't be added to your offer. Please contact Neeedo customer care." : "Das Bild konnte nicht hinzugefügt werden. Bitte kontaktieren Sie den Neeedo-Kundenservice.",
+  "The password is incorrect." : "Das Passwort ist falsch"
 }
