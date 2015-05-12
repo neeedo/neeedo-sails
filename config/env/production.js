@@ -51,5 +51,10 @@ module.exports = {
         }
       }
     }
+  },
+  session: {
+    cookie: {
+      maxAge: 10 * 60 * 1000
+    }
   }
 };

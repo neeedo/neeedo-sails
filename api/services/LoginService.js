@@ -24,7 +24,8 @@ module.exports = {
   },
   logoutUser: function(req)
   {
-    req.session.user = undefined;
+    // invalidate complete session
+    req.session.destroy();
   },
   storeUserInSession: function(user, req)
   {
