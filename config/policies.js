@@ -38,6 +38,6 @@ module.exports.policies = {
   RegistrationController: {
     '*': false, // default policy for registration controller actions
 
-    'registration' : 'isNotLoggedIn'
+    'register' : 'isNotLoggedIn'
   }
 };

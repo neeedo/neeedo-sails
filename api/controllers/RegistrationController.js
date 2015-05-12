@@ -1,7 +1,7 @@
 var util = require('util');
 
 module.exports = {
-  registration: function (req, res) {
+  register: function (req, res) {
     var onSuccessCallback = function(registeredUser) {
       if (ApiClientService.client.options.isDevelopment()) {
         sails.log.info("User " + util.inspect(registeredUser, {
@@ -12,7 +12,7 @@ module.exports = {
 
       // show registration success view TODO
 
-      res.view('Users/registration-success', {
+      res.view('Users/register-success', {
         locals: {
           username: registeredUser.getUsername(),
           email: registeredUser.getEMail()
@@ -34,7 +34,7 @@ module.exports = {
 
       RegisterService.registerUser(email, username, password, onSuccessCallback, onErrorCallback);
     } else {
-      res.view('Users/registration');
+      res.view('registration/register');
     }
   }
 }

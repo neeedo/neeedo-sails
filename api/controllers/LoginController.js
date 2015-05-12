@@ -16,7 +16,7 @@ module.exports = {
       // delegate to LoginService to persist User (with his/her access token)
       LoginService.storeUserInSession(loggedInUser, req);
 
-      res.view('Users/login-success', {
+      res.view('login/login-success', {
         locals: {
           username: loggedInUser.getUsername(),
           email: loggedInUser.getEMail()
@@ -40,7 +40,7 @@ module.exports = {
 
       LoginService.queryUser(email, password, onSuccessCallback, onErrorCallback);
     } else {
-      res.view('Users/login');
+      res.view('login/login');
     }
   },
   logout: function (req, res) {
