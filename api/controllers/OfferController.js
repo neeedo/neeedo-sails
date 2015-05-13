@@ -81,19 +81,19 @@ module.exports = {
         var lat = req.param("lat");
         var lng = req.param("lng");
 
-        OfferService.updateOffer(offer, tags, lat, lng, price, onUpdateSuccessCallback, onErrorCallback);
+        OfferService.updateOffer(loadedOffer, tags, lat, lng, price, onUpdateSuccessCallback, onErrorCallback);
       } else {
-        if (undefined == offer) {
+        if (undefined == loadedOffer) {
           FlashMessagesService.setErrorMessage('The offer could not be loaded.', req, res);
           return res.redirect('/');
         }
 
         res.view('offer/edit', {
           locals: {
-            tags: ApiClientService.toTagString(offer.getTags()),
-            price: offer.getPrice(),
-            lat: offer.getLocation().getLatitude(),
-            lng: offer.getLocation().getLongitude(),
+            tags: ApiClientService.toTagString(loadedOffer.getTags()),
+            price: loadedOffer.getPrice(),
+            lat: loadedOffer.getLocation().getLatitude(),
+            lng: loadedOffer.getLocation().getLongitude(),
             btnLabel: 'Edit'
           }
         });

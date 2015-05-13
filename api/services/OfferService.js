@@ -90,12 +90,14 @@ module.exports = {
     } else {
       // load via API
       sails.log.info('Attempt to load offer with ID ' + offerId + " via API.");
-      OfferService.load(id, LoginService.getCurrentUser(req), onLoadCallback, onErrorCallback);
+
+      var offerService = new OfferService();
+      offerService.load(offerId, LoginService.getCurrentUser(req), onLoadCallback, onErrorCallback);
     }
   },
 
   isInSession: function(req, offerId) {
-    return offerId in req.session.offers && undefined != req.session.offers[offerId];
+    return "offers" in req.session && offerId in req.session.offers && undefined != req.session.offers[offerId];
   },
 
   getEditUrl: function(offerModel) {
