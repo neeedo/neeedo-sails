@@ -1,0 +1,20 @@
+ <form method="POST" id="createOffer">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title"><%= i18n("I'm offering") %></h4>
+                  </div>
+                  <div class="modal-body">
+                      <label for="tagsOffer"><%= i18n('Tags') %>: </label>
+                      <input class="form-control" name="tags" id="tagsOffer" type="text" value="tag1,tag2,..." placeholder="<%= i18n('Tags') %>"/>
+
+                      <label for="priceOffer"><%= i18n('Price') %>: </label>
+                      <input type="number" name="price" id="priceOffer" class="form-control" placeholder="<%= i18n('Preis') %>"/>
+
+
+                      <input type="hidden" name="lat" id="latOffer" value="13.534212" />
+                      <input type="hidden" name="lng" id="lonOffer" value="52.468562" />
+                  </div>
+                  <div class="modal-footer">
+                      <button type="submit" class="btn btn-default" data-dismiss="modal"><%= i18n('Submit') %></button>
+                  </div>
+ </form>

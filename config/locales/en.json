@@ -31,5 +31,8 @@
   "Submit" : "Submit",
   "Your inputs were not valid." : "Your inputs were not valid.",
   "Your offer was created successfully." : "Your offer was created successfully.",
-  "Create offer" : "Create Offer"
+  "Create offer" : "Create Offer",
+  "The offer could not be loaded." : "Deine Biete-Karte konnte leider nicht geladen werden.",
+  "Your offer was updated successfully." : "Your offer was updated successfully.",
+  "Your offer was deleted successfully." : "Your offer was deleted successfully."
 }
