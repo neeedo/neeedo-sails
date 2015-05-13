@@ -59,14 +59,7 @@ module.exports = {
       FlashMessagesService.setSuccessMessage('Your offer was updated successfully.', req, res);
       OfferService.storeInSession(req, updatedOffer);
 
-      res.view('offer/edit',{
-        locals: {
-          tags: ApiClientService.toTagString(updatedOffer.getTags()),
-          price: updatedOffer.getPrice(),
-          lat: updatedOffer.getLocation().getLatitude(),
-          lng: updatedOffer.getLocation().getLongitude()
-        }
-      });
+      res.redirect(OfferService.getEditUrl(updatedOffer));
     };
 
     var onErrorCallback = function(errorModel) {

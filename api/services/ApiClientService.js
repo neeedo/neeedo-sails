@@ -1,4 +1,5 @@
-var apiClient = require('neeedo-api-nodejs-client');
+var apiClient = require('neeedo-api-nodejs-client')
+    util = require('util');
 
 var Location = apiClient.models.Location,
     Error = apiClient.models.Error

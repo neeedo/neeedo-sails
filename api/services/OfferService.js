@@ -34,8 +34,7 @@ module.exports = {
     try {
       offerModel.setTags(ApiClientService.toTagArray(tags))
         .setLocation(ApiClientService.newLocation(parseFloat(latitude), parseFloat(longitude)))
-        .setPrice(parseFloat(price))
-        .setUser(user);
+        .setPrice(parseFloat(price));
 
       var offerService = new OfferService();
       offerService.updateOffer(offerModel, onSuccessCallback, onErrorCallBack);
