@@ -68,7 +68,7 @@ module.exports = {
    removeFromSession: function(req, offerModel) {
      var offerId = offerModel.getId();
      if (this.isInSession(req, offerModel.getId())) {
-       req.sesseion.offers[offerId] = undefined;
+       req.session.offers[offerId] = undefined;
      }
    },
 
