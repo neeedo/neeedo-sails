@@ -50,7 +50,7 @@ module.exports = {
     /*
      * ---------- callbacks ----------
      */
-    var onSuccessCallback = function(updatedOffer) {
+    var onUpdateSuccessCallback = function(updatedOffer) {
       sails.log.info("Offer " + util.inspect(updatedOffer, {
         showHidden: false,
         depth: null
@@ -69,38 +69,46 @@ module.exports = {
       res.redirect('/offer/edit');
     };
 
-    var offerId = req.param("offerId");
-    var offer = OfferService.loadOffer(req, offerId);
+    var onLoadSuccessCallback = function(loadedOffer) {
+      sails.log.info("Offer " + util.inspect(loadedOffer, {
+        showHidden: false,
+        depth: null
+      }) + " was loaded successfully.");
 
-    if ("POST" == req.method) {
-      var tags = req.param("tags");
-      var price = req.param("price");
-      var lat = req.param("lat");
-      var lng = req.param("lng");
+      if ("POST" == req.method) {
+        var tags = req.param("tags");
+        var price = req.param("price");
+        var lat = req.param("lat");
+        var lng = req.param("lng");
 
-      OfferService.updateOffer(offer, tags, lat, lng, price, onSuccessCallback, onErrorCallback);
-    } else {
-      if (undefined == offer) {
-        FlashMessagesService.setErrorMessage('The offer could not be loaded.', req, res);
-        return res.redirect('/');
+        OfferService.updateOffer(offer, tags, lat, lng, price, onUpdateSuccessCallback, onErrorCallback);
+      } else {
+        if (undefined == offer) {
+          FlashMessagesService.setErrorMessage('The offer could not be loaded.', req, res);
+          return res.redirect('/');
+        }
+
+        res.view('offer/edit', {
+          locals: {
+            tags: ApiClientService.toTagString(offer.getTags()),
+            price: offer.getPrice(),
+            lat: offer.getLocation().getLatitude(),
+            lng: offer.getLocation().getLongitude(),
+            btnLabel: 'Edit'
+          }
+        });
       }
 
-      res.view('offer/edit', {
-        locals: {
-          tags: ApiClientService.toTagString(offer.getTags()),
-          price: offer.getPrice(),
-          lat: offer.getLocation().getLatitude(),
-          lng: offer.getLocation().getLongitude(),
-          btnLabel: 'Edit'
-        }
-        });
-    }
+    };
+
+    var offerId = req.param("offerId");
+    OfferService.loadOffer(req, offerId, onLoadSuccessCallback, onErrorCallback);
   },
   delete: function (req, res) {
     /*
      * ---------- callbacks ----------
      */
-    var onSuccessCallback = function(deletedOffer) {
+    var onDeleteSuccessCallback = function(deletedOffer) {
       sails.log.info("Offer " + util.inspect(deletedOffer, {
         showHidden: false,
         depth: null
@@ -119,16 +127,17 @@ module.exports = {
       res.redirect('/');
     };
 
+    var onLoadSuccessCallback = function(loadedOffer) {
+      sails.log.info("Offer " + util.inspect(loadedOffer, {
+        showHidden: false,
+        depth: null
+      }) + " was loaded successfully.");
+
+      OfferService.deleteOffer(loadedOffer, onDeleteSuccessCallback, onErrorCallback);
+    };
+
     var offerId = req.param("offerId");
-
-    var offer = OfferService.loadOffer(req, offerId);
-
-    if (undefined == offer) {
-      FlashMessagesService.setErrorMessage('The offer could not be loaded.', req, res);
-      return res.redirect('/');
-    }
-
-    OfferService.deleteOffer(offer, onSuccessCallback, onErrorCallback);
+    OfferService.loadOffer(req, offerId, onLoadSuccessCallback, onErrorCallback);
   },
   uploadImage: function (req, res) {
 

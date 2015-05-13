@@ -72,19 +72,26 @@ module.exports = {
      }
    },
 
-  loadOffer: function(req, offerId) {
+  loadOffer: function(req, offerId, onLoadCallback, onErrorCallback) {
     if (this.isInSession(req, offerId)) {
-      var offer =  new Offer();
-          offer.loadFromSerialized(req.session.offers[offerId])
-        .setUser(LoginService.getCurrentUser(req));
+      try {
+        sails.log.info('Attempt to restore offer with ID ' + offerId + " from session.");
 
-      sails.log.info("loaded offer from session: \n" + util.inspect(offer));
+        var offer = new Offer();
+        offer.loadFromSerialized(req.session.offers[offerId])
+          .setUser(LoginService.getCurrentUser(req));
 
-      return offer;
+        sails.log.info("loaded offer from session: \n" + util.inspect(offer));
+
+        onLoadCallback(offer);
+      } catch (e) {
+        onErrorCallBack(ApiClientService.newError("loadOffer:" + e.message, 'Could not restore offer from session.'));
+      }
+    } else {
+      // load via API
+      sails.log.info('Attempt to load offer with ID ' + offerId + " via API.");
+      OfferService.load(id, LoginService.getCurrentUser(req), onLoadCallback, onErrorCallback);
     }
-
-    sails.log.info("could not load offer with id " + offerId + " from session:\nOffer Session content:\n" + util.inspect(req.session.offers));
-    return undefined;
   },
 
   isInSession: function(req, offerId) {
