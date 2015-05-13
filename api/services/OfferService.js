@@ -30,8 +30,13 @@ module.exports = {
     }
   },
 
-  updateOffer: function(offerModel, onSuccessCallback, onErrorCallBack) {
+  updateOffer: function(offerModel, tags, latitude, longitude, price, onSuccessCallback, onErrorCallBack) {
     try {
+      offerModel.setTags(ApiClientService.toTagArray(tags))
+        .setLocation(ApiClientService.newLocation(parseFloat(latitude), parseFloat(longitude)))
+        .setPrice(parseFloat(price))
+        .setUser(user);
+
       var offerService = new OfferService();
       offerService.updateOffer(offerModel, onSuccessCallback, onErrorCallBack);
     } catch (e) {
@@ -54,7 +59,7 @@ module.exports = {
     var offerId = offerModel.getId();
 
     if (! ("offers" in req.session)) {
-      sails.log.info("setting offers in session");
+      sails.log.info("storing offer in session: " + util.inspect(offerModel));
       req.session.offers = {};
     }
 
@@ -70,9 +75,16 @@ module.exports = {
 
   loadOffer: function(req, offerId) {
     if (this.isInSession(req, offerId)) {
-      return req.session.offers[offerId];
+      var offer =  new Offer();
+          offer.loadFromSerialized(req.session.offers[offerId])
+        .setUser(LoginService.getCurrentUser(req));
+
+      sails.log.info("loaded offer from session: \n" + util.inspect(offer));
+
+      return offer;
     }
 
+    sails.log.info("could not load offer with id " + offerId + " from session:\nOffer Session content:\n" + util.inspect(req.session.offers));
     return undefined;
   },
 
@@ -81,11 +93,11 @@ module.exports = {
   },
 
   getEditUrl: function(offerModel) {
-    return 'offer/edit/id/' + offerModel.getId();
+    return 'offers/edit/offerId/' + offerModel.getId();
   },
 
   getDeleteUrl: function(offerModel) {
-    return 'offer/delete/id/' + offerModel.getId();
+    return 'offers/delete/offerId/' + offerModel.getId();
   }
 
 

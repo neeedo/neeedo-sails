@@ -35,7 +35,15 @@ module.exports = {
 
       OfferService.createOffer(tags, lat, lng, price, LoginService.getCurrentUser(req), onSuccessCallback, onErrorCallback);
     } else {
-      res.view('offer/create');
+      res.view('offer/create', {
+        locals: {
+          tags: "tag1, tag2,...",
+          price: 10,
+          lat: 35.92516,
+          lng: 12.37528,
+          btnLabel: 'Create'
+        }
+      });
     }
   },
   edit: function (req, res) {
@@ -51,8 +59,13 @@ module.exports = {
       FlashMessagesService.setSuccessMessage('Your offer was updated successfully.', req, res);
       OfferService.storeInSession(req, updatedOffer);
 
-      res.view('offer/edit', {
-
+      res.view('offer/edit',{
+        locals: {
+          tags: ApiClientService.toTagString(updatedOffer.getTags()),
+          price: updatedOffer.getPrice(),
+          lat: updatedOffer.getLocation().getLatitude(),
+          lng: updatedOffer.getLocation().getLongitude()
+        }
       });
     };
 
@@ -63,16 +76,32 @@ module.exports = {
       res.redirect('/offer/edit');
     };
 
-    var offerId = req.param("id");
-
+    var offerId = req.param("offerId");
     var offer = OfferService.loadOffer(req, offerId);
 
-    if (undefined == offer) {
-      FlashMessagesService.setErrorMessage('The offer could not be loaded.', req, res);
-      return req.redirect('/');
-    }
+    if ("POST" == req.method) {
+      var tags = req.param("tags");
+      var price = req.param("price");
+      var lat = req.param("lat");
+      var lng = req.param("lng");
 
-    OfferService.updateOffer(offer, onSuccessCallback, onErrorCallback);
+      OfferService.updateOffer(offer, tags, lat, lng, price, onSuccessCallback, onErrorCallback);
+    } else {
+      if (undefined == offer) {
+        FlashMessagesService.setErrorMessage('The offer could not be loaded.', req, res);
+        return res.redirect('/');
+      }
+
+      res.view('offer/edit', {
+        locals: {
+          tags: ApiClientService.toTagString(offer.getTags()),
+          price: offer.getPrice(),
+          lat: offer.getLocation().getLatitude(),
+          lng: offer.getLocation().getLongitude(),
+          btnLabel: 'Edit'
+        }
+        });
+    }
   },
   delete: function (req, res) {
     /*
@@ -87,9 +116,7 @@ module.exports = {
       FlashMessagesService.setSuccessMessage('Your offer was deleted successfully.', req, res);
       OfferService.removeFromSession(req, deletedOffer);
 
-      res.view('/', {
-
-      });
+      res.redirect('/');
     };
 
     var onErrorCallback = function(errorModel) {
@@ -99,13 +126,13 @@ module.exports = {
       res.redirect('/');
     };
 
-    var offerId = req.param("id");
+    var offerId = req.param("offerId");
 
     var offer = OfferService.loadOffer(req, offerId);
 
     if (undefined == offer) {
       FlashMessagesService.setErrorMessage('The offer could not be loaded.', req, res);
-      return req.redirect('/');
+      return res.redirect('/');
     }
 
     OfferService.deleteOffer(offer, onSuccessCallback, onErrorCallback);

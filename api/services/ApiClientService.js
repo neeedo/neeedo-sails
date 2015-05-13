@@ -23,6 +23,9 @@ module.exports = {
     // split by being "whitespace-friendly" (e.g. allow 'value1 , value2')
     return tagStr.split(/\s*,\s*/);
   },
+  toTagString : function(tagArray) {
+    return tagArray.join();
+  },
   newError: function(messageForLog, messageForUser) {
    return new Error().addLogMessage(messageForLog).addErrorMessage(messageForUser);
   }
