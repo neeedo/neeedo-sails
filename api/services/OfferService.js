@@ -81,8 +81,6 @@ module.exports = {
         offer.loadFromSerialized(req.session.offers[offerId])
           .setUser(LoginService.getCurrentUser(req));
 
-        sails.log.info("loaded offer from session: \n" + util.inspect(offer));
-
         onLoadCallback(offer);
       } catch (e) {
         onErrorCallBack(ApiClientService.newError("loadOffer:" + e.message, 'Could not restore offer from session.'));
