@@ -2,6 +2,7 @@ var apiClient = require('neeedo-api-nodejs-client'),
     util = require('util');
 
 var Demand = apiClient.models.Demand;
+var Price = apiClient.models.DemandPrice;
 var DemandService = apiClient.services.Demand;
 
 module.exports = {
@@ -23,13 +24,14 @@ module.exports = {
   createDemand: function(mustTags, shouldTags, latitude, longitude, distance, minPrice, maxPrice, user, onSuccessCallback, onErrorCallBack) {
     try {
       var demandModel = new Demand();
-      demandModel.setMustTags(ApiClientService.toTagArray(tags))
-        .setShouldTags(ApiClientService.toTagArray(tags))
+      demandModel.setMustTags(ApiClientService.toTagArray(mustTags))
+        .setShouldTags(ApiClientService.toTagArray(shouldTags))
         .setLocation(ApiClientService.newLocation(parseFloat(latitude), parseFloat(longitude)))
         .setPrice(new Price().setMin(parseFloat(minPrice)).setMax(parseFloat(maxPrice)))
-        .setDistance(distance)
+        .setDistance(parseInt(distance))
         .setUser(user);
 
+      sails.log.info('here');
       var demandService = new DemandService();
       demandService.createDemand(demandModel, onSuccessCallback, onErrorCallBack);
     } catch (e) {
@@ -39,11 +41,11 @@ module.exports = {
 
   updateDemand: function(demandModel, mustTags, shouldTags, latitude, longitude, distance, minPrice, maxPrice, onSuccessCallback, onErrorCallBack) {
     try {
-      demandModel.setMustTags(ApiClientService.toTagArray(tags))
-        .setShouldTags(ApiClientService.toTagArray(tags))
+      demandModel.setMustTags(ApiClientService.toTagArray(mustTags))
+        .setShouldTags(ApiClientService.toTagArray(shouldTags))
         .setLocation(ApiClientService.newLocation(parseFloat(latitude), parseFloat(longitude)))
         .setPrice(new Price().setMin(parseFloat(minPrice)).setMax(parseFloat(maxPrice)))
-        .setDistance(distance);
+        .setDistance(parseInt(distance));
 
       var demandService = new DemandService();
       demandService.updateDemand(demandModel, onSuccessCallback, onErrorCallBack);

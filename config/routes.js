@@ -41,7 +41,10 @@ module.exports.routes = {
   '/logout': 'LoginController.logout',
   '/offers/create' : 'OfferController.create',
   '/offers/edit/offerId/:offerId' : 'OfferController.edit',
-  '/offers/delete/offerId/:offerId' : 'OfferController.delete'
+  '/offers/delete/offerId/:offerId' : 'OfferController.delete',
+  '/demands/create' : 'DemandController.create',
+  '/demands/edit/demandId/:demandId' : 'DemandController.edit',
+  '/demands/delete/demandId/:demandId' : 'DemandController.delete'
 
   /***************************************************************************
   *                                                                          *

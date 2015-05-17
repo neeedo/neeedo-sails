@@ -90,7 +90,7 @@ module.exports = {
         var lng = req.param("lng");
         var distance = req.param("distance");
 
-        DemandService.updateDemand(loadedDemand, mustTags, shouldTags, lat, lng, minPrice, maxPrice, onUpdateSuccessCallback, onErrorCallback);
+        DemandService.updateDemand(loadedDemand, mustTags, shouldTags, lat, lng, distance, minPrice, maxPrice, onUpdateSuccessCallback, onErrorCallback);
       } else {
         if (undefined == loadedDemand) {
           FlashMessagesService.setErrorMessage('The demand could not be loaded.', req, res);
