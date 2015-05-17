@@ -38,4 +38,10 @@
   "Your offer was updated successfully." : "Your offer was updated successfully.",
   "Your offer was deleted successfully." : "Your offer was deleted successfully.",
   "The demand couldn't be loaded. Please contact Neeedo customer care." : "The demand couldn't be loaded. Please contact Neeedo customer care."
+  "I'm looking for" : "I'm looking for",
+  "must have" : "must have",
+  "should have" : "should have",
+  "price from" : "price from",
+  "price to" : "price to",
+  "distance" : "distance"
 }
