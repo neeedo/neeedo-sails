@@ -38,11 +38,16 @@
   "The offer could not be loaded." : "Deine Biete-Karte konnte leider nicht geladen werden.",
   "Your offer was updated successfully." : "Deine Biete-Karte wurde aktualisiert.",
   "Your offer was deleted successfully." : "Deine Biete-Karte wurde erfolgreich gelöscht.",
+  "Your demand was created successfully." : "Deine Suche-Karte wurde angelegt.",
+  "Create demand" : "Neues Gesuch",
+  "The demand could not be loaded." : "Deine Suche-Karte konnte leider nicht geladen werden.",
+  "Your demand was updated successfully." : "Deine Suche-Karte wurde aktualisiert.",
+  "Your demand was deleted successfully." : "Deine Suche-Karte wurde erfolgreich gelöscht.",
   "The demand couldn't be loaded. Please contact Neeedo customer care." : "Deine Suche-Karte konnte leider nicht geladen werden. Bitte kontaktieren den Neeedo-Kundenservice.",
   "I'm looking for" : "Ich suche",
   "must have" : "muss haben",
   "should have" : "sollte haben",
-  "price from" : "Preis von",
-  "price to" : "Preis bis",
-  "distance" : "Distanz"
+  "Price from" : "Preis von",
+  "Price to" : "Preis bis",
+  "Maximum distance" : "Distanz"
 }

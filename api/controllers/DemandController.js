@@ -62,7 +62,7 @@ module.exports = {
         depth: null
       }) + " was created successfully.");
 
-      FlashMessagesService.setSuccessMessage('Your Demand was updated successfully.', req, res);
+      FlashMessagesService.setSuccessMessage('Your demand was updated successfully.', req, res);
       DemandService.storeInSession(req, updatedDemand);
 
       res.redirect(DemandService.getEditUrl(updatedDemand));

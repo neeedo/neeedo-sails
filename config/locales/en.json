@@ -37,11 +37,16 @@
   "The offer could not be loaded." : "Deine Biete-Karte konnte leider nicht geladen werden.",
   "Your offer was updated successfully." : "Your offer was updated successfully.",
   "Your offer was deleted successfully." : "Your offer was deleted successfully.",
+  "Your demand was created successfully." : "Your demand was created successfully.",
+  "Create demand" : "Create demand",
+  "The demand could not be loaded." : "The demand could not be loaded.",
+  "Your demand was updated successfully." : "Your demand was updated successfully.",
+  "Your demand was deleted successfully." : "Your demand was deleted successfully.",
   "The demand couldn't be loaded. Please contact Neeedo customer care." : "The demand couldn't be loaded. Please contact Neeedo customer care.",
   "I'm looking for" : "I'm looking for",
   "must have" : "must have",
   "should have" : "should have",
-  "price from" : "price from",
-  "price to" : "price to",
-  "distance" : "distance"
+  "Price from" : "Price from",
+  "Price to" : "Price to",
+  "Maximum distance" : "Distance"
 }
