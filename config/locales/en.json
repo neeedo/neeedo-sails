@@ -48,5 +48,6 @@
   "should have" : "should have",
   "Price from" : "Price from",
   "Price to" : "Price to",
-  "Maximum distance" : "Distance"
+  "Maximum distance" : "Distance",
+  "A user with this email adress already exists" : "A user with this email adress already exists. Please choose another one!"
 }
