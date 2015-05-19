@@ -28,10 +28,10 @@ module.exports = {
   // port: 80,
 
   /***************************************************************************
-   * Set the log level in production environment to "silent"                 *
+   * Set the log level in production environment                             *
    ***************************************************************************/
   log: {
-    level: "silent"
+    level: "info"
   },
   /***************************************************************************
    *                                                                         *
