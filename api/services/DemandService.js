@@ -4,8 +4,24 @@ var apiClient = require('neeedo-api-nodejs-client'),
 var Demand = apiClient.models.Demand;
 var Price = apiClient.models.DemandPrice;
 var DemandService = apiClient.services.Demand;
+var DemandListService = apiClient.services.DemandList;
 
 module.exports = {
+  /**
+   * Load the currently logged in user's demands.
+   * @param req
+   * @param onSuccessCallback
+   * @param onErrorCallback
+   */
+  loadUsersDemands: function(req, onSuccessCallback, onErrorCallback) {
+    try {
+      var demandListService = new DemandListService();
+      demandListService.loadByUser(LoginService.getCurrentUser(req), onSuccessCallback, onErrorCallback);
+    } catch (e) {
+      onErrorCallback(ApiClientService.newError("loadUsersDemands:" + e.message, 'Your inputs were not valid.'));
+    }
+  },
+
   /**
    * Create a new demand. See neeedo API documentation for the meaning of the parameters.
    *
@@ -69,11 +85,16 @@ module.exports = {
     var demandId = demandModel.getId();
 
     if (! ("demands" in req.session)) {
-      sails.log.info("storing demand in session: " + util.inspect(demandModel));
       req.session.demands = {};
     }
 
     req.session.demands[demandId] = demandModel;
+  },
+
+  storeListInSession: function(req, demandListModel) {
+    for (var i=0; i < demandListModel.getDemands().length; i++) {
+      DemandService.storeInSession(req, demandListModel.getDemands()[i]);
+    }
   },
 
    removeFromSession: function(req, demandModel) {

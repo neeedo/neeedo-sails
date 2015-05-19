@@ -15,12 +15,7 @@ module.exports = {
       LoginService.storeUserInSession(loggedInUser, req);
 
       if (!LoginService.redirectToAfterLoginUrl(req, res)) {
-        res.view('login/login-success', {
-          locals: {
-            username: loggedInUser.getUsername(),
-            email: loggedInUser.getEMail()
-          }
-        });
+        res.redirect('/dashboard');
       }
     };
 
@@ -43,6 +38,7 @@ module.exports = {
       res.view('login/login');
     }
   },
+
   logout: function (req, res) {
     LoginService.logoutUser(req);
 

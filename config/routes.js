@@ -44,7 +44,8 @@ module.exports.routes = {
   '/offers/delete/offerId/:offerId' : 'OfferController.delete',
   '/demands/create' : 'DemandController.create',
   '/demands/edit/demandId/:demandId' : 'DemandController.edit',
-  '/demands/delete/demandId/:demandId' : 'DemandController.delete'
+  '/demands/delete/demandId/:demandId' : 'DemandController.delete',
+  '/dashboard': 'UserController.dashboard'
 
   /***************************************************************************
   *                                                                          *

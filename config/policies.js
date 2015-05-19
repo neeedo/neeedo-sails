@@ -32,6 +32,9 @@ module.exports.policies = {
   DemandController: {
     '*': 'isLoggedIn'
   },
+  UserController: {
+    '*': 'isLoggedIn'
+  },
   LoginController: {
     '*': false, // default policy for login controller actions
 

@@ -3,8 +3,24 @@ var apiClient = require('neeedo-api-nodejs-client'),
 
 var Offer = apiClient.models.Offer;
 var OfferService = apiClient.services.Offer;
+var OfferListService = apiClient.services.OfferList;
 
 module.exports = {
+  /**
+   * Load the currently logged in user's offers.
+   * @param req
+   * @param onSuccessCallback
+   * @param onErrorCallback
+   */
+  loadUsersOffers: function(req, onSuccessCallback, onErrorCallback) {
+    try {
+      var offerListService = new OfferListService();
+      offerListService.loadByUser(LoginService.getCurrentUser(req), onSuccessCallback, onErrorCallback);
+    } catch (e) {
+      onErrorCallback(ApiClientService.newError("loadUsersOffers:" + e.message, 'Your inputs were not valid.'));
+    }
+  },
+
   /**
    * Query a given user.
    *
@@ -58,11 +74,16 @@ module.exports = {
     var offerId = offerModel.getId();
 
     if (! ("offers" in req.session)) {
-      sails.log.info("storing offer in session: " + util.inspect(offerModel));
       req.session.offers = {};
     }
 
     req.session.offers[offerId] = offerModel;
+  },
+
+  storeListInSession: function(req, offersListModel) {
+    for (var i=0; i < offersListModel.getOffers().length; i++) {
+      OfferService.storeInSession(req, offersListModel.getOffers()[i]);
+    }
   },
 
    removeFromSession: function(req, offerModel) {
