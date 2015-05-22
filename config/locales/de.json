@@ -50,9 +50,9 @@
   "Price from" : "Preis von",
   "Price to" : "Preis bis",
   "Maximum distance" : "Distanz",
-  "The offers couldn't be loaded. Please contact Neeedo customer care." : "Deine Biete-Karten konnten leider nicht geladen werden. Bitte versuche es später noch einmal.",
-  "The demands couldn't be loaded. Please contact Neeedo customer care." : "Deine Suche-Karten konnten leider nicht geladen werden. Bitte versuche es später noch einmal.",
-  "The offer couldn't be loaded. Please contact Neeedo customer care." : "Deine Biete-Karte konnte leider nicht geladen werden. Bitte versuche es später noch einmal.",
-  "The demand couldn't be loaded. Please contact Neeedo customer care." : "Deine Suche-Karte konnte leider nicht geladen werden. Bitte versuche es später noch einmal.",
+  "The offers couldn't be loaded. Please contact Neeedo customer care." : "Die Biete-Karten konnten leider nicht geladen werden. Bitte versuche es später noch einmal.",
+  "The demands couldn't be loaded. Please contact Neeedo customer care." : "Die Suchen-Karten konnten leider nicht geladen werden. Bitte versuche es später noch einmal.",
+  "The offer couldn't be loaded. Please contact Neeedo customer care." : "Die Biete-Karte konnte leider nicht geladen werden. Bitte versuche es später noch einmal.",
+  "The demand couldn't be loaded. Please contact Neeedo customer care." : "Die Suche-Karte konnte leider nicht geladen werden. Bitte versuche es später noch einmal.",
   "A user with this email adress already exists" : "Es existiert bereits ein Benutzer mit der angegebenen Adresse. Bitte benutze eine andere!"
 }

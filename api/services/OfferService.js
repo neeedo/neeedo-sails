@@ -2,6 +2,7 @@ var apiClient = require('neeedo-api-nodejs-client'),
     util = require('util');
 
 var Offer = apiClient.models.Offer;
+var OfferList = apiClient.models.OfferList;
 var OfferService = apiClient.services.Offer;
 var OfferListService = apiClient.services.OfferList;
 
@@ -18,6 +19,33 @@ module.exports = {
       offerListService.loadByUser(LoginService.getCurrentUser(req), onSuccessCallback, onErrorCallback);
     } catch (e) {
       onErrorCallback(ApiClientService.newError("loadUsersOffers:" + e.message, 'Your inputs were not valid.'));
+    }
+  },
+
+  /**
+   * Load the most recent demands.
+   * @param req
+   * @param onSuccessCallback
+   * @param onErrorCallback
+   */
+  loadMostRecentOffers: function(req, onSuccessCallback, onErrorCallback) {
+    try {
+      // dummy demandlist
+      var dummyOfferList = new OfferList();
+      var dummyOffer = new Offer()
+        .setId("1")
+        .setTags(["socken", "bekleidung", "wolle"])
+        .setLocation(ApiClientService.newLocation(parseFloat(35.92516), parseFloat(12.37528)))
+        .setPrice(25.0);
+
+      dummyOfferList.addOffer(dummyOffer);
+      onSuccessCallback(dummyOfferList);
+
+      /* TODO delegate to api client service when available
+       var demandListService = new DemandListService();
+       demandListService.loadByUser(LoginService.getCurrentUser(req), onSuccessCallback, onErrorCallback);*/
+    } catch (e) {
+      onErrorCallback(ApiClientService.newError("loadMostRecentOffers:" + e.message, "The offers couldn't be loaded. Please contact Neeedo customer care."));
     }
   },
 

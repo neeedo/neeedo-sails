@@ -1,28 +1,21 @@
-var util = require('util');
-
 module.exports = {
-  /**
-   * Build user's dashboard after he/she logged in or was redirected to it.
-   * @param req
-   * @param res
-   */
-  dashboard: function (req, res) {
+  index: function (req, res) {
     /*
      * ---------- callbacks ----------
      */
-    var onLoadOffersSuccessCallback = function(usersOffers) {
-      OfferService.storeListInSession(req, usersOffers);
+    var onLoadOffersSuccessCallback = function(mostRecentOffers) {
+      //OfferService.storeListInSession(req, mostRecentOffers);
 
       /**
        *  ---------- callbacks ----------
        */
-      var onLoadCompleteCallback = function(usersDemands) {
-        DemandService.storeListInSession(req, usersDemands);
+      var onLoadCompleteCallback = function(mostRecentDemands) {
+        //DemandService.storeListInSession(req, mostRecentDemands);
 
         res.view('homepage', {
           locals: {
-            demands: usersDemands.getDemands(),
-            offers: usersOffers.getOffers()
+            demands: mostRecentDemands.getDemands(),
+            offers: mostRecentOffers.getOffers()
           }
         });
       };
@@ -33,7 +26,7 @@ module.exports = {
 
         res.view('homepage', {
           locals: {
-            offers: usersOffers.getOffers(),
+            offers: mostRecentOffers.getOffers(),
             demands: []
           }
         });
@@ -42,7 +35,7 @@ module.exports = {
       /*
        * ---------- functionality ----------
        */
-      DemandService.loadUsersDemands(req, onLoadCompleteCallback, onDemandLoadErrorCallback);
+      DemandService.loadMostRecentDemands(req, onLoadCompleteCallback, onDemandLoadErrorCallback);
     };
 
 
@@ -61,6 +54,6 @@ module.exports = {
     /*
      * ---------- functionality ----------
      */
-    OfferService.loadUsersOffers(req, onLoadOffersSuccessCallback, onErrorCallback);
+    OfferService.loadMostRecentOffers(req, onLoadOffersSuccessCallback, onErrorCallback);
   }
 }

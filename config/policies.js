@@ -25,7 +25,9 @@ module.exports.policies = {
   *                                                                          *
   *                                                                          *
   ***************************************************************************/
-
+  IndexController: {
+    'index': 'isNotLoggedIn'
+  },
   OfferController: {
     '*': 'isLoggedIn'
   },

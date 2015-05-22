@@ -2,7 +2,7 @@ var apiClient = require('neeedo-api-nodejs-client'),
     util = require('util');
 
 var Demand = apiClient.models.Demand;
-var Price = apiClient.models.DemandPrice;
+var DemandList = apiClient.models.DemandList;
 var DemandService = apiClient.services.Demand;
 var DemandListService = apiClient.services.DemandList;
 
@@ -19,6 +19,35 @@ module.exports = {
       demandListService.loadByUser(LoginService.getCurrentUser(req), onSuccessCallback, onErrorCallback);
     } catch (e) {
       onErrorCallback(ApiClientService.newError("loadUsersDemands:" + e.message, 'Your inputs were not valid.'));
+    }
+  },
+
+  /**
+   * Load the most recent demands.
+   * @param req
+   * @param onSuccessCallback
+   * @param onErrorCallback
+   */
+  loadMostRecentDemands: function(req, onSuccessCallback, onErrorCallback) {
+    try {
+      // dummy demandlist
+      var dummyDemandList = new DemandList();
+      var dummyDemand = new Demand()
+        .setId("1")
+        .setMustTags(["iphone"])
+        .setShouldTags(["neuwertig","schwarz"])
+        .setLocation(ApiClientService.newLocation(parseFloat(35.92516), parseFloat(12.37528)))
+        .setDistance(30)
+        .setPrice(ApiClientService.newDemandPrice(25.0, 77.0));
+
+      dummyDemandList.addDemand(dummyDemand);
+      onSuccessCallback(dummyDemandList);
+
+      /* TODO delegate to api client service when available
+      var demandListService = new DemandListService();
+      demandListService.loadByUser(LoginService.getCurrentUser(req), onSuccessCallback, onErrorCallback);*/
+    } catch (e) {
+      onErrorCallback(ApiClientService.newError("loadMostRecentDemands:" + e.message, "The demands couldn't be loaded. Please contact Neeedo customer care."));
     }
   },
 
@@ -43,7 +72,7 @@ module.exports = {
       demandModel.setMustTags(ApiClientService.toTagArray(mustTags))
         .setShouldTags(ApiClientService.toTagArray(shouldTags))
         .setLocation(ApiClientService.newLocation(parseFloat(latitude), parseFloat(longitude)))
-        .setPrice(new Price().setMin(parseFloat(minPrice)).setMax(parseFloat(maxPrice)))
+        .setPrice(ApiClientService.newDemandPrice(parseFloat(minPrice), parseFloat(maxPrice)))
         .setDistance(parseInt(distance))
         .setUser(user);
 
@@ -60,7 +89,7 @@ module.exports = {
       demandModel.setMustTags(ApiClientService.toTagArray(mustTags))
         .setShouldTags(ApiClientService.toTagArray(shouldTags))
         .setLocation(ApiClientService.newLocation(parseFloat(latitude), parseFloat(longitude)))
-        .setPrice(new Price().setMin(parseFloat(minPrice)).setMax(parseFloat(maxPrice)))
+        .setPrice(ApiClientService.newDemandPrice(parseFloat(minPrice), parseFloat(maxPrice)))
         .setDistance(parseInt(distance));
 
       var demandService = new DemandService();

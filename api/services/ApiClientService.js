@@ -3,6 +3,7 @@ var apiClient = require('neeedo-api-nodejs-client')
 
 var Location = apiClient.models.Location,
     Error = apiClient.models.Error
+    DemandPrice = apiClient.models.DemandPrice;
   ;
 
 module.exports = {
@@ -19,6 +20,9 @@ module.exports = {
   },
   newLocation : function(lat, lng) {
     return new Location().setLatitude(lat).setLongitude(lng);
+  },
+  newDemandPrice : function(min, max) {
+    return new DemandPrice().setMin(min).setMax(max);
   },
   toTagArray : function(tagStr) {
     // split by being "whitespace-friendly" (e.g. allow 'value1 , value2')
