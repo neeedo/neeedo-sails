@@ -182,11 +182,7 @@ module.exports = {
         depth: null
       }) + " was loaded successfully.");
 
-      var limit = req.param("limit", PaginatorService.getDefaultLimit());
-      var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
-      var offset = PaginatorService.calculateOffset(limit, pageNumber);
-      
-      DemandService.matchOffers(loadedDemand, limit, offset, onMatchCallback, onErrorCallback);
+      DemandService.matchOffers(loadedDemand, req, onMatchCallback, onErrorCallback);
     };
 
     var demandId = req.param("demandId");

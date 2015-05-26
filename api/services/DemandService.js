@@ -17,7 +17,12 @@ module.exports = {
   loadUsersDemands: function(req, onSuccessCallback, onErrorCallback) {
     try {
       var demandListService = new DemandListService();
-      demandListService.loadByUser(LoginService.getCurrentUser(req), onSuccessCallback, onErrorCallback);
+
+      var limit = req.param("limit", PaginatorService.getDefaultLimit());
+      var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
+      var offset = PaginatorService.calculateOffset(limit, pageNumber);
+
+      demandListService.loadByUser(LoginService.getCurrentUser(req), offset, limit, onSuccessCallback, onErrorCallback);
     } catch (e) {
       onErrorCallback(ApiClientService.newError("loadUsersDemands:" + e.message, 'Your inputs were not valid.'));
     }
@@ -32,6 +37,7 @@ module.exports = {
   loadMostRecentDemands: function(req, onSuccessCallback, onErrorCallback) {
     try {
       // dummy demandlist
+      
       var dummyDemandList = new DemandList();
       var dummyDemand = new Demand()
         .setId("1")
@@ -53,9 +59,14 @@ module.exports = {
       ;
       onSuccessCallback(dummyDemandList);
 
-      /* TODO delegate to api client service when available
+      /*
+      TODO uncomment when API action is public
+      var limit = req.param("limit", PaginatorService.getDefaultLimit());
+      var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
+      var offset = PaginatorService.calculateOffset(limit, pageNumber);
+
       var demandListService = new DemandListService();
-      demandListService.loadByUser(LoginService.getCurrentUser(req), onSuccessCallback, onErrorCallback);*/
+      demandListService.loadMostRecent(offset, limit, onSuccessCallback, onErrorCallback);*/
     } catch (e) {
       onErrorCallback(ApiClientService.newError("loadMostRecentDemands:" + e.message, "The demands couldn't be loaded. Please contact Neeedo customer care."));
     }
@@ -118,8 +129,12 @@ module.exports = {
     }
   },
 
-  matchOffers: function(demandModel, limit, offset, onSuccessCallback, onErrorCallback) {
+  matchOffers: function(demandModel, req, onSuccessCallback, onErrorCallback) {
     try {
+      var limit = req.param("limit", PaginatorService.getDefaultLimit());
+      var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
+      var offset = PaginatorService.calculateOffset(limit, pageNumber);
+
       var matchingService = new MatchingService();
       matchingService.matchDemand(demandModel, offset, limit, onSuccessCallback, onErrorCallback);
     } catch (e) {

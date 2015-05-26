@@ -15,8 +15,12 @@ module.exports = {
    */
   loadUsersOffers: function(req, onSuccessCallback, onErrorCallback) {
     try {
+      var limit = req.param("limit", PaginatorService.getDefaultLimit());
+      var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
+      var offset = PaginatorService.calculateOffset(limit, pageNumber);
+
       var offerListService = new OfferListService();
-      offerListService.loadByUser(LoginService.getCurrentUser(req), onSuccessCallback, onErrorCallback);
+      offerListService.loadByUser(LoginService.getCurrentUser(req), offset, limit, onSuccessCallback, onErrorCallback);
     } catch (e) {
       onErrorCallback(ApiClientService.newError("loadUsersOffers:" + e.message, 'Your inputs were not valid.'));
     }
@@ -30,7 +34,8 @@ module.exports = {
    */
   loadMostRecentOffers: function(req, onSuccessCallback, onErrorCallback) {
     try {
-      // dummy demandlist
+      // dummy offer list
+
       var dummyOfferList = new OfferList();
       var dummyOffer = new Offer()
         .setId("1")
@@ -50,9 +55,14 @@ module.exports = {
       ;
       onSuccessCallback(dummyOfferList);
 
-      /* TODO delegate to api client service when available
-       var demandListService = new DemandListService();
-       demandListService.loadByUser(LoginService.getCurrentUser(req), onSuccessCallback, onErrorCallback);*/
+      /*
+       TODO uncomment when API action is public
+      var limit = req.param("limit", PaginatorService.getDefaultLimit());
+      var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
+      var offset = PaginatorService.calculateOffset(limit, pageNumber);
+
+       var offerListService = new OfferListService();
+       offerListService.loadMostRecent(offset, limit, onSuccessCallback, onErrorCallback);*/
     } catch (e) {
       onErrorCallback(ApiClientService.newError("loadMostRecentOffers:" + e.message, "The offers couldn't be loaded. Please contact Neeedo customer care."));
     }

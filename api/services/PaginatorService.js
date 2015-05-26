@@ -3,9 +3,9 @@ module.exports = {
     return (pageNumber - this.getFirstPageNumber()) * limit;
   },
   getFirstPageNumber: function() {
-    return sails.config.webapp.matching.firstPageNumber;
+    return sails.config.webapp.pagination.firstPageNumber;
   },
   getDefaultLimit: function() {
-    return sails.config.webapp.matching.defaultLimit;
+    return sails.config.webapp.pagination.defaultLimit;
   }
 };

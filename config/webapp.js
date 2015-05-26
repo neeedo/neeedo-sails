@@ -7,10 +7,10 @@ module.exports.webapp = {
 
   /***************************************************************************
   *                                                                          *
-  * Matching                                                                 *
+  * Pagination                                                                 *
   *                                                                          *
   ***************************************************************************/
-  matching: {
+  pagination: {
     // default limit if none is given via limit request parameter
     defaultLimit: 10,
     firstPageNumber: 1
