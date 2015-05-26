@@ -37,7 +37,7 @@ module.exports = {
   loadMostRecentDemands: function(req, onSuccessCallback, onErrorCallback) {
     try {
       // dummy demandlist
-      
+
       var dummyDemandList = new DemandList();
       var dummyDemand = new Demand()
         .setId("1")
@@ -197,6 +197,14 @@ module.exports = {
     }
 
     return 'demands/edit/demandId/' + demandModel.getId();
+  },
+
+  getMatchingUrl: function(demandModel) {
+    if (undefined == demandModel.getId()) {
+      return '/';
+    }
+
+    return 'matching/demandId/' + demandModel.getId();
   },
 
   getDeleteUrl: function(demandModel) {
