@@ -3,7 +3,7 @@ var apiClient = require('neeedo-api-nodejs-client'),
 
 var Offer = apiClient.models.Offer;
 var OfferList = apiClient.models.OfferList;
-var OfferService = apiClient.services.Offer;
+var ClientOfferService = apiClient.services.Offer;
 var OfferListService = apiClient.services.OfferList;
 
 module.exports = {
@@ -76,7 +76,7 @@ module.exports = {
         .setPrice(parseFloat(price))
         .setUser(user);
 
-      var offerService = new OfferService();
+      var offerService = new ClientOfferService();
       offerService.createOffer(offerModel, onSuccessCallback, onErrorCallBack);
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("createOffer:" + e.message, 'Your inputs were not valid.'));
@@ -89,7 +89,7 @@ module.exports = {
         .setLocation(ApiClientService.newLocation(parseFloat(latitude), parseFloat(longitude)))
         .setPrice(parseFloat(price));
 
-      var offerService = new OfferService();
+      var offerService = new ClientOfferService();
       offerService.updateOffer(offerModel, onSuccessCallback, onErrorCallBack);
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("updateOffer:" + e.message, 'Your inputs were not valid.'));
@@ -99,7 +99,7 @@ module.exports = {
 
   deleteOffer: function(offerModel, onSuccessCallback, onErrorCallBack) {
     try {
-      var offerService = new OfferService();
+      var offerService = new ClientOfferService();
       offerService.deleteOffer(offerModel, onSuccessCallback, onErrorCallBack);
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("deleteOffer:" + e.message, 'Your inputs were not valid.'));
@@ -147,7 +147,7 @@ module.exports = {
       // load via API
       sails.log.info('Attempt to load offer with ID ' + offerId + " via API.");
 
-      var offerService = new OfferService();
+      var offerService = new ClientOfferService();
       offerService.load(offerId, LoginService.getCurrentUser(req), onLoadCallback, onErrorCallback);
     }
   },

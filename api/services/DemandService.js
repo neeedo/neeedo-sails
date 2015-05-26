@@ -3,7 +3,7 @@ var apiClient = require('neeedo-api-nodejs-client'),
 
 var Demand = apiClient.models.Demand;
 var DemandList = apiClient.models.DemandList;
-var DemandService = apiClient.services.Demand;
+var ClientDemandService = apiClient.services.Demand;
 var DemandListService = apiClient.services.DemandList;
 
 module.exports = {
@@ -86,7 +86,7 @@ module.exports = {
         .setUser(user);
 
       sails.log.info('here');
-      var demandService = new DemandService();
+      var demandService = new ClientDemandService();
       demandService.createDemand(demandModel, onSuccessCallback, onErrorCallBack);
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("createDemand:" + e.message, 'Your inputs were not valid.'));
@@ -101,7 +101,7 @@ module.exports = {
         .setPrice(ApiClientService.newDemandPrice(parseFloat(minPrice), parseFloat(maxPrice)))
         .setDistance(parseInt(distance));
 
-      var demandService = new DemandService();
+      var demandService = new ClientDemandService();
       demandService.updateDemand(demandModel, onSuccessCallback, onErrorCallBack);
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("updateDemand:" + e.message, 'Your inputs were not valid.'));
@@ -111,7 +111,7 @@ module.exports = {
 
   deleteDemand: function(demandModel, onSuccessCallback, onErrorCallBack) {
     try {
-      var demandService = new DemandService();
+      var demandService = new ClientDemandService();
       demandService.deleteDemand(demandModel, onSuccessCallback, onErrorCallBack);
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("deleteDemand:" + e.message, 'Your inputs were not valid.'));
@@ -159,7 +159,7 @@ module.exports = {
       // load via API
       sails.log.info('Attempt to load demand with ID ' + demandId + " via API.");
 
-      var demandService = new DemandService();
+      var demandService = new ClientDemandService();
       demandService.load(demandId, LoginService.getCurrentUser(req), onLoadCallback, onErrorCallback);
     }
   },
