@@ -42,7 +42,8 @@ module.exports.routes = {
   '/demands/create' : 'DemandController.create',
   '/demands/edit/demandId/:demandId' : 'DemandController.edit',
   '/demands/delete/demandId/:demandId' : 'DemandController.delete',
-  '/dashboard': 'UserController.dashboard'
+  '/dashboard': 'UserController.dashboard',
+  '/matching/demandId/:demandId': 'DemandController.matching'
 
   /***************************************************************************
   *                                                                          *

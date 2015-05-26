@@ -50,5 +50,7 @@
   "The demands couldn't be loaded. Please contact Neeedo customer care." : "The demands couldn't be loaded. Please contact Neeedo customer care.",
   "The offer couldn't be loaded. Please contact Neeedo customer care." : "The offer couldn't be loaded. Please contact Neeedo customer care.",
   "The demand couldn't be loaded. Please contact Neeedo customer care." : "The demand couldn't be loaded. Please contact Neeedo customer care.",
-  "A user with this email adress already exists" : "A user with this email adress already exists. Please choose another one!"
+  "A user with this email adress already exists" : "A user with this email adress already exists. Please choose another one!",
+  "Sorry, we couldn't find any matching offers. Please try to specify your demand better." : "Sorry, we couldn't find any matching offers. Please try to specify your demand better.",
+  "The matched offers couldn't be loaded. Please contact Neeedo customer care.": "Unfortunately, we could not find any matched offers. Please try again later."
 }

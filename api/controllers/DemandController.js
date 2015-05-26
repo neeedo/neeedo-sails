@@ -72,7 +72,7 @@ module.exports = {
       ApiClientService.logMessages(errorModel);
       ApiClientService.addFlashMessages(req, res, errorModel);
 
-      res.redirect('/demand/edit');
+      res.redirect('/');
     };
 
     var onLoadSuccessCallback = function(loadedDemand) {
@@ -146,6 +146,47 @@ module.exports = {
       }) + " was loaded successfully.");
 
       DemandService.deleteDemand(loadedDemand, onDeleteSuccessCallback, onErrorCallback);
+    };
+
+    var demandId = req.param("demandId");
+    DemandService.loadDemand(req, demandId, onLoadSuccessCallback, onErrorCallback);
+  },
+
+  matching: function(req, res) {
+    /*
+     * ---------- callbacks ----------
+     */
+    var onMatchCallback = function(matchedOfferList) {
+      sails.log.info("Matched offers " + util.inspect(matchedOfferList, {
+        showHidden: false,
+        depth: null
+      }));
+
+      res.view('offer/matching', {
+        locals: {
+          offers: matchedOfferList.getOffers()
+        }
+      });
+    };
+
+    var onErrorCallback = function(errorModel) {
+      ApiClientService.logMessages(errorModel);
+      ApiClientService.addFlashMessages(req, res, errorModel);
+
+      res.redirect('/');
+    };
+
+    var onLoadSuccessCallback = function(loadedDemand) {
+      sails.log.info("Demand " + util.inspect(loadedDemand, {
+        showHidden: false,
+        depth: null
+      }) + " was loaded successfully.");
+
+      var limit = req.param("limit", PaginatorService.getDefaultLimit());
+      var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
+      var offset = PaginatorService.calculateOffset(limit, pageNumber);
+      
+      DemandService.matchOffers(loadedDemand, limit, offset, onMatchCallback, onErrorCallback);
     };
 
     var demandId = req.param("demandId");

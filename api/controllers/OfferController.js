@@ -54,7 +54,7 @@ module.exports = {
       sails.log.info("Offer " + util.inspect(updatedOffer, {
         showHidden: false,
         depth: null
-      }) + " was created successfully.");
+      }) + " was updated successfully.");
 
       FlashMessagesService.setSuccessMessage('Your offer was updated successfully.', req, res);
       OfferService.storeInSession(req, updatedOffer);
@@ -66,7 +66,7 @@ module.exports = {
       ApiClientService.logMessages(errorModel);
       ApiClientService.addFlashMessages(req, res, errorModel);
 
-      res.redirect('/offer/edit');
+      res.redirect('/');
     };
 
     var onLoadSuccessCallback = function(loadedOffer) {

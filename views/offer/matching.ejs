@@ -1,0 +1,11 @@
+<div>
+  <% if (0 == offers.length) { %>
+    <%= i18n("Sorry, we couldn't find any matching offers. Please try to specify your demand better.") %>
+  <% } %>
+  <ul>
+    <% for (offer in offers) { %>
+        <li><%= offer.getId() %></li>
+    <% } %>
+  </ul>
+
+</div>

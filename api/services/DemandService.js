@@ -5,6 +5,7 @@ var Demand = apiClient.models.Demand;
 var DemandList = apiClient.models.DemandList;
 var ClientDemandService = apiClient.services.Demand;
 var DemandListService = apiClient.services.DemandList;
+var MatchingService = apiClient.services.Matching;
 
 module.exports = {
   /**
@@ -106,7 +107,6 @@ module.exports = {
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("updateDemand:" + e.message, 'Your inputs were not valid.'));
     }
-
   },
 
   deleteDemand: function(demandModel, onSuccessCallback, onErrorCallBack) {
@@ -116,7 +116,15 @@ module.exports = {
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("deleteDemand:" + e.message, 'Your inputs were not valid.'));
     }
+  },
 
+  matchOffers: function(demandModel, limit, offset, onSuccessCallback, onErrorCallback) {
+    try {
+      var matchingService = new MatchingService();
+      matchingService.matchDemand(demandModel, offset, limit, onSuccessCallback, onErrorCallback);
+    } catch (e) {
+      onErrorCallback(ApiClientService.newError("matchOffers:" + e.message, 'Your inputs were not valid.'));
+    }
   },
 
   storeInSession: function(req, demandModel) {
@@ -169,10 +177,18 @@ module.exports = {
   },
 
   getEditUrl: function(demandModel) {
+    if (undefined == demandModel.getId()) {
+      return '/';
+    }
+
     return 'demands/edit/demandId/' + demandModel.getId();
   },
 
   getDeleteUrl: function(demandModel) {
+    if (undefined == demandModel.getId()) {
+      return '/';
+    }
+
     return 'demands/delete/demandId/' + demandModel.getId();
   }
 

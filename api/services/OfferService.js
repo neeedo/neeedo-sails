@@ -157,10 +157,18 @@ module.exports = {
   },
 
   getEditUrl: function(offerModel) {
+    if (undefined == offerModel.getId()) {
+      return '/';
+    }
+
     return 'offers/edit/offerId/' + offerModel.getId();
   },
 
   getDeleteUrl: function(offerModel) {
+    if (undefined == offerModel.getId()) {
+      return '/';
+    }
+
     return 'offers/delete/offerId/' + offerModel.getId();
   }
 
