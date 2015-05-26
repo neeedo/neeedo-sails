@@ -40,7 +40,16 @@ module.exports = {
         .setDistance(30)
         .setPrice(ApiClientService.newDemandPrice(25.0, 77.0));
 
-      dummyDemandList.addDemand(dummyDemand);
+      dummyDemandList
+        .addDemand(dummyDemand)
+        .addDemand(dummyDemand)
+        .addDemand(dummyDemand)
+        .addDemand(dummyDemand)
+        .addDemand(dummyDemand)
+        .addDemand(dummyDemand)
+        .addDemand(dummyDemand)
+        .addDemand(dummyDemand)
+      ;
       onSuccessCallback(dummyDemandList);
 
       /* TODO delegate to api client service when available

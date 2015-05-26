@@ -38,7 +38,16 @@ module.exports = {
         .setLocation(ApiClientService.newLocation(parseFloat(35.92516), parseFloat(12.37528)))
         .setPrice(25.0);
 
-      dummyOfferList.addOffer(dummyOffer);
+      dummyOfferList
+        .addOffer(dummyOffer)
+        .addOffer(dummyOffer)
+        .addOffer(dummyOffer)
+        .addOffer(dummyOffer)
+        .addOffer(dummyOffer)
+        .addOffer(dummyOffer)
+        .addOffer(dummyOffer)
+        .addOffer(dummyOffer)
+      ;
       onSuccessCallback(dummyOfferList);
 
       /* TODO delegate to api client service when available
