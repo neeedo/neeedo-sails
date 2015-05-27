@@ -1,13 +1,42 @@
-<div id= main class="container">
+<div id= main class="container-fluid">
 
-    <ul>
-      <% demands.forEach(function(demand) { %>
-      <%- partial ('./partials/recentDemands.ejs',{demand: demand}) %>
-      <% }); %>
-    </ul>
-    <ul>
-      <% offers.forEach(function(offer) { %>
-      <%- partial ('./partials/recentOffers.ejs',{offer: offer}) %>
-      <% }); %>
-    </ul>
+  <div class="container hidden-xs">
+    <div class="row">
+      <div class="col-xs-6">
+        <ul>
+          <% demands.forEach(function(demand) { %>
+          <%- partial ('./partials/recentDemands.ejs',{demand: demand}) %>
+          <% }); %>
+        </ul>
+      </div>
+      <div class="col-xs-6">
+        <ul>
+          <% offers.forEach(function(offer) { %>
+          <%- partial ('./partials/recentOffers.ejs',{offer: offer}) %>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container visible-xs-block">
+    <div class="row">
+      <div class="col-xs-6">
+        <ul>
+        <% demands.forEach(function(demand) { %>
+        <%- partial ('./partials/recentDemands.ejs',{demand: demand}) %>
+        <% }); %>
+        </ul>
+      </div>
+      <div class="col-xs-6">
+        <ul>
+          <% offers.forEach(function(offer) { %>
+          <%- partial ('./partials/recentOffers.ejs',{offer: offer}) %>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
 </div> <!--Main Container-->
