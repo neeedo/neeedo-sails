@@ -1,73 +1,13 @@
-<div class="container contentContainer" id="topContainer">
+<div id= main class="container">
 
-    <div class="row">
-
-        <div class="col-md-6 col-md-offset-3">
-
-            <div class="jumbotron center">
-                <h1><img class="centralImage" src="images/neeedo_color-01.png"/></h1>
-
-                <p>Der übersättigte E-Commerce-Markt macht es immer wichtiger,
-                    innovative Konzepte zu entwickeln, um aus den vielen gleichartigen Plattformen hervorzustechen.</p>
-                <p>
-                    Das Projekt neeedo hat es sich zum Ziel gesetzt, antizipative Benutzererlebnisse mit einer modernen
-                    E-Commerce-Lösung zu verknüpfen.
-                    Im ersten Abschnitt dieses Projektes liegt der Fokus maßgeblich auf der Konzeption und dem Design (optisch und technisch).
-                    Besonders wichtig sind uns dabei die Themen Skalierbarkeit (Non-Blocking und Reactive Principle),
-                    eine effiziente auf Web-Services basierende Architektur (SPHERE.IO) und intuitive Interfaces (Mobile- und Web-App).
-                </p>
-                <p> Überzeugen Sie sich doch einfach selbst </p>
-                <a type="button" class="btn btn-info btn-lg" href="<%= UrlService.to('app') %>">Jetzt ausprobieren</a>
-            </div><!-- jumbotron-->
-        </div><!--topRow-->
-    </div><!--row-->
-</div><!-- mainContainer-->
-
-<div class="container contentContainer" id="detailsContainer">
-
-    <div class="row center">
-
-        <h1 class=" title">Warum wir anders sind als andere?</h1>
-
-    </div>
-
-    <div class="row center ">
-
-        <div class="col-md-4 ">
-            <h2><span class="glyphicon glyphicon-search"></span> Suche was du wirklich brauchst</h2>
-            <p>Für uns als Einkäufer gibt es nichts nervigeres als sich erst durch Seiten von Angeboten zu klicken bevor man das findet was man sucht.
-                Wir haben daher unsere Suche so aufgebaut, dass der Kunde exakt das eingeben kann was für ihn wichtig ist, und das auch findet. </p>
-            <a type="button" class="btn btn-info btn-lg"  href="<%= UrlService.to('app') %>">Jetzt ausprobieren</a>
-
-        </div>
-
-        <div class="col-md-4 ">
-            <h2><span class="glyphicon glyphicon-tags"></span> Finde was du wirklich suchst</h2>
-            <p>Wir nutzen verschiedene Methoden um das Einkaufen für unsere Nutzer zu vereinfachen.
-                Das bedeutet für uns auch, dass ihm in erster Linie die Sachen angeboten werden die er auch finden möchte.</p>
-            <a type="button" class="btn btn-info btn-lg"  href="<%= UrlService.to('app') %>">Jetzt ausprobieren</a>
-
-        </div>
-        <div class="col-md-4 ">
-            <h2><span class="glyphicon glyphicon-heart-empty"></span> Alles in deiner Nähe</h2>
-            <p>Es lag uns von Beginn an am Herzen den regionalen Markt zu unsterstützen.
-                Daher legen wir besonderen Wert darauf, dass die angebotenen Waren so gut erreichbar wie möglich sind</p>
-            <a type="button" class="btn btn-info btn-lg"  href="<%= UrlService.to('app') %>">Jetzt ausprobieren</a>
-
-        </div>
-    </div>
-</div><!--detailsContainer-->
-
-<div class="container contentContainer" id="appContainer">
-
-    <div class="row">
-
-        <h1 class="center title">"Gibt's das auch als App?"</h1>
-
-        <p class=" center">Wir arbeiten hart an der Umsetzung unsere Mobile App. Einen Prototyp können Sie hier am Stand bereits betrachten</p>
-
-        <p class="center "><img src="images/appStore.png" class="centralImage" />
-
-    </div>
-
-</div><!--appContainer>
+    <ul>
+      <% demands.forEach(function(demand) { %>
+      <%- partial ('./partials/recentDemands.ejs',{demand: demand}) %>
+      <% }); %>
+    </ul>
+    <ul>
+      <% offers.forEach(function(offer) { %>
+      <%- partial ('./partials/recentOffers.ejs',{offer: offer}) %>
+      <% }); %>
+    </ul>
+</div> <!--Main Container-->
