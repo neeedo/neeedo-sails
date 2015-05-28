@@ -43,7 +43,8 @@ module.exports.routes = {
   '/demands/edit/demandId/:demandId' : 'DemandController.edit',
   '/demands/delete/demandId/:demandId' : 'DemandController.delete',
   '/dashboard': 'UserController.dashboard',
-  '/matching/demandId/:demandId': 'DemandController.matching'
+  '/matching/demandId/:demandId': 'DemandController.matching',
+  '/user/setLocale/locale/:locale' : 'UserController.setLocale'
 
   /***************************************************************************
   *                                                                          *

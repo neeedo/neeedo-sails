@@ -25,6 +25,12 @@
                       <%- partial ('./login.ejs') %>
                 </div>
           </li>
+
+          <% // list all available locales / languages and provide link to set %>
+          <% for (var localeI = 0; localeI < LocaleService.getAvailableLocales().length; localeI++) { %>
+              <% var locale = LocaleService.getAvailableLocales()[localeI] %>
+              <li><a href="<%= UrlService.to(LocaleService.getSetLocaleUrl(locale)) %>"><%= locale %></a></li>
+          <% } %>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div>

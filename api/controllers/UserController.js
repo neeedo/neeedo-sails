@@ -62,5 +62,21 @@ module.exports = {
      * ---------- functionality ----------
      */
     OfferService.loadUsersOffers(req, onLoadOffersSuccessCallback, onErrorCallback);
+  },
+
+  setLocale: function(req, res) {
+     var locale = req.param("locale");
+
+     if (LocaleService.isValidLocale(locale)) {
+       LocaleService.saveUsersPreferedLocale(res, locale);
+       LocaleService.setUsersPreferedLocaleInRequest(req, locale);
+
+       //FlashMessagesService.setSuccessMessage('Your locale was set.', req, res);
+       return res.redirect('/');
+     }
+
+     sails.log.error('Attempt to set unavailable locale ' + locale);
+     FlashMessagesService.setErrorMessage("We couldn't set your prefered locale.", req, res);
+     return res.redirect('/');
   }
 }

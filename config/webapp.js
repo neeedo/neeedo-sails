@@ -14,5 +14,10 @@ module.exports.webapp = {
     // default limit if none is given via limit request parameter
     defaultLimit: 10,
     firstPageNumber: 1
+  },
+  cookie: {
+    // cookies maxAge in milliseconds
+    maxAge: 31536000000,
+    httpOnly: false
   }
 };

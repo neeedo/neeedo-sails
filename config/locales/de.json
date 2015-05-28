@@ -56,5 +56,7 @@
   "The demand couldn't be loaded. Please contact Neeedo customer care." : "Die Suche-Karte konnte leider nicht geladen werden. Bitte versuche es später noch einmal.",
   "A user with this email adress already exists" : "Es existiert bereits ein Benutzer mit der angegebenen Adresse. Bitte benutze eine andere!",
   "Sorry, we couldn't find any matching offers. Please try to specify your demand better." : "Sorry, wir konnten leider keine passenden Biete-Karten für dich finden. Versuche, deine Suche-Karte besser zu spezifizieren.",
-  "The matched offers couldn't be loaded. Please contact Neeedo customer care.": "Wir konnten wegen eines technischen Fehlers leider keine passenden Biete-Karten finden. Bitte versuche es später noch einmal."
+  "The matched offers couldn't be loaded. Please contact Neeedo customer care.": "Wir konnten wegen eines technischen Fehlers leider keine passenden Biete-Karten finden. Bitte versuche es später noch einmal.",
+  "We couldn't set your prefered locale.": "Wir konnten deine Sprache leider nicht setzen.",
+  "Your locale was set.": "Deine bevorzugte Sprache wurde erfolgreich gesetzt."
 }
