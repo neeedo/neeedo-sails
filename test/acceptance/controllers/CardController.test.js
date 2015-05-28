@@ -1,8 +1,8 @@
 var request = require('supertest');
 
-describe('CardController', function() {
+describe('[ACCEPTANCE TEST] CardController', function() {
 
-  describe('#app()', function() {
+  describe('POST /card/app', function() {
     it('should print view app.ejs', function (done) {
       this.timeout(20000);
 

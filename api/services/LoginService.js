@@ -15,12 +15,16 @@ module.exports = {
    * @param onErrorCallBack will be called with an error object
    */
   queryUser: function(email, password, onSuccessCallback, onErrorCallBack) {
-     var loginModel = new Login();
-     loginModel.setEMail(email);
-     loginModel.setPassword(password);
+    try {
+      var loginModel = new Login();
+      loginModel.setEMail(email);
+      loginModel.setPassword(password);
 
-     var loginService = new LoginService();
-     loginService.loginUser(loginModel, onSuccessCallback, onErrorCallBack);
+      var loginService = new LoginService();
+      loginService.loginUser(loginModel, onSuccessCallback, onErrorCallBack);
+    } catch (e) {
+      onErrorCallBack(ApiClientService.newError("queryUser:" + e.message, "login_internal_error"));
+    }
   },
   logoutUser: function(req)
   {

@@ -27,11 +27,12 @@
   },
   "devDependencies": {
     "codecov.io": "0.0.8",
-    "mocha-lcov-reporter": "0.0.2",
     "grunt-mocha-istanbul": "^2.3.1",
     "istanbul": "0.3.13",
-    "mocha": "*",
-    "should": ">= 0.0.1",
+    "mocha": "^2.2.4",
+    "mocha-lcov-reporter": "0.0.2",
+    "should": "^6.0.1",
+    "sinon": "^1.14.1",
     "supertest": "0.15.0"
   },
   "scripts": {
