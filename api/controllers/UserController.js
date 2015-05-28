@@ -72,11 +72,15 @@ module.exports = {
        LocaleService.setUsersPreferedLocaleInRequest(req, locale);
 
        //FlashMessagesService.setSuccessMessage('Your locale was set.', req, res);
-       return res.redirect('/');
+       if (!UrlService.redirectToLastRedirectUrl(req, res)) {
+         return res.redirect('/dashboard');
+       }
+
+       return;
      }
 
      sails.log.error('Attempt to set unavailable locale ' + locale);
      FlashMessagesService.setErrorMessage("We couldn't set your prefered locale.", req, res);
-     return res.redirect('/');
+     return res.redirect(LocaleService.getRedirectUrl());
   }
 }

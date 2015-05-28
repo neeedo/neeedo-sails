@@ -27,29 +27,29 @@ module.exports.policies = {
   ***************************************************************************/
 
   IndexController: {
-    'index': ['setLocale', 'isNotLoggedIn']
+    'index': ['setLocale', 'isNotLoggedIn', 'setRedirectUrl']
   },
   OfferController: {
-    '*': ['setLocale', 'isLoggedIn']
+    '*': ['setLocale', 'setRedirectUrl', 'isLoggedIn']
   },
   DemandController: {
-    '*': ['setLocale', 'isLoggedIn']
+    '*': ['setLocale', 'setRedirectUrl', 'isLoggedIn']
   },
   UserController: {
-    '*': ['setLocale', 'isLoggedIn'],
+    '*': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
 
     // setLocale can be accessed public and logged-in
     'setLocale': ['setLocale']
   },
   LoginController: {
-    '*': ['setLocale', false], // default policy for login controller actions
+    '*': ['setLocale', 'setRedirectUrl', false], // default policy for login controller actions
 
     'login' : ['setLocale', 'isNotLoggedIn'],
-    'logout' : ['setLocale', 'isLoggedIn']
+    'logout' : ['setLocale', 'setRedirectUrl', 'isLoggedIn']
   },
   RegistrationController: {
-    '*': ['setLocale', false], // default policy for registration controller actions
+    '*': ['setLocale', 'setRedirectUrl', false], // default policy for registration controller actions
 
-    'register' : ['setLocale', 'isNotLoggedIn']
+    'register' : ['setLocale', 'setRedirectUrl', 'isNotLoggedIn']
   }
 };

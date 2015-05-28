@@ -53,15 +53,7 @@ module.exports = {
 
     return undefined;
   },
-  setAfterLoginRedirectUrl: function(req) {
-    req.session.redirectUrl = req.url;
-  },
   redirectToAfterLoginUrl: function(req, res) {
-    if ("redirectUrl" in req.session) {
-      res.redirect(req.session.redirectUrl);
-      return true;
-    }
-
-    return false;
+    return UrlService.redirectToLastRedirectUrl(req, res);
   }
 };

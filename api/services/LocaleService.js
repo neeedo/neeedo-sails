@@ -39,5 +39,9 @@ module.exports = {
 
   getSetLocaleUrl: function(locale) {
     return '/user/setLocale/locale/' + locale;
+  },
+
+  getRedirectUrl: function(req) {
+    return LoginService.getRedirectUrl(req);
   }
 };
