@@ -5,7 +5,7 @@ var request = require('supertest'),
 describe('[ACCEPTANCE TEST] LoginController', function() {
 
   describe('GET /login', function() {
-    it('should contain the login formt', function (done) {
+    it('should contain the login form', function (done) {
       this.timeout(20000);
 
       request(sails.hooks.http.app)
