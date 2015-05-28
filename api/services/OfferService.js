@@ -34,35 +34,12 @@ module.exports = {
    */
   loadMostRecentOffers: function(req, onSuccessCallback, onErrorCallback) {
     try {
-      // dummy offer list
-
-      var dummyOfferList = new OfferList();
-      var dummyOffer = new Offer()
-        .setId("1")
-        .setTags(["socken", "bekleidung", "wolle"])
-        .setLocation(ApiClientService.newLocation(parseFloat(35.92516), parseFloat(12.37528)))
-        .setPrice(25.0);
-
-      dummyOfferList
-        .addOffer(dummyOffer)
-        .addOffer(dummyOffer)
-        .addOffer(dummyOffer)
-        .addOffer(dummyOffer)
-        .addOffer(dummyOffer)
-        .addOffer(dummyOffer)
-        .addOffer(dummyOffer)
-        .addOffer(dummyOffer)
-      ;
-      onSuccessCallback(dummyOfferList);
-
-      /*
-       TODO uncomment when API action is public
       var limit = req.param("limit", PaginatorService.getDefaultLimit());
       var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
       var offset = PaginatorService.calculateOffset(limit, pageNumber);
 
        var offerListService = new OfferListService();
-       offerListService.loadMostRecent(offset, limit, onSuccessCallback, onErrorCallback);*/
+       offerListService.loadMostRecent(offset, limit, onSuccessCallback, onErrorCallback);
     } catch (e) {
       onErrorCallback(ApiClientService.newError("loadMostRecentOffers:" + e.message, "The offers couldn't be loaded. Please contact Neeedo customer care."));
     }

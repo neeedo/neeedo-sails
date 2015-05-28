@@ -36,37 +36,12 @@ module.exports = {
    */
   loadMostRecentDemands: function(req, onSuccessCallback, onErrorCallback) {
     try {
-      // dummy demandlist
-
-      var dummyDemandList = new DemandList();
-      var dummyDemand = new Demand()
-        .setId("1")
-        .setMustTags(["iphone"])
-        .setShouldTags(["neuwertig","schwarz"])
-        .setLocation(ApiClientService.newLocation(parseFloat(35.92516), parseFloat(12.37528)))
-        .setDistance(30)
-        .setPrice(ApiClientService.newDemandPrice(25.0, 77.0));
-
-      dummyDemandList
-        .addDemand(dummyDemand)
-        .addDemand(dummyDemand)
-        .addDemand(dummyDemand)
-        .addDemand(dummyDemand)
-        .addDemand(dummyDemand)
-        .addDemand(dummyDemand)
-        .addDemand(dummyDemand)
-        .addDemand(dummyDemand)
-      ;
-      onSuccessCallback(dummyDemandList);
-
-      /*
-      TODO uncomment when API action is public
       var limit = req.param("limit", PaginatorService.getDefaultLimit());
       var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
       var offset = PaginatorService.calculateOffset(limit, pageNumber);
 
       var demandListService = new DemandListService();
-      demandListService.loadMostRecent(offset, limit, onSuccessCallback, onErrorCallback);*/
+      demandListService.loadMostRecent(offset, limit, onSuccessCallback, onErrorCallback);
     } catch (e) {
       onErrorCallback(ApiClientService.newError("loadMostRecentDemands:" + e.message, "The demands couldn't be loaded. Please contact Neeedo customer care."));
     }
