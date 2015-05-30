@@ -10,6 +10,7 @@
   "Create": "Anlegen",
   "Edit": "Ändern",
   "Delete": "Löschen",
+  "Could not connect to the Neeedo service hub. Please try again later.": "Wir konnten keine Verbindung zum Neeedo Service Hub herstellen. Bitte versuche es später noch einmal.",
   "Neeedo Member Area": "Neeedo Member Area",
   "technical_error_on_registration": "Leider ist bei der Registierung ein Fehler aufgetreten. Bitte versuche es später noch einmal",
   "Welcome to Neeedo, %s!": "Willkommen bei Neeedo, %s!",
