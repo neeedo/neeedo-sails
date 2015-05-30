@@ -75,6 +75,13 @@ module.exports = {
         depth: null
       }) + " was loaded successfully.");
 
+      if (OfferService.belongsToCurrentUser(req, loadedOffer)) {
+        loadedOffer.setUser(LoginService.getCurrentUser(req));
+      } else {
+        FlashMessagesService.setErrorMessage('You cannot edit offers of other users.', req, res);
+        return res.redirect('/');
+      }
+
       if ("POST" == req.method) {
         var tags = req.param("tags");
         var price = req.param("price");
@@ -113,6 +120,11 @@ module.exports = {
         showHidden: false,
         depth: null
       }) + " was deleted successfully.");
+
+      if (!OfferService.belongsToCurrentUser(req, deletedOffer)) {
+        FlashMessagesService.setErrorMessage('You cannot delete offers of other users.', req, res);
+        return res.redirect('/');
+      }
 
       FlashMessagesService.setSuccessMessage('Your offer was deleted successfully.', req, res);
       OfferService.removeFromSession(req, deletedOffer);

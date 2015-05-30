@@ -3,6 +3,11 @@
   <li>
     <p><%= demand.getMustTags() %></p>
     <p><%= demand.getShouldTags() %></p>
+
+    <% if (DemandService.belongsToCurrentUser(req, demand)) { %>
+      <p><a href="<%= DemandService.getEditUrl(demand) %>"><%= i18n('Edit') %></a></p>
+      <p><a href="<%= DemandService.getDeleteUrl(demand) %>"><%= i18n('Delete') %></a></p>
+    <% } %>
   </li>
 
 </div>

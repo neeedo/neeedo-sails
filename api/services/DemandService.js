@@ -146,8 +146,7 @@ module.exports = {
         sails.log.info('Attempt to restore demand with ID ' + demandId + " from session.");
 
         var demand = new Demand();
-        demand.loadFromSerialized(req.session.demands[demandId])
-          .setUser(LoginService.getCurrentUser(req));
+        demand.loadFromSerialized(req.session.demands[demandId]);
 
         onLoadCallback(demand);
       } catch (e) {
@@ -188,6 +187,12 @@ module.exports = {
     }
 
     return 'demands/delete/demandId/' + demandModel.getId();
+  },
+
+  belongsToCurrentUser: function(req, demand) {
+    return LoginService.userIsLoggedIn(req)
+      && undefined !== demand.getUser()
+      && LoginService.getCurrentUser(req).getId() == demand.getUser().getId();
   }
 
 

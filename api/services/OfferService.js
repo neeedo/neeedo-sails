@@ -123,12 +123,11 @@ module.exports = {
         sails.log.info('Attempt to restore offer with ID ' + offerId + " from session.");
 
         var offer = new Offer();
-        offer.loadFromSerialized(req.session.offers[offerId])
-          .setUser(LoginService.getCurrentUser(req));
+        offer.loadFromSerialized(req.session.offers[offerId]);
 
         onLoadCallback(offer);
       } catch (e) {
-        onErrorCallBack(ApiClientService.newError("loadOffer:" + e.message, 'Could not restore offer from session.'));
+        onErrorCallback(ApiClientService.newError("loadOffer:" + e.message, 'Could not restore offer from session.'));
       }
     } else {
       // load via API
@@ -157,7 +156,14 @@ module.exports = {
     }
 
     return 'offers/delete/offerId/' + offerModel.getId();
+  },
+
+  belongsToCurrentUser: function(req, offer) {
+    return (LoginService.userIsLoggedIn(req)
+      && undefined != offer.getUser()
+      && LoginService.getCurrentUser(req).getId() == offer.getUser().getId());
   }
+
 
 
 };

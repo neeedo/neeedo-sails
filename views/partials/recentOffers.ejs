@@ -2,6 +2,11 @@
 <div>
   <li>
     <p><%= offer.getTags() %></p>
+
+    <% if (OfferService.belongsToCurrentUser(req, offer)) { %>
+          <p><a href="<%= OfferService.getEditUrl(offer) %>"><%= i18n('Edit') %></a></p>
+          <p><a href="<%= OfferService.getDeleteUrl(offer) %>"><%= i18n('Delete') %></a></p>
+        <% } %>
   </li>
 
 </div>

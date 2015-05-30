@@ -81,6 +81,13 @@ module.exports = {
         depth: null
       }) + " was loaded successfully.");
 
+      if (DemandService.belongsToCurrentUser(req, loadedDemand)) {
+        loadedDemand.setUser(LoginService.getCurrentUser(req));
+      } else {
+        FlashMessagesService.setErrorMessage('You cannot edit demands of other users.', req, res);
+        return res.redirect('/');
+      }
+
       if ("POST" == req.method) {
         var mustTags = req.param("mustTags");
         var shouldTags = req.param("shouldTags");
@@ -145,6 +152,10 @@ module.exports = {
         depth: null
       }) + " was loaded successfully.");
 
+      if (!DemandService.belongsToCurrentUser(req, loadedDemand)) {
+        FlashMessagesService.setErrorMessage('You cannot delete demands of other users.', req, res);
+        return res.redirect('/');
+      }
       DemandService.deleteDemand(loadedDemand, onDeleteSuccessCallback, onErrorCallback);
     };
 

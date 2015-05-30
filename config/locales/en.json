@@ -9,6 +9,7 @@
   "Login": "Login",
   "Create": "Create",
   "Edit": "Edit",
+  "Delete": "Delete",
   "Neeedo Member Area": "Neeedo Member Area",
   "technical_error_on_registration": "There was an error during registration. Please try again in several minutes. Sorry for the inconvenience.",
   "Welcome to Neeedo, %s!": "Welcome to Neeedo, %s!",
@@ -54,5 +55,9 @@
   "Sorry, we couldn't find any matching offers. Please try to specify your demand better." : "Sorry, we couldn't find any matching offers. Please try to specify your demand better.",
   "The matched offers couldn't be loaded. Please contact Neeedo customer care.": "Unfortunately, we could not find any matched offers. Please try again later.",
   "We couldn't set your prefered locale.": "We couldn't set your prefered language.",
-  "Your locale was set.": "Your prefered language was set successfully."
+  "Your locale was set.": "Your prefered language was set successfully.",
+  "You cannot edit demands of other users." : "You cannot edit demands of other users.",
+  "You cannot delete demands of other users." : "You cannot delete demands of other users.",
+  "You cannot edit offers of other users." : "You cannot edit offers of other users.",
+  "You cannot delete offers of other users." : "You cannot delete offers of other users."
 }

@@ -9,6 +9,7 @@
   "Login": "Login",
   "Create": "Anlegen",
   "Edit": "Ändern",
+  "Delete": "Löschen",
   "Neeedo Member Area": "Neeedo Member Area",
   "technical_error_on_registration": "Leider ist bei der Registierung ein Fehler aufgetreten. Bitte versuche es später noch einmal",
   "Welcome to Neeedo, %s!": "Willkommen bei Neeedo, %s!",
@@ -58,5 +59,9 @@
   "Sorry, we couldn't find any matching offers. Please try to specify your demand better." : "Sorry, wir konnten leider keine passenden Biete-Karten für dich finden. Versuche, deine Suche-Karte besser zu spezifizieren.",
   "The matched offers couldn't be loaded. Please contact Neeedo customer care.": "Wir konnten wegen eines technischen Fehlers leider keine passenden Biete-Karten finden. Bitte versuche es später noch einmal.",
   "We couldn't set your prefered locale.": "Wir konnten deine Sprache leider nicht setzen.",
-  "Your locale was set.": "Deine bevorzugte Sprache wurde erfolgreich gesetzt."
+  "Your locale was set.": "Deine bevorzugte Sprache wurde erfolgreich gesetzt.",
+  "You cannot edit demands of other users." : "Du kannst nicht die Suche-Karten anderer Benutzer bearbeiten.",
+  "You cannot delete demands of other users." : "Du kannst nicht die Suche-Karten anderer Benutzer löschen.",
+  "You cannot edit offers of other users." : "Du kannst nicht die Biete-Karten anderer Benutzer bearbeiten.",
+  "You cannot delete offers of other users." : "Du kannst nicht die Biete-Karten anderer Benutzer löschen."
 }
