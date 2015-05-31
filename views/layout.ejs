@@ -53,8 +53,10 @@
 
   </head> <!-- HEAD-->
 
-  <body data-spy="scroll" data-target=".navbar-collapse" data-apiUrl="<%= sails.config.neeedo.apiUrl %>">
+  <body data-spy="scroll" data-target=".navbar-collapse" data-apiUrl="<%= sails.config.neeedo.apiUrl %>" class="cbp-spmenu-push">
+
     <%- partial ('./partials/navigation.ejs') %>
+    <%- partial ('./partials/topbar.ejs') %>
     <%- partial ('./partials/messages.ejs') %>
 
     <%- body %>
@@ -112,7 +114,10 @@
     <script src="/js/dependencies/sails.io.js"></script>
     <script src="/js/lib/bootstrap.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
+    <script src="/js/lib/classie.js"></script>
     <script src="/js/lib/handlebars-v3.0.0.js"></script>
+    <script src="/js/lib/modernizr.custom.js"></script>
+    <script src="/js/lib/nav.js"></script>
     <script src="/js/npm.js"></script>
     <!--SCRIPTS END-->
 
