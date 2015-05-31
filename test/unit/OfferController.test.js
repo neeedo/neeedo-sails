@@ -1,25 +1,21 @@
 var should = require('should'),
     sinon = require('sinon'),
     apiClient = require('neeedo-api-nodejs-client'),
-    demandController = require('../../api/controllers/DemandController'),
+    offerController = require('../../api/controllers/OfferController'),
     req = require('../../node_modules/sails/node_modules/express/lib/request')
   ;
 
-var User = apiClient.models.User;
 
-var givenAPostRequestWithDemandParameters = function() {
+var givenAPostRequestWithOfferParameters = function() {
   req.method = 'POST';
 
   // let's overwrite param function to return Demand request data
   req.param = function(paramName) {
     switch (paramName) {
-      case 'mustTags' : return "tag1,tag2";
-      case 'shouldTags' : return "tag3,tag4";
-      case 'minPrice' : return 0;
-      case 'maxPrice' : return 10;
+      case 'tags' : return "tag1,tag2";
+      case 'price' : return 10;
       case 'lat' : return 55.555;
       case 'lng' : return 55.555;
-      case 'distance' : return 10;
     }
   };
 
@@ -36,12 +32,12 @@ var givenAResponse = function() {
   return sinon.stub({ view : function(path, variables) {}});
 }
 
-var givenADemandService = function() {
-  return sinon.stub(sails.services.demandservice, 'createDemand');
+var givenAnOfferService = function() {
+  return sinon.stub(sails.services.offerservice, 'createOffer');
 };
 
-var restoreDemandService = function() {
-  sails.services.demandservice.createDemand.restore();
+var restoreOfferService = function() {
+  sails.services.offerservice.createOffer.restore();
 };
 
 var givenAUserService = function() {
@@ -63,8 +59,8 @@ describe('[UNIT TEST] DemandController', function() {
 
     before(function(done){
       stubbedReq = givenAGetRequest();
-
       stubbedRes = givenAResponse();
+
       done();
     });
 
@@ -73,23 +69,20 @@ describe('[UNIT TEST] DemandController', function() {
       done();
     });
 
-    it('should print default demand values on GET', function (done) {
+    it('should print default offer values on GET', function (done) {
       this.timeout(20000);
 
       // when create action is called
-      demandController.create(stubbedReq, stubbedRes);
+      offerController.create(stubbedReq, stubbedRes);
 
-      // the following view with the default demand parameters should be called
+      // the following view with the default offer parameters should be called
       stubbedRes.view.calledWith(
-        'demand/create', {
+        'offer/create', {
           locals: {
-            mustTags: "tag1, tag2,...",
-            shouldTags: "tag1, tag2,...",
-            minPrice: 0,
-            maxPrice: 50,
+            tags: "tag1, tag2,...",
+            price: 10,
             lat: 35.92516,
             lng: 12.37528,
-            distance: 30,
             btnLabel: 'Create'
           }
         }
@@ -100,33 +93,33 @@ describe('[UNIT TEST] DemandController', function() {
   });
 
   describe('create action', function() {
-      var stubbedReq, stubbedRes, demandService, userService;
+      var stubbedReq, stubbedRes, offerService, userService;
 
       before(function(done){
-        stubbedReq = givenAPostRequestWithDemandParameters();
+        stubbedReq = givenAPostRequestWithOfferParameters();
         res = sinon.stub();
-        demandService = givenADemandService();
+        offerService = givenAnOfferService();
         userService = givenAUserService();
 
         done();
       });
 
       after(function(done){
-        restoreDemandService();
+        restoreOfferService();
         restoreUserService();
 
         done();
       });
 
-    it('should delegate to DemandService on POST', function (done) {
+    it('should delegate to OfferService on POST', function (done) {
       this.timeout(20000);
 
       // when create action is called
-      demandController.create(stubbedReq, stubbedRes);
+      offerController.create(stubbedReq, stubbedRes);
 
-      // the demand service method should be called with the given request parameters
-      demandService.calledOnce.should.be.True;
-      demandService.calledWith("tag1,tag2", "tag3,tag4", 55.555, 55.555, 10, 0, 10).should.be.True;
+      // the offer service method should be called with the given request parameters
+      offerService.calledOnce.should.be.True;
+      offerService.calledWith("tag1,tag2", 55.555, 55.555, 10).should.be.True;
 
       // and the user service method to get the current user should have been caleld
       userService.calledOnce.should.be.True;
