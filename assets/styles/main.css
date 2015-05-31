@@ -1,15 +1,30 @@
-#errorMessage, #successMessage, #addModal {
-  margin-top: 15em;
+/***************************
+        STRUCTURE
+***************************/
+* {
+  margin: 0;
 }
 
-/* NAVIGATION */
+html, body {
+  height: 100%;
+}
+
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -4em;
+}
+/***************************
+        NAVIGATION
+***************************/
 .cbp-spmenu {
   background: #88BEB1;
   position: fixed;
 }
 
 .cbp-spmenu h3 {
-  color: #afdefa;
+  color: #e0e0e0;
   font-size: 1.9em;
   padding: 20px;
   margin: 0;
@@ -77,22 +92,27 @@
 }
 
 #showLeft{
-  position: relative;
-  right: -240px;
-  top: -55px;
+  position: absolute;
+  right: -50px;
+  width: 50px;
+  top: 40%;
   background-color: #88BEB1;
   font-size: 1.2em;
   font-weight: bold;
-  border: none;
   padding: 20px;
   margin: 0;
   color: #fff;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+  border: 1px #000;
+  border-left: none;
+  -webkit-box-shadow: 0px 1px 4px 2px rgba(179,179,179,1);
+  -moz-box-shadow: 0px 1px 4px 2px rgba(179,179,179,1);
+  box-shadow: 0px 1px 4px 2px rgba(179,179,179,1);
 }
 
 #showLeft:hover{
-  text-shadow: 0 0 0.2em #8877FF, 0 0 0.2em #8877FF, 0 0 0.2em #8877FF;
+  text-shadow: 0 0 0.2em #6A9A8D, 0 0 0.2em #6A9A8D, 0 0 0.2em #6A9A8D;
 }
 
 #showLeft:focus{
@@ -103,24 +123,66 @@
   z-index: 9000;
 }
 
-/* Sticky Footer */
-* {
-  margin: 0;
-}
-html, body {
-  height: 100%;
-}
-.wrapper {
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
-  margin: 0 auto -4em;
-}
+/***************************
+        FOOTER
+***************************/
+
 .footer, .push {
   height: 4em;
   clear: both;
 }
 
 .footer{
-  background-color: #e0e0e0;
+  background-color: #6A9A8D;
+  border-top: 5px groove #88BEB1;
+}
+
+.footer a{
+  color: #e0e0e0;
+  padding-top: 10px;
+  display: block;
+}
+
+.footer a:hover{
+  font-weight: bold;
+}
+
+.footer small{
+  font-size: 0.7em;
+  color: #b0b0b0;
+}
+
+/***************************
+        HEADER
+***************************/
+#header{
+  height: 4em;
+}
+
+#header .img{
+  max-width: 100%;
+  width: 100%;
+  max-height: 100%;
+}
+
+#header h1{
+  display: block;
+  margin: 0.2em;
+}
+/***************************
+        OTHER STYLES
+***************************/
+#errorMessage, #successMessage, #addModal {
+  margin-top: 15em;
+}
+
+/* Mouse selection */
+::-moz-selection { /* Code for Firefox */
+  color: #fff;
+  background: #88BEB1;
+}
+
+::selection {
+  color: #fff;
+  background: #88BEB1;
 }
