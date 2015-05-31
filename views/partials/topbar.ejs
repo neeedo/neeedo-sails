@@ -1,38 +1,9 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand"><img src="images/neeedo_blue.png"/></a>
-      </div>
+<div>
+<%- partial ('./login.ejs') %>
+</div>
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="<%= UrlService.to('/') %>"><%= i18n('Home') %></a></li>
-          <li><a href="<%= UrlService.to('/register') %>"><%= i18n('Register') %></a></li>
-          <li><a href="<%= UrlService.to('/login') %>"><%= i18n('Login') %></a></li>
-          <li><a href="<%= UrlService.to('/offers/create') %>"><%= i18n('Create offer') %></a></li>
-          <li><a href="<%= UrlService.to('/demands/create') %>"><%= i18n('Create demand') %></a></li>
-          <li>
-            <div>
-              <%- partial ('./login.ejs') %>
-            </div>
-          </li>
-
-          <% // list all available locales / languages and provide link to set %>
-          <% for (var localeI = 0; localeI < LocaleService.getAvailableLocales().length; localeI++) { %>
-          <% var locale = LocaleService.getAvailableLocales()[localeI] %>
-          <li><a href="<%= UrlService.to(LocaleService.getSetLocaleUrl(locale)) %>"><%= locale %></a></li>
-          <% } %>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div>
-  </div><!-- /.container-fluid -->
-</nav>
+<% // list all available locales / languages and provide link to set %>
+<% for (var localeI = 0; localeI < LocaleService.getAvailableLocales().length; localeI++) { %>
+<% var locale = LocaleService.getAvailableLocales()[localeI] %>
+<a href="<%= UrlService.to(LocaleService.getSetLocaleUrl(locale)) %>"><%= locale %></a>
+<% } %>
