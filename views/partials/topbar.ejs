@@ -1,9 +1,18 @@
-<div>
-<%- partial ('./login.ejs') %>
+<div class="row">
+  <div class="col-xs-3">
+    <img src="/images/favicon.png" alt="Neeedo Logo" />
+  </div>
+  <div class="col-xs-4">
+    Neeedo
+  </div>
+  <div class="col-xs-3">
+    <%- partial ('./login.ejs') %>
+  </div>
+  <div class="col-xs-2">
+    <% // list all available locales / languages and provide link to set %>
+    <% for (var localeI = 0; localeI < LocaleService.getAvailableLocales().length; localeI++) { %>
+    <% var locale = LocaleService.getAvailableLocales()[localeI] %>
+    <a href="<%= UrlService.to(LocaleService.getSetLocaleUrl(locale)) %>"><%= locale %></a>
+    <% } %>
+  </div>
 </div>
-
-<% // list all available locales / languages and provide link to set %>
-<% for (var localeI = 0; localeI < LocaleService.getAvailableLocales().length; localeI++) { %>
-<% var locale = LocaleService.getAvailableLocales()[localeI] %>
-<a href="<%= UrlService.to(LocaleService.getSetLocaleUrl(locale)) %>"><%= locale %></a>
-<% } %>
