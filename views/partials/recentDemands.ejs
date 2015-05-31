@@ -3,10 +3,14 @@
   <li>
     <p><%= demand.getMustTags() %></p>
     <p><%= demand.getShouldTags() %></p>
+    <p><%= i18n('Distance')%>:<%= demand.getDistance() %></p>
+    <p><%= i18n('Price')%>:<%= demand.getPrice() %><span class="glyphicon glyphicon-euro" aria-hidden="true"/></p>
 
     <% if (DemandService.belongsToCurrentUser(req, demand)) { %>
-      <p><a href="<%= DemandService.getEditUrl(demand) %>"><%= i18n('Edit') %></a></p>
-      <p><a href="<%= DemandService.getDeleteUrl(demand) %>"><%= i18n('Delete') %></a></p>
+      <a href="<%= DemandService.getEditUrl(demand) %>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+      </a>
+      <a href="<%= DemandService.getDeleteUrl(demand) %>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+      </a>
     <% } %>
   </li>
 
