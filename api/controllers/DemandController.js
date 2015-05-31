@@ -158,7 +158,7 @@ module.exports = {
         FlashMessagesService.setErrorMessage('You cannot delete demands of other users.', req, res);
         return res.redirect('/');
       }
-      
+
       DemandService.deleteDemand(loadedDemand, onDeleteSuccessCallback, onErrorCallback);
     };
 

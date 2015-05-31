@@ -25,6 +25,20 @@ describe('[ACCEPTANCE TEST] LoginController', function() {
   });
 
   describe('POST /login', function() {
+    var spy;
+
+    before(function(done){
+      spy = sinon.spy(sails.services.loginservice, 'queryUser');
+
+      done();
+    });
+
+    after(function(done){
+      sails.services.loginservice.queryUser.restore();
+
+      done();
+    });
+
     it('should delegate to LoginService class', function (done) {
       this.timeout(20000);
 
@@ -33,7 +47,7 @@ describe('[ACCEPTANCE TEST] LoginController', function() {
         return "sth";
       });*/
 
-      var spy = sinon.spy(sails.services.loginservice, 'queryUser');
+
 
       request(sails.hooks.http.app)
         .post('/login')
