@@ -4,7 +4,7 @@
 
 /* NAVIGATION */
 .cbp-spmenu {
-  background: #47a3da;
+  background: #88BEB1;
   position: fixed;
 }
 
@@ -14,7 +14,7 @@
   padding: 20px;
   margin: 0;
   font-weight: 300;
-  background: #0d77b6;
+  background: #6A9A8D;
 }
 
 .cbp-spmenu a {
@@ -25,12 +25,12 @@
 }
 
 .cbp-spmenu a:hover {
-  background: #258ecd;
+  background: #6A9A8D;
 }
 
 .cbp-spmenu a:active {
   background: #afdefa;
-  color: #47a3da;
+  color: #6A9A8D;
 }
 
 .cbp-spmenu-vertical {
@@ -41,7 +41,7 @@
 }
 
 .cbp-spmenu-vertical a {
-  border-bottom: 1px solid #258ecd;
+  border-bottom: 1px solid #6A9A8D;
   padding: 1em;
 }
 
@@ -80,7 +80,7 @@
   position: relative;
   right: -240px;
   top: -55px;
-  background-color: #47A3DA;
+  background-color: #88BEB1;
   font-size: 1.2em;
   font-weight: bold;
   border: none;
@@ -91,6 +91,10 @@
   border-bottom-right-radius: 5px;
 }
 
+#showLeft:hover{
+  text-shadow: 0 0 0.2em #8877FF, 0 0 0.2em #8877FF, 0 0 0.2em #8877FF;
+}
+
 #showLeft:focus{
   border: none;
 }
@@ -99,6 +103,7 @@
   z-index: 9000;
 }
 
+/* Sticky Footer */
 * {
   margin: 0;
 }
