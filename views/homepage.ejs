@@ -13,14 +13,12 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
           <div class="item active">
-            <img src="/images/Offer_Dummy.png" alt="offer">
             <% if (offers.length > 0) { %>
               <%- partial ('./partials/recentOffersBig.ejs',{offer: offers[0]}) %>
             <% } %>
           </div>
             <% for(var i=0; i<offers.length; i++) {%>
               <div class="item">
-                <img src="/images/Offer_Dummy.png" alt="offer">
                 <%- partial ('./partials/recentOffersBig.ejs',{offer: offers[i]}) %>
               </div>
             <% } %>
@@ -48,14 +46,12 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
           <div class="item active">
-            <img src="/images/demand_Dummy.png" alt="offer">
             <% if (demands.length > 0) { %>
             <%- partial ('./partials/recentDemandsBig.ejs',{demand: demands[0]}) %>
             <% } %>
           </div>
           <% for(var i=0; i<demands.length; i++) {%>
           <div class="item">
-            <img src="/images/demand_Dummy.png" alt="offer">
             <%- partial ('./partials/recentDemandsBig.ejs',{demand: demands[i]}) %>
           </div>
           <% } %>
