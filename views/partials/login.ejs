@@ -1,6 +1,14 @@
 <div>
  <% if (!LoginService.userIsLoggedIn(req)) { %>
-  <form method="POST" id="login" action="<%= UrlService.to('/login') %>">
+  <div class="row headerLogin">
+    <div class="col-xs-6 text-center">
+      <a href="<%= UrlService.to('/register') %>" class="headerBtn"><%= i18n('Register') %></a>
+    </div>
+    <div class="col-xs-6 text-center">
+      <a href="#" onclick="toggle_visibility('login');" class="headerBtn"><%= i18n('Login') %></a>
+    </div>
+  </div>
+  <form style="display:none;" method="POST" id="login" action="<%= UrlService.to('/login') %>">
       <div class="row">
         <div class="col-xs-3">
           <label for="email"><%= i18n('E-Mail') %></label>
