@@ -13,7 +13,9 @@
       <!-- Wrapper for slides -->
       <div class="carousel-inner" role="listbox">
         <div class="item active">
-          <%- partial ('./partials/recentOffersSmall.ejs',{offer: offers[0]}) %>
+          <% if (offers.length > 0) { %>
+           <%- partial ('./partials/recentOffersSmall.ejs',{offer: offers[0]}) %>
+          <% } %>
         </div>
         <% for(var i=0; i<offers.length; i++) {%>
         <div class="item">
