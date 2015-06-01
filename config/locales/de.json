@@ -2,7 +2,7 @@
   "Welcome": "Willkommen",
   "A brand new app.": "Eine neue App.",
   "Username": "Benutzername",
-  "E-Mail": "E-Mail-Adresse",
+  "E-Mail": "E-Mail",
   "Password": "Passwort",
   "Register": "Registrieren",
   "Registration": "Registrierung",
@@ -64,5 +64,7 @@
   "You cannot edit demands of other users." : "Du kannst nicht die Suche-Karten anderer Benutzer bearbeiten.",
   "You cannot delete demands of other users." : "Du kannst nicht die Suche-Karten anderer Benutzer löschen.",
   "You cannot edit offers of other users." : "Du kannst nicht die Biete-Karten anderer Benutzer bearbeiten.",
-  "You cannot delete offers of other users." : "Du kannst nicht die Biete-Karten anderer Benutzer löschen."
+  "You cannot delete offers of other users." : "Du kannst nicht die Biete-Karten anderer Benutzer löschen.",
+  "Menu" : "Menü",
+  "u" : "ü"
 }
