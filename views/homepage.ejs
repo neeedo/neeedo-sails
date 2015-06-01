@@ -1,41 +1,46 @@
 <div id= main class="container-fluid">
+
   <div class="container hidden-xs">
-    <div class="row">
-      <div class="col-xs-6">
-        <ul>
-          <% demands.forEach(function(demand) { %>
-          <%- partial ('./partials/recentDemands.ejs',{demand: demand}) %>
-          <% }); %>
-        </ul>
-      </div>
-      <div class="col-xs-6">
-        <ul>
-          <% offers.forEach(function(offer) { %>
-          <%- partial ('./partials/recentOffers.ejs',{offer: offer}) %>
-          <% }); %>
-        </ul>
-      </div>
-    </div>
-  </div>
+
+  </div> <!-- Big Screen-->
 
   <div class="container visible-xs-block">
-    <div class="row">
-      <div class="col-xs-6">
-        <ul>
+
+
+    <div role="tabpanel">
+
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#demands" aria-controls="demands" role="tab" data-toggle="tab"><%= i18n('Demands')%></a></li>
+        <li role="presentation"><a href="#offers" aria-controls="offers" role="tab" data-toggle="tab"><%= i18n('Offers')%></a></li>
+           </ul>
+
+    </div> <!--TabPanel-->
+
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="demands">
+       <ul>
         <% demands.forEach(function(demand) { %>
         <%- partial ('./partials/recentDemands.ejs',{demand: demand}) %>
         <% }); %>
-        </ul>
+       </ul>
       </div>
-      <div class="col-xs-6">
+      <div role="tabpanel" class="tab-pane" id="offers">
         <ul>
           <% offers.forEach(function(offer) { %>
           <%- partial ('./partials/recentOffers.ejs',{offer: offer}) %>
           <% }); %>
         </ul>
       </div>
-    </div>
+    </div>    <!-- Tab panes -->
 
-  </div>
+
+  </div> <!--Small Screen-->
 
 </div> <!--Main Container-->
+
+<script>
+  $('#myTab a[href="#demands"]').tab('show') // Select tab by name
+  $('#myTab a[href="#offers"]').tab('show') // Select tab by name
+
+</script>
