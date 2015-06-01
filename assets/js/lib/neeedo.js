@@ -6,11 +6,6 @@ showLeft.onclick = function() {
   classie.toggle( menuLeft, 'cbp-spmenu-open' );
 };
 
-function resettoggle() {
-  var e = document.getElementById('login');
-  e.style.display = 'none';
-}
-
 function toggle_visibility(id) {
   var e = document.getElementById(id);
   if(e.style.display == 'none')

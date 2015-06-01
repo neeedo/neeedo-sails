@@ -5,37 +5,28 @@
       <a href="<%= UrlService.to('/register') %>" class="headerBtn"><%= i18n('Register') %></a>
     </div>
     <div class="col-xs-6 text-center">
-      <a href="#" onclick="toggle_visibility('login');" class="headerBtn"><%= i18n('Login') %></a>
+      <div class="row">
+        <div class="col-xs-12">
+          <a href="#" onclick="toggle_visibility('login');" class="headerBtn"><%= i18n('Login') %></a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <form style="display:none;" class="trans" method="POST" id="login" action="<%= UrlService.to('/login') %>">
+                <label for="email"><%= i18n('E-Mail') %></label>
+                <input type="email" name="email" required/>
+                <label for="password"><%= i18n('Password') %></label>
+                <input type="password" name="password" required/>
+                <input type="submit" value="<%= i18n('Login') %>" id="sendbtn" />
+          </form>
+        </div>
+      </div>
     </div>
   </div>
-  <form style="display:none;" method="POST" id="login" action="<%= UrlService.to('/login') %>">
-      <div class="row">
-        <div class="col-xs-3">
-          <label for="email"><%= i18n('E-Mail') %></label>
-        </div>
-        <div class="col-xs-6">
-          <input type="email" name="email" required/>
-        </div>
-        </div>
-    <div class="row">
-        <div class="col-xs-3">
-          <label for="password"><%= i18n('Password') %></label>
-        </div>
-        <div class="col-xs-6">
-          <input type="password" name="password" required/>
-        </div>
-      </div>
-    <div class="row">
-        <div class="col-md-6">
-          <input type="submit" value="<%= i18n('Login') %>" id="sendbtn" />
-        </div>
-      </div>
-    </form>
-   <% } %>
-
-  <% if (LoginService.userIsLoggedIn(req)) { %>
-  <form method="POST" id="login" action="<%= UrlService.to('/logout') %>">
-   <div class="row">
+      <% } %>
+      <% if (LoginService.userIsLoggedIn(req)) { %>
+      <form method="POST" id="login" action="<%= UrlService.to('/logout') %>">
+        <div class="row">
           <div class="col-md-1">
             <p><%= i18n('Hello %s!', LoginService.getCurrentUser(req).getUsername()) %></p>
           </div>
@@ -43,6 +34,6 @@
             <input type="submit" value="<%= i18n('Logout') %>" id="sendbtn" />
           </div>
         </div>
-    </form>
-    <% } %>
+      </form>
+      <% } %>
 </div>

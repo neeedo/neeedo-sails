@@ -172,8 +172,12 @@ html, body {
 #login{
   z-index: 9000;
   background-color: #88BEB1;
-  position: fixed;
-  right: 10%;
+  position: absolute;
+  width: 100%;
+}
+
+#login input{
+  width: 100%;
 }
 
 .headerLogin{
@@ -183,6 +187,12 @@ html, body {
 
 .headerLogin div{
   padding: 0;
+}
+
+.trans{
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .headerBtn{
@@ -213,6 +223,11 @@ html, body {
 ::selection {
   color: #fff;
   background: #88BEB1;
+}
+
+.vertical-text {
+  transform: rotate(90deg);
+  transform-origin: left top 0;
 }
 /***************************
         MEDIA QUERIES
