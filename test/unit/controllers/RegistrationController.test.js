@@ -1,8 +1,8 @@
 var should = require('should'),
     sinon = require('sinon'),
     apiClient = require('neeedo-api-nodejs-client'),
-    registrationController = require('../../api/controllers/RegistrationController'),
-    req = require('../../node_modules/sails/node_modules/express/lib/request')
+    registrationController = require('../../../api/controllers/RegistrationController'),
+    req = require('../../../node_modules/sails/node_modules/express/lib/request')
   ;
 
 

@@ -8,6 +8,10 @@ var DemandListService = apiClient.services.DemandList;
 var MatchingService = apiClient.services.Matching;
 
 module.exports = {
+  newDemandListService: function() {
+    return new DemandListService();
+  },
+
   /**
    * Load the currently logged in user's demands.
    * @param req
@@ -16,7 +20,7 @@ module.exports = {
    */
   loadUsersDemands: function(req, onSuccessCallback, onErrorCallback) {
     try {
-      var demandListService = new DemandListService();
+      var demandListService = this.newDemandListService();
 
       var limit = req.param("limit", PaginatorService.getDefaultLimit());
       var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
@@ -40,7 +44,7 @@ module.exports = {
       var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
       var offset = PaginatorService.calculateOffset(limit, pageNumber);
 
-      var demandListService = new DemandListService();
+      var demandListService = this.newDemandListService();
       demandListService.loadMostRecent(offset, limit, onSuccessCallback, onErrorCallback);
     } catch (e) {
       onErrorCallback(ApiClientService.newError("loadMostRecentDemands:" + e.message, "The demands couldn't be loaded. Please contact Neeedo customer care."));
@@ -64,7 +68,8 @@ module.exports = {
    */
   createDemand: function(mustTags, shouldTags, latitude, longitude, distance, minPrice, maxPrice, user, onSuccessCallback, onErrorCallBack) {
     try {
-      var demandModel = new Demand();
+      var demandModel = this.newDemand();
+
       demandModel.setMustTags(ApiClientService.toTagArray(mustTags))
         .setShouldTags(ApiClientService.toTagArray(shouldTags))
         .setLocation(ApiClientService.newLocation(parseFloat(latitude), parseFloat(longitude)))
@@ -72,12 +77,20 @@ module.exports = {
         .setDistance(parseInt(distance))
         .setUser(user);
 
-      sails.log.info('here');
-      var demandService = new ClientDemandService();
+      var demandService = this.newClientDemandService();
       demandService.createDemand(demandModel, onSuccessCallback, onErrorCallBack);
     } catch (e) {
+      sails.log.error(e);
       onErrorCallBack(ApiClientService.newError("createDemand:" + e.message, 'Your inputs were not valid.'));
     }
+  },
+
+  newDemand: function() {
+    return new Demand();
+  },
+
+  newClientDemandService: function() {
+    return new ClientDemandService();
   },
 
   updateDemand: function(demandModel, mustTags, shouldTags, latitude, longitude, distance, minPrice, maxPrice, onSuccessCallback, onErrorCallBack) {
@@ -88,7 +101,7 @@ module.exports = {
         .setPrice(ApiClientService.newDemandPrice(parseFloat(minPrice), parseFloat(maxPrice)))
         .setDistance(parseInt(distance));
 
-      var demandService = new ClientDemandService();
+      var demandService = this.newClientDemandService();
       demandService.updateDemand(demandModel, onSuccessCallback, onErrorCallBack);
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("updateDemand:" + e.message, 'Your inputs were not valid.'));

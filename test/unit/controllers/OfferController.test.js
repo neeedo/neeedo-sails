@@ -1,8 +1,8 @@
 var should = require('should'),
     sinon = require('sinon'),
     apiClient = require('neeedo-api-nodejs-client'),
-    offerController = require('../../api/controllers/OfferController'),
-    req = require('../../node_modules/sails/node_modules/express/lib/request')
+    offerController = require('../../../api/controllers/OfferController'),
+    req = require('../../../node_modules/sails/node_modules/express/lib/request')
   ;
 
 

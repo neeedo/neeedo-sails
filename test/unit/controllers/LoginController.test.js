@@ -1,8 +1,8 @@
 var should = require('should'),
     sinon = require('sinon'),
     apiClient = require('neeedo-api-nodejs-client'),
-    loginController = require('../../api/controllers/LoginController'),
-    req = require('../../node_modules/sails/node_modules/express/lib/request')
+    loginController = require('../../../api/controllers/LoginController'),
+    req = require('../../../node_modules/sails/node_modules/express/lib/request')
   ;
 
 var User = apiClient.models.User;
