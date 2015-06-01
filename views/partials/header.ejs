@@ -1,15 +1,15 @@
 <header id="header">
 <div class="row">
-  <div class="col-xs-1">
+  <div class="col-xs-2">
     <img src="/images/neeedo_Logo.png" alt="Neeedo Logo" class="img"/>
   </div>
-  <div class="col-xs-5 text-center">
+  <div class="col-xs-4 text-center">
     <h1>Neeedo</h1>
   </div>
-  <div class="col-xs-4">
+  <div class="col-xs-5">
     <%- partial ('./login.ejs') %>
   </div>
-  <div class="col-xs-2">
+  <div class="col-xs-1 local">
     <% // list all available locales / languages and provide link to set %>
     <% for (var localeI = 0; localeI < LocaleService.getAvailableLocales().length; localeI++) { %>
     <% var locale = LocaleService.getAvailableLocales()[localeI] %>

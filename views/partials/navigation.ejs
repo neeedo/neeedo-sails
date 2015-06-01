@@ -1,8 +1,10 @@
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
   <h3>Menu</h3>
   <a href="<%= UrlService.to('/') %>"><%= i18n('Home') %></a>
+  <% if (!LoginService.userIsLoggedIn(req)) { %>
   <a href="<%= UrlService.to('/register') %>"><%= i18n('Register') %></a>
   <a href="<%= UrlService.to('/login') %>"><%= i18n('Login') %></a>
+  <% } %>
   <a href="<%= UrlService.to('/offers/create') %>"><%= i18n('Create offer') %></a>
   <a href="<%= UrlService.to('/demands/create') %>"><%= i18n('Create demand') %></a>
   <button id="showLeft">M<br />e<br />n<br />u</button>
