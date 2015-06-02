@@ -1,21 +1,26 @@
- <img src="/images/Offer_Dummy.png" alt="offer">
-            <% if(offer.getImages().length > 0) {
-              var firstImage = offer.getImages()[0]; %>
-                <img src="<%= firstImage.getUrl() %>">
-            <% } %>
+<%var src = "string"
+
+  if(offer.getImageList().length > 0 ) {
+    var firstImage = offer.getImages()[0];
+    var url = firstImage.getUrl().toString();
+    src = url;
+  } else {
+    src = "/images/Offer_Dummy.png";
+  }%>
+
+<img src = "<%- src%>">
 
 <div class="carousel-caption">
-<div class="container col-md-6 slidercard">
-      <div class="media">
+  <div class="container col-md-6 slidercard">
+    <%- partial ('../partials/crudButtonsOffer.ejs',{offer: offer}) %>
+    <div class="media">
         <div class="media-left">
         </div>
         <div class="media-body">
           <h4 class="media-heading" id="title"><%= offer.getTags()%></h4>
+          <p> <%offer.getImageList()%></p>
+
           <p><%= i18n('Price')%>:<%= offer.getPrice() %> <span class="glyphicon glyphicon-euro" aria-hidden="true"/></p>
-          <% if (OfferService.belongsToCurrentUser(req, offer)) { %>
-          <a href="<%= OfferService.getEditUrl(offer) %>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-          <a href="<%= OfferService.getDeleteUrl(offer) %>"><span class="glyphicon glyphicon-remove" aria-hidden="true"/></a>
-          <% } %>
         </div>
       </div>
     </div>
