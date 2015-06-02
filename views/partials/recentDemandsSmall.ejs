@@ -8,7 +8,7 @@
         <p><%= demand.getShouldTags() %></p>
         <p><%= i18n('Distance')%>:<%= demand.getDistance() %></p>
         <p><%= i18n('Price')%>:<%= demand.getPrice().getMin() %> - <%= demand.getPrice().getMax() %><span class="glyphicon glyphicon-euro" aria-hidden="true"/></p>
-        <%- partial ('../partials/crudButtonsDemands.ejs',{demand: demand}) %>
+        <%- partial ('../partials/crudButtonsdemands.ejs',{demand: demand}) %>
       </div>
     </li>
   </div>
