@@ -158,6 +158,10 @@ module.exports = {
     return 'offers/delete/offerId/' + offerModel.getId();
   },
 
+  getOverviewUrl: function(demandModel) {
+    return '/dashboard';
+  },
+
   belongsToCurrentUser: function(req, offer) {
     return (LoginService.userIsLoggedIn(req)
       && undefined != offer.getUser()

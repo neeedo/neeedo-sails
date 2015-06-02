@@ -202,6 +202,10 @@ module.exports = {
     return 'demands/delete/demandId/' + demandModel.getId();
   },
 
+  getOverviewUrl: function(demandModel) {
+   return '/dashboard';
+  },
+
   belongsToCurrentUser: function(req, demand) {
     return LoginService.userIsLoggedIn(req)
       && undefined !== demand.getUser()

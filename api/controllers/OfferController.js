@@ -14,14 +14,14 @@ module.exports = {
       FlashMessagesService.setSuccessMessage('Your offer was created successfully.', req, res);
       OfferService.storeInSession(req, createdOffer);
 
-      res.redirect(OfferService.getEditUrl(createdOffer));
+      res.redirect(OfferService.getOverviewUrl());
     };
 
     var onErrorCallback = function(errorModel) {
       ApiClientService.logMessages(errorModel);
       ApiClientService.addFlashMessages(req, res, errorModel);
 
-      res.redirect('/offer/create');
+      res.redirect(OfferService.getOverviewUrl());
     };
 
     /*
@@ -59,14 +59,14 @@ module.exports = {
       FlashMessagesService.setSuccessMessage('Your offer was updated successfully.', req, res);
       OfferService.storeInSession(req, updatedOffer);
 
-      res.redirect(OfferService.getEditUrl(updatedOffer));
+      res.redirect(OfferService.getOverviewUrl());
     };
 
     var onErrorCallback = function(errorModel) {
       ApiClientService.logMessages(errorModel);
       ApiClientService.addFlashMessages(req, res, errorModel);
 
-      res.redirect('/');
+      res.redirect(OfferService.getOverviewUrl());
     };
 
     var onLoadSuccessCallback = function(loadedOffer) {
@@ -79,7 +79,7 @@ module.exports = {
         loadedOffer.setUser(LoginService.getCurrentUser(req));
       } else {
         FlashMessagesService.setErrorMessage('You cannot edit offers of other users.', req, res);
-        return res.redirect('/');
+        return res.redirect(OfferService.getOverviewUrl());
       }
 
       if ("POST" == req.method) {
@@ -92,7 +92,7 @@ module.exports = {
       } else {
         if (undefined == loadedOffer) {
           FlashMessagesService.setErrorMessage('The offer could not be loaded.', req, res);
-          return res.redirect('/');
+          return res.redirect(OfferService.getOverviewUrl());
         }
 
         res.view('offer/edit', {
@@ -124,14 +124,14 @@ module.exports = {
       FlashMessagesService.setSuccessMessage('Your offer was deleted successfully.', req, res);
       OfferService.removeFromSession(req, deletedOffer);
 
-      res.redirect('/');
+      res.redirect(OfferService.getOverviewUrl());
     };
 
     var onErrorCallback = function(errorModel) {
       ApiClientService.logMessages(errorModel);
       ApiClientService.addFlashMessages(req, res, errorModel);
 
-      res.redirect('/');
+      res.redirect(OfferService.getOverviewUrl());
     };
 
     var onLoadSuccessCallback = function(loadedOffer) {
@@ -144,7 +144,7 @@ module.exports = {
         loadedOffer.setUser(LoginService.getCurrentUser(req));
       } else {
         FlashMessagesService.setErrorMessage('You cannot delete offers of other users.', req, res);
-        return res.redirect('/');
+        return res.redirect(OfferService.getOverviewUrl());
       }
 
       OfferService.deleteOffer(loadedOffer, onDeleteSuccessCallback, onErrorCallback);

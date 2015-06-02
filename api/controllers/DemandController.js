@@ -65,14 +65,14 @@ module.exports = {
       FlashMessagesService.setSuccessMessage('Your demand was updated successfully.', req, res);
       DemandService.storeInSession(req, updatedDemand);
 
-      res.redirect(DemandService.getEditUrl(updatedDemand));
+      res.redirect(DemandService.getOverviewUrl());
     };
 
     var onErrorCallback = function(errorModel) {
       ApiClientService.logMessages(errorModel);
       ApiClientService.addFlashMessages(req, res, errorModel);
 
-      res.redirect('/');
+      res.redirect(DemandService.getOverviewUrl());
     };
 
     var onLoadSuccessCallback = function(loadedDemand) {
@@ -85,7 +85,7 @@ module.exports = {
         loadedDemand.setUser(LoginService.getCurrentUser(req));
       } else {
         FlashMessagesService.setErrorMessage('You cannot edit demands of other users.', req, res);
-        return res.redirect('/');
+        return res.redirect(DemandService.getOverviewUrl());
       }
 
       if ("POST" == req.method) {
@@ -101,7 +101,7 @@ module.exports = {
       } else {
         if (undefined == loadedDemand) {
           FlashMessagesService.setErrorMessage('The demand could not be loaded.', req, res);
-          return res.redirect('/');
+          return res.redirect(DemandService.getOverviewUrl());
         }
 
         res.view('demand/edit', {
@@ -136,14 +136,14 @@ module.exports = {
       FlashMessagesService.setSuccessMessage('Your demand was deleted successfully.', req, res);
       DemandService.removeFromSession(req, deletedDemand);
 
-      res.redirect('/');
+      res.redirect(DemandService.getOverviewUrl());;
     };
 
     var onErrorCallback = function(errorModel) {
       ApiClientService.logMessages(errorModel);
       ApiClientService.addFlashMessages(req, res, errorModel);
 
-      res.redirect('/');
+      res.redirect(DemandService.getOverviewUrl());;;
     };
 
     var onLoadSuccessCallback = function(loadedDemand) {
@@ -156,7 +156,7 @@ module.exports = {
         loadedDemand.setUser(LoginService.getCurrentUser(req));
       } else {
         FlashMessagesService.setErrorMessage('You cannot delete demands of other users.', req, res);
-        return res.redirect('/');
+        return res.redirect(DemandService.getOverviewUrl());;
       }
 
       DemandService.deleteDemand(loadedDemand, onDeleteSuccessCallback, onErrorCallback);
@@ -187,7 +187,7 @@ module.exports = {
       ApiClientService.logMessages(errorModel);
       ApiClientService.addFlashMessages(req, res, errorModel);
 
-      res.redirect('/');
+      res.redirect(DemandService.getOverviewUrl());;
     };
 
     var onLoadSuccessCallback = function(loadedDemand) {
