@@ -5,7 +5,9 @@
       <div class="media-left">
       </div>
       <div class="media-body">
-        <h4 class="media-heading" id="title"><%= demand.getMustTags() %></h4>
+        <% for (mustTag in demand.getMustTags()) { $>
+          <h4 class="media-heading" id="title"><%= mustTag %></h4>
+        <% } %>
         <p><%= demand.getShouldTags() %></p>
         <p><%= i18n('Distance')%>:<%= demand.getDistance() %></p>
         <p><%= i18n('Price')%>:<%= demand.getPrice() %><span class="glyphicon glyphicon-euro" aria-hidden="true"/></p>
