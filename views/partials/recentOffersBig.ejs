@@ -1,4 +1,9 @@
-<img src="/images/Offer_Dummy.png" alt="offer">
+ <img src="/images/Offer_Dummy.png" alt="offer">
+            <% if(offer.getImages().length > 0) {
+              var firstImage = offer.getImages()[0]; %>
+                <img src="<%= firstImage.getUrl() %>">
+            <% } %>
+
 <div class="carousel-caption">
 <div class="container col-md-6 slidercard">
       <div class="media">

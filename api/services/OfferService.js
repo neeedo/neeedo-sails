@@ -48,20 +48,13 @@ module.exports = {
   /**
    * Query a given user.
    *
-   * @param tags
-   * @param latitude
-   * @param longitude
-   * @param price
+   * @param req
    * @param onSuccessCallback will be called by the registered user instance delivered from neeedo API
    * @param onErrorCallBack will be called with an HTTP response object on error
    */
-  createOffer: function(tags, latitude, longitude, price, user, onSuccessCallback, onErrorCallBack) {
+  createOffer: function(req, onSuccessCallback, onErrorCallBack) {
     try {
-      var offerModel = new Offer();
-      offerModel.setTags(ApiClientService.toTagArray(tags))
-        .setLocation(ApiClientService.newLocation(parseFloat(latitude), parseFloat(longitude)))
-        .setPrice(parseFloat(price))
-        .setUser(user);
+      var offerModel = ApiClientService.validateAndCreateNewOfferFromRequest(req);
 
       var offerService = new ClientOfferService();
       offerService.createOffer(offerModel, onSuccessCallback, onErrorCallBack);
@@ -70,18 +63,15 @@ module.exports = {
     }
   },
 
-  updateOffer: function(offerModel, tags, latitude, longitude, price, onSuccessCallback, onErrorCallBack) {
+  updateOffer: function(offerModel, req, onSuccessCallback, onErrorCallBack) {
     try {
-      offerModel.setTags(ApiClientService.toTagArray(tags))
-        .setLocation(ApiClientService.newLocation(parseFloat(latitude), parseFloat(longitude)))
-        .setPrice(parseFloat(price));
+      ApiClientService.validateAndSetOfferFromRequest(req, offerModel, offerModel.getUser(), onErrorCallBack);
 
       var offerService = new ClientOfferService();
       offerService.updateOffer(offerModel, onSuccessCallback, onErrorCallBack);
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("updateOffer:" + e.message, 'Your inputs were not valid.'));
     }
-
   },
 
   deleteOffer: function(offerModel, onSuccessCallback, onErrorCallBack) {

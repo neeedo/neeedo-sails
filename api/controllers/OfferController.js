@@ -2,6 +2,19 @@ var util = require('util');
 
 module.exports = {
   create: function (req, res) {
+    var showFormWithDefaultValues = function() {
+      res.view('offer/create', {
+        locals: {
+          tags: "tag1, tag2,...",
+          price: 10,
+          lat: 35.92516,
+          lng: 12.37528,
+          images: "image1.jpg",
+          btnLabel: 'Create'
+        }
+      });
+    };
+
     /*
      * ---------- callbacks ----------
      */
@@ -28,25 +41,23 @@ module.exports = {
      * ---------- functionality ----------
      */
     if ("POST" == req.method) {
-      var tags = req.param("tags");
-      var price = req.param("price");
-      var lat = req.param("lat");
-      var lng = req.param("lng");
-
-      OfferService.createOffer(tags, lat, lng, price, LoginService.getCurrentUser(req), onSuccessCallback, onErrorCallback);
+      OfferService.createOffer(req, onSuccessCallback, onErrorCallback);
     } else {
-      res.view('offer/create', {
-        locals: {
-          tags: "tag1, tag2,...",
-          price: 10,
-          lat: 35.92516,
-          lng: 12.37528,
-          btnLabel: 'Create'
-        }
-      });
+      showFormWithDefaultValues();
     }
   },
   edit: function (req, res) {
+    var showFormWithOfferValues = function(offerModel) {
+      res.view('offer/edit', {
+        locals: {
+          tags: ApiClientService.toTagString(offerModel.getTags()),
+          price: offerModel.getPrice(),
+          lat: offerModel.getLocation().getLatitude(),
+          lng: offerModel.getLocation().getLongitude(),
+          btnLabel: 'Edit'
+        }
+      });
+    };
     /*
      * ---------- callbacks ----------
      */
@@ -83,27 +94,14 @@ module.exports = {
       }
 
       if ("POST" == req.method) {
-        var tags = req.param("tags");
-        var price = req.param("price");
-        var lat = req.param("lat");
-        var lng = req.param("lng");
-
-        OfferService.updateOffer(loadedOffer, tags, lat, lng, price, onUpdateSuccessCallback, onErrorCallback);
+        OfferService.updateOffer(loadedOffer, req, onUpdateSuccessCallback, onErrorCallback);
       } else {
         if (undefined == loadedOffer) {
           FlashMessagesService.setErrorMessage('The offer could not be loaded.', req, res);
           return res.redirect(OfferService.getOverviewUrl());
         }
 
-        res.view('offer/edit', {
-          locals: {
-            tags: ApiClientService.toTagString(loadedOffer.getTags()),
-            price: loadedOffer.getPrice(),
-            lat: loadedOffer.getLocation().getLatitude(),
-            lng: loadedOffer.getLocation().getLongitude(),
-            btnLabel: 'Edit'
-          }
-        });
+        showFormWithOfferValues(loadedOffer);
       }
 
     };
