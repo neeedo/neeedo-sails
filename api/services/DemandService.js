@@ -55,32 +55,17 @@ module.exports = {
    * Create a new demand. See neeedo API documentation for the meaning of the parameters.
    *
    * @see https://github.com/neeedo/neeedo-api#create-demand
-   * @param mustTags
-   * @param shouldTags
-   * @param latitude
-   * @param longitude
-   * @param distance
-   * @param minPrice
-   * @param maxPrice
-   * @param user
+   * @param req
    * @param onSuccessCallback
    * @param onErrorCallBack
    */
-  createDemand: function(mustTags, shouldTags, latitude, longitude, distance, minPrice, maxPrice, user, onSuccessCallback, onErrorCallBack) {
+  createDemand: function(req, onSuccessCallback, onErrorCallBack) {
     try {
-      var demandModel = this.newDemand();
-
-      demandModel.setMustTags(ApiClientService.toTagArray(mustTags))
-        .setShouldTags(ApiClientService.toTagArray(shouldTags))
-        .setLocation(ApiClientService.newLocation(parseFloat(latitude), parseFloat(longitude)))
-        .setPrice(ApiClientService.newDemandPrice(parseFloat(minPrice), parseFloat(maxPrice)))
-        .setDistance(parseInt(distance))
-        .setUser(user);
+      var demandModel = ApiClientService.validateAndCreateNewDemandFromRequest(req, onErrorCallBack);
 
       var demandService = this.newClientDemandService();
       demandService.createDemand(demandModel, onSuccessCallback, onErrorCallBack);
     } catch (e) {
-      sails.log.error(e);
       onErrorCallBack(ApiClientService.newError("createDemand:" + e.message, 'Your inputs were not valid.'));
     }
   },
@@ -93,13 +78,9 @@ module.exports = {
     return new ClientDemandService();
   },
 
-  updateDemand: function(demandModel, mustTags, shouldTags, latitude, longitude, distance, minPrice, maxPrice, onSuccessCallback, onErrorCallBack) {
+  updateDemand: function(demandModel, req, onSuccessCallback, onErrorCallBack) {
     try {
-      demandModel.setMustTags(ApiClientService.toTagArray(mustTags))
-        .setShouldTags(ApiClientService.toTagArray(shouldTags))
-        .setLocation(ApiClientService.newLocation(parseFloat(latitude), parseFloat(longitude)))
-        .setPrice(ApiClientService.newDemandPrice(parseFloat(minPrice), parseFloat(maxPrice)))
-        .setDistance(parseInt(distance));
+      ApiClientService.validateAndSetDemandFromRequest(req, demandModel, demandModel.getUser(), onErrorCallBack);
 
       var demandService = this.newClientDemandService();
       demandService.updateDemand(demandModel, onSuccessCallback, onErrorCallBack);
@@ -210,6 +191,17 @@ module.exports = {
     return LoginService.userIsLoggedIn(req)
       && undefined !== demand.getUser()
       && LoginService.getCurrentUser(req).getId() == demand.getUser().getId();
+  },
+
+  setBelongsToCurrentUser: function(req, demand)
+  {
+    if (this.belongsToCurrentUser(req, demand)) {
+      demand.setUser(LoginService.getCurrentUser(req));
+      return true;
+    } else {
+      FlashMessagesService.setErrorMessage('You cannot edit demands of other users.', req, res);
+      return false;
+    }
   }
 
 

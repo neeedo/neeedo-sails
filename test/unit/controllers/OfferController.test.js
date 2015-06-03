@@ -83,6 +83,7 @@ describe('[UNIT TEST] DemandController', function() {
             price: 10,
             lat: 35.92516,
             lng: 12.37528,
+            images: "image1.jpg",
             btnLabel: 'Create'
           }
         }
@@ -119,10 +120,7 @@ describe('[UNIT TEST] DemandController', function() {
 
       // the offer service method should be called with the given request parameters
       offerService.calledOnce.should.be.True;
-      offerService.calledWith("tag1,tag2", 55.555, 55.555, 10).should.be.True;
-
-      // and the user service method to get the current user should have been caleld
-      userService.calledOnce.should.be.True;
+      offerService.calledWith(stubbedReq).should.be.True;
 
       done();
     });

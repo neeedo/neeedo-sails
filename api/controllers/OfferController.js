@@ -87,10 +87,7 @@ module.exports = {
         depth: null
       }) + " was loaded successfully.");
 
-      if (OfferService.belongsToCurrentUser(req, loadedOffer)) {
-        loadedOffer.setUser(LoginService.getCurrentUser(req));
-      } else {
-        FlashMessagesService.setErrorMessage('You cannot edit offers of other users.', req, res);
+      if (!OfferService.setBelongsToCurrentUser(req, loadedOffer)) {
         return res.redirect(OfferService.getOverviewUrl());
       }
 
@@ -139,10 +136,7 @@ module.exports = {
         depth: null
       }) + " was loaded successfully.");
 
-      if (OfferService.belongsToCurrentUser(req, loadedOffer)) {
-        loadedOffer.setUser(LoginService.getCurrentUser(req));
-      } else {
-        FlashMessagesService.setErrorMessage('You cannot delete offers of other users.', req, res);
+      if (!OfferService.setBelongsToCurrentUser(req, loadedOffer)) {
         return res.redirect(OfferService.getOverviewUrl());
       }
 

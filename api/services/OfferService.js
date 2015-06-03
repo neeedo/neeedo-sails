@@ -156,8 +156,15 @@ module.exports = {
     return (LoginService.userIsLoggedIn(req)
       && undefined != offer.getUser()
       && LoginService.getCurrentUser(req).getId() == offer.getUser().getId());
+  },
+  setBelongsToCurrentUser: function(req, offer)
+  {
+    if (this.belongsToCurrentUser(req, offer)) {
+      offer.setUser(LoginService.getCurrentUser(req));
+      return true;
+    } else {
+      FlashMessagesService.setErrorMessage('You cannot edit offers of other users.', req, res);
+      return false;
+    }
   }
-
-
-
 };

@@ -24,11 +24,7 @@ module.exports = {
     };
 
     if ("POST" == req.method) {
-      var username = req.param("username");
-      var email = req.param("email");
-      var password = req.param("password");
-
-      RegisterService.registerUser(email, username, password, onSuccessCallback, onErrorCallback);
+      RegisterService.registerUser(req, onSuccessCallback, onErrorCallback);
     } else {
       res.view('registration/register');
     }

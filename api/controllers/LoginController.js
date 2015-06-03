@@ -30,10 +30,7 @@ module.exports = {
      * ---------- functionality ----------
      */
     if ("POST" == req.method) {
-      var email = req.param("email");
-      var password = req.param("password");
-
-      LoginService.queryUser(email, password, onSuccessCallback, onErrorCallback);
+      LoginService.queryUser(req, onSuccessCallback, onErrorCallback);
     } else {
       res.view('login/login');
     }

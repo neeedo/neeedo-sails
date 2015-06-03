@@ -142,7 +142,7 @@ describe('[UNIT TEST] LoginController', function() {
       logoutService.calledWith(stubbedReq).should.be.True;
 
       // and it should be redirected to the following URL
-      stubbedRes.redirect.calledWith('/login').should.be.True;
+      stubbedRes.redirect.calledWith('/').should.be.True;
 
       done();
     });

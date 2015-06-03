@@ -2,6 +2,21 @@ var util = require('util');
 
 module.exports = {
   create: function (req, res) {
+    var showFormWithDefaultValues = function() {
+      res.view('demand/create', {
+        locals: {
+          mustTags: "tag1, tag2,...",
+          shouldTags: "tag1, tag2,...",
+          minPrice: 0,
+          maxPrice: 50,
+          lat: 35.92516,
+          lng: 12.37528,
+          distance: 30,
+          btnLabel: 'Create'
+        }
+      });
+    };
+
     /*
      * ---------- callbacks ----------
      */
@@ -28,31 +43,27 @@ module.exports = {
      * ---------- functionality ----------
      */
     if ("POST" == req.method) {
-      var mustTags = req.param("mustTags");
-      var shouldTags = req.param("shouldTags");
-      var minPrice = req.param("minPrice");
-      var maxPrice = req.param("maxPrice");
-      var lat = req.param("lat");
-      var lng = req.param("lng");
-      var distance = req.param("distance");
-
-      DemandService.createDemand(mustTags, shouldTags, lat, lng, distance, minPrice, maxPrice, LoginService.getCurrentUser(req), onSuccessCallback, onErrorCallback);
+      DemandService.createDemand(req, onSuccessCallback, onErrorCallback);
     } else {
-      res.view('demand/create', {
-        locals: {
-          mustTags: "tag1, tag2,...",
-          shouldTags: "tag1, tag2,...",
-          minPrice: 0,
-          maxPrice: 50,
-          lat: 35.92516,
-          lng: 12.37528,
-          distance: 30,
-          btnLabel: 'Create'
-        }
-      });
+      showFormWithDefaultValues();
     }
   },
   edit: function (req, res) {
+    var showFormWithDemandValues = function(loadedDemand) {
+      res.view('demand/edit', {
+        locals: {
+          mustTags: ApiClientService.toTagString(loadedDemand.getMustTags()),
+          shouldTags: ApiClientService.toTagString(loadedDemand.getShouldTags()),
+          minPrice: loadedDemand.getPrice().getMin(),
+          maxPrice: loadedDemand.getPrice().getMax(),
+          lat: loadedDemand.getLocation().getLatitude(),
+          lng: loadedDemand.getLocation().getLongitude(),
+          distance: loadedDemand.getDistance(),
+          btnLabel: 'Edit'
+        }
+      });
+    };
+
     /*
      * ---------- callbacks ----------
      */
@@ -81,41 +92,19 @@ module.exports = {
         depth: null
       }) + " was loaded successfully.");
 
-      if (DemandService.belongsToCurrentUser(req, loadedDemand)) {
-        loadedDemand.setUser(LoginService.getCurrentUser(req));
-      } else {
-        FlashMessagesService.setErrorMessage('You cannot edit demands of other users.', req, res);
+      if (!DemandService.setBelongsToCurrentUser(req, loadedDemand)) {
         return res.redirect(DemandService.getOverviewUrl());
       }
 
       if ("POST" == req.method) {
-        var mustTags = req.param("mustTags");
-        var shouldTags = req.param("shouldTags");
-        var minPrice = req.param("minPrice");
-        var maxPrice = req.param("maxPrice");
-        var lat = req.param("lat");
-        var lng = req.param("lng");
-        var distance = req.param("distance");
-
-        DemandService.updateDemand(loadedDemand, mustTags, shouldTags, lat, lng, distance, minPrice, maxPrice, onUpdateSuccessCallback, onErrorCallback);
+        DemandService.updateDemand(loadedDemand, req, onUpdateSuccessCallback, onErrorCallback);
       } else {
         if (undefined == loadedDemand) {
           FlashMessagesService.setErrorMessage('The demand could not be loaded.', req, res);
           return res.redirect(DemandService.getOverviewUrl());
         }
 
-        res.view('demand/edit', {
-          locals: {
-            mustTags: ApiClientService.toTagString(loadedDemand.getMustTags()),
-            shouldTags: ApiClientService.toTagString(loadedDemand.getShouldTags()),
-            minPrice: loadedDemand.getPrice().getMin(),
-            maxPrice: loadedDemand.getPrice().getMax(),
-            lat: loadedDemand.getLocation().getLatitude(),
-            lng: loadedDemand.getLocation().getLongitude(),
-            distance: loadedDemand.getDistance(),
-            btnLabel: 'Edit'
-          }
-        });
+        showFormWithDemandValues(loadedDemand);
       }
 
     };
@@ -152,11 +141,8 @@ module.exports = {
         depth: null
       }) + " was loaded successfully.");
 
-      if (DemandService.belongsToCurrentUser(req, loadedDemand)) {
-        loadedDemand.setUser(LoginService.getCurrentUser(req));
-      } else {
-        FlashMessagesService.setErrorMessage('You cannot delete demands of other users.', req, res);
-        return res.redirect(DemandService.getOverviewUrl());;
+      if (!DemandService.setBelongsToCurrentUser(req, loadedDemand)) {
+        return res.redirect(DemandService.getOverviewUrl());
       }
 
       DemandService.deleteDemand(loadedDemand, onDeleteSuccessCallback, onErrorCallback);

@@ -14,11 +14,9 @@ module.exports = {
    * @param onSuccessCallback will be called by the registered user instance delivered from neeedo API
    * @param onErrorCallBack will be called with an error object
    */
-  queryUser: function(email, password, onSuccessCallback, onErrorCallBack) {
+  queryUser: function(req, onSuccessCallback, onErrorCallBack) {
     try {
-      var loginModel = new Login();
-      loginModel.setEMail(email);
-      loginModel.setPassword(password);
+      var loginModel = ApiClientService.validateAndCreateNewLoginFromRequest(req, onErrorCallBack);
 
       var loginService = new LoginService();
       loginService.loginUser(loginModel, onSuccessCallback, onErrorCallBack);
@@ -26,11 +24,13 @@ module.exports = {
       onErrorCallBack(ApiClientService.newError("queryUser:" + e.message, "login_internal_error"));
     }
   },
+
   logoutUser: function(req)
   {
     // invalidate complete session
     req.session.destroy();
   },
+
   storeUserInSession: function(user, req)
   {
     if (user === null || typeof user !== 'object') {
@@ -41,6 +41,7 @@ module.exports = {
 
     req.session.user = user;
   },
+
   userIsLoggedIn: function(req) {
     if (undefined !== this.getCurrentUser(req)
       && undefined !== this.getCurrentUser(req).hasAccessToken()) {
@@ -49,6 +50,7 @@ module.exports = {
 
     return false;
   },
+
   getCurrentUser: function(req) {
     if ("user" in req.session) {
       var user = new User();
@@ -57,6 +59,7 @@ module.exports = {
 
     return undefined;
   },
+
   redirectToAfterLoginUrl: function(req, res) {
     return UrlService.redirectToLastRedirectUrl(req, res);
   }
