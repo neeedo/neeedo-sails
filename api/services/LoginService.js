@@ -9,8 +9,7 @@ module.exports = {
   /**
    * Query a given user.
    *
-   * @param email
-   * @param password
+   * @param req
    * @param onSuccessCallback will be called by the registered user instance delivered from neeedo API
    * @param onErrorCallBack will be called with an error object
    */

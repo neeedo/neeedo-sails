@@ -212,9 +212,5 @@ module.exports = {
   validateDemandFromRequest: function(req) {
     // TODO implement
     return true;
-  },
-
-  getImageUploadUrl : function() {
-    return imageService.getBaseUrl();
   }
 };

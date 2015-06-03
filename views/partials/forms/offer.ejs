@@ -1,3 +1,16 @@
+<% // image chooser %>
+<form id="fileupload" action="<%= FileService.getImageUploadUrl() %>" method="post" enctype="multipart/form-data">
+<div>
+  <label for="fileupload"><%= i18n('Choose pictures') %>
+  <input type="file" name="files" id="fileupload-input" multiple>
+
+  <input type="submit" id="fileupload-submit" value="<%= i18n('Upload images') %>">
+</div>
+<div id="fileupload-messages">
+  <% //upload messages will be shown here %>
+</div>
+</form>
+
  <form method="POST" id="createOffer">
                   <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

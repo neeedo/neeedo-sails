@@ -44,7 +44,8 @@ module.exports.routes = {
   '/demands/delete/demandId/:demandId' : 'DemandController.delete',
   '/dashboard': 'UserController.dashboard',
   '/matching/demandId/:demandId': 'DemandController.matching',
-  '/user/setLocale/locale/:locale' : 'UserController.setLocale'
+  '/user/setLocale/locale/:locale' : 'UserController.setLocale',
+  'post /files/upload' : 'FileController.upload'
 
   /***************************************************************************
   *                                                                          *

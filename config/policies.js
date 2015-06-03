@@ -27,29 +27,41 @@ module.exports.policies = {
   ***************************************************************************/
 
   IndexController: {
-    'index': ['setLocale', 'isNotLoggedIn', 'setRedirectUrl']
+    'index': ['resetUploadedFiles', 'setLocale', 'isNotLoggedIn', 'setRedirectUrl']
   },
   OfferController: {
-    '*': ['setLocale', 'setRedirectUrl', 'isLoggedIn']
+    '*'     : false,
+    'create': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
+    'edit': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
+    'delete': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn']
   },
   DemandController: {
-    '*': ['setLocale', 'setRedirectUrl', 'isLoggedIn']
+    '*'     : false,
+    'create': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
+    'edit': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
+    'delete': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn'],
+    'matching': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn']
   },
   UserController: {
-    '*': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
+    '*': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn'],
 
     // setLocale can be accessed public and logged-in
-    'setLocale': ['setLocale']
+    'setLocale': ['resetUploadedFiles', 'setLocale']
   },
   LoginController: {
-    '*': ['setLocale', 'setRedirectUrl', false], // default policy for login controller actions
+    '*': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', false], // default policy for login controller actions
 
-    'login' : ['setLocale', 'isNotLoggedIn'],
-    'logout' : ['setLocale', 'setRedirectUrl', 'isLoggedIn']
+    'login' : ['resetUploadedFiles', 'setLocale', 'isNotLoggedIn'],
+    'logout' : ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn']
   },
   RegistrationController: {
-    '*': ['setLocale', 'setRedirectUrl', false], // default policy for registration controller actions
+    '*': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', false], // default policy for registration controller actions
 
-    'register' : ['setLocale', 'setRedirectUrl', 'isNotLoggedIn']
+    'register' : ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isNotLoggedIn']
+  },
+  FileController: {
+    '*' : false,
+
+    'upload' : ['resetUploadedFiles', 'setLocale', 'isLoggedIn']
   }
 };
