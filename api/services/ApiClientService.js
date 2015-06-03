@@ -56,14 +56,18 @@ module.exports = {
   },
 
   newImageListFromRequest : function(req) {
-    var imagesStr = req.param("images");
-    var fileNames = imagesStr.split(/\s*,\s*/);
-
     var imageList = imageService.newImageList();
-    for (var fileName in fileNames) {
-      var imageObj = imageService.newImage();
-      imageObj.setFileName(fileName);
-      imageList.addImage(imageObj);
+
+    var images = req.param("images", undefined);
+
+    if (undefined !== images) {
+      for (var imageI=0; imageI < images.length; imageI++) {
+        var fileName = images[imageI];
+        
+        var imageObj = imageService.newImage();
+        imageObj.setFileName(fileName);
+        imageList.addImage(imageObj);
+      }
     }
 
     return imageList;

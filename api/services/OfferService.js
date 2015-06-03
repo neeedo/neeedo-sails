@@ -110,7 +110,11 @@ module.exports = {
   loadOffer: function(req, offerId, onLoadCallback, onErrorCallback) {
     if (this.isInSession(req, offerId)) {
       try {
-        sails.log.info('Attempt to restore offer with ID ' + offerId + " from session.");
+        sails.log.info('Attempt to restore offer with ID ' + offerId + " from session: session centent " +
+        util.inspect(req.session.offers[offerId], {
+          showHidden: false,
+            depth: null
+        }));
 
         var offer = new Offer();
         offer.loadFromSerialized(req.session.offers[offerId]);
@@ -157,7 +161,7 @@ module.exports = {
       && undefined != offer.getUser()
       && LoginService.getCurrentUser(req).getId() == offer.getUser().getId());
   },
-  setBelongsToCurrentUser: function(req, offer)
+  setBelongsToCurrentUser: function(req, res, offer)
   {
     if (this.belongsToCurrentUser(req, offer)) {
       offer.setUser(LoginService.getCurrentUser(req));

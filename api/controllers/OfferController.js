@@ -87,7 +87,7 @@ module.exports = {
         depth: null
       }) + " was loaded successfully.");
 
-      if (!OfferService.setBelongsToCurrentUser(req, loadedOffer)) {
+      if (!OfferService.setBelongsToCurrentUser(req, res, loadedOffer)) {
         return res.redirect(OfferService.getOverviewUrl());
       }
 
@@ -136,7 +136,7 @@ module.exports = {
         depth: null
       }) + " was loaded successfully.");
 
-      if (!OfferService.setBelongsToCurrentUser(req, loadedOffer)) {
+      if (!OfferService.setBelongsToCurrentUser(req, res, loadedOffer)) {
         return res.redirect(OfferService.getOverviewUrl());
       }
 

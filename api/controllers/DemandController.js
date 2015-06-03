@@ -92,7 +92,7 @@ module.exports = {
         depth: null
       }) + " was loaded successfully.");
 
-      if (!DemandService.setBelongsToCurrentUser(req, loadedDemand)) {
+      if (!DemandService.setBelongsToCurrentUser(req, res, loadedDemand)) {
         return res.redirect(DemandService.getOverviewUrl());
       }
 
@@ -141,7 +141,7 @@ module.exports = {
         depth: null
       }) + " was loaded successfully.");
 
-      if (!DemandService.setBelongsToCurrentUser(req, loadedDemand)) {
+      if (!DemandService.setBelongsToCurrentUser(req, res, loadedDemand)) {
         return res.redirect(DemandService.getOverviewUrl());
       }
 

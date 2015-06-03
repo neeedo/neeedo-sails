@@ -193,7 +193,7 @@ module.exports = {
       && LoginService.getCurrentUser(req).getId() == demand.getUser().getId();
   },
 
-  setBelongsToCurrentUser: function(req, demand)
+  setBelongsToCurrentUser: function(req, res, demand)
   {
     if (this.belongsToCurrentUser(req, demand)) {
       demand.setUser(LoginService.getCurrentUser(req));
