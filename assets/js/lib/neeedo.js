@@ -12,7 +12,7 @@ function toggle_visibility(id) {
     e.style.display = 'block';
   else
     e.style.display = 'none';
-};
+}
 
 /* ##############################################
  *
