@@ -108,7 +108,7 @@ describe('[UNIT TEST] LoginController', function() {
 
       // then the login service method should be called with the correct request parameters
       loginService.calledOnce.should.be.True;
-      loginService.calledWith("max@mustermann.de", "insecure").should.be.True;
+      loginService.calledWith(stubbedReq).should.be.True;
 
       done();
     });

@@ -126,10 +126,7 @@ describe('[UNIT TEST] DemandController', function() {
 
       // the demand service method should be called with the given request parameters
       demandService.calledOnce.should.be.True;
-      demandService.calledWith("tag1,tag2", "tag3,tag4", 55.555, 55.555, 10, 0, 10).should.be.True;
-
-      // and the user service method to get the current user should have been caleld
-      userService.calledOnce.should.be.True;
+      demandService.calledWith(stubbedReq).should.be.True;
 
       done();
     });

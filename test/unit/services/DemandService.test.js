@@ -17,6 +17,18 @@ var givenStubReq = function() {
   return req;
 };
 
+var givenSomeDemandParameters = function() {
+  var stubbed = {
+    param : function(key) {
+      switch (key) {
+        case 'mustTags' : return 'tag1, tag2';
+        case 'shouldTags' : return 'tag3, tag4';
+        case 'distance' : return 10;
+      }
+    }
+  };
+};
+
 var restoreReq = function() {
    //req.param.restore();
 };
@@ -55,8 +67,12 @@ var restoreClientDemandListLoadMostRecentService = function() {
   demandListService.loadMostRecent.restore();
 };
 
-var givenAClientCreateDemandService = function() {
-  return sinon.stub(clientDemandService, "createDemand");
+var givenAnApiClientService = function() {
+  return sinon.stub(sails.services.apiclientservice, "validateAndCreateNewDemandFromRequest");
+};
+
+var restoreApiClientService = function() {
+  sails.services.apiclientservice.validateAndCreateNewDemandFromRequest.restore();
 };
 
 var restoreClientCreateDemandService = function() {
@@ -190,57 +206,37 @@ describe('[UNIT TEST] DemandService', function() {
   });
 
   describe('createDemand():', function() {
-    var stubbedDemandListService;
+    var stubbedClientService, stubbedReq;
 
     before(function(done){
       givenStubbedNewClientDemandServiceCall();
       givenDemandMock();
 
-      stubbedDemandListService = givenAClientCreateDemandService();
+      stubbedClientService = givenAnApiClientService();
+      stubbedReq = givenSomeDemandParameters();
       done();
     });
 
     after(function(done){
-      restoreClientCreateDemandService();
+      restoreApiClientService();
 
       done();
     });
 
-    it('should set correct fields on demand model', function (done) {
+    it('should delegate to ApiClientService', function (done) {
       this.timeout(20000);
 
       var user = {};
+
+      // when loadUsersDemandIsCalled
+      var onSuccessCallback, onErrorCallback = sinon.spy();
+      demandService.createDemand(stubbedReq, onSuccessCallback, onErrorCallback);
 
       // demand mock methods should be set
-      demandMock.expects('setMustTags').returnsThis().once().calledWith(['tag1', 'tag2']);
-      demandMock.expects('setShouldTags').returnsThis().once().calledWith(['tag3', 'tag4']);
-      demandMock.expects('setDistance').returnsThis().once().calledWith(10);
-      demandMock.expects('setUser').returnsThis().once().calledWith(user);
-
-      // when loadUsersDemandIsCalled
-      var onSuccessCallback, onErrorCallback = sinon.spy();
-      demandService.createDemand("tag1,tag2", "tag3,tag4", 55.555, 55.555, 10, 0, 20, user, onSuccessCallback, onErrorCallback);
-
-      demandMock.verify();
+      stubbedClientService.called.should.be.True;
 
       done();
     });
 
-
-    it('should delegate to neeedo-api-nodejs-client', function (done) {
-      this.timeout(20000);
-
-      var onSuccessCallback, onErrorCallback = sinon.spy();
-
-      var user = {};
-      // when loadUsersDemandIsCalled
-      demandService.createDemand("tag1,tag2", "tag3,tag4", 55.555, 55.555, 10, 0, 20, user, onSuccessCallback, onErrorCallback);
-
-
-      // paginator service should be called
-      stubbedDemandListService.called.should.be.True;
-
-      done();
-    });
   });
 });

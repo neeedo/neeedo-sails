@@ -100,7 +100,7 @@ describe('[UNIT TEST] RegistrationController', function() {
 
       // then the register service method should be called with the correct request parameters
       registerService.calledOnce.should.be.True;
-      registerService.calledWith("max@mustermann.de", "maxmuster", "insecure").should.be.True;
+      registerService.calledWith(stubbedReq).should.be.True;
 
       done();
     });
