@@ -39,6 +39,13 @@ var givenAnOfferService = function() {
 var restoreOfferService = function() {
   sails.services.offerservice.createOffer.restore();
 };
+var givenAnFileService = function() {
+  return sinon.stub(sails.services.fileservice, 'getLeastUploadedFiles', function() { return ''; });
+};
+
+var restoreFileService = function() {
+  sails.services.fileservice.getLeastUploadedFiles.restore();
+};
 
 var givenAUserService = function() {
   return sinon.stub(sails.services.loginservice, 'getCurrentUser');
@@ -52,7 +59,7 @@ var restoreUserService = function() {
 // TESTS
 //#############################
 
-describe('[UNIT TEST] DemandController', function() {
+describe('[UNIT TEST] OfferController', function() {
 
   describe('create action', function() {
     var stubbedReq, stubbedRes;
@@ -61,10 +68,13 @@ describe('[UNIT TEST] DemandController', function() {
       stubbedReq = givenAGetRequest();
       stubbedRes = givenAResponse();
 
+      givenAnFileService();
+
       done();
     });
 
     after(function(done){
+      restoreFileService();
 
       done();
     });
@@ -83,7 +93,7 @@ describe('[UNIT TEST] DemandController', function() {
             price: 10,
             lat: 35.92516,
             lng: 12.37528,
-            images: "image1.jpg",
+            images: "",
             btnLabel: 'Create'
           }
         }
