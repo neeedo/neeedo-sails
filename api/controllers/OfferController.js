@@ -9,7 +9,7 @@ module.exports = {
           price: 10,
           lat: 35.92516,
           lng: 12.37528,
-          images: "image1.jpg",
+          images: FileService.getLeastUploadedFiles(req),
           btnLabel: 'Create'
         }
       });
@@ -54,7 +54,7 @@ module.exports = {
           price: offerModel.getPrice(),
           lat: offerModel.getLocation().getLatitude(),
           lng: offerModel.getLocation().getLongitude(),
-          images: offerModel.getImageList().serializeForApi(),
+          images: offerModel.getImageList(),
           btnLabel: 'Edit'
         }
       });

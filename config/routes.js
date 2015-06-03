@@ -45,9 +45,11 @@ module.exports.routes = {
   '/dashboard': 'UserController.dashboard',
   '/matching/demandId/:demandId': 'DemandController.matching',
   '/user/setLocale/locale/:locale' : 'UserController.setLocale',
-  'post /files/upload' : 'FileController.upload'
+  'post /files/upload-ajax' : 'FileController.uploadAjax',
+  '/files/upload' : 'FileController.upload'
 
-  /***************************************************************************
+
+    /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
   *                                                                          *
