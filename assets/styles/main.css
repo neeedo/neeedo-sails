@@ -245,5 +245,26 @@ html, body {
 ***************************/
 
 .slElement{
- background-color: #ff0000;
+ background-color: #88BEB1;
+  height: 180px;
+  padding:10px ;
+  border-radius: 5px;
+}
+
+.slWraper{
+  background-color: #718A94;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+.cS-hidden {
+  height: 1px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  overflow: hidden;
+}
+
+.item-a { width:300px; }
+@media (max-width: 768px) {
+  .item-a { width:100px; }
 }

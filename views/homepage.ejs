@@ -1,15 +1,22 @@
 <div id= main class="container">
-  <div class="container hidden-xs" id="bigScreen">
-    <ul id="lightSliderOffer">
-      <% offers.forEach(function(offer) { %>
-      <%- partial ('./partials/recentOffersSmall.ejs',{offer: offer}) %>
-      <% }); %>
-    </ul>
-    <ul id="lightSliderDemand">
-      <% demands.forEach(function(demand) { %>
-      <%- partial ('./partials/recentDemandsSmall.ejs',{demand: demand}) %>
-      <% }); %>
-    </ul>
+  <div class="container hidden-xs " id="bigScreen">
+
+    <div class="container slWraper">
+      <ul id="lightSliderOffer" class="cs-hidden">
+        <% offers.forEach(function(offer) { %>
+        <%- partial ('./partials/recentOffersSmall.ejs',{offer: offer}) %>
+        <% }); %>
+      </ul>
+    </div>
+
+    <div class="container slWraper">
+      <ul id="lightSliderDemand" class="cs-hidden">
+        <% demands.forEach(function(demand) { %>
+        <%- partial ('./partials/recentDemandsSmall.ejs',{demand: demand}) %>
+        <% }); %>
+      </ul>
+    </div>
+
   </div> <!-- Big Screen-->
 
   <div class="container visible-xs-block">
