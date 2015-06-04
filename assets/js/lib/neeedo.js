@@ -79,3 +79,19 @@ $(function () {
   inputFiles.on('change', prepareImages);
   fileuploadForm.on('submit', uploadImages);
 });
+
+
+/* ##############################################
+ *
+ *              CONTENT ELEMENTS
+ *
+ * #############################################
+ */
+
+$(document).ready(function() {
+  $(document).ready(function() {
+    $("#lightSliderOffer").lightSlider();
+    $("#lightSliderDemand").lightSlider();
+
+  });});
+
