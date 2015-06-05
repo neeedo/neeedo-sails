@@ -14,6 +14,7 @@ a [Sails](http://sailsjs.org) application
 Installation
 ----------
 
+- Please install ImageMagick first: http://www.imagemagick.org/ .
 - Install the latest [Node.js](https://nodejs.org/download/) (which includes the NPM package manager) .
 - Checkout the project and install the NPM dependencies
 
