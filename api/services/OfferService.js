@@ -178,7 +178,7 @@ module.exports = {
     if(offer.getImages().length > 0 ) {
       sails.log.info('returning first image...');
       var firstImage = offer.getImages()[0];
-      return firstImage.getUrl().toString();
+      return FileService.filterGetImageUrl(firstImage.getUrl());
     } else {
       sails.log.info('returning dummy...');
       return "/images/Offer_Dummy.png";
