@@ -10,13 +10,24 @@
  */
 var apiClient = require('neeedo-api-nodejs-client');
 
+var getNeeedoApiUrlFromConfig = function()
+{
+  if (undefined !== sails.config.neeedo.apiClient.apiUrls.https) {
+    return sails.config.neeedo.apiClient.apiUrls.https;
+  }
+
+  sails.log.warn('NeeedoApiClient: Falling back to make use of HTTP. This is not recommended!');
+  return sails.config.neeedo.apiClient.apiUrls.http;
+};
+
 var initializeNeeedoApiNpmClient = function () {
   // initialize by api URL from env config
-  apiClient.initClient(sails.config.neeedo.apiClient.apiUrl,
+  apiClient.initClient(
+    getNeeedoApiUrlFromConfig(),
     sails.config.neeedo.apiClient.security.https.allow_self_signed_cert,
     sails.log);
 
-}
+};
 
 module.exports.bootstrap = function(cb) {
   initializeNeeedoApiNpmClient();

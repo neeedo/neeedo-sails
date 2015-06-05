@@ -12,7 +12,7 @@
 <div id="fileupload-files">
   <ul>
   <% images.getImages().forEach(function(image) { %>
-      <li><img src="<%= image.getUrl() %>" alt="<%= image.getFileName() %>"></li>
+      <li><img src="<%= FileService.filterGetImageUrl(image.getUrl()) %>" alt="<%= image.getFileName() %>"></li>
   <% }) %>
   </ul>
 </div>

@@ -19,5 +19,9 @@ module.exports.webapp = {
     // cookies maxAge in milliseconds
     maxAge: 31536000000,
     httpOnly: false
+  },
+  images: {
+    // use HTTPS on images GET?
+    useHttps: false
   }
 };

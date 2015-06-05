@@ -41,7 +41,12 @@ module.exports = {
   neeedo: {
     // URL to production neeedo-ap
     apiClient : {
-      apiUrl : 'http://localhost',
+      apiUrls: {
+        // http fallback, used by GET images for example
+        http: 'http://localhost',
+        // be aware that https will be used first - set to undefined if you do not want to use it (not recommended)
+        https: 'http://localhost'
+      },
       debugMode: false,
       security: {
         https : {

@@ -112,5 +112,11 @@ module.exports = {
 
   getImageUploadUrl : function() {
     return '/files/upload';
+  },
+
+  filterGetImageUrl : function(neeedoApiClientUrl) {
+    return neeedoApiClientUrl.replace(
+      sails.config.neeedo.apiClient.apiUrls.https,
+      sails.config.neeedo.apiClient.apiUrls.http);
   }
 };
