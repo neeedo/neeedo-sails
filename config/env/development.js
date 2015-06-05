@@ -48,5 +48,13 @@ module.exports = {
     cookie: {
       maxAge: 24 * 60 * 60 * 1000
       }
+  },
+  webapp: {
+    images: {
+      processing: {
+        filters: false
+      }
+    }
   }
-  };
+
+};

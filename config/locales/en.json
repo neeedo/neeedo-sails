@@ -62,5 +62,17 @@
   "You cannot edit offers of other users." : "You cannot edit offers of other users.",
   "You cannot delete offers of other users." : "You cannot delete offers of other users.",
   "Menu" : "Menu",
-  "u" : "u"
+  "u" : "u",
+  "You uploaded too many images." : "You uploaded too many images.",
+  "You uploaded an invalid file type (file %s)." : "You uploaded an invalid file type (file %s).",
+  "The file %s is too big." : "The file %s is too big.",
+  "maximum number of images" : "Maximum number of images",
+  "Allowed file types" : "Allowed file type",
+  "maximal size" : "Maximal file size",
+  "Upload images" : "Upload images",
+  "Choose pictures" : "Choose pictures",
+  "This operation is not allowed." : "This operation is not allowed.",
+  "Could not determine ratio of image %s. Please contact Neeedo customer care." : "Could not determine ratio of image %s. Please contact Neeedo customer care.",
+  "Could not resize image %s. Please contact Neeedo customer care." : "Could not resize image %s. Please contact Neeedo customer care.",
+  "Your files were uploaded successfully" : "Your files were uploaded successfully"
 }

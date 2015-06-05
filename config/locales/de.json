@@ -66,5 +66,17 @@
   "You cannot edit offers of other users." : "Du kannst nicht die Biete-Karten anderer Benutzer bearbeiten.",
   "You cannot delete offers of other users." : "Du kannst nicht die Biete-Karten anderer Benutzer löschen.",
   "Menu" : "Menü",
-  "u" : "ü"
+  "u" : "ü",
+  "You uploaded too many images." : "Du hast das Upload-Limit überschritten.",
+  "You uploaded an invalid file type (file %s)." : "Der Dateityp %s wird leider nicht unterstützt.",
+  "The file %s is too big." : "Die datei %s ist leider zu groß.",
+  "maximum number of images" : "Maximale Anzahl von Bildern",
+  "Allowed file types" : "Erlaubte Dateitypen",
+  "maximal size" : "Maximale Dateigröße",
+  "Upload images" : "Bilder hochladen",
+  "Choose pictures" : "Bilder auswählen",
+  "This operation is not allowed." : "Diese Aktion ist nicht erlaubt.",
+  "Could not determine ratio of image %s. Please contact Neeedo customer care." : "Wir konnten leider nicht die Auflösung deines Bildes %s ermitteln. Bitte kontaktiere den Neeedo-Kundenservice.",
+  "Could not resize image %s. Please contact Neeedo customer care." : "Wir konnten leider dein Bild %s nicht verkleinern. Bitte kontaktiere den Neeedo-Kundenservice.",
+  "Your files were uploaded successfully" : "Deine Dateien wurden erfolgreich hochgeladen"
 }

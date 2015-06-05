@@ -1,6 +1,7 @@
 var apiClient = require('neeedo-api-nodejs-client')
     util = require('util'),
     ImageValidator = require('../validators/Image'),
+    ImageFilter = require('../filters/Image'),
     _ = require('underscore'),
     fs = require('fs')
     ;
@@ -9,7 +10,43 @@ var ImageService = apiClient.services.Image;
 
 var imageService = new ImageService();
 
+/**
+ *  Object of key - value pairs.
+ *  Keys: file type parameter submitted by upload form, e.g. image
+ *  Values: constructor function of associated validator
+ */
+var fileTypeAdapter = {
+  image: {
+    validator: {
+      isActivated : sails.config.webapp.images.processing.validators,
+      constructor : ImageValidator
+    },
+    filter: {
+      isActivated :sails.config.webapp.images.processing.filters,
+      constructor: ImageFilter
+    }
+  }
+};
+
 module.exports = {
+  getFileTypeAdapter : function() {
+    return fileTypeAdapter;
+  },
+
+  /**
+   * Start the uploadFiles Process:
+   *
+   * 0. Upload the files to tmp folder.
+   * 1. Trigger file upload validations.
+   * 2. Trigger filters on successfully validated uploads.
+   * 3. Upload the successfully filtered / processed files to API.
+   * 4. Call outer callback methods.
+   *
+   * @param req
+   * @param res
+   * @param onSuccessCallback
+   * @param onErrorCallback
+   */
   uploadFiles : function(req, res, onSuccessCallback, onErrorCallback) {
     var files = req.file("files", undefined);
 
@@ -20,15 +57,78 @@ module.exports = {
     }
   },
 
-  validateFilesAndDeleteInvalid: function(res, err, uploadedFiles) {
-    var validFiles = [];
+  /**
+   * Step 0: Upload files to tmp folder.
+   * @param req
+   * @param res
+   * @param files
+   * @param onSuccessCallback
+   * @param onErrorCallback
+   */
+  executeUpload : function (req, res, files, onSuccessCallback, onErrorCallback) {
+    var _this = this;
+
+    files.upload(function onUploadComplete(err, uploadedFiles) {
+      //	Files are located in .tmp/uploads
+      var validationResult = _this.validateFilesAndDeleteInvalid(req, res, err, uploadedFiles);
+      var validationErrorMessage = validationResult['messages'].join(", ");
+      sails.log.info('Uploaded files:' + util.inspect(uploadedFiles));
+
+      if (validationResult['validFiles'].length > 0) {
+        var onProcessSuccessCallback = function(processedFiles, processingErrorMessage) {
+          if (processedFiles.length > 0) {
+            // only push valid + processed files to API and handle validation error messages for invalid files
+            _this.uploadToApi(req, res, processedFiles, validationErrorMessage + processingErrorMessage, onSuccessCallback, onErrorCallback);
+          } else {
+            // only invalid files given
+            onErrorCallback(res, processingErrorMessage);
+          }
+        };
+        var onProcessErrorCallback = function(processingErrorMessages) {
+          onErrorCallback(res, processingErrorMessages.join(", "));
+        };
+
+        // only process valid files
+        _this.processFiles(req, res, validationResult['validFiles'], onProcessSuccessCallback, onProcessErrorCallback);
+      } else {
+        // only invalid files given
+        onErrorCallback(res, validationErrorMessage);
+      }
+    });
+    /* }*/
+  },
+
+  isValidationActivated : function(req, res) {
+    var type = req.param('type');
+
+    return this.getFileTypeAdapter()[type]['validator'].isActivated;
+  },
+
+  isProcessingActivated : function(req, res) {
+    var type = req.param('type');
+
+    return this.getFileTypeAdapter()[type]['filter'].isActivated;
+  },
+
+  /**
+   * Step 1: Validate files and delete invalid.
+   */
+  validateFilesAndDeleteInvalid: function(req, res, err, uploadedFiles) {
     var messages = [];
+    if (!this.isValidationActivated(req, res)) {
+      return {
+        'validFiles' : uploadedFiles,
+        'messages' : messages
+      };
+    }
+
+    var validFiles = [];
 
     if (err) {
       sails.log.error(err);
       messages.push(res.i18n('Your file upload failed. Please check the restrictions.'));
     } else {
-      var validator = this.getImageValidator(res.i18n);
+      var validator = this.getValidator(req, res);
 
       _.each(uploadedFiles, function(uploadedFile) {
           if (!validator.isValid(uploadedFile)) {
@@ -49,26 +149,45 @@ module.exports = {
     };
   },
 
-  executeUpload : function (req, res, files, onSuccessCallback, onErrorCallback) {
-    var _this = this;
+  /**
+   * Step 2: Process / apply filters on files and delete invalid.
+   */
+  processFiles : function(req, res, uploadedValidFiles, onProcessSuccessCallback, onProcessErrorCallback) {
+    var filter = this.getFilter(req, res);
+    var processedFiles = [];
+    var processed = 0;
+    var processErrorMessages = [];
 
-    files.upload(function onUploadComplete(err, uploadedFiles) {
-        //	Files are located in .tmp/uploads
-        var validationResult = _this.validateFilesAndDeleteInvalid(res, err, uploadedFiles);
-        var validationErrorMessage = validationResult['messages'].join(", ");
-        sails.log.info('Uploaded files:' + util.inspect(uploadedFiles));
+    if (!this.isProcessingActivated(req, res)) {
+      onProcessSuccessCallback(uploadedValidFiles, processErrorMessages.join(", "));
+    } else {
+      _.each(uploadedValidFiles, function (uploadedFile) {
+        var onSingleProcessSuccessCallback = function (processedFile) {
+          processed++;
+          processedFiles.push(processedFile);
 
-        if (validationResult['validFiles'].length > 0) {
-          // only push valid files to API and handle validation error messages for invalid files
-          _this.uploadToApi(req, res, validationResult['validFiles'], validationErrorMessage, onSuccessCallback, onErrorCallback);
-        } else {
-          // only invalid files given
-          onErrorCallback(res, validationErrorMessage);
-        }
+          if (processed == uploadedValidFiles.length) {
+            onProcessSuccessCallback(processedFiles, processErrorMessages.join(", "));
+          }
+        };
+        var onSingleProcessErrorCallback = function (errorMessage) {
+          processed++;
+          processErrorMessages.push(errorMessage);
+
+          if (processed == uploadedValidFiles.length) {
+            onProcessSuccessCallback(processedFiles, processErrorMessages.join(", "));
+          }
+        };
+
+        filter.processFilter(uploadedFile, onSingleProcessSuccessCallback, onSingleProcessErrorCallback);
       });
-   /* }*/
+    }
   },
-  uploadToApi : function(req, res, uploadedFiles, message, onOuterSuccessCallback, onOuterErrorCallback) {
+
+  /**
+   * Step 3: Finally upload validated + process files to API.
+   */
+  uploadToApi : function(req, res, validatedAndProcessFiles, message, onOuterSuccessCallback, onOuterErrorCallback) {
     var numberOfUploaded = 0;
     var imageList = imageService.newImageList();
     var _this = this;
@@ -80,15 +199,15 @@ module.exports = {
       numberOfUploaded++;
       imageList.addImage(imageModel);
 
-      if (numberOfUploaded == uploadedFiles.length) {
-        _.each(uploadedFiles, function(uploadedFile) {
+      if (numberOfUploaded == validatedAndProcessFiles.length) {
+        _.each(validatedAndProcessFiles, function(uploadedFile) {
           // remove file from .tmp folder synchronously
           fs.unlinkSync(uploadedFile.fd);
         });
 
         // store serialized image list in session
         _this.storeInSession(req, imageList.serializeForApi());
-        onOuterSuccessCallback(res, res.i18n('Your files were uploaded successfully') + ' ' + message, uploadedFiles);
+        onOuterSuccessCallback(res, res.i18n('Your files were uploaded successfully') + ' ' + message, validatedAndProcessFiles);
       }
     };
 
@@ -99,8 +218,8 @@ module.exports = {
       onOuterErrorCallback(res, errorModel.getErrorMessages()[0]);
     };
 
-    for (var i=0; i < uploadedFiles.length; i++) {
-      var file = uploadedFiles[i];
+    for (var i=0; i < validatedAndProcessFiles.length; i++) {
+      var file = validatedAndProcessFiles[i];
 
       var imageName = file.filename;
       var imagePath = file.fd;
@@ -169,6 +288,18 @@ module.exports = {
       sails.config.neeedo.apiClient.apiUrls.http);
   },
 
+  getValidator : function(req, res) {
+    switch(req.param('type')) {
+      case 'image': return this.getImageValidator(res.i18n);
+    }
+  },
+
+  getFilter : function(req, res) {
+    switch(req.param('type')) {
+      case 'image': return this.getImageFilter(res.i18n);
+    }
+  },
+
   getImageValidator : function(translator) {
    // initialize imageType validator from config
    var allowedImageTypes = [];
@@ -184,6 +315,14 @@ module.exports = {
      sails.config.webapp.images.maxSizeInBytes,
      sails.config.webapp.images.maxCountPerObject,
      typeDescriptions.join(', '),
+     translator);
+  },
+
+  getImageFilter : function(translator) {
+   // initialize imageType validator from config
+   return new ImageFilter(
+     sails.config.webapp.images.resolution.maxHeight,
+     sails.config.webapp.images.resolution.maxWidth,
      translator);
   }
 };

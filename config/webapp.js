@@ -25,6 +25,17 @@ module.exports.webapp = {
     useHttps: false,
     maxSizeInBytes: 5000000 , // = 5 MB
     maxCountPerObject: 5, // e.g. max. number of images per offer
+    resolution: { // max resolution in pixel - uploaded images will be resized to fit the max resolution before pushing to API
+      maxHeight : 500,
+      maxWidth : 500
+    },
+    /**
+     * The processes should only be disabled for testing purpose or on critical errors - this is not recommended on LIVE!
+     */
+    processing: {
+      validators : true, // activate image validation?
+      filters : true // activate image processing / filter, like rescaling?
+    },
     /**
      * Allowed image types:
      *

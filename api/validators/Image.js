@@ -68,17 +68,17 @@ Image.prototype.isValid = function(file)
     +  this.translator("maximum number of images") + ": " +  this.maxCount);
 
     return false;
-  };
+  }
 
   if (!this.isTypeValid(file)) {
-    this.errorMessages.push(this.translator('You uploaded an invalid file type!') + " "
+    this.errorMessages.push(this.translator('You uploaded an invalid file type (file %s).', file.filename) + " "
     +  this.translator("Allowed file types") + ": " +  this.typeDescriptions);
 
     return false;
   }
 
   if (!this.isFileSizeValid(file)) {
-    this.errorMessages.push(this.translator('The file %s is too big!', file.filename) + " "
+    this.errorMessages.push(this.translator('The file %s is too big.', file.filename) + " "
     +  this.translator("maximal size") + ": " +  this.maxSizeInBytes);
 
     return false;
