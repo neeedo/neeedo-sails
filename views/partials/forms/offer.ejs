@@ -1,6 +1,10 @@
 <% // image chooser %>
 <form id="fileupload" action="<%= FileService.getImageUploadUrl() %>" method="post" enctype="multipart/form-data">
 <div>
+  <p><% FileService.getImageValidator(i18n).getDescriptions().forEach( function ( description ) { %>
+      <%= description['key'] %>: <%= description['value'] %> <br>
+   <% }) %>
+  </p>
   <label for="fileupload"><%= i18n('Choose pictures') %>
   <input type="file" name="files" id="fileupload-input" multiple>
 

@@ -11,7 +11,7 @@ module.exports = {
 
   upload: function (req, res) {
     var processError = function(res, message) {
-      ApiClientService.addFlashMessages(req, res, message);
+      FlashMessagesService.setErrorMessage(message, req, res);
 
       if (!UrlService.redirectToLastRedirectUrl(req, res)) {
         res.redirect('/dashboard');

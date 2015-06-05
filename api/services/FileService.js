@@ -1,5 +1,9 @@
 var apiClient = require('neeedo-api-nodejs-client')
-    util = require('util');
+    util = require('util'),
+    ImageValidator = require('../validators/Image'),
+    _ = require('underscore'),
+    fs = require('fs')
+    ;
 
 var ImageService = apiClient.services.Image;
 
@@ -9,8 +13,6 @@ module.exports = {
   uploadFiles : function(req, res, onSuccessCallback, onErrorCallback) {
     var files = req.file("files", undefined);
 
-    sails.log.info('uploadFiles()...' + util.inspect(files));
-
     if (undefined === files) {
       onErrorCallback(res, res.i18n("Problem during upload - no file given."));
     } else {
@@ -18,23 +20,55 @@ module.exports = {
     }
   },
 
+  validateFilesAndDeleteInvalid: function(res, err, uploadedFiles) {
+    var validFiles = [];
+    var messages = [];
+
+    if (err) {
+      sails.log.error(err);
+      messages.push(res.i18n('Your file upload failed. Please check the restrictions.'));
+    } else {
+      var validator = this.getImageValidator(res.i18n);
+
+      _.each(uploadedFiles, function(uploadedFile) {
+          if (!validator.isValid(uploadedFile)) {
+            messages.push(validator.getErrorMessages());
+
+            // remove file from .tmp folder synchronously
+            fs.unlinkSync(uploadedFile.fd);
+          } else {
+            // file is valid and can be uploaded to API
+            validFiles.push(uploadedFile);
+          }
+      });
+    }
+
+    return {
+      'validFiles' : validFiles,
+      'messages' : messages
+    };
+  },
+
   executeUpload : function (req, res, files, onSuccessCallback, onErrorCallback) {
     var _this = this;
 
     files.upload(function onUploadComplete(err, uploadedFiles) {
         //	Files are located in .tmp/uploads
+        var validationResult = _this.validateFilesAndDeleteInvalid(res, err, uploadedFiles);
+        var validationErrorMessage = validationResult['messages'].join(", ");
+        sails.log.info('Uploaded files:' + util.inspect(uploadedFiles));
 
-        if (err) {
-          res.serverError(err);
+        if (validationResult['validFiles'].length > 0) {
+          // only push valid files to API and handle validation error messages for invalid files
+          _this.uploadToApi(req, res, validationResult['validFiles'], validationErrorMessage, onSuccessCallback, onErrorCallback);
         } else {
-          sails.log.info('Uploaded files:' + util.inspect(uploadedFiles));
-
-          _this.uploadToApi(req, res, uploadedFiles, onSuccessCallback, onErrorCallback);
+          // only invalid files given
+          onErrorCallback(res, validationErrorMessage);
         }
       });
    /* }*/
   },
-  uploadToApi : function(req, res, uploadedFiles, onOuterSuccessCallback, onOuterErrorCallback) {
+  uploadToApi : function(req, res, uploadedFiles, message, onOuterSuccessCallback, onOuterErrorCallback) {
     var numberOfUploaded = 0;
     var imageList = imageService.newImageList();
     var _this = this;
@@ -47,9 +81,14 @@ module.exports = {
       imageList.addImage(imageModel);
 
       if (numberOfUploaded == uploadedFiles.length) {
+        _.each(uploadedFiles, function(uploadedFile) {
+          // remove file from .tmp folder synchronously
+          fs.unlinkSync(uploadedFile.fd);
+        });
+
         // store serialized image list in session
         _this.storeInSession(req, imageList.serializeForApi());
-        onOuterSuccessCallback(res, res.i18n('Your files were uploaded successfully'), uploadedFiles);
+        onOuterSuccessCallback(res, res.i18n('Your files were uploaded successfully') + ' ' + message, uploadedFiles);
       }
     };
 
@@ -121,12 +160,30 @@ module.exports = {
   },
 
   getImageUploadUrl : function() {
-    return '/files/upload';
+    return '/files/upload?type=image';
   },
 
   filterGetImageUrl : function(neeedoApiClientUrl) {
     return neeedoApiClientUrl.replace(
       sails.config.neeedo.apiClient.apiUrls.https,
       sails.config.neeedo.apiClient.apiUrls.http);
+  },
+
+  getImageValidator : function(translator) {
+   // initialize imageType validator from config
+   var allowedImageTypes = [];
+   var typeDescriptions = [];
+
+   _.each(sails.config.webapp.images.allowedTypes, function(allowedType) {
+      allowedImageTypes.push(allowedType['fileType']);
+      typeDescriptions.push(allowedType['description']);
+   });
+
+   return new ImageValidator(
+     allowedImageTypes,
+     sails.config.webapp.images.maxSizeInBytes,
+     sails.config.webapp.images.maxCountPerObject,
+     typeDescriptions.join(', '),
+     translator);
   }
 };

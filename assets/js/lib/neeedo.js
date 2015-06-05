@@ -32,7 +32,7 @@ var prepareImages = function(event) {
   files = event.target.files;
 };
 
-var uploadImages = function(event) {
+var uploadImages = function(event, data) {
   console.log('uploading images...' + util.inspect(files));
 
   event.stopPropagation();
