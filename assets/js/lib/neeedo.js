@@ -67,17 +67,30 @@ var uploadImages = function(event) {
   }
 };
 
+var deleteImage = function(event) {
+  var _this = $(this);
+
+  var imageName = _this.attr('data-imageName');
+
+  // remove from hidden input fields
+  $("input[value='" + imageName + "']").remove();
+
+  // remove from display list
+  _this.parent().remove();
+};
 
 
-$(function () {
+$(document).ready(function () {
   var inputFiles = $('#fileupload-input');
   var fileuploadForm = $('#fileupload');
   errorMessageTarget = $('#fileupload-messages');
+  var deleteFileButtons = $('.fileupload-deleteImage');
 
   uploadTargetUrl = fileuploadForm.attr('action');
 
   inputFiles.on('change', prepareImages);
   fileuploadForm.on('submit', uploadImages);
+  deleteFileButtons.on('click', deleteImage);
 });
 
 

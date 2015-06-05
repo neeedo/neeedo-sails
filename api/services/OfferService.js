@@ -161,6 +161,7 @@ module.exports = {
       && undefined != offer.getUser()
       && LoginService.getCurrentUser(req).getId() == offer.getUser().getId());
   },
+
   setBelongsToCurrentUser: function(req, res, offer)
   {
     if (this.belongsToCurrentUser(req, offer)) {
@@ -169,6 +170,18 @@ module.exports = {
     } else {
       FlashMessagesService.setErrorMessage('You cannot edit offers of other users.', req, res);
       return false;
+    }
+  },
+
+  getFirstImage : function(offer)
+  {
+    if(offer.getImages().length > 0 ) {
+      sails.log.info('returning first image...');
+      var firstImage = offer.getImages()[0];
+      return firstImage.getUrl().toString();
+    } else {
+      sails.log.info('returning dummy...');
+      return "/images/Offer_Dummy.png";
     }
   }
 };

@@ -1,14 +1,4 @@
-<%var src = "string"
-
-  if(offer.getImageList().length > 0 ) {
-    var firstImage = offer.getImages()[0];
-    var url = firstImage.getUrl().toString();
-    src = url;
-  } else {
-    src = "/images/Offer_Dummy.png";
-  }%>
-
-<img src = "<%- src%>">
+<img src = "<%- OfferService.getFirstImage(offer) %>">
 
 <div class="carousel-caption">
   <div class="container col-md-6 slidercard">

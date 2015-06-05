@@ -54,7 +54,7 @@ module.exports = {
           price: offerModel.getPrice(),
           lat: offerModel.getLocation().getLatitude(),
           lng: offerModel.getLocation().getLongitude(),
-          images: offerModel.getImageList(),
+          images: FileService.getLeastUploadedFilesAndCurrentOnes(req, offerModel.getImageList()),
           btnLabel: 'Edit'
         }
       });

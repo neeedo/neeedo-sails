@@ -76,6 +76,12 @@ module.exports = {
      req.session.uploadedFiles = uploadedFiles;
   },
 
+  resetLeastUploadedFiles : function(req) {
+    if ("uploadedFiles" in req.session) {
+      delete req.session.uploadedFiles;
+    }
+  },
+
   getLeastUploadedFiles : function(req) {
     var imageList = imageService.newImageList();
     if ("uploadedFiles" in req.session) {
@@ -85,10 +91,14 @@ module.exports = {
     return imageList;
   },
 
-  resetLeastUploadedFiles : function(req) {
-    if ("uploadedFiles" in req.session) {
-      delete req.session.uploadedFiles;
+  getLeastUploadedFilesAndCurrentOnes : function(req, imageList) {
+    var least = this.getLeastUploadedFiles(req);
+
+    for (var i = 0; i < least.getImages().length; i++) {
+      imageList.addImage(least.getImages()[i]);
     }
+
+    return imageList;
   },
 
   sendErrorResponse : function(res, message) {
