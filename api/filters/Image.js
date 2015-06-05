@@ -1,6 +1,14 @@
 var _ = require('underscore'),
-   gm = require('gm');
+  gm = require('gm').subClass({imageMagick: true});
 
+
+/**
+ * @author Sascha Feldmann <sascha.feldmann@gmx.de>
+ * @param maxHeight
+ * @param maxWidth
+ * @param translator
+ * @constructor
+ */
 function Image(maxHeight, maxWidth, translator) {
   if (!_.isNumber(maxHeight)) {
     throw new Error('Image:: maxHeight must be numeric!');
@@ -40,12 +48,12 @@ Image.prototype.calculateMaxDimensions = function(givenHeight, givenWidth)
    */
   var heightScaleFactor = 1;
   if (givenHeight > this.maxHeight) {
-    heightScaleFactor = (givenHeight / this.maxHeight);
+    heightScaleFactor = (this.maxHeight / givenHeight);
   }
 
   var widthScaleFactor = 1;
   if (givenWidth > this.maxWidth) {
-    widthScaleFactor = (givenWidth / this.maxWidth);
+    widthScaleFactor = (this.maxWidth / givenWidth);
   }
 
 /* ################################################################################################################

@@ -52,7 +52,7 @@ module.exports = {
   webapp: {
     images: {
       processing: {
-        filters: false
+        filters: true
       }
     }
   }
