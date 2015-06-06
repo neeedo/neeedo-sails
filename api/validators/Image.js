@@ -40,6 +40,18 @@ function Image(allowedTypes, maxSizeInBytes, maxCount, typeDescriptions, transla
   ];
 }
 
+Image.prototype.getAllowedMimeTypes = function() {
+  return this.allowedTypes;
+};
+
+Image.prototype.getMaxAllowedSizeInBytes = function() {
+  return this.maxSizeInBytes;
+};
+
+Image.prototype.getMaxAllowedCountOfImages = function() {
+  return this.maxCount;
+};
+
 Image.prototype.isTypeValid = function(file)
 {
   return -1 !== this.allowedTypes.indexOf(file.type);
