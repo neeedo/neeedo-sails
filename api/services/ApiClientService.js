@@ -1,5 +1,6 @@
 var apiClient = require('neeedo-api-nodejs-client')
-    util = require('util');
+    util = require('util'),
+    ImageValidator = require('../validators/Image');
 
 var Location = apiClient.models.Location,
     Error = apiClient.models.Error,
@@ -55,15 +56,19 @@ module.exports = {
     return parseFloat(price);
   },
 
+  getImagesFromRequest : function(req) {
+    return req.param("images", undefined);
+  },
+
   newImageListFromRequest : function(req) {
     var imageList = imageService.newImageList();
 
-    var images = req.param("images", undefined);
+    var images = this.getImagesFromRequest(req);
 
     if (undefined !== images) {
       for (var imageI=0; imageI < images.length; imageI++) {
         var fileName = images[imageI];
-        
+
         var imageObj = imageService.newImage();
         imageObj.setFileName(fileName);
         imageList.addImage(imageObj);
@@ -176,8 +181,10 @@ module.exports = {
   },
 
   validateAndSetOfferFromRequest: function(req, offerModel, user, onErrorCallback) {
-    if (!this.validateOfferFromRequest(req)) {
-      onErrorCallback(ApiClientService.newError("validateAndSetOfferFromRequest: ", 'Your inputs were not valid.'));
+    var validationResult = this.validateOfferFromRequest(req);
+
+    if (!validationResult.success) {
+      onErrorCallback(ApiClientService.newError("validateAndSetOfferFromRequest: ", validationResult.message));
     }
 
     offerModel.setTags(this.newTagsFromRequest(req))
@@ -187,9 +194,22 @@ module.exports = {
       .setImageList(this.newImageListFromRequest(req));
   },
 
+  validateImages : function(req) {
+      return undefined !== this.getImagesFromRequest(req) && this.getImagesFromRequest(req).length <= sails.config.webapp.images.maxCountPerObject;
+  },
+
   validateOfferFromRequest: function(req) {
-    // TODO implement
-    return true;
+    if (!this.validateImages(req)) {
+      return {
+        success: false,
+        message: 'You uploaded too many images.'
+      }
+    }
+
+    return {
+      success: true,
+      message: ''
+    };
   },
 
   validateAndCreateNewDemandFromRequest: function(req, onErrorCallback) {

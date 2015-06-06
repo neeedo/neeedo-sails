@@ -205,6 +205,13 @@ module.exports = {
           fs.unlinkSync(uploadedFile.fd);
         });
 
+        // append existing files (from session) so that they will be stored, too
+        var existingImages = _this.getLeastUploadedFiles(req);
+
+        _.each(existingImages.getImages(), function(existingImage) {
+            imageList.addImage(existingImage);
+        });
+
         // store serialized image list in session
         _this.storeInSession(req, imageList.serializeForApi());
         onOuterSuccessCallback(res, res.i18n('Your files were uploaded successfully') + ' ' + message, validatedAndProcessFiles);

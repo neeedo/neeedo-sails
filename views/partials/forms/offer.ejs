@@ -4,33 +4,33 @@
   data-maxAllowedSize="<%= FileService.getImageValidator(i18n).getMaxAllowedSizeInBytes() %>"
   data-maxNumberOfFiles="<%= FileService.getImageValidator(i18n).getMaxAllowedCountOfImages() %>"
   >
-<div>
-  <p><% FileService.getImageValidator(i18n).getDescriptions().forEach( function ( description ) { %>
-      <%= description['key'] %>: <%= description['value'] %> <br>
-   <% }) %>
-  </p>
-  <label for="fileupload"><%= i18n('Choose pictures') %>
-  <input type="file" name="files" id="fileupload-input" multiple>
+  <div>
+    <p><% FileService.getImageValidator(i18n).getDescriptions().forEach( function ( description ) { %>
+        <%= description['key'] %>: <%= description['value'] %> <br>
+     <% }) %>
+    </p>
+    <label for="fileupload"><%= i18n('Choose pictures') %>
+    <input type="file" name="files" id="fileupload-input" multiple>
 
-  <input type="submit" id="fileupload-submit" value="<%= i18n('Upload images') %>">
-</div>
-<div id="fileupload-messages" data-messageNoFiles="<%= i18n('Please select at least one file.') %>"
-  data-messageInvalidType="<%= i18n('The file %%FILE%% has a type that is not allowed.') %>"
-  data-messageFileTooLarge="<%= i18n('The file %%FILE%% is too large.') %>"
-  data-messageTooManyFiles="<%= i18n('You choosed too many files.') %>"
-  data-messageUploadError="<%= i18n('Error - unable to upload files. Please contact Neeedo customer care.') %>"
->
-  <% //upload messages will be shown here %>
-</div>
-<div id="fileupload-files">
-  <ul>
-  <% images.getImages().forEach(function(image) { %>
-      <li><img src="<%= FileService.filterGetImageUrl(image.getUrl()) %>" alt="<%= image.getFileName() %>">
-        <input type="button" class="fileupload-deleteImage" value="<%= i18n('Delete') %>" data-imageName="<%= image.getFileName() %>">
-      </li>
-  <% }) %>
-  </ul>
-</div>
+    <input type="submit" id="fileupload-submit" value="<%= i18n('Upload images') %>">
+  </div>
+  <div id="fileupload-messages" data-messageNoFiles="<%= i18n('Please select at least one file.') %>"
+    data-messageInvalidType="<%= i18n('The file %%FILE%% has a type that is not allowed.') %>"
+    data-messageFileTooLarge="<%= i18n('The file %%FILE%% is too large.') %>"
+    data-messageTooManyFiles="<%= i18n('You choosed too many files.') %>"
+    data-messageUploadError="<%= i18n('Error - unable to upload files. Please contact Neeedo customer care.') %>"
+  >
+    <% //upload messages will be shown here %>
+  </div>
+  <div id="fileupload-files">
+    <ul>
+    <% images.getImages().forEach(function(image) { %>
+        <li><img src="<%= FileService.filterGetImageUrl(image.getUrl()) %>" alt="<%= image.getFileName() %>">
+          <input type="button" class="fileupload-deleteImage" value="<%= i18n('Delete') %>" data-imageName="<%= image.getFileName() %>">
+        </li>
+    <% }) %>
+    </ul>
+  </div>
 </form>
 
  <form method="POST" id="createOffer">
