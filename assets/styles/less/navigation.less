@@ -1,0 +1,103 @@
+/***************************
+        NAVIGATION
+***************************/
+.cbp-spmenu {
+  background: @MetroGreen;
+  position: fixed;
+}
+
+.cbp-spmenu h3 {
+  color: #e0e0e0;
+  font-size: 1.9em;
+  padding: 20px;
+  margin: 0;
+  font-weight: 300;
+  background: #6A9A8D;
+}
+
+.cbp-spmenu a {
+  display: block;
+  color: #fff;
+  font-size: 1.1em;
+  font-weight: 300;
+}
+
+.cbp-spmenu a:hover {
+  background: @DarkerMetroGreen;
+}
+
+.cbp-spmenu a:active {
+  background: #afdefa;
+  color: @DarkerMetroGreen;
+}
+
+.cbp-spmenu-vertical {
+  width: 240px;
+  height: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+.cbp-spmenu-vertical a {
+  border-bottom: 1px solid @DarkerMetroGreen;
+  padding: 1em;
+}
+
+.cbp-spmenu-left {
+  left: -240px;
+}
+
+.cbp-spmenu-left.cbp-spmenu-open {
+  left: 0px;
+}
+
+.cbp-spmenu-push {
+  overflow-x: hidden;
+  position: relative;
+  left: 0;
+}
+
+.cbp-spmenu-push-toright {
+  left: 240px;
+}
+
+.cbp-spmenu-push-toleft {
+  left: -240px;
+}
+
+/* Transitions */
+
+.cbp-spmenu,
+.cbp-spmenu-push {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+#showLeft{
+  position: absolute;
+  right: -50px;
+  width: 50px;
+  top: 40%;
+  background-color: @MetroGreen;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 20px;
+  margin: 0;
+  color: #fff;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: none;
+}
+
+#showLeft:hover{
+  text-shadow: 0 0 0.2em @DarkerMetroGreen, 0 0 0.2em @DarkerMetroGreen, 0 0 0.2em @DarkerMetroGreen;
+}
+
+#showLeft:focus{
+  border: none;
+}
+
+#cbp-spmenu-s1{
+  z-index: 9000;
+}

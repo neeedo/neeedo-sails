@@ -172,7 +172,7 @@ var showProgress = function() {
     , radius: 42 // The radius of the inner circle
     , scale: 1 // Scales overall size of the spinner
     , corners: 1 // Corner roundness (0..1)
-    , color: '#000' // #rgb or #rrggbb or array of colors
+    , color: '#000' // #rgb or #rrggbb or array of colors.less
     , opacity: 0.25 // Opacity of the lines
     , rotate: 0 // The rotation offset
     , direction: 1 // 1: clockwise, -1: counterclockwise
