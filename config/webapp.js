@@ -81,5 +81,9 @@ module.exports.webapp = {
         longitude: -0.11832
       }
     }
+  },
+  map: {
+    // initial zoom step that will be set on open layers view
+    defaultZoomStep: 12
   }
 };

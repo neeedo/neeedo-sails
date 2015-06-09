@@ -9,6 +9,10 @@
       </ul>
     </div>
 
+    <% if (false !== showMap)  { %>
+    <%- partial ('./partials/map.ejs', { mapType: showMap.mapType, dataSourceUrl: showMap.dataSourceUrl }) %>
+    <% } %>
+    
     <div class="container slWraper">
       <ul id="lightSliderDemand" class="cs-hidden">
         <% demands.forEach(function(demand) { %>
@@ -38,10 +42,6 @@
         <% }); %>
        </ul>
       </div>
-
-      <% if (false !== showMap)  { %>
-        <%- partial ('./partials/map.ejs', { mapType: showMap.mapType, dataSourceUrl: showMap.dataSourceUrl }) %>
-      <% } %>
 
       <div role="tabpanel" class="tab-pane" id="offers">
         <ul>
