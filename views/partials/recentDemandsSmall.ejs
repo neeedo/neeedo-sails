@@ -1,11 +1,9 @@
     <li class="media slElement item-a">
-      <div class="media-left">
-      </div>
       <div class="media-body">
-        <h4 class="media-heading" id="title"><%= demand.getMustTags() %></h4>
+        <h4 class="media-heading title"><%= demand.getMustTags() %></h4>
         <p><%= demand.getShouldTags() %></p>
         <p><%= i18n('Distance')%>:<%= demand.getDistance() %></p>
-        <p><%= i18n('Price')%>:<%= demand.getPrice().getMin() %> - <%= demand.getPrice().getMax() %><span class="glyphicon glyphicon-euro" aria-hidden="true"/></p>
+        <p><%= i18n('Price')%>:<%= demand.getPrice().getMin() %> - <%= demand.getPrice().getMax() %><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></p>
         <%- partial ('../partials/crudButtonsDemands.ejs',{demand: demand}) %>
       </div>
     </li>
