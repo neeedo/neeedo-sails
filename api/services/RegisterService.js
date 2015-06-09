@@ -12,9 +12,13 @@ module.exports = {
    * @param onErrorCallBack , will be called with an HTTP response object on error
    */
   registerUser: function(req, onSuccessCallback, onErrorCallBack) {
-     var registerModel = ApiClientService.validateAndCreateNewRegisterFromRequest(req, onErrorCallBack);
+    try {
+      var registerModel = ApiClientService.validateAndCreateNewRegisterFromRequest(req, onErrorCallBack);
 
-     var registerService = new RegisterService();
-     registerService.registerUser(registerModel, onSuccessCallback, onErrorCallBack);
+      var registerService = new RegisterService();
+      registerService.registerUser(registerModel, onSuccessCallback, onErrorCallBack);
+    } catch (e) {
+      onErrorCallBack(ApiClientService.newError("registerUser:" + e.message, 'Your inputs were not valid.'));
+    }
   }
 };

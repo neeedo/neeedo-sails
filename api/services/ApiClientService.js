@@ -136,8 +136,10 @@ module.exports = {
   },
 
   validateAndSetRegisterFromRequest: function(req, registerModel, onErrorCallback) {
-    if (!this.validateRegisterFromRequest(req)) {
-      onErrorCallback(ApiClientService.newError("validateAndSetRegisterFromRequest: ", 'Your inputs were not valid.'));
+    var validationResult = this.validateRegisterFromRequest(req);
+
+    if (!validationResult.success) {
+      onErrorCallback(ApiClientService.newError("validateAndSetRegisterFromRequest: ", validationResult.message));
     }
 
     registerModel.setEMail( this.newEMailFromRequest(req) )
@@ -147,7 +149,10 @@ module.exports = {
 
   validateRegisterFromRequest: function(req) {
     // TODO implement
-    return true;
+    return {
+      success: true,
+      message: ''
+    };
   },
 
   validateAndCreateNewLoginFromRequest: function(req, onErrorCallback) {
@@ -159,8 +164,10 @@ module.exports = {
   },
 
   validateAndSetLoginFromRequest: function(req, loginModel, onErrorCallback) {
-    if (!this.validateLoginFromRequest(req)) {
-      onErrorCallback(ApiClientService.newError("validateAndSetLoginFromRequest: ", 'Your inputs were not valid.'));
+    var validationResult = this.validateLoginFromRequest(req);
+
+    if (!validationResult.success) {
+      onErrorCallback(ApiClientService.newError("validateAndSetLoginFromRequest: ", validationResult.message));
     }
 
     loginModel.setEMail(this.newEMailFromRequest(req));
@@ -169,7 +176,10 @@ module.exports = {
 
   validateLoginFromRequest: function(req) {
     // TODO implement
-    return true;
+    return {
+      success: true,
+      message: ''
+    };
   },
 
   validateAndCreateNewOfferFromRequest: function(req, onErrorCallback) {
@@ -221,10 +231,12 @@ module.exports = {
   },
 
   validateAndSetDemandFromRequest: function(req, demandModel, user, onErrorCallback) {
-    if (!this.validateDemandFromRequest(req)) {
-      onErrorCallback(ApiClientService.newError("validateAndSetDemandFromRequest:", 'Your inputs were not valid.'));
-    }
+    var validationResult = this.validateDemandFromRequest(req);
 
+    if (!validationResult.success) {
+      onErrorCallback(ApiClientService.newError("validateAndSetDemandFromRequest: ", validationResult.message));
+    }
+    
     demandModel.setMustTags(this.newMustTagsFromRequest(req))
       .setShouldTags(this.newShouldTagsFromRequest(req))
       .setPrice(this.newDemandPriceFromRequest(req))
@@ -235,6 +247,9 @@ module.exports = {
 
   validateDemandFromRequest: function(req) {
     // TODO implement
-    return true;
+    return {
+      success: true,
+      message: ''
+    };
   }
 };
