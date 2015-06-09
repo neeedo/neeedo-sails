@@ -18,7 +18,8 @@ module.exports = {
             offers: mostRecentOffers.getOffers(),
             showMap: {
               mapType: "all",
-              dataSourceUrl: DemandService.getDemandsGetUrl() + ';' + OfferService.getOffersGetUrl()
+              demandSourceUrl: DemandService.getDemandsGetUrl(),
+              offerSourceUrl: OfferService.getOffersGetUrl()
             }
           }
         });
@@ -34,7 +35,8 @@ module.exports = {
             demands: [],
             showMap: {
               mapType: "all",
-              dataSourceUrl: DemandService.getDemandsGetUrl() + ';' + OfferService.getOffersGetUrl()
+              demandSourceUrl: DemandService.getDemandsGetUrl(),
+              offerSourceUrl: OfferService.getOffersGetUrl()
             }
           }
         });
@@ -57,7 +59,8 @@ module.exports = {
           demands: [],
           showMap: {
             mapType: "all",
-            dataSourceUrl: DemandService.getDemandsGetUrl() + ';' + OfferService.getOffersGetUrl()
+            demandSourceUrl: DemandService.getDemandsGetUrl(),
+            offerSourceUrl: OfferService.getOffersGetUrl()
           }
         }
       });

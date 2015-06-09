@@ -1,6 +1,7 @@
 <div class="container slWraper" id="map" class="map"
-     data-mapType="<%- mapType %>"
-     data-dataSourceUrl="<%- dataSourceUrl %>"
+     data-mapType="<%= mapType %>"
+     data-demandSourceUrl="<%= demandSourceUrl %>"
+     data-offerSourceUrl="<%= offerSourceUrl %>"
      data-defaultLongitude="<%= LocaleService.getDefaultLongitude(req)%>"
      data-defaultLatitude="<%= LocaleService.getDefaultLatitude(req) %>"
      data-initialZoomStep="<%= MapService.getDefaultZoomStep() %>">

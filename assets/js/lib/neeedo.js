@@ -297,3 +297,45 @@ $(document).ready(function() {
 
   });});
 
+/* ##############################################
+ *
+ *              AJAX functions
+ *
+ * #############################################
+ */
+
+
+var Offers = function(ajaxEndpoint) {
+  this.ajaxEndpoint = ajaxEndpoint;
+
+  this.buildQueryString = function(criteria) {
+      var queryParameters = [];
+
+      if ("limit" in criteria) {
+         queryParameters.push("limit=" + criteria["limit"]);
+      }
+
+      if ("page" in criteria) {
+         queryParameters.push("page=" + criteria["page"]);
+      }
+
+      if ("lat" in criteria) {
+         queryParameters.push("lat=" + criteria["lat"]);
+      }
+
+      if ("lng" in criteria) {
+         queryParameters.push("lng=" + criteria["lng"]);
+      }
+
+      return "?" + queryParameters.join("&");
+  };
+};
+
+Offers.prototype.getOffersByCriteria = function(criteria, onLoadSuccessCallback) {
+  var requestUrl = this.ajaxEndpoint + this.buildQueryString(criteria);
+
+  $.get(requestUrl)
+    .done(function( data ) {
+      onLoadSuccessCallback(data);
+    })
+};

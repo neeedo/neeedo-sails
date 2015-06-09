@@ -186,7 +186,7 @@ module.exports = {
   },
 
   getDemandsGetUrl: function() {
-   return 'demands/ajax-get?limit=%%LIMIT%%&page=%%PAGE%%';
+   return 'demands/ajax-get';
   },
 
   belongsToCurrentUser: function(req, demand) {

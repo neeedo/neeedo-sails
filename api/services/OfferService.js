@@ -153,7 +153,7 @@ module.exports = {
   },
 
   getOffersGetUrl: function() {
-    return 'offers/ajax-get?limit=%%LIMIT%%&page=%%PAGE%%';
+    return 'offers/ajax-get';
   },
 
   belongsToCurrentUser: function(req, offer) {

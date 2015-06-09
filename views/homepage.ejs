@@ -10,9 +10,9 @@
     </div>
 
     <% if (false !== showMap)  { %>
-    <%- partial ('./partials/map.ejs', { mapType: showMap.mapType, dataSourceUrl: showMap.dataSourceUrl }) %>
+    <%- partial ('./partials/map.ejs', { mapType: showMap.mapType, demandSourceUrl: showMap.demandSourceUrl, offerSourceUrl: showMap.offerSourceUrl}) %>
     <% } %>
-    
+
     <div class="container slWraper">
       <ul id="lightSliderDemand" class="cs-hidden">
         <% demands.forEach(function(demand) { %>
