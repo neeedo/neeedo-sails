@@ -25,7 +25,7 @@ var restoreUserService = function() {
 // TESTS
 //#############################
 
-describe('[ACCEPTANCE TEST] OfferController', function() {
+describe('[INTEGRATION TEST] OfferController', function() {
 
   describe('GET /offers/create when user is logged in', function() {
     before(function(done){

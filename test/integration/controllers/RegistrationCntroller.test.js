@@ -2,7 +2,7 @@ var request = require('supertest'),
     should = require('should'),
     sinon = require('sinon');
 
-describe('[ACCEPTANCE TEST] RegistrationController', function() {
+describe('[INTEGRATION TEST] RegistrationController', function() {
 
   describe('GET /register', function() {
     it('should contain the register form', function (done) {

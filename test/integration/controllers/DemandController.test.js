@@ -25,7 +25,7 @@ var restoreUserService = function() {
 // TESTS
 //#############################
 
-describe('[ACCEPTANCE TEST] DemandController', function() {
+describe('[INTEGRATION TEST] DemandController', function() {
 
   describe('GET /demands/create when user is logged in', function() {
     before(function(done){

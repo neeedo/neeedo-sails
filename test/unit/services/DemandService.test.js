@@ -4,7 +4,12 @@ var should = require('should'),
     ClientDemandListService = require('../../../node_modules/neeedo-api-nodejs-client/services/demand-list'),
     ClientDemandService = require('../../../node_modules/neeedo-api-nodejs-client/services/demand'),
     ClientDemandModel = require('../../../node_modules/neeedo-api-nodejs-client/models/demand'),
+    ClientLocationModel = require('../../../node_modules/neeedo-api-nodejs-client/models/location'),
+    ClientDemandPriceModel = require('../../../node_modules/neeedo-api-nodejs-client/models/demand/price'),
+    ClientErrorModel = require('../../../node_modules/neeedo-api-nodejs-client/models/error'),
+    ClientDemandListModel = require('../../../node_modules/neeedo-api-nodejs-client/models/demand-list'),
     req = require('../../../node_modules/sails/node_modules/express/lib/request')
+    res = require('../../../node_modules/sails/node_modules/express/lib/response')
   ;
 
 var demandListService = new ClientDemandListService();
@@ -91,6 +96,18 @@ var givenAPaginatorServiceMock = function() {
   return sinon.mock(sails.services.paginatorservice);
 };
 
+var givenResponsePrototype = function() {
+  var DummyResponse = function() {};
+
+  DummyResponse.prototype.status = function(httpCode) {};
+  DummyResponse.prototype.json = function(object) {};
+
+  return new DummyResponse();
+};
+
+var givenResponseMock = function() {
+  return sinon.mock(givenResponsePrototype());
+};
 //#############################
 // TESTS
 //#############################
@@ -239,4 +256,73 @@ describe('[UNIT TEST] DemandService', function() {
     });
 
   });
+
+  /** TODO get working
+  describe('sendDemandListJsonResponse():', function() {
+    it('should return expected demand list JSON', function (done) {
+      this.timeout(20000);
+
+      var demandList = new ClientDemandListModel();
+
+      demandList.addDemand(
+        new ClientDemandModel()
+          .setId("12345")
+          .setMustTags(['IPhone'])
+          .setShouldTags(['schwarz'])
+          .setLocation(
+            new ClientLocationModel()
+              .setLatitude(55.5123)
+              .setLongitude(40.1234)
+          )
+          .setPrice(
+            new ClientDemandPriceModel()
+              .setMin(0)
+              .setMax(200)
+          )
+          .setDistance(100)
+      );
+
+      var responseMock = givenResponseMock();
+
+      // response should have been built
+      responseMock.expects('status').once().calledWith(200);
+      responseMock.expects('json').once().calledWith({
+        demandList : demandList
+      });
+
+      // when loadUsersDemandIsCalled
+      demandService.sendDemandListJsonResponse(responseMock, demandList);
+
+      responseMock.verify();
+
+      done();
+    });
+  });
+
+  describe('sendErrorJsonResponse():', function() {
+    it('should return expected error JSON', function (done) {
+      this.timeout(20000);
+
+      var error = new ClientErrorModel();
+
+      error.addErrorMessage('This is a dummy error message.');
+
+      var responseMock = givenResponseMock();
+
+      // response should have been built
+      responseMock.expects('status').once().calledWith(400);
+      responseMock.expects('json').once().calledWith({
+        message : 'This is a dummy error message.'
+      });
+
+      // when loadUsersDemandIsCalled
+      demandService.sendErrorJsonResponse(responseMock, error);
+
+      responseMock.verify();
+
+      done();
+    });
+  });*/
+
+
 });

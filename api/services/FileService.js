@@ -266,7 +266,7 @@ module.exports = {
     return imageList;
   },
 
-  sendErrorResponse : function(res, message) {
+  sendJsonErrorResponse : function(res, message) {
     res.status(400);
 
     res.json({
@@ -275,7 +275,7 @@ module.exports = {
     });
   },
 
-  sendSuccessResponse : function(res, message, uploadedFiles) {
+  sendJsonSuccessResponse : function(res, message, uploadedFiles) {
     res.status(200);
 
     res.json({

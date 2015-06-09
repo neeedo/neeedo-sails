@@ -62,5 +62,24 @@ module.exports.webapp = {
         description: 'GIF'
       },
     ]
+  },
+  geolocation: {
+    /*
+     * fallback values if the browser didn't sent correct geolocation values
+     *
+     * The default lat lng values are mapped to the current user's configured locale (see LocaleService).
+     */
+    defaults: {
+      de: {
+        // Berlin, Germany
+        latitude: 52.518611111111,
+        longitude: 13.40833333333334
+      },
+      en: {
+        // London, Germany
+        latitude: 51.50939,
+        longitude: -0.11832
+      }
+    }
   }
 };

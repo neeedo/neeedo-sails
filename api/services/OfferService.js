@@ -19,6 +19,9 @@ module.exports = {
       var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
       var offset = PaginatorService.calculateOffset(limit, pageNumber);
 
+      // TODO hand in to api-node-js-client later
+      var offerQuery = ApiClientService.newOfferQueryFromRequest(req);
+
       var offerListService = new OfferListService();
       offerListService.loadByUser(LoginService.getCurrentUser(req), offset, limit, onSuccessCallback, onErrorCallback);
     } catch (e) {
@@ -38,7 +41,10 @@ module.exports = {
       var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
       var offset = PaginatorService.calculateOffset(limit, pageNumber);
 
-       var offerListService = new OfferListService();
+      // TODO hand in to api-node-js-client later
+      var offerQuery = ApiClientService.newOfferQueryFromRequest(req);
+
+      var offerListService = new OfferListService();
        offerListService.loadMostRecent(offset, limit, onSuccessCallback, onErrorCallback);
     } catch (e) {
       onErrorCallback(ApiClientService.newError("loadMostRecentOffers:" + e.message, "The offers couldn't be loaded. Please contact Neeedo customer care."));
@@ -188,5 +194,31 @@ module.exports = {
         altText : 'Dummy'
       };
     }
+  },
+
+  sendOfferListJsonResponse: function(res, offerList)
+  {
+    res.status(200);
+
+    res.json({
+      offerList : offerList
+    });
+  },
+
+  /**
+   * Send JSON error response.
+   *
+   * @param res
+   * @param errorModel , see neeedo-api-nodejs-client
+   */
+  sendErrorJsonResponse: function(res, errorModel)
+  {
+    res.status(400);
+
+    res.json({
+      message : errorModel.getErrorMessages()[0]
+    });
   }
+
 };
+

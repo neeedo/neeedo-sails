@@ -6,7 +6,7 @@
  *
  */
 module.exports = function(req, res, next) {
-  var usersLocale = LocaleService.readUsersPreferedLocale(req);
+  var usersLocale = LocaleService.readUsersPreferedLocaleOrReturnDefault(req);
 
   if (false !== usersLocale) {
     LocaleService.setUsersPreferedLocaleInRequest(req, usersLocale);

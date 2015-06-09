@@ -7,7 +7,7 @@ module.exports = {
      res.cookie(this.getLocaleCookieName(), locale, this.getLocaleCookieSettings());
   },
 
-  readUsersPreferedLocale: function(req) {
+  readUsersPreferedLocaleOrReturnDefault: function(req) {
     var cookieName = this.getLocaleCookieName();
 
     if (cookieName in req.cookies && this.isValidLocale(req.cookies[cookieName]))
@@ -15,7 +15,7 @@ module.exports = {
       return req.cookies[cookieName];
     }
 
-    return false;
+    return sails.config.i18n.defaultLocale;
   },
 
   isValidLocale: function(locale) {
@@ -43,5 +43,20 @@ module.exports = {
 
   getRedirectUrl: function(req) {
     return LoginService.getRedirectUrl(req);
+  },
+
+  getDefaultLocation: function(req) {
+    var actLocale = this.readUsersPreferedLocaleOrReturnDefault(req);
+
+    return sails.config.webapp.geolocation.defaults[actLocale];
+  },
+
+  getDefaultLatitude: function(req) {
+    return this.getDefaultLocation(req).latitude;
+  },
+
+  getDefaultLongitude: function(req) {
+    return this.getDefaultLocation(req).longitude;
   }
+
 };

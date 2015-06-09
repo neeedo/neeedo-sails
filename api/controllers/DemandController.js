@@ -1,6 +1,15 @@
 var util = require('util');
 
 module.exports = {
+  /**
+   * Get action to get most recent demands by criteria, such as LatLng.
+   * @param req
+   * @param res
+   */
+  ajaxGetAction: function(req, res) {
+     DemandService.loadMostRecentDemands(req, res, DemandService.sendDemandListJsonResponse, DemandService.sendErrorJsonResponse);
+  },
+
   create: function (req, res) {
     var showFormWithDefaultValues = function() {
       res.view('demand/create', {

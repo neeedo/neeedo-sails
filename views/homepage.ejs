@@ -38,6 +38,12 @@
         <% }); %>
        </ul>
       </div>
+
+      <% if (showMap)  { %>
+        <%- partial ('./partials/map.ejs', { mapType: 'recentDemands' }) %>
+        <%- partial ('./partials/map.ejs', { mapType: 'recentOffers'  }) %>
+      <% } %>
+
       <div role="tabpanel" class="tab-pane" id="offers">
         <ul>
           <% offers.forEach(function(offer) { %>

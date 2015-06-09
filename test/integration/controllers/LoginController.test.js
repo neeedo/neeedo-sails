@@ -2,7 +2,7 @@ var request = require('supertest'),
     should = require('should'),
     sinon = require('sinon');
 
-describe('[ACCEPTANCE TEST] LoginController', function() {
+describe('[INTEGRATION TEST] LoginController', function() {
 
   describe('GET /login', function() {
     it('should contain the login form', function (done) {

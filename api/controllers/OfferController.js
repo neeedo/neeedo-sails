@@ -1,6 +1,15 @@
 var util = require('util');
 
 module.exports = {
+  /**
+   * Get action to get most recent offers by criteria, such as LatLng.
+   * @param req
+   * @param res
+   */
+  ajaxGetAction: function(req, res) {
+    DemandService.loadMostRecentOffers(req, res, OfferService.sendOfferListJsonResponse, OfferService.sendErrorJsonResponse);
+  },
+
   create: function (req, res) {
     var showFormWithDefaultValues = function() {
       res.view('offer/create', {

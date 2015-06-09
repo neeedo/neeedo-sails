@@ -33,8 +33,12 @@ module.exports = {
   },
 
   newLocationFromRequest : function(req) {
-    var lat = req.param("lat");
-    var lng = req.param("lng");
+    var lat = req.param("lat", undefined);
+    var lng = req.param("lng", undefined);
+
+    if (undefined === lat || undefined === lng) {
+      return undefined;
+    }
 
     return this.newLocation(parseFloat(lat), parseFloat(lng));
   },
@@ -258,5 +262,60 @@ module.exports = {
       success: true,
       message: ''
     };
+  },
+
+  /**
+   * Build most-recent demand query object to be handed to neeedo-api-nodejs-client Demand Service.
+   *
+   * - Trigger logic to fill latLng values from request if given (otherwise fallback to default locations).
+   * - Set distance.
+   *
+   * @param req
+   */
+  newDemandQueryFromRequest: function(req) {
+    var location = this.buildUsersCurrentLocationObject(req);
+
+    // pagination
+    var limit = req.param("limit", PaginatorService.getDefaultLimit());
+    var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
+    var offset = PaginatorService.calculateOffset(limit, pageNumber);
+
+    // TODO create api-node-js client demand query object and return it
+    return {};
+  },
+
+  /**
+   * Build most-recent offer query object to be handed to neeedo-api-nodejs-client Demand Service.
+   *
+   * - Trigger logic to fill latLng values from request if given (otherwise fallback to default locations).
+   *
+   * @param req
+   */
+  newOfferQueryFromRequest: function(req) {
+    var location = this.buildUsersCurrentLocationObject(req);
+
+    // pagination
+    var limit = req.param("limit", PaginatorService.getDefaultLimit());
+    var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
+    var offset = PaginatorService.calculateOffset(limit, pageNumber);
+
+    // TODO create api-node-js client offer query object and return it
+    return {};
+  },
+
+  buildUsersCurrentLocationObject: function(req) {
+    var requestLocation = this.newLocationFromRequest(req);
+
+    if (undefined === requestLocation) {
+      var defaultLocaleLocation = new Location();
+
+      defaultLocaleLocation
+        .setLatitude(LocaleService.getDefaultLatitude(req))
+        .setLongitude(LocaleService.getDefaultLongitude(req));
+
+      return defaultLocaleLocation;
+    }
+
+    return requestLocation;
   }
 };

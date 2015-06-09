@@ -26,6 +26,9 @@ module.exports = {
       var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
       var offset = PaginatorService.calculateOffset(limit, pageNumber);
 
+      // TODO hand in to api-node-js-client later
+      var demandQuery = ApiClientService.newDemandQueryFromRequest(req);
+
       demandListService.loadByUser(LoginService.getCurrentUser(req), offset, limit, onSuccessCallback, onErrorCallback);
     } catch (e) {
       onErrorCallback(ApiClientService.newError("loadUsersDemands:" + e.message, 'Your inputs were not valid.'));
@@ -43,6 +46,9 @@ module.exports = {
       var limit = req.param("limit", PaginatorService.getDefaultLimit());
       var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
       var offset = PaginatorService.calculateOffset(limit, pageNumber);
+
+      // TODO hand in to api-node-js-client later
+      var demandQuery = ApiClientService.newDemandQueryFromRequest(req);
 
       var demandListService = this.newDemandListService();
       demandListService.loadMostRecent(offset, limit, onSuccessCallback, onErrorCallback);
@@ -103,6 +109,9 @@ module.exports = {
       var limit = req.param("limit", PaginatorService.getDefaultLimit());
       var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
       var offset = PaginatorService.calculateOffset(limit, pageNumber);
+
+      // TODO hand in to api-node-js-client later
+      var demandQuery = ApiClientService.newDemandQueryFromRequest(req);
 
       var matchingService = new MatchingService();
       matchingService.matchDemand(demandModel, offset, limit, onSuccessCallback, onErrorCallback);
@@ -202,6 +211,30 @@ module.exports = {
       FlashMessagesService.setErrorMessage('You cannot edit demands of other users.', req, res);
       return false;
     }
+  },
+
+  sendDemandListJsonResponse: function(res, demandList)
+  {
+    res.status(200);
+
+    res.json({
+      demandList : demandList
+    });
+  },
+
+  /**
+   * Send JSON error response.
+   *
+   * @param res
+   * @param errorModel , see neeedo-api-nodejs-client
+   */
+  sendErrorJsonResponse: function(res, errorModel)
+  {
+    res.status(400);
+
+    res.json({
+      message : errorModel.getErrorMessages()[0]
+    });
   }
 
 

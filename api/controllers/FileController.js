@@ -6,7 +6,7 @@ module.exports = {
    * @param res
    */
   uploadAjax: function (req, res) {
-    FileService.uploadFiles(req, res, FileService.sendSuccessResponse, FileService.sendErrorResponse);
+    FileService.uploadFiles(req, res, FileService.sendJsonSuccessResponse, FileService.sendJsonErrorResponse);
   },
 
   upload: function (req, res) {
