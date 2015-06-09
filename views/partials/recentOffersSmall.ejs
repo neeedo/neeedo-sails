@@ -1,13 +1,13 @@
       <li class="media slElement item-a">
        <div class="media-left">
         <a href="#">
-         <img src="<%- OfferService.getFirstImage(offer) %>" height=64em width=64em>
+         <img src="<%- OfferService.getFirstImage(offer).path %>" height="64em" width="64em" alt="<%- OfferService.getFirstImage(offer).altText %>">
 
         </a>
        </div>
         <div class="media-body">
-          <h4 class="media-heading" id="title"><%= offer.getTags()%></h4>
-          <p><%= i18n('Price')%>:<%= offer.getPrice() %> <span class="glyphicon glyphicon-euro" aria-hidden="true"/></p>
+          <h4 class="media-heading title"><%= offer.getTags()%></h4>
+          <p><%= i18n('Price')%>:<%= offer.getPrice() %> <span class="glyphicon glyphicon-euro" aria-hidden="true"></span></p>
           <%- partial ('../partials/crudButtonsOffer.ejs',{offer: offer}) %>
         </div>
       </li>

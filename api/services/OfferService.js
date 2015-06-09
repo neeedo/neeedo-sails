@@ -177,9 +177,16 @@ module.exports = {
   {
     if(offer.getImages().length > 0 ) {
       var firstImage = offer.getImages()[0];
-      return FileService.filterGetImageUrl(firstImage.getUrl());
+
+      return {
+        path : FileService.filterGetImageUrl(firstImage.getUrl()),
+        altText : firstImage.getFileName()
+      };
     } else {
-      return "/images/Offer_Dummy.png";
+      return {
+        path : "/images/Offer_Dummy.png",
+        altText : 'Dummy'
+      };
     }
   }
 };

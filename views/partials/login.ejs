@@ -14,9 +14,11 @@
         <div class="col-xs-12">
           <form style="display:none;" class="trans" method="POST" id="login" action="<%= UrlService.to('/login') %>">
                 <label for="email"><%= i18n('E-Mail') %></label>
-                <input type="email" name="email" required/>
+                <input id="email" type="email" name="email" required/>
+
                 <label for="password"><%= i18n('Password') %></label>
-                <input type="password" name="password" required/>
+                <input id="password" type="password" name="password" required/>
+            
                 <input type="submit" value="<%= i18n('Login') %>" id="sendbtn" />
           </form>
         </div>
