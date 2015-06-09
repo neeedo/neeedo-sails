@@ -15,7 +15,11 @@ module.exports = {
         res.view('homepage', {
           locals: {
             demands: mostRecentDemands.getDemands(),
-            offers: mostRecentOffers.getOffers()
+            offers: mostRecentOffers.getOffers(),
+            showMap: {
+              mapType: "all",
+              dataSourceUrl: DemandService.getDemandsGetUrl() + ';' + OfferService.getOffersGetUrl()
+            }
           }
         });
       };
@@ -27,7 +31,11 @@ module.exports = {
         res.view('homepage', {
           locals: {
             offers: mostRecentOffers.getOffers(),
-            demands: []
+            demands: [],
+            showMap: {
+              mapType: "all",
+              dataSourceUrl: DemandService.getDemandsGetUrl() + ';' + OfferService.getOffersGetUrl()
+            }
           }
         });
       };
@@ -46,7 +54,11 @@ module.exports = {
       res.view('homepage', {
         locals: {
           offers: [],
-          demands: []
+          demands: [],
+          showMap: {
+            mapType: "all",
+            dataSourceUrl: DemandService.getDemandsGetUrl() + ';' + OfferService.getOffersGetUrl()
+          }
         }
       });
     };

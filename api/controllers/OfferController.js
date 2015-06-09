@@ -6,8 +6,15 @@ module.exports = {
    * @param req
    * @param res
    */
-  ajaxGetAction: function(req, res) {
-    DemandService.loadMostRecentOffers(req, res, OfferService.sendOfferListJsonResponse, OfferService.sendErrorJsonResponse);
+  ajaxGet: function(req, res) {
+    var onSuccessCallback = function(offerList) {
+      OfferService.sendOfferListJsonResponse(res, offerList);
+    };
+    var onErrorCallback = function(errorModel) {
+      OfferService.sendErrorJsonResponse(res, errorModel);
+    };
+
+    OfferService.loadMostRecentOffers(req, onSuccessCallback, onErrorCallback);
   },
 
   create: function (req, res) {

@@ -6,8 +6,15 @@ module.exports = {
    * @param req
    * @param res
    */
-  ajaxGetAction: function(req, res) {
-     DemandService.loadMostRecentDemands(req, res, DemandService.sendDemandListJsonResponse, DemandService.sendErrorJsonResponse);
+  ajaxGet: function(req, res) {
+     var onSuccessCallback = function(demandList) {
+         DemandService.sendDemandListJsonResponse(res, demandList);
+     };
+     var onErrorCallback = function(errorModel) {
+         DemandService.sendErrorJsonResponse(res, errorModel);
+     };
+
+     DemandService.loadMostRecentDemands(req, onSuccessCallback, onErrorCallback);
   },
 
   create: function (req, res) {

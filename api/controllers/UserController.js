@@ -22,7 +22,8 @@ module.exports = {
         res.view('homepage', {
           locals: {
             demands: usersDemands.getDemands(),
-            offers: usersOffers.getOffers()
+            offers: usersOffers.getOffers(),
+            showMap: false
           }
         });
       };
@@ -34,7 +35,8 @@ module.exports = {
         res.view('homepage', {
           locals: {
             offers: usersOffers.getOffers(),
-            demands: []
+            demands: [],
+            showMap: false
           }
         });
       };
@@ -53,7 +55,8 @@ module.exports = {
       res.view('homepage', {
         locals: {
           offers: [],
-          demands: []
+          demands: [],
+          showMap: false
         }
       });
     };

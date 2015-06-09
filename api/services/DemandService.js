@@ -21,15 +21,9 @@ module.exports = {
   loadUsersDemands: function(req, onSuccessCallback, onErrorCallback) {
     try {
       var demandListService = this.newDemandListService();
-
-      var limit = req.param("limit", PaginatorService.getDefaultLimit());
-      var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
-      var offset = PaginatorService.calculateOffset(limit, pageNumber);
-
-      // TODO hand in to api-node-js-client later
       var demandQuery = ApiClientService.newDemandQueryFromRequest(req);
 
-      demandListService.loadByUser(LoginService.getCurrentUser(req), offset, limit, onSuccessCallback, onErrorCallback);
+      demandListService.loadByUser(LoginService.getCurrentUser(req), demandQuery, onSuccessCallback, onErrorCallback);
     } catch (e) {
       onErrorCallback(ApiClientService.newError("loadUsersDemands:" + e.message, 'Your inputs were not valid.'));
     }
@@ -43,15 +37,10 @@ module.exports = {
    */
   loadMostRecentDemands: function(req, onSuccessCallback, onErrorCallback) {
     try {
-      var limit = req.param("limit", PaginatorService.getDefaultLimit());
-      var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
-      var offset = PaginatorService.calculateOffset(limit, pageNumber);
-
-      // TODO hand in to api-node-js-client later
       var demandQuery = ApiClientService.newDemandQueryFromRequest(req);
-
       var demandListService = this.newDemandListService();
-      demandListService.loadMostRecent(offset, limit, onSuccessCallback, onErrorCallback);
+
+      demandListService.loadMostRecent(demandQuery, onSuccessCallback, onErrorCallback);
     } catch (e) {
       onErrorCallback(ApiClientService.newError("loadMostRecentDemands:" + e.message, "The demands couldn't be loaded. Please contact Neeedo customer care."));
     }
@@ -196,6 +185,10 @@ module.exports = {
    return '/dashboard';
   },
 
+  getDemandsGetUrl: function() {
+   return 'demands/ajax-get?limit=%%LIMIT%%&page=%%PAGE%%';
+  },
+
   belongsToCurrentUser: function(req, demand) {
     return LoginService.userIsLoggedIn(req)
       && undefined !== demand.getUser()
@@ -230,6 +223,8 @@ module.exports = {
    */
   sendErrorJsonResponse: function(res, errorModel)
   {
+    sails.log.error('OfferService:sendErrorJsonResponse(): ' + errorModel.getLogMessages()[0]);
+
     res.status(400);
 
     res.json({

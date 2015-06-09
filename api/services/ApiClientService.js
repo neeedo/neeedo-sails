@@ -5,7 +5,9 @@ var apiClient = require('neeedo-api-nodejs-client')
 var Location = apiClient.models.Location,
     Error = apiClient.models.Error,
     Offer = apiClient.models.Offer,
+    OfferQuery = apiClient.models.OfferQuery,
     Demand = apiClient.models.Demand,
+    DemandQuery = apiClient.models.DemandQuery,
     Register = apiClient.models.Register,
     Login = apiClient.models.Login,
     ImageService = apiClient.services.Image,
@@ -38,6 +40,9 @@ module.exports = {
 
     if (undefined === lat || undefined === lng) {
       return undefined;
+    } else if ('null' === lat || 'null' === lng) {
+      // has to be sent by browser if no geolocation info is available
+      return null;
     }
 
     return this.newLocation(parseFloat(lat), parseFloat(lng));
@@ -264,6 +269,27 @@ module.exports = {
     };
   },
 
+  setPaginationParameter: function(req, queryModel) {
+    // pagination
+    var limit = parseInt(req.param("limit", PaginatorService.getDefaultLimit()));
+    var pageNumber = parseInt(req.param("page", PaginatorService.getFirstPageNumber()));
+    var offset = PaginatorService.calculateOffset(limit, pageNumber);
+
+    queryModel
+      .setLimit(limit)
+      .setOffset(offset);
+  },
+
+  setLocationParameterIfGiven: function(req, queryModel) {
+    var location = this.buildUsersCurrentLocationObject(req);
+
+    if (undefined !== location) {
+       queryModel
+         .setLatitude(location.getLatitude())
+         .setLongitude(location.getLongitude());
+    }
+  },
+
   /**
    * Build most-recent demand query object to be handed to neeedo-api-nodejs-client Demand Service.
    *
@@ -273,15 +299,12 @@ module.exports = {
    * @param req
    */
   newDemandQueryFromRequest: function(req) {
-    var location = this.buildUsersCurrentLocationObject(req);
+    var queryModel = new DemandQuery();
 
-    // pagination
-    var limit = req.param("limit", PaginatorService.getDefaultLimit());
-    var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
-    var offset = PaginatorService.calculateOffset(limit, pageNumber);
+    this.setPaginationParameter(req, queryModel);
+    this.setLocationParameterIfGiven(req, queryModel);
 
-    // TODO create api-node-js client demand query object and return it
-    return {};
+    return queryModel;
   },
 
   /**
@@ -292,21 +315,24 @@ module.exports = {
    * @param req
    */
   newOfferQueryFromRequest: function(req) {
-    var location = this.buildUsersCurrentLocationObject(req);
+    var queryModel = new OfferQuery();
 
-    // pagination
-    var limit = req.param("limit", PaginatorService.getDefaultLimit());
-    var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
-    var offset = PaginatorService.calculateOffset(limit, pageNumber);
+    this.setPaginationParameter(req, queryModel);
+    this.setLocationParameterIfGiven(req, queryModel);
 
-    // TODO create api-node-js client offer query object and return it
-    return {};
+    return queryModel;
   },
 
   buildUsersCurrentLocationObject: function(req) {
     var requestLocation = this.newLocationFromRequest(req);
 
     if (undefined === requestLocation) {
+      // no parameter given, so do not build any location object
+       return undefined;
+    }
+
+    if (null === requestLocation) {
+      // parameter did not contain latLng values, e.g. because the client could not determine -> get default location
       var defaultLocaleLocation = new Location();
 
       defaultLocaleLocation

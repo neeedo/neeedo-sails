@@ -39,9 +39,8 @@
        </ul>
       </div>
 
-      <% if (showMap)  { %>
-        <%- partial ('./partials/map.ejs', { mapType: 'recentDemands' }) %>
-        <%- partial ('./partials/map.ejs', { mapType: 'recentOffers'  }) %>
+      <% if (false !== showMap)  { %>
+        <%- partial ('./partials/map.ejs', { mapType: showMap.mapType, dataSourceUrl: showMap.dataSourceUrl }) %>
       <% } %>
 
       <div role="tabpanel" class="tab-pane" id="offers">

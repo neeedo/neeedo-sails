@@ -31,12 +31,14 @@ module.exports.policies = {
   },
   OfferController: {
     '*'     : false,
+    'ajaxGet': ['setLocale', 'isNotLoggedIn'],
     'create': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
     'edit': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
     'delete': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn']
   },
   DemandController: {
     '*'     : false,
+    'ajaxGet': ['setLocale', 'isNotLoggedIn'],
     'create': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
     'edit': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
     'delete': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn'],

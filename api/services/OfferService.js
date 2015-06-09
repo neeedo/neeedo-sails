@@ -15,15 +15,10 @@ module.exports = {
    */
   loadUsersOffers: function(req, onSuccessCallback, onErrorCallback) {
     try {
-      var limit = req.param("limit", PaginatorService.getDefaultLimit());
-      var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
-      var offset = PaginatorService.calculateOffset(limit, pageNumber);
-
-      // TODO hand in to api-node-js-client later
       var offerQuery = ApiClientService.newOfferQueryFromRequest(req);
-
       var offerListService = new OfferListService();
-      offerListService.loadByUser(LoginService.getCurrentUser(req), offset, limit, onSuccessCallback, onErrorCallback);
+
+      offerListService.loadByUser(LoginService.getCurrentUser(req), offerQuery, onSuccessCallback, onErrorCallback);
     } catch (e) {
       onErrorCallback(ApiClientService.newError("loadUsersOffers:" + e.message, 'Your inputs were not valid.'));
     }
@@ -37,15 +32,10 @@ module.exports = {
    */
   loadMostRecentOffers: function(req, onSuccessCallback, onErrorCallback) {
     try {
-      var limit = req.param("limit", PaginatorService.getDefaultLimit());
-      var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
-      var offset = PaginatorService.calculateOffset(limit, pageNumber);
-
-      // TODO hand in to api-node-js-client later
       var offerQuery = ApiClientService.newOfferQueryFromRequest(req);
-
       var offerListService = new OfferListService();
-       offerListService.loadMostRecent(offset, limit, onSuccessCallback, onErrorCallback);
+
+      offerListService.loadMostRecent(offerQuery, onSuccessCallback, onErrorCallback);
     } catch (e) {
       onErrorCallback(ApiClientService.newError("loadMostRecentOffers:" + e.message, "The offers couldn't be loaded. Please contact Neeedo customer care."));
     }
@@ -61,8 +51,8 @@ module.exports = {
   createOffer: function(req, onSuccessCallback, onErrorCallBack) {
     try {
       var offerModel = ApiClientService.validateAndCreateNewOfferFromRequest(req);
-
       var offerService = new ClientOfferService();
+
       offerService.createOffer(offerModel, onSuccessCallback, onErrorCallBack);
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("createOffer:" + e.message, 'Your inputs were not valid.'));
@@ -162,6 +152,10 @@ module.exports = {
     return '/dashboard';
   },
 
+  getOffersGetUrl: function() {
+    return 'offers/ajax-get?limit=%%LIMIT%%&page=%%PAGE%%';
+  },
+
   belongsToCurrentUser: function(req, offer) {
     return (LoginService.userIsLoggedIn(req)
       && undefined != offer.getUser()
@@ -213,6 +207,7 @@ module.exports = {
    */
   sendErrorJsonResponse: function(res, errorModel)
   {
+    sails.log.error('OfferService:sendErrorJsonResponse(): ' + errorModel.getLogMessages()[0]);
     res.status(400);
 
     res.json({
