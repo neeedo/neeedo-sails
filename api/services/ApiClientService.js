@@ -57,7 +57,9 @@ module.exports = {
   },
 
   getImagesFromRequest : function(req) {
-    return req.param("images", undefined);
+    var param = req.param("images", null);
+
+    return param;
   },
 
   newImageListFromRequest : function(req) {
@@ -65,7 +67,7 @@ module.exports = {
 
     var images = this.getImagesFromRequest(req);
 
-    if (undefined !== images) {
+    if (null !== images) {
       for (var imageI=0; imageI < images.length; imageI++) {
         var fileName = images[imageI];
 
@@ -195,17 +197,22 @@ module.exports = {
 
     if (!validationResult.success) {
       onErrorCallback(ApiClientService.newError("validateAndSetOfferFromRequest: ", validationResult.message));
-    }
+    } else {
 
-    offerModel.setTags(this.newTagsFromRequest(req))
-      .setLocation(this.newLocationFromRequest(req))
-      .setPrice(this.newSimplePriceFromRequest(req))
-      .setUser(user)
-      .setImageList(this.newImageListFromRequest(req));
+        offerModel.setTags(this.newTagsFromRequest(req))
+          .setLocation(this.newLocationFromRequest(req))
+          .setPrice(this.newSimplePriceFromRequest(req))
+          .setUser(user)
+          .setImageList(this.newImageListFromRequest(req));
+    }
   },
 
   validateImages : function(req) {
-      return undefined !== this.getImagesFromRequest(req) && this.getImagesFromRequest(req).length <= sails.config.webapp.images.maxCountPerObject;
+      return null === this.getImagesFromRequest(req)
+            ||
+           (null !== this.getImagesFromRequest(req)
+           && 'length' in this.getImagesFromRequest(req)
+           && this.getImagesFromRequest(req).length <= sails.config.webapp.images.maxCountPerObject);
   },
 
   validateOfferFromRequest: function(req) {
@@ -235,14 +242,14 @@ module.exports = {
 
     if (!validationResult.success) {
       onErrorCallback(ApiClientService.newError("validateAndSetDemandFromRequest: ", validationResult.message));
+    } else {
+      demandModel.setMustTags(this.newMustTagsFromRequest(req))
+        .setShouldTags(this.newShouldTagsFromRequest(req))
+        .setPrice(this.newDemandPriceFromRequest(req))
+        .setUser(user)
+        .setLocation(this.newLocationFromRequest(req))
+        .setDistance(this.newDistanceFromRequest(req));
     }
-    
-    demandModel.setMustTags(this.newMustTagsFromRequest(req))
-      .setShouldTags(this.newShouldTagsFromRequest(req))
-      .setPrice(this.newDemandPriceFromRequest(req))
-      .setUser(user)
-      .setLocation(this.newLocationFromRequest(req))
-      .setDistance(this.newDistanceFromRequest(req));
   },
 
   validateDemandFromRequest: function(req) {
