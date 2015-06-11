@@ -1,8 +1,44 @@
 /***************************
         OTHER STYLES
 ***************************/
+
+/* Messages
 #errorMessage, #successMessage, #addModal {
   margin-top: 15em;
+}
+*/
+.errorMsg{
+  width: 75%;
+  margin: 0 auto;
+  position: fixed;
+  top: 15%;
+  left: 15%;
+  z-index: 9999;
+  border-radius: 7px;
+  padding: 10px 5px;
+  color: #fff;
+  -webkit-box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.75);
+}
+
+#errorMessage{
+  background-color: #cc0000;
+  border: solid #550000 2px;
+}
+
+#successMessage{
+  background-color: #009900;
+  border: solid #003300 2px;
+}
+
+.closeMsg{
+  border-radius: 7px;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
 }
 
 /* Mouse selection */

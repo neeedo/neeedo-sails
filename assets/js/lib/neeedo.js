@@ -1,3 +1,20 @@
+/* ##############################################
+ *
+ *              FLASH MESSAGES
+ *
+ * #############################################
+ */
+
+$(".errorMsg").fadeIn('slow',function() {
+  $(this).delay(7000).fadeOut('slow');
+});
+
+/* ##############################################
+ *
+ *              MENU TOGGLE
+ *
+ * #############################################
+ */
 var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
 				body = document.body;
 

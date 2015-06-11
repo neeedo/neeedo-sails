@@ -1,7 +1,18 @@
-<div id="errorMessage">
-   <%- FlashMessagesService.getErrorMessage(req) %>
-</div>
-
-<div id="successMessage">
-   <%- FlashMessagesService.getSuccessMessage(req) %>
-</div>
+<% if (req.session.flash) { %>
+  <% if (req.session.flash.error) { %>
+    <div id="errorMessage" class="text-center errorMsg alert">
+      <%- FlashMessagesService.getErrorMessage(req) %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <% } %>
+  <% if(req.session.flash.success) { %>
+    <div id="successMessage" class="text-center errorMsg alert">
+      <%- FlashMessagesService.getSuccessMessage(req) %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <% } %>
+<% } %>
