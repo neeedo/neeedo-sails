@@ -6,7 +6,7 @@
  */
 
 $(".errorMsg").fadeIn('slow',function() {
-  $(this).delay(7000).fadeOut('slow');
+  $(this).delay(5000).fadeOut('slow');
 });
 
 /* ##############################################
