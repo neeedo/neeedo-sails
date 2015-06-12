@@ -2,28 +2,55 @@
         HEADER
 ***************************/
 #header .img{
-  max-width: 100px;
-  width: 100%;
+  width: 65px;
+  padding: 2px;
+  display: block;
+}
+
+header{
+  display: block;
+  height: 70px;
+  background-color: @DarkerMetroGreen;
+  border-bottom: 5px groove @MetroGreen;
 }
 
 #header h1{
   display: block;
   margin: 0.2em;
   font-size: 1.5em;
-  color: @DarkerMetroGreen;
+  color: #fff;
   font-weight: bold;
+  text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+  0px 8px 13px rgba(0,0,0,0.1),
+  0px 18px 23px rgba(0,0,0,0.1);
 }
 
-#header .local{
+#header .local a{
   padding: 0;
-  margin: 0;
+  margin: 5px;
+  color: #fff;
+}
+
+#header .local a:hover{
+  text-decoration: none;
 }
 
 #login{
   z-index: 9000;
-  background-color: @MetroGreen;
+  background-color: @DarkerMetroGreen;
   position: absolute;
   width: 100%;
+  text-align: left;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+#login label{
+  color: #fff;
+  padding-top: 5px;
+  width: 75%;
+  font-weight: normal;
+  font-size: 0.8em;
 }
 
 #login input{
@@ -50,10 +77,13 @@
   color: #fff;
   width: 100%;
   display: block;
-  padding: 20px 0;
+  padding: 27px 0;
   font-size: 0.7em;
+  height: 65px;
 }
 
-.headerBtn:hover{
+.headerBtn:hover, .headerBtn:focus{
   color: #fff;
+  text-decoration: none;
+  text-shadow: 0 0 0.2em #000, 0 0 0.2em #000, 0 0 0.2em #000;
 }

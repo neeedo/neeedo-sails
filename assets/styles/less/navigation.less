@@ -13,6 +13,8 @@
   margin: 0;
   font-weight: 300;
   background: @DarkerMetroGreen;
+  height: 70px;
+  border-bottom: 5px groove @MetroGreen;
 }
 
 .cbp-spmenu a {
@@ -24,6 +26,8 @@
 
 .cbp-spmenu a:hover {
   background: @DarkerMetroGreen;
+  color: #fff;
+  text-decoration: none;
 }
 
 .cbp-spmenu a:active {
@@ -95,9 +99,17 @@
 }
 
 #showLeft:focus{
-  border: none;
+  outline: none;
 }
 
 #cbp-spmenu-s1{
   z-index: 9000;
+}
+
+nav img{
+  width: 60px;
+  max-width: 60px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
 }
