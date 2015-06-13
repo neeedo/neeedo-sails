@@ -1,4 +1,5 @@
-<li class="media slElement item-a">
+<div class="detailElement offerDetail">
+
   <div class="media-left">
     <a href="#">
       <img class="offerImageSmall" src="<%- OfferService.getFirstImage(offer).path %>" alt="<%- OfferService.getFirstImage(offer).altText %>">
@@ -9,7 +10,5 @@
     <p><%= i18n('Price')%>:<%= offer.getPrice() %> <span class="glyphicon glyphicon-euro" aria-hidden="true"></span></p>
     <%- partial ('../partials/crudButtonsOffer.ejs',{offer: offer}) %>
   </div>
-</li>
 
-
-
+</div>

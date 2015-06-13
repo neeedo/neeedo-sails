@@ -1,0 +1,9 @@
+<li class="listElement">
+  <div class="container">
+    <h4 class="title"><%= demand.getMustTags() %></h4>
+    <p><%= demand.getShouldTags() %></p>
+    <p><%= i18n('Distance')%>:<%= demand.getDistance() %></p>
+    <p><%= i18n('Price')%>:<%= demand.getPrice().getMin() %> - <%= demand.getPrice().getMax() %><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></p>
+    <%- partial ('./elements/crudButtonsDemands.ejs',{demand: demand}) %>
+  </div>
+</li>

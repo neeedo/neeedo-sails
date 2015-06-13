@@ -49,16 +49,16 @@
 
   <body data-spy="scroll" data-target=".navbar-collapse" data-apiUrl="<%= sails.config.neeedo.apiUrl %>" class="cbp-spmenu-push">
     <div class="wrapper">
-    <%- partial ('./partials/header.ejs') %>
-    <%- partial ('./partials/messages.ejs') %>
+    <%- partial ('./partials/layout/header.ejs') %>
+    <%- partial ('./partials/layout/messages.ejs') %>
 
     <%- body %>
       <div class="push"></div>
     </div>
-    <%- partial ('./partials/navigation.ejs') %>
-    <%- partial ('./partials/footer.ejs') %>
+    <%- partial ('./partials/layout/navigation.ejs') %>
+    <%- partial ('./partials/layout/footer.ejs') %>
        <!--TEMPLATES-->
-       
+
        <!--TEMPLATES END-->
 
 
