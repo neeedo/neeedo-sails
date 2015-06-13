@@ -89,7 +89,7 @@ var initializeGeolocation = function(map, positionFeature, mapTypeOptions) {
 
   geolocation.on('change', function(evt) {
     centerMapByGeolocation(geolocation, map);
-    showUsersPosition(geolocation, positionFeature);
+    //showUsersPosition(geolocation, positionFeature);
 
     triggerSpecificMapTypeOperations(geolocation.getPosition(), map, mapTypeOptions);
   });
@@ -135,27 +135,36 @@ var loadAndShowNearestOffers = function(userPosition, map, ajaxEndpointUrl)
 
 
 var showOfferInMap = function(map, offer) {
-  var offerFeature = new ol.Feature();
-
-  offerFeature.setStyle(new ol.style.Style({
-    image: new ol.style.Circle({
-      radius: 6,
-      fill: new ol.style.Fill({
-        color: '#88BEB1'
-      }),
-      stroke: new ol.style.Stroke({
-        color: '#fff',
-        width: 2
-      }),
-      text: offer.tags.join(',')
+  var style = new ol.style.Style({
+    fill: new ol.style.Fill({
+      color: '#3399CC'
+    }),
+    stroke: new ol.style.Stroke({
+      color: '#fff',
+      width: 2
     })
-  }));
+  });
+
+  var radius = 0.005;
+
+  var p1 = new ol.geom.Point(transformToSphereCoordinates(offer.location.longitude, offer.location.latitude));
+  var p2 = new ol.geom.Point(transformToSphereCoordinates(offer.location.longitude, offer.location.latitude));
+  var p3 = new ol.geom.Point(transformToSphereCoordinates(offer.location.longitude, offer.location.latitude));
+  var p4 = new ol.geom.Point(transformToSphereCoordinates(offer.location.longitude, offer.location.latitude));
+  var p5 = new ol.geom.Point(transformToSphereCoordinates(offer.location.longitude, offer.location.latitude));
+
+  var pnt= [];
+  pnt.push(new ol.geom.Point([16, 16]),new ol.geom.Point([16,17]),new ol.geom.Point([17,18]),new ol.geom.Point([18,19]),new ol.geom.Point([17,18]));
+
+  var geometry = new ol.geom.LinearRing(pnt);
+
+  var offerFeature = new ol.Feature();
+  offerFeature.setStyle(style);
+  //offerFeature.setGeometry(geometry);
 
   offerFeature.on('click', function(evt) {
     console.log('You clicked the offer');
   });
-
-  offerFeature.setGeometry(new ol.geom.Point(transformToSphereCoordinates(offer.location.latitude, offer.location.longitude)));
 
   return offerFeature;
 };

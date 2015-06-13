@@ -253,6 +253,67 @@ $(document).ready(function () {
   deleteFileButtons.on('click', deleteImage);
 });
 
+/* ##############################################
+ *
+ *              CREATE OFFER & DEMAND
+ *
+ * #############################################
+ */
+
+var getGeolocation = function(callback) {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(callback);
+  } else {
+    callback(false);
+  }
+};
+
+var getLocation = function(onLocationCallback) {
+  var geoCallback = function(position) {
+    if (false === position) {
+      // TODO fallback to other solution
+      onLocationCallback(false);
+    } else {
+      onLocationCallback({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      });
+    }
+  }
+
+  getGeolocation(geoCallback);
+};
+
+var setLocation = function(event) {
+  event.stopPropagation();
+  event.preventDefault();
+
+  var latInput = $(this).find("input[name='lat']");
+  var lngInput = $(this).find("input[name='lng']");
+
+  var _this = this;
+  var onLocationCallback = function(location) {
+    if (false == location) {
+      alert('No location given.');
+    } else {
+      latInput.val(location.latitude);
+      lngInput.val(location.longitude);
+
+      _this.submit();
+    }
+  };
+
+  getLocation(onLocationCallback);
+};
+
+
+$(document).ready(function () {
+  var offerForm = $('#createOffer');
+  var demandForm = $('#createDemand');
+
+  offerForm.on('submit', setLocation);
+  demandForm.on('submit', setLocation);
+});
 
 /* ##############################################
  *
