@@ -1,0 +1,19 @@
+<img src = "<%- OfferService.getFirstImage(offer).path %>" alt="<%- OfferService.getFirstImage(offer).altText %>">
+
+<div class="carousel-caption">
+  <div class="container col-md-6 slidercard">
+    <%- partial ('../partials/crudButtonsOffer.ejs',{offer: offer}) %>
+    <div class="media">
+        <div class="media-left">
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading title"><%= offer.getTags()%></h4>
+          <p> <%offer.getImageList()%></p>
+
+          <p><%= i18n('Price')%>:<%= offer.getPrice() %> <span class="glyphicon glyphicon-euro" aria-hidden="true"></span></p>
+        </div>
+      </div>
+    </div>
+</div>
+
+

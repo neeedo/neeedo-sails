@@ -1,16 +1,14 @@
 <div id= main class="container">
 
-  <div class="container hidden-xs ">
+  <div class="container hidden-xs " id="bigScreen">
 
     <div class="container">
 
-      <!--OfferSlider-->
       <% if (LoginService.userIsLoggedIn(req)) {%>
-        <h1><%= i18n('Your Offers')%></h1>
+      <h1><%= i18n('Your Offers')%></h1>
       <%} else{%>
-        <h1><%= i18n('Recent Offers')%></h1>
+      <h1><%= i18n('Recent Offers')%></h1>
       <%}%>
-
       <div class="container slWraper">
         <ul id="lightSliderOffer" class="cs-hidden">
           <% offers.forEach(function(offer) { %>
@@ -18,29 +16,23 @@
           <% }); %>
         </ul>
       </div>
-      <!--End OfferSlider-->
 
-      <!--Map-->
       <% if (false !== showMap)  { %>
       <%- partial ('./partials/map.ejs', { mapType: showMap.mapType, demandSourceUrl: showMap.demandSourceUrl, offerSourceUrl: showMap.offerSourceUrl}) %>
       <% } %>
-      <!--Map-->
-
-      <!--DemandSlider-->
       <% if (LoginService.userIsLoggedIn(req)) {%>
-       <h1><%= i18n('Your Demands')%></h1>
+      <h1><%= i18n('Your Demands')%></h1>
       <%} else{%>
-        <h1><%= i18n('Recent Demands')%></h1>
+      <h1><%= i18n('Recent Demands')%></h1>
       <%}%>
-
-      <div class="container">
-        <ul id="lightSliderDemand" class="cs-hidden">
-          <% demands.forEach(function(demand) { %>
-          <%- partial ('./partials/demandsForList.ejs',{demand: demand}) %>
-          <% }); %>
-        </ul>
+      <div class="container slWraper">
+          <ul id="lightSliderDemand" class="cs-hidden">
+            <% demands.forEach(function(demand) { %>
+            <%- partial ('./partials/demandsForList.ejs',{demand: demand}) %>
+            <% }); %>
+          </ul>
+        </div>
       </div>
-      <!--End DemandSlider-->
     </div>
   </div> <!-- Big Screen-->
 
@@ -77,3 +69,7 @@
 
 </div> <!--Main Container-->
 
+<script>
+
+
+</script>
