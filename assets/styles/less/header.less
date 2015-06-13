@@ -23,6 +23,11 @@ header{
   text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
   0px 8px 13px rgba(0,0,0,0.1),
   0px 18px 23px rgba(0,0,0,0.1);
+  padding-top: 15px;
+}
+
+#header .local{
+  padding-top: 10px;
 }
 
 #header .local a{
@@ -31,7 +36,7 @@ header{
   color: #fff;
 }
 
-#header .local a:hover{
+#header .local a:hover, #header .local a:active, #header .local a:focus{
   text-decoration: none;
 }
 
@@ -43,6 +48,12 @@ header{
   text-align: left;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  min-width: 240px;
+  border-bottom: 5px groove #88beb1;
+  border-top: none;
+  border-left: 5px groove #88beb1;
+  border-right: 5px ridge #88beb1;
+  left: -130px;
 }
 
 #login label{
@@ -51,10 +62,13 @@ header{
   width: 75%;
   font-weight: normal;
   font-size: 0.8em;
+  outline: none;
+  margin-bottom: 5px;
 }
 
 #login input{
   width: 100%;
+  margin-bottom: 5px;
 }
 
 .headerLogin{

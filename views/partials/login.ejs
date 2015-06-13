@@ -10,15 +10,13 @@
           <a href="#" onclick="toggle_visibility('login');" id="loginBtn" class="headerBtn"><%= i18n('Login') %></a>
         </div>
       </div>
-      <div class="row">
-        <div class="col-xs-12">
           <form style="display:none;" class="trans" method="POST" id="login" action="<%= UrlService.to('/login') %>">
             <div class="row">
               <div class="col-xs-3 col-xs-offset-1">
                 <label for="email"><%= i18n('E-Mail') %></label>
               </div>
               <div class="col-xs-7">
-                <input id="email" type="email" name="email" required/>
+                <input id="email" class="glowing-border" type="email" name="email" required/>
               </div>
             </div>
             <div class="row">
@@ -26,17 +24,15 @@
                 <label for="password"><%= i18n('Password') %></label>
               </div>
               <div class="col-xs-7">
-                <input id="password" type="password" name="password" required/>
+                <input id="password" class="glowing-border" type="password" name="password" required/>
               </div>
             </div>
             <div class="row">
               <div class="col-xs-7 col-xs-offset-4">
-                <input type="submit" value="<%= i18n('Login') %>" id="sendbtn" />
+                <input class="btn1" type="submit" value="<%= i18n('Login') %>" id="sendbtn" />
               </div>
             </div>
           </form>
-        </div>
-      </div>
     </div>
   </div>
       <% } %>

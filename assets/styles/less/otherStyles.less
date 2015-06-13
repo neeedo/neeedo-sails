@@ -52,7 +52,39 @@
   background: @MetroGreen;
 }
 
-.vertical-text {
-  transform: rotate(90deg);
-  transform-origin: left top 0;
+/* Input field glow */
+.glowing-border {
+  border: 2px solid #dadada;
+  border-radius: 2px;
+}
+
+.glowing-border:focus {
+  outline: none;
+  border-color: @MetroGreen;
+  box-shadow: 0 0 10px @MetroGreen;
+}
+
+/* Button Style */
+.btn1 {
+  color: #000;
+  background: @MetroGreen;
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: none;
+  border: 4px solid @MetroGreen;
+  text-shadow: 0 0 1px #fff;
+}
+
+.btn1:active {
+  top: 2px;
+}
+
+.btn1:hover {
+  background: transparent;
+  color: #fff;
+  text-shadow: 0 0 1px #000;
+}
+
+.btn1:focus{
+  outline: none;
 }
