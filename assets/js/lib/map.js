@@ -7,6 +7,8 @@
  * #############################################
  */
 
+var offersOverlay;
+
 /*
  * #############################
  * #
@@ -15,12 +17,12 @@
  * #############################
  */
 var transformToSphereCoordinates = function(longitude, latitude) {
-  var coord = ol.proj.transform([longitude, latitude], 'EPSG:4326', 'EPSG:3857');
+  var coord = ol.proj.transform([longitude, latitude], 'EPSG:4326', 'EPSG:3857'); // sphere coordinates
   return coord;
 };
 
 var initializeMap = function(target, data) {
-  return new ol.Map({
+  var map = new ol.Map({
     target: target,
     layers: [
       new ol.layer.Tile({
@@ -31,8 +33,13 @@ var initializeMap = function(target, data) {
       center: transformToSphereCoordinates(data.longitude, data.latitude), // sphere coordinates
       zoom: data.initialZoom
     }),
-    controls: ol.control.defaults({})
-  });
+        controls: ol.control.defaults({})
+    });
+
+  offersOverlay = new ol.FeatureOverlay({});
+  map.addOverlay(offersOverlay);
+
+  return map;
 };
 
 var centerMapByGeolocation = function(geolocation, map) {
@@ -109,16 +116,11 @@ var loadAndShowNearestOffers = function(userPosition, map, ajaxEndpointUrl)
    var onLoadSuccess = function(returnedData) {
       if ('offerList' in returnedData) {
         if ('offers' in returnedData['offerList']) {
-          var overlays = map.getOverlays().getArray();
-          var offersOverlay = overlays[0];
-
           for (var i=0; i < returnedData['offerList']['offers'].length; i++) {
             var offer = returnedData['offerList']['offers'][i];
             var offerFeature = showOfferInMap(map, offer);
-            //offersOverlay.addFeature(offerFeature);
+            offersOverlay.addFeature(offerFeature);
           }
-          // TODO get working
-          //map.addOverlay(offersOverlay);
         }
       }
    };
@@ -126,7 +128,7 @@ var loadAndShowNearestOffers = function(userPosition, map, ajaxEndpointUrl)
   var offerService = new Offers(ajaxEndpointUrl);
   offerService.getOffersByCriteria({
         lat : userPosition[0], // TODO transform from sphere
-        lng : userPosition[1],
+        lng : userPosition[1]
     }, onLoadSuccess
   );
 };
@@ -134,11 +136,12 @@ var loadAndShowNearestOffers = function(userPosition, map, ajaxEndpointUrl)
 
 var showOfferInMap = function(map, offer) {
   var offerFeature = new ol.Feature();
+
   offerFeature.setStyle(new ol.style.Style({
-    image: new ol.style.Style({
+    image: new ol.style.Circle({
       radius: 6,
       fill: new ol.style.Fill({
-        color: '#3399CC'
+        color: '#88BEB1'
       }),
       stroke: new ol.style.Stroke({
         color: '#fff',
@@ -147,6 +150,10 @@ var showOfferInMap = function(map, offer) {
       text: offer.tags.join(',')
     })
   }));
+
+  offerFeature.on('click', function(evt) {
+    console.log('You clicked the offer');
+  });
 
   offerFeature.setGeometry(new ol.geom.Point(transformToSphereCoordinates(offer.location.latitude, offer.location.longitude)));
 
