@@ -12,7 +12,7 @@
       <div class="container slWraper">
         <ul id="lightSliderOffer" class="cs-hidden">
           <% offers.forEach(function(offer) { %>
-          <%- partial ('./partials/recentOffersSmall.ejs',{offer: offer}) %>
+          <%- partial ('./partials/offersForList.ejs',{offer: offer}) %>
           <% }); %>
         </ul>
       </div>
@@ -28,7 +28,7 @@
       <div class="container slWraper">
           <ul id="lightSliderDemand" class="cs-hidden">
             <% demands.forEach(function(demand) { %>
-            <%- partial ('./partials/recentDemandsSmall.ejs',{demand: demand}) %>
+            <%- partial ('./partials/demandsForList.ejs',{demand: demand}) %>
             <% }); %>
           </ul>
         </div>
@@ -51,7 +51,7 @@
       <div role="tabpanel" class="tab-pane active" id="demands">
        <ul>
         <% demands.forEach(function(demand) { %>
-        <%- partial ('./partials/recentDemandsSmall.ejs',{demand: demand}) %>
+        <%- partial ('./partials/demandsForList.ejs',{demand: demand}) %>
         <% }); %>
        </ul>
       </div>
@@ -59,7 +59,7 @@
       <div role="tabpanel" class="tab-pane" id="offers">
         <ul>
           <% offers.forEach(function(offer) { %>
-          <%- partial ('./partials/recentOffersSmall.ejs',{offer: offer}) %>
+          <%- partial ('./partials/offersForList.ejs',{offer: offer}) %>
           <% }); %>
         </ul>
       </div>
