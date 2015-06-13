@@ -9,7 +9,7 @@
       <%} else{%>
       <h1><%= i18n('Recent Offers')%></h1>
       <%}%>
-      <div class="container slWraper">
+      <div class="container slWraper shadow">
         <ul id="lightSliderOffer" class="cs-hidden">
           <% offers.forEach(function(offer) { %>
           <%- partial ('./partials/offersForList.ejs',{offer: offer}) %>
@@ -25,7 +25,7 @@
       <%} else{%>
       <h1><%= i18n('Recent Demands')%></h1>
       <%}%>
-      <div class="container slWraper">
+      <div class="container slWraper shadow">
           <ul id="lightSliderDemand" class="cs-hidden">
             <% demands.forEach(function(demand) { %>
             <%- partial ('./partials/demandsForList.ejs',{demand: demand}) %>
