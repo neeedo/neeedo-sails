@@ -10,7 +10,7 @@
       <h1><%= i18n('Recent Offers')%></h1>
       <%}%>
       <div class="container elementWrapper shadow">
-        <ul id="lightSliderOffer" class="cs-hidden">
+        <ul id="lightSliderOffer">
           <% offers.forEach(function(offer) { %>
           <%- partial ('./partials/offersForList.ejs',{offer: offer}) %>
           <% }); %>
@@ -28,7 +28,7 @@
       <h1><%= i18n('Recent Demands')%></h1>
       <%}%>
       <div class="container elementWrapper shadow">
-          <ul id="lightSliderDemand" class="cs-hidden">
+          <ul id="lightSliderDemand" >
             <% demands.forEach(function(demand) { %>
             <%- partial ('./partials/demandsForList.ejs',{demand: demand}) %>
             <% }); %>
@@ -40,12 +40,14 @@
 
   <div class="container visible-xs-block">
 
-    <div class="container ">
-      <div role="tabpanel">
+    <div class=" mobileTab">
+      <div class="tabPanel" role="tabpanel">
         <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
+        <ul class="nav nav-tabs" role="tablist" id="myTab">
           <li role="presentation" class="active"><a href="#demands" aria-controls="demands" role="tab" data-toggle="tab"><%= i18n('Demands')%></a></li>
           <li role="presentation"><a href="#offers" aria-controls="offers" role="tab" data-toggle="tab"><%= i18n('Offers')%></a></li>
+          <li role="presentation"><a href="#smallMap" aria-controls="smallMap" role="tab" data-toggle="tab"><%= i18n('Map')%></a></li>
+
         </ul>
       </div> <!--TabPanel-->
 
@@ -64,6 +66,11 @@
             <%- partial ('./partials/offersForList.ejs',{offer: offer}) %>
             <% }); %>
           </ul>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="smallMap">
+              <% if (false !== showMap)  { %>
+              <%- partial ('./partials/map.ejs', { mapType: showMap.mapType, demandSourceUrl: showMap.demandSourceUrl, offerSourceUrl: showMap.offerSourceUrl}) %>
+              <% } %>
         </div>
       </div>    <!-- Tab panes -->
     </div>
