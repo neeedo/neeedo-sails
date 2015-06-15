@@ -67,10 +67,8 @@
             <% }); %>
           </ul>
         </div>
-        <div role="tabpanel" class="tab-pane" id="smallMap">
-              <% if (false !== showMap)  { %>
-              <%- partial ('./partials/map.ejs', { mapType: showMap.mapType, demandSourceUrl: showMap.demandSourceUrl, offerSourceUrl: showMap.offerSourceUrl}) %>
-              <% } %>
+        <div role="tabpanel" class="tab-pane" id="smallMap" >
+          <h1>MAP</h1>
         </div>
       </div>    <!-- Tab panes -->
     </div>
