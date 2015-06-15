@@ -4,7 +4,7 @@
   <a href="<%= UrlService.to('/') %>"><%= i18n('Home') %></a>
   <% if (!LoginService.userIsLoggedIn(req)) { %>
   <a href="<%= UrlService.to('/register') %>"><%= i18n('Register') %></a>
-  <a href="<%= UrlService.to('/login') %>"><%= i18n('Login') %></a>
+  <a href="<%= UrlService.to('/register') %>"><%= i18n('Login') %></a>
   <% } %>
   <a href="<%= UrlService.to('/offers/create') %>"><%= i18n('Create offer') %></a>
   <a href="<%= UrlService.to('/demands/create') %>"><%= i18n('Create demand') %></a>

@@ -12,5 +12,5 @@ module.exports = function(req, res, next) {
   }
 
   // User is not logged in where he / she is not supposed to be, so redirect to login
-  return res.view('login/login');
+  return res.view('registration/register');
 };

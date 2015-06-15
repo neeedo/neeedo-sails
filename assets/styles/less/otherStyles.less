@@ -60,7 +60,27 @@
   box-shadow: 0 0 10px @MetroGreen;
 }
 
+/* Form Styles */
+.form label{
+  color: #333;
+  padding-top: 5px;
+  width: 75%;
+  font-weight: normal;
+  font-size: 0.8em;
+  outline: none;
+  margin-bottom: 5px;
+}
+
+
 /* Button Style */
+.formBtn:active {
+  top: 2px;
+}
+
+.formBtn:focus{
+  outline: none;
+}
+
 .btn1 {
   color: #000;
   background: @MetroGreen;
@@ -71,18 +91,26 @@
   text-shadow: 0 0 1px #fff;
 }
 
-.btn1:active {
-  top: 2px;
-}
-
 .btn1:hover {
   background: transparent;
   color: #fff;
   text-shadow: 0 0 1px #000;
 }
 
-.btn1:focus{
-  outline: none;
+.btn2 {
+  color: #fff;
+  background: @DarkerMetroGreen;
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: none;
+  border: 4px solid @DarkerMetroGreen;
+  text-shadow: 0 0 1px #000;
+}
+
+.btn2:hover {
+  background: transparent;
+  color: #000;
+  text-shadow: 0 0 1px #fff;
 }
 
 /* Box Shadow */
