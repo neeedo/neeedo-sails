@@ -58,7 +58,7 @@ describe('[INTEGRATION TEST] LoginController', function() {
           spy.called.should.be.true;
 
           // expect redirect to /login
-          res.text.should.match(/\/login/);
+          res.text.should.match(/\/register/);
 
           done();
         });
