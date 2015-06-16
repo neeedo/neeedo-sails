@@ -37,13 +37,13 @@
   </div>
       <% } %>
       <% if (LoginService.userIsLoggedIn(req)) { %>
-      <form method="POST" id="login" action="<%= UrlService.to('/logout') %>">
+      <form method="POST" id="loggedIn" action="<%= UrlService.to('/logout') %>">
         <div class="row">
-          <div class="col-md-1">
+          <div class="col-md-6">
             <p><%= i18n('Hello %s!', LoginService.getCurrentUser(req).getUsername()) %></p>
           </div>
           <div class="col-md-6">
-            <input type="submit" value="<%= i18n('Logout') %>" id="sendbtn" />
+            <input class="btn1 formBtn" type="submit" value="<%= i18n('Logout') %>" id="sendbtn" />
           </div>
         </div>
       </form>

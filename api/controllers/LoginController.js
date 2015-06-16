@@ -23,7 +23,7 @@ module.exports = {
       ApiClientService.logMessages(errorModel);
       ApiClientService.addFlashMessages(req, res, errorModel);
 
-      res.redirect('/login');
+      res.redirect('/register');
     };
 
     /*

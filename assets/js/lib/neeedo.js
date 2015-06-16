@@ -31,8 +31,10 @@ $( "#loginBtn" ).click(function() {
 
 function toggle_visibility(id) {
   var e = document.getElementById(id);
-  if(e.style.display == 'none')
+  if(e.style.display == 'none'){
     e.style.display = 'block';
+    $('#email').focus();
+  }
   else
     e.style.display = 'none';
 }

@@ -16,12 +16,7 @@
     <% for (var localeI = 0; localeI < LocaleService.getAvailableLocales().length; localeI++) { %>
     <% var locale = LocaleService.getAvailableLocales()[localeI] %>
     <a href="<%= UrlService.to(LocaleService.getSetLocaleUrl(locale)) %>">
-      <% if(locale == 'en') { %>
-        <img src="/images/gb.png" alt="English" />
-      <% } %>
-      <% if(locale == 'de') { %>
-      <img src="/images/de.png" alt="Deutsch" />
-      <% } %>
+        <img src="/images/<%= locale %>.png" alt="<%= locale %>" />
     </a>
     <% } %>
   </div>
