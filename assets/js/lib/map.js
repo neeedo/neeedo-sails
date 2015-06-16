@@ -16,88 +16,30 @@ var offersOverlay;
  * #
  * #############################
  */
+var map,
+    userIcon;
+
 var transformToSphereCoordinates = function(longitude, latitude) {
   var coord = ol.proj.transform([longitude, latitude], 'EPSG:4326', 'EPSG:3857'); // sphere coordinates
   return coord;
 };
 
 var initializeMap = function(target, data) {
-  var map = new ol.Map({
-    target: target,
-    layers: [
-      new ol.layer.Tile({
-        source: new ol.source.OSM()
-      })
-    ],
-    view: new ol.View({
-      center: transformToSphereCoordinates(data.longitude, data.latitude), // sphere coordinates
-      zoom: data.initialZoom
-    }),
-        controls: ol.control.defaults({})
-    });
+  map = L.map('map').setView([data.latitude, data.longitude], data.initialZoom);
 
-  offersOverlay = new ol.FeatureOverlay({});
-  map.addOverlay(offersOverlay);
+  // create the tile layer with correct attribution
+  var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+  var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+  var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});
 
-  return map;
+  map.addLayer(osm);
 };
 
-var centerMapByGeolocation = function(geolocation, map) {
-  if (geolocation.getPosition()) {
-    map.getView().setCenter(geolocation.getPosition());
-  }
+var showUsersPosition = function(userPosition) {
+  L.marker([userPosition.latitude, userPosition.longitude], {icon: userIcon}).addTo(map);
 };
 
-var addUsersPositionFeature = function(map) {
-  var positionFeature = new ol.Feature();
-  positionFeature.setStyle(new ol.style.Style({
-    image: new ol.style.Circle({
-      radius: 6,
-      fill: new ol.style.Fill({
-        color: '#3399CC'
-      }),
-      stroke: new ol.style.Stroke({
-        color: '#fff',
-        width: 2
-      })
-    })
-  }));
-
-  var featuresOverlay = new ol.FeatureOverlay({
-    features: [positionFeature]
-  });
-
-  map.addOverlay(featuresOverlay);
-
-  return positionFeature;
-};
-
-var showUsersPosition = function(geolocation, positionFeature) {
-  var position = geolocation.getPosition();
-
-  if (position) {
-    positionFeature.setGeometry(new ol.geom.Point(position));
-  }
-};
-
-var initializeGeolocation = function(map, positionFeature, mapTypeOptions) {
-  var geolocation = new ol.Geolocation({
-    projection: map.getView().getProjection()
-  });
-
-  geolocation.setTracking(true);
-
-  geolocation.on('change', function(evt) {
-    centerMapByGeolocation(geolocation, map);
-    //showUsersPosition(geolocation, positionFeature);
-
-    triggerSpecificMapTypeOperations(geolocation.getPosition(), map, mapTypeOptions);
-  });
-
-  return geolocation;
-};
-
-var triggerSpecificMapTypeOperations = function (userPosition, map, mapTypeOptions) {
+var triggerSpecificMapTypeOperations = function (userPosition, mapTypeOptions) {
   switch (mapTypeOptions.mapType) {
     case 'all': // nearest demands + offers
       loadAndShowNearestDemandsAndOffers(userPosition, map, mapTypeOptions);
@@ -127,44 +69,36 @@ var loadAndShowNearestOffers = function(userPosition, map, ajaxEndpointUrl)
 
   var offerService = new Offers(ajaxEndpointUrl);
   offerService.getOffersByCriteria({
-        lat : userPosition[0], // TODO transform from sphere
-        lng : userPosition[1]
+        lat : userPosition.latitude,
+        lng : userPosition.longitude
     }, onLoadSuccess
   );
 };
 
 
+var renderInTemplate = function(offer) {
+  var source = $("#offerMarker").html();
+  var template = Handlebars.compile(source);
+
+  var image = '/images/Offer_Dummy.png';
+  var imageTitle = 'Dummy';
+  
+  if (offer.imageList.images.length > 0) {
+    var firstImage = offer.imageList.images[0];
+    image = offer.imageList.baseUrl + '/' + firstImage.fileName;
+    imageTitle = firstImage.fileName;
+  }
+
+  var context = {tags: offer.tags, price: offer.price, image: image, imageTitle: imageTitle};
+  return template(context);
+};
+
 var showOfferInMap = function(map, offer) {
-  var style = new ol.style.Style({
-    fill: new ol.style.Fill({
-      color: '#3399CC'
-    }),
-    stroke: new ol.style.Stroke({
-      color: '#fff',
-      width: 2
-    })
-  });
+  var html = renderInTemplate(offer);
+  var offerMarker = L.marker([offer.location.latitude, offer.location.longitude]).addTo(map);
 
-  var radius = 0.005;
-
-  var p1 = new ol.geom.Point(transformToSphereCoordinates(offer.location.longitude, offer.location.latitude));
-  var p2 = new ol.geom.Point(transformToSphereCoordinates(offer.location.longitude, offer.location.latitude));
-  var p3 = new ol.geom.Point(transformToSphereCoordinates(offer.location.longitude, offer.location.latitude));
-  var p4 = new ol.geom.Point(transformToSphereCoordinates(offer.location.longitude, offer.location.latitude));
-  var p5 = new ol.geom.Point(transformToSphereCoordinates(offer.location.longitude, offer.location.latitude));
-
-  var pnt= [];
-  pnt.push(new ol.geom.Point([16, 16]),new ol.geom.Point([16,17]),new ol.geom.Point([17,18]),new ol.geom.Point([18,19]),new ol.geom.Point([17,18]));
-
-  var geometry = new ol.geom.LinearRing(pnt);
-
-  var offerFeature = new ol.Feature();
-  offerFeature.setStyle(style);
-  //offerFeature.setGeometry(geometry);
-
-  offerFeature.on('click', function(evt) {
-    console.log('You clicked the offer');
-  });
+  var tags = offer.tags.join(', ');
+  offerMarker.bindPopup(html);
 
   return offerFeature;
 };
@@ -179,30 +113,44 @@ var showOfferInMap = function(map, offer) {
 $(document).ready(function() {
   var mapElementId = 'map';
   var mapElement = $('#map');
+  userIcon = new  L.icon({iconUrl: '/images/icons/user.gif'});
 
   if (mapElement.length) {
     // default data coming from backend config file
-    var longitude = mapElement.data('defaultlongitude');
-    var latitude = mapElement.data('defaultlatitude');
     var initialZoom = mapElement.data('initialzoomstep');
     var demandsEndpointUrl = mapElement.data('demandsourceurl');
     var offersEndpointUrl = mapElement.data('offersourceurl');
     var mapType = mapElement.data('maptype');
 
-    var map = initializeMap(mapElementId, {
-      longitude: longitude,
-      latitude: latitude,
-      initialZoom: initialZoom
-    });
+    var mapLocationCenter = getGeolocation(function (position) {
+      console.log('got position: ' + position);
 
-    console.log('initialized map :)');
+      // default position as returned by backend
+      var userPosition = {
+        longitude : mapElement.data('defaultlongitude'),
+        latitude : mapElement.data('defaultlatitude')
+      };
 
-    var positionFeature = addUsersPositionFeature(map);
-    var geolocation = initializeGeolocation(map, positionFeature, {
-      mapType: mapType,
-      demandsEndpointUrl: demandsEndpointUrl,
-      offersEndpointUrl: offersEndpointUrl
+      if (position) {
+        // geolocation given
+        userPosition.longitude = position.coords.longitude;
+        userPosition.latitude = position.coords.latitude;
+      }
+
+      var map = initializeMap(mapElementId, {
+        longitude: userPosition.longitude,
+        latitude: userPosition.latitude,
+        initialZoom: initialZoom
+      });
+
+      console.log('initialized map :)');
+
+      showUsersPosition(userPosition);
+      triggerSpecificMapTypeOperations(userPosition,  {
+        mapType: mapType,
+        demandsEndpointUrl: demandsEndpointUrl,
+        offersEndpointUrl: offersEndpointUrl
+      });
     });
   }
-
 });
