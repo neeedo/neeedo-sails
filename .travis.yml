@@ -9,6 +9,8 @@ before_install:
 notifications:
   email:
   - sascha.feldmann@gmx.de
+  - renner.sebastian@gmail.com
+  - cneubauern@gmail.com
 after_success:
   - grunt testcoverage --report lcovonly && cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js && rm -rf ./coverage
 deploy:
