@@ -79,5 +79,11 @@
   "This operation is not allowed." : "This operation is not allowed.",
   "Could not determine ratio of image %s. Please contact Neeedo customer care." : "Could not determine ratio of image %s. Please contact Neeedo customer care.",
   "Could not resize image %s. Please contact Neeedo customer care." : "Could not resize image %s. Please contact Neeedo customer care.",
-  "Your files were uploaded successfully" : "Your files were uploaded successfully"
+  "Your files were uploaded successfully" : "Your files were uploaded successfully",
+  "The most recent offers couldn't be loaded. Please contact Neeedo customer care." : "The most recent offers couldn't be loaded. Please contact Neeedo customer care.",
+  "The most recent demands couldn't be loaded. Please contact Neeedo customer care.": "The most recent demands couldn't be loaded. Please contact Neeedo customer care.",
+  "Your login credentials are incorrect.":"Your login credentials are incorrect.",
+  "The given image could not be found.": "The given image could not be found.",
+  "The image couldn't be deleted." : "The image couldn't be deleted.",
+  "Could not upload the given image. Please contact Neeedo customer care" : "Could not upload the given image. Please contact Neeedo customer care"
 }
