@@ -49,11 +49,13 @@
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- jQuery ui (necessary for tag-it.js) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
     <!-- LeafLet -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
   </head> <!-- HEAD-->
 
-  <body data-target=".navbar-collapse" data-apiUrl="<%= sails.config.neeedo.apiUrl %>" class="cbp-spmenu-push">
+  <body data-target=".navbar-collapse" data-apiUrl="<%= sails.config.neeedo.apiClient.apiUrls.http %>" class="cbp-spmenu-push">
     <div class="wrapper">
     <%- partial ('./partials/header.ejs') %>
     <%- partial ('./partials/messages.ejs') %>
@@ -64,7 +66,7 @@
     <%- partial ('./partials/navigation.ejs') %>
     <%- partial ('./partials/footer.ejs') %>
        <!--TEMPLATES-->
-       
+
        <!--TEMPLATES END-->
 
 
@@ -113,12 +115,17 @@
 
     -->
 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    <!-- OpenLayers -->
+    <script src="http://openlayers.org/en/v3.6.0/build/ol.js" type="text/javascript"></script>
+
     <!--SCRIPTS-->
     <script src="/js/dependencies/sails.io.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/lib/classie.js"></script>
     <script src="/js/lib/handlebars-v3.0.0.js"></script>
-    <script src="/js/lib/handlebars-v3.0.3.js"></script>
     <script src="/js/lib/lightslider.js"></script>
     <script src="/js/lib/map.js"></script>
     <script src="/js/lib/modernizr.custom.js"></script>
