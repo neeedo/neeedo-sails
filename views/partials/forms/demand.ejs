@@ -1,40 +1,65 @@
- <form method="POST" id="createDemand">
-                  <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title"><%= i18n("I'm looking for") %></h4>
-                  </div>
-                  <div class="modal-body">
-                    <label for="mustTagsDemand"><%= i18n("must have") %></label>
-                    <input class="form-control" id="mustTagsDemand" type="text" name="mustTags" value="<%- mustTags %>" placeholder="<%= i18n('must have') %>"/>
+<form method="POST" id="createDemand">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"
+                aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title"><%= i18n("I'm looking for") %></h4>
+    </div>
+    <div class="modal-body">
+        <label for="mustTagsDemand"><%= i18n("must have") %></label>
+        <input class="form-control" id="mustTagsDemand" type="text"
+               name="mustTags" value="<%- mustTags %>"
+               placeholder="<%= i18n('must have') %>"/>
 
-                   <label for="shouldTagsDemand"><%= i18n("should have") %></label>
-                   <input class="form-control" id="shouldTagsDemand" type="text" name="shouldTags" value="<%- shouldTags %>" placeholder="<%= i18n('should have') %>"/>
+        <div class="row">
+            <div class="col-lg-6" id="myTags">
 
-                   <div class="row">
-                        <div class="col-lg-6">
-                            <div class="input-group">
-                                <label for="minPriceDemand"><%= i18n("Price from") %></label>
-                                     <input type="number" id="minPriceDemand" class="form-control" name="minPrice" value="<%- minPrice %>" placeholder="<%= i18n("from") %>"/>
-                            </div><!-- /input-group -->
-                       </div><!-- /.col-lg-6 -->
+            </div>
+        </div>
 
-                       <div class="col-lg-6">
-                            <div class="input-group">
-                                <label for="maxPriceDemand"><%= i18n("Price to") %></label>
-                                        <input type="number" id="maxPriceDemand" class="form-control" name="maxPrice" value="<%- maxPrice %>"  placeholder="<%= i18n("to") %>"/>
-                            </div><!-- /input-group -->
-                         </div><!-- /.col-lg-6 -->
-                   </div><!-- /.row -->
+        <label for="shouldTagsDemand"><%= i18n("should have") %></label>
+        <input class="form-control" id="shouldTagsDemand" type="text"
+               name="shouldTags" value="<%- shouldTags %>"
+               placeholder="<%= i18n('should have') %>"/>
 
-                   <label for="maxPriceDemand"><%= i18n("Maximum distance") %></label>
-                   <input type="number" id="maxDistanceDemand" class="form-control" name="distance" value="<%- distance %>" placeholder="<%= i18n("to") %>"/>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <label for="minPriceDemand"><%= i18n("Price from")
+                        %></label>
+                    <input type="number" id="minPriceDemand"
+                           class="form-control" name="minPrice"
+                           value="<%- minPrice %>" placeholder="<%= i18n("from") %>"/>
+                </div>
+                <!-- /input-group -->
+            </div>
+            <!-- /.col-lg-6 -->
 
-                   <input type="hidden" name="lat" id="latDemand" value="<%- lat %>" />
-                   <input type="hidden" name="lng" id="lonDemand" value="<%- lng %>" />
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <label for="maxPriceDemand"><%= i18n("Price to") %></label>
+                    <input type="number" id="maxPriceDemand"
+                           class="form-control" name="maxPrice"
+                           value="<%- maxPrice %>" placeholder="<%= i18n(" to") %>"/>
+                </div>
+                <!-- /input-group -->
+            </div>
+            <!-- /.col-lg-6 -->
+        </div>
+        <!-- /.row -->
+
+        <label for="maxPriceDemand"><%= i18n("Maximum distance") %></label>
+        <input type="number" id="maxDistanceDemand" class="form-control"
+               name="distance" value="<%- distance %>" placeholder="<%= i18n("to") %>"/>
+
+        <input type="hidden" name="lat" id="latDemand" value="<%- lat %>"/>
+        <input type="hidden" name="lng" id="lonDemand" value="<%- lng %>"/>
 
 
-                  <div class="modal-footer">
-                      <button type="submit" class="btn btn-default" data-dismiss="modal"><%= i18n(btnLabel) %></button>
-                  </div>
-                    </div>
- </form>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-default" data-dismiss="modal">
+                <%= i18n(btnLabel) %>
+            </button>
+        </div>
+    </div>
+</form>

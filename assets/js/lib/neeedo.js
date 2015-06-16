@@ -315,7 +315,41 @@ $(document).ready(function () {
 
   offerForm.on('submit', setLocation);
   demandForm.on('submit', setLocation);
+
+  $("#mustTagsDemand").tagit({
+    autocomplete: {
+      source: function( request, response ) {
+        $.ajax({
+          url: $("body").data("apiurl") + "/completion/tag/" + request.term,
+          success: function( data ) {
+            response( $.map( data.completedTags, function( item ) {
+              return {
+                label: item,
+                value: item
+              }
+            }));
+          }
+        });
+      },
+      minLength: 2
+    },
+    afterTagAdded: function(event, ui) {
+      getSuggests();
+    }
+  });
+
+  function getSuggests() {
+    $.ajax({
+        url: $("body").data("apiurl") + "/completion/suggest/" + $("#mustTagsDemand").tagit("assignedTags").join(" "),
+        success: function( data ) {
+            console.log(data.suggestedTags.join(" "));
+            $("#myTags").text(data.suggestedTags.join(" "));
+        }
+    });
+
+  }
 });
+
 
 /* ##############################################
  *
