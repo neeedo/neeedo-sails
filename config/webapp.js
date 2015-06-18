@@ -84,6 +84,8 @@ module.exports.webapp = {
   },
   map: {
     // initial zoom step that will be set on open layers view
-    defaultZoomStep: 12
+    defaultZoomStep: 12,
+    // max number of items (demands or offers) that will be loaded in the map
+    itemLimit: 50
   }
 };

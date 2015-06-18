@@ -19,13 +19,11 @@ var offersOverlay;
 var map,
     userIcon,
     demandIcon,
-    offerIcon
+    offerIcon,
+    lastPositionOnTrigger,
+    offerMarkers = [],
+    demandMarkers = []
   ;
-
-var transformToSphereCoordinates = function(longitude, latitude) {
-  var coord = ol.proj.transform([longitude, latitude], 'EPSG:4326', 'EPSG:3857'); // sphere coordinates
-  return coord;
-};
 
 var initializeMap = function(target, data) {
   map = L.map('map').setView([data.latitude, data.longitude], data.initialZoom);
@@ -42,13 +40,47 @@ var showUsersPosition = function(userPosition) {
   L.marker([userPosition.latitude, userPosition.longitude], {icon: userIcon}).addTo(map);
 };
 
-var triggerSpecificMapTypeOperations = function (userPosition, mapTypeOptions) {
-  switch (mapTypeOptions.mapType) {
-    case 'all': // nearest demands + offers
-      loadAndShowNearestDemandsAndOffers(userPosition, map, mapTypeOptions);
-      break;
-    default:
-      console.log('Unknown map type ' + mapTypeOptions.mapType);
+var distanceIsLargeEnoughForLoadingNewDemandsOffers = function(newPosition, oldPosition) {
+  var deltaInKm = 50;
+
+  var distanceBetweenTwoCoordinatesInKm = neeedo.getDistanceBetweenTwoCoordinatesInKm(newPosition, oldPosition);
+    if (distanceBetweenTwoCoordinatesInKm > deltaInKm) {
+    return true;
+  }
+
+  return false;
+};
+
+var resetDemandAndOfferMarkers = function() {
+  for (var i=0; i < offerMarkers.length; i++ ) {
+    var offerMarker = offerMarkers[i];
+    map.removeLayer(offerMarker);
+  }
+
+  for (var i=0; i < demandMarkers.length; i++ ) {
+    var demandMarker = demandMarkers[i];
+    map.removeLayer(demandMarker);
+  }
+
+  offerMarkers = [];
+  demandMarkers = [];
+};
+
+var triggerSpecificMapTypeOperations = function (currentPosition, mapTypeOptions) {
+  if (undefined === lastPositionOnTrigger || distanceIsLargeEnoughForLoadingNewDemandsOffers(currentPosition, lastPositionOnTrigger)) {
+    console.log('resetting...');
+    resetDemandAndOfferMarkers();
+
+    switch (mapTypeOptions.mapType) {
+      case 'all': // nearest demands + offers
+        loadAndShowNearestDemandsAndOffers(currentPosition, map, mapTypeOptions);
+        break;
+      default:
+        console.log('Unknown map type ' + mapTypeOptions.mapType);
+    }
+
+    // store position so that reload can be done if distance has changed
+    lastPositionOnTrigger = currentPosition;
   }
 };
 
@@ -75,7 +107,8 @@ var loadAndShowNearestOffers = function(userPosition, map, mapTypeOptions)
   var offerService = new Offers(ajaxEndpointUrl);
   offerService.getOffersByCriteria({
         lat : userPosition.latitude,
-        lng : userPosition.longitude
+        lng : userPosition.longitude,
+        limit : mapTypeOptions.itemLimit
     }, onLoadSuccess
   );
 };
@@ -98,7 +131,8 @@ var loadAndShowNearestDemands = function(userPosition, map, mapTypeOptions)
   var demandService = new Demands(ajaxEndpointUrl);
   demandService.getDemandsByCriteria({
         lat : userPosition.latitude,
-        lng : userPosition.longitude
+        lng : userPosition.longitude,
+        limit : mapTypeOptions.itemLimit
     }, onLoadSuccess
   );
 };
@@ -108,6 +142,8 @@ var showOfferInMap = function(map, offer, mapTypeOptions) {
   var offerMarker = L.marker([offer.location.latitude, offer.location.longitude], {icon: offerIcon}).addTo(map);
 
   offerMarker.bindPopup(html);
+
+  offerMarkers.push(offerMarker);
 };
 
 var showDemandInMap = function(map, demand, mapTypeOptions) {
@@ -115,9 +151,11 @@ var showDemandInMap = function(map, demand, mapTypeOptions) {
   var demandMarker = L.marker([demand.location.latitude, demand.location.longitude], {icon: demandIcon}).addTo(map);
 
   demandMarker.bindPopup(html);
+  demandMarkers.push(offerMarker);
 };
 
 var filterImageUrl = function(originalUrl) {
+  // make use of http instead of https to get the image
   return originalUrl.replace(neeedo.getApiHttpsUrl(), neeedo.getApiHttpUrl());
 };
 
@@ -167,6 +205,31 @@ var renderDemandInTemplate = function(demand, mapTypeOptions) {
   return template(context);
 };
 
+var getMapTypeOptions = function()
+{
+  var mapElement = $('#map');
+  var demandsEndpointUrl = mapElement.data('demandsourceurl');
+  var offersEndpointUrl = mapElement.data('offersourceurl');
+  var mapType = mapElement.data('maptype');
+  var viewOfferUrl = mapElement.data('offerviewurl');
+  var viewDemandUrl = mapElement.data('demandviewurl');
+
+  return {
+    mapType: mapType,
+    demandsEndpointUrl: demandsEndpointUrl,
+    offersEndpointUrl: offersEndpointUrl,
+    viewOfferUrl: viewOfferUrl,
+    viewDemandUrl: viewDemandUrl,
+    itemLimit: mapElement.data('itemlimit'),
+    translations: {
+      price: mapElement.data('translationprice'),
+      offering: mapElement.data('translationoffering'),
+      lookingFor: mapElement.data('translationsearching'),
+      details: mapElement.data('translationdetails'),
+    }
+  }
+};
+
 /*
  * #############################
  * #
@@ -184,15 +247,8 @@ $(document).ready(function() {
   if (mapElement.length) {
     // default data coming from backend config file
     var initialZoom = mapElement.data('initialzoomstep');
-    var demandsEndpointUrl = mapElement.data('demandsourceurl');
-    var offersEndpointUrl = mapElement.data('offersourceurl');
-    var mapType = mapElement.data('maptype');
-    var viewOfferUrl = mapElement.data('offerviewurl');
-    var viewDemandUrl = mapElement.data('demandviewurl');
 
     var mapLocationCenter = getGeolocation(function (position) {
-      console.log('got position: ' + position);
-
       // default position as returned by backend
       var userPosition = {
         longitude : mapElement.data('defaultlongitude'),
@@ -205,7 +261,7 @@ $(document).ready(function() {
         userPosition.latitude = position.coords.latitude;
       }
 
-      var map = initializeMap(mapElementId, {
+      initializeMap(mapElementId, {
         longitude: userPosition.longitude,
         latitude: userPosition.latitude,
         initialZoom: initialZoom
@@ -214,18 +270,18 @@ $(document).ready(function() {
       console.log('initialized map :)');
 
       showUsersPosition(userPosition);
-      triggerSpecificMapTypeOperations(userPosition,  {
-        mapType: mapType,
-        demandsEndpointUrl: demandsEndpointUrl,
-        offersEndpointUrl: offersEndpointUrl,
-        viewOfferUrl: viewOfferUrl,
-        viewDemandUrl: viewDemandUrl,
-        translations: {
-          price: mapElement.data('translationprice'),
-          offering: mapElement.data('translationoffering'),
-          lookingFor: mapElement.data('translationsearching'),
-          details: mapElement.data('translationdetails')
-        }
+      // initially load near offers + demands to users position
+      var mapTypeOptions = getMapTypeOptions();
+      triggerSpecificMapTypeOperations(userPosition, mapTypeOptions);
+
+      // load near demands + offers if the user refocused the map
+      map.on('mouseup', function(e) {
+         var newPosition = {
+           longitude: e.latlng.lng,
+           latitude: e.latlng.lat
+         };
+
+        triggerSpecificMapTypeOperations(newPosition, mapTypeOptions);
       });
     });
   }

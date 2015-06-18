@@ -483,4 +483,33 @@ Neeedo.prototype.getApiHttpsUrl = function() {
   return $("body").data("apiurlhttps");
 };
 
+Neeedo.prototype.deg2rad = function deg2rad(deg) {
+  return deg * (Math.PI/180)
+};
+
+/**
+ * Implementation of haversine formula to get the great circle distances between two points.
+ * @param position1
+ * @param position2
+ * @return distance in kilometers
+ */
+Neeedo.prototype.getDistanceBetweenTwoCoordinatesInKm = function (position1, position2) {
+  var EQUATOR_RADIUS = 6378.137;
+
+  var latitude1 = position1.latitude,
+      longitude1 = position1.longitude,
+      latitude2 = position2.latitude,
+      longitude2 = position2.longitude;
+
+  var latitude1Rad = this.deg2rad(latitude1),
+      longitudeRad = this.deg2rad(longitude1),
+      latitude2Rad = this.deg2rad(latitude2),
+      longitude2Rad = this.deg2rad(longitude2)
+    ;
+
+  return EQUATOR_RADIUS * Math.acos(Math.sin(latitude1Rad) * Math.sin(latitude2Rad)
+      + Math.cos(latitude1Rad) * Math.cos(latitude2Rad) * Math.cos(longitude2Rad - longitudeRad)
+    );
+};
+
 var neeedo = new Neeedo();
