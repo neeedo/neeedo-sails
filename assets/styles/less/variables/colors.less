@@ -1,14 +1,35 @@
-//Wet Kiss in the Metro
+//BASIC COLORS (Wet Kiss in the Metro)
+
 @MetroDark: #1E2422;
 @MetroPinK: #FF006D;
 @MetroGreen: #88BEB1;
 @MetroLightBlue: #DAFFFF;
 @MetroGreyBlue: #718494;
 
+//Variations
+
+@LighterMetroDark: lighten(@MetroDark, 75%);
+@DarkerMetroDark: darken(@MetroDark, 20%);
+@LighterMetroPink: lighten(@MetroPinK, 20%);
+@DarkerMetroPink: darken(@MetroPinK, 20%);
+@LighterMetroGreen: lighten(@MetroGreen, 20%);
+@DarkerMetroGreen: darken(@MetroGreen, 20%);
+@LighterMetroLightBlue: lighten(@MetroLightBlue, 20%);
+@DarkerMetroLightBlue: darken(@MetroLightBlue, 20%);
+@LightMetroGreyBlue: lighten(@MetroGreyBlue, 20%);
+@DarkerMetroGreyBlue: darken(@MetroGreyBlue, 20%);
+
+
 //Fontcolors
 
-//Variationen
-@DarkerMetroGreen: #6A9A8D;
+//ShadowColors
+@shadowColor: @MetroDark;
+@shadowColorInv: #000 + @shadowColor;
+@lighterShadowColor: @LighterMetroDark;
+@lighterShadowColorInv: #000 + @lighterShadowColor;
+
+//LayoutColors
+
 
 @MainBackground: #e0e0e0;
 

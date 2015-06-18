@@ -1,41 +1,43 @@
 
 /* Button Style */
-.formBtn:active {
-  top: 2px;
+.formBtn{
+  &:active {
+    top: 2px;
+  }
+  &:focus{
+    outline: none;
+  }
 }
 
-.formBtn:focus{
-  outline: none;
+.btn{
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: none;
 }
 
 .btn1 {
+  &:extend(.btn);
   color: #000;
   background: @MetroGreen;
-  -webkit-transition: none;
-  -moz-transition: none;
-  transition: none;
   border: 4px solid @MetroGreen;
   text-shadow: 0 0 1px #fff;
-}
-
-.btn1:hover {
-  background: transparent;
-  color: #fff;
-  text-shadow: 0 0 1px #000;
+  &:hover{
+    background: transparent;
+    color: #fff;
+    text-shadow: 0 0 1px #000;
+  }
 }
 
 .btn2 {
+  &:extend(.btn);
   color: #fff;
   background: @DarkerMetroGreen;
-  -webkit-transition: none;
-  -moz-transition: none;
-  transition: none;
   border: 4px solid @DarkerMetroGreen;
   text-shadow: 0 0 1px #000;
+  &:hover{
+    background: transparent;
+    color: #000;
+    text-shadow: 0 0 1px #fff;
+  }
 }
 
-.btn2:hover {
-  background: transparent;
-  color: #000;
-  text-shadow: 0 0 1px #fff;
-}

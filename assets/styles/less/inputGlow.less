@@ -1,11 +1,12 @@
 /* Input field glow */
+
 .glowing-border {
   border: 2px solid #dadada;
   border-radius: 2px;
+  &:focus{
+    outline: none;
+    border-color: @MetroGreen;
+    box-shadow: 0 0 10px @MetroGreen;
+  }
 }
 
-.glowing-border:focus {
-  outline: none;
-  border-color: @MetroGreen;
-  box-shadow: 0 0 10px @MetroGreen;
-}

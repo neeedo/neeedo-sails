@@ -5,35 +5,31 @@
   background: @MetroGreen;
   position: fixed;
   border-right: 3px solid #4c6a62;
-}
-
-.cbp-spmenu h3 {
-  color: #e0e0e0;
-  font-size: 1.9em;
-  padding: 20px;
-  margin: 0;
-  font-weight: 300;
-  background: @DarkerMetroGreen;
-  height: 70px;
-  border-bottom: 5px groove @MetroGreen;
-}
-
-.cbp-spmenu a {
-  display: block;
-  color: #fff;
-  font-size: 1.1em;
-  font-weight: 300;
-}
-
-.cbp-spmenu a:hover {
-  background: @DarkerMetroGreen;
-  color: #fff;
-  text-decoration: none;
-}
-
-.cbp-spmenu a:active {
-  background: #afdefa;
-  color: @DarkerMetroGreen;
+  h3 {
+    color: #e0e0e0;
+    font-size: 1.9em;
+    padding: 20px;
+    margin: 0;
+    font-weight: 300;
+    background: @DarkerMetroGreen;
+    height: 70px;
+    border-bottom: 5px groove @MetroGreen;
+  }
+  a {
+    display: block;
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: 300;
+    &:hover {
+      background: @DarkerMetroGreen;
+      color: #fff;
+      text-decoration: none;
+    }
+    &:active {
+      background: #afdefa;
+      color: @DarkerMetroGreen;
+    }
+  }
 }
 
 .cbp-spmenu-vertical {
@@ -41,11 +37,10 @@
   height: 100%;
   top: 0;
   z-index: 1000;
-}
-
-.cbp-spmenu-vertical a {
-  border-bottom: 1px solid @DarkerMetroGreen;
-  padding: 1em;
+  a {
+    border-bottom: 1px solid @DarkerMetroGreen;
+    padding: 1em;
+  }
 }
 
 .cbp-spmenu-left {
@@ -53,7 +48,7 @@
 }
 
 .cbp-spmenu-left.cbp-spmenu-open {
-  left: 0px;
+  left: 0;
 }
 
 .cbp-spmenu-push {
@@ -96,14 +91,12 @@
   border-top: 3px solid #4c6a62;
   border-bottom: 3px solid #4c6a62;
   border-left: none;
-}
-
-#showLeft:hover{
-  text-shadow: 0 0 0.2em @DarkerMetroGreen, 0 0 0.2em @DarkerMetroGreen, 0 0 0.2em @DarkerMetroGreen;
-}
-
-#showLeft:focus{
-  outline: none;
+  &:hover{
+    text-shadow: 0 0 0.2em @DarkerMetroGreen, 0 0 0.2em @DarkerMetroGreen, 0 0 0.2em @DarkerMetroGreen;
+  }
+  &:focus{
+    outline: none;
+  }
 }
 
 #cbp-spmenu-s1{

@@ -9,7 +9,7 @@
       <%} else{%>
       <h1><%= i18n('Recent Offers')%></h1>
       <%}%>
-      <div class="container elementWrapper shadow">
+      <div class="container elementWrapper ">
         <ul id="lightSliderOffer">
           <% offers.forEach(function(offer) { %>
           <%- partial ('./partials/offersForList.ejs',{offer: offer}) %>
@@ -17,7 +17,7 @@
         </ul>
       </div>
 
-      <div class="container elementWrapper shadow ">
+      <div class="container elementWrapper  ">
         <% if (false !== showMap)  { %>
         <%- partial ('./partials/map/map.ejs', { mapType: showMap.mapType, demandSourceUrl: showMap.demandSourceUrl, offerSourceUrl: showMap.offerSourceUrl}) %>
         <% } %>
@@ -27,20 +27,19 @@
       <%} else{%>
       <h1><%= i18n('Recent Demands')%></h1>
       <%}%>
-      <div class="container elementWrapper shadow">
+      <div class="container elementWrapper ">
           <ul id="lightSliderDemand" >
             <% demands.forEach(function(demand) { %>
             <%- partial ('./partials/demandsForList.ejs',{demand: demand}) %>
             <% }); %>
           </ul>
         </div>
-      </div>
     </div>
   </div> <!-- Big Screen-->
 
   <div class="container visible-xs-block">
 
-    <div class=" mobileTab">
+    <div class=" elementWrapper">
       <div class="tabPanel" role="tabpanel">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist" id="myTab">

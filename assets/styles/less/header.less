@@ -1,12 +1,6 @@
 /***************************
         HEADER
 ***************************/
-#header .img{
-  width: 65px;
-  padding: 2px;
-  display: block;
-}
-
 header{
   display: block;
   height: 70px;
@@ -15,104 +9,74 @@ header{
   margin-bottom: 20px;
 }
 
-#header h1{
-  display: block;
-  margin: 0.2em;
-  font-size: 1.5em;
-  color: #fff;
-  font-weight: bold;
-  text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
-  0px 8px 13px rgba(0,0,0,0.1),
-  0px 18px 23px rgba(0,0,0,0.1);
-  padding-top: 15px;
+#header {
+  .img{
+    width: 65px;
+    padding: 2px;
+    display: block;
+  }
+  h1 {
+    display: block;
+    margin: 0.2em;
+    font-size: 1.5em;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 4px 3px rgba(0, 0, 0, 0.4),
+    0 8px 13px rgba(0, 0, 0, 0.1),
+    0 18px 23px rgba(0, 0, 0, 0.1);
+    padding-top: 15px;
+  }
+  .local {
+    padding-top: 10px;
+    margin-left: -20px;
+    a {
+      padding: 0;
+      margin: 5px;
+      color: #fff;
+      &:hover, &:active, &:focus{
+        text-decoration: none;
+      }
+    }
+  }
 }
+  .headerLogin{
+    display: block;
+    width: 100%;
+    div{
+      padding: 0;
+    }
+  }
 
-#header .local{
-  padding-top: 10px;
-  margin-left: -20px;
-}
+  .trans{
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+  }
 
-#header .local a{
-  padding: 0;
-  margin: 5px;
-  color: #fff;
-}
+  .headerBtn{
+    background-color: @DarkerMetroGreen;
+    color: #fff;
+    width: 100%;
+    display: block;
+    padding: 27px 0;
+    font-size: 0.7em;
+    height: 65px;
+    &:hover, &:focus{
+      color: #fff;
+      text-decoration: none;
+      text-shadow: 0 0 0.2em #000, 0 0 0.2em #000, 0 0 0.2em #000;
+    }
+  }
 
-#header .local a:hover, #header .local a:active, #header .local a:focus{
-  text-decoration: none;
-}
+  #loggedIn{
+    margin-top: 15px;
+    p{
+      color: #fff;
+      margin-left: -10px;
+    }
+  }
 
-#login{
-  z-index: 9000;
-  background-color: @DarkerMetroGreen;
-  position: absolute;
-  width: 100%;
-  text-align: left;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  min-width: 240px;
-  border-bottom: 5px groove #88beb1;
-  border-top: none;
-  border-left: 5px groove #88beb1;
-  border-right: 5px ridge #88beb1;
-  left: -130px;
-}
+  #logoutBtn{
+    margin-left: -15px;
+  }
 
-#login label{
-  color: #fff;
-  padding-top: 5px;
-  width: 75%;
-  font-weight: normal;
-  font-size: 0.8em;
-  outline: none;
-  margin-bottom: 5px;
-}
-
-#login input{
-  width: 100%;
-  margin-bottom: 5px;
-}
-
-.headerLogin{
-  display: block;
-  width: 100%;
-}
-
-.headerLogin div{
-  padding: 0;
-}
-
-.trans{
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-}
-
-.headerBtn{
-  background-color: @DarkerMetroGreen;
-  color: #fff;
-  width: 100%;
-  display: block;
-  padding: 27px 0;
-  font-size: 0.7em;
-  height: 65px;
-}
-
-.headerBtn:hover, .headerBtn:focus{
-  color: #fff;
-  text-decoration: none;
-  text-shadow: 0 0 0.2em #000, 0 0 0.2em #000, 0 0 0.2em #000;
-}
-
-#loggedIn{
-  margin-top: 15px;
-}
-
-#loggedIn p{
-  color: #fff;
-  margin-left: -10px;
-}
-
-#logoutBtn{
-  margin-left: -15px;
-}

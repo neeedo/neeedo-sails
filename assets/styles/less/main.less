@@ -1,7 +1,5 @@
 body{
   background-color: @MainBackground;
-  background-image: url('/images/neeedoBG_One.png');
-  background-repeat: repeat;
 }
 
 /* Top Body Shadow
@@ -23,9 +21,7 @@ body:before {
 .box
 {
   position: relative;
-}
-.box:before, .box:after
-{
+  &:before {
   z-index: -1;
   position: absolute;
   content: "";
@@ -43,9 +39,10 @@ body:before {
   -o-transform: rotate(-3deg);
   -ms-transform: rotate(-3deg);
   transform: rotate(-3deg);
-}
-.box:after
-{
+  }
+  &:after
+  {
+  &:extend(.box:before);
   -webkit-transform: rotate(3deg);
   -moz-transform: rotate(3deg);
   -o-transform: rotate(3deg);
@@ -53,5 +50,6 @@ body:before {
   transform: rotate(3deg);
   right: 10px;
   left: auto;
+  }
 }
 
