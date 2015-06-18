@@ -140,6 +140,10 @@ module.exports = {
     return 'offers/edit/offerId/' + offerModel.getId();
   },
 
+  getViewUrl: function() {
+    return 'offers/view/offerId/%%offerId%%';
+  },
+
   getDeleteUrl: function(offerModel) {
     if (undefined == offerModel.getId()) {
       return '/';

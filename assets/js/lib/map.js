@@ -17,7 +17,10 @@ var offersOverlay;
  * #############################
  */
 var map,
-    userIcon;
+    userIcon,
+    demandIcon,
+    offerIcon
+  ;
 
 var transformToSphereCoordinates = function(longitude, latitude) {
   var coord = ol.proj.transform([longitude, latitude], 'EPSG:4326', 'EPSG:3857'); // sphere coordinates
@@ -50,18 +53,20 @@ var triggerSpecificMapTypeOperations = function (userPosition, mapTypeOptions) {
 };
 
 var loadAndShowNearestDemandsAndOffers = function(userPosition, map, mapTypeOptions) {
-  loadAndShowNearestOffers(userPosition, map, mapTypeOptions.offersEndpointUrl);
+  loadAndShowNearestOffers(userPosition, map, mapTypeOptions);
+  loadAndShowNearestDemands(userPosition, map, mapTypeOptions);
 };
 
-var loadAndShowNearestOffers = function(userPosition, map, ajaxEndpointUrl)
+var loadAndShowNearestOffers = function(userPosition, map, mapTypeOptions)
 {
+   var ajaxEndpointUrl = mapTypeOptions.offersEndpointUrl;
+
    var onLoadSuccess = function(returnedData) {
       if ('offerList' in returnedData) {
         if ('offers' in returnedData['offerList']) {
           for (var i=0; i < returnedData['offerList']['offers'].length; i++) {
             var offer = returnedData['offerList']['offers'][i];
-            var offerFeature = showOfferInMap(map, offer);
-            offersOverlay.addFeature(offerFeature);
+            showOfferInMap(map, offer, mapTypeOptions);
           }
         }
       }
@@ -75,32 +80,88 @@ var loadAndShowNearestOffers = function(userPosition, map, ajaxEndpointUrl)
   );
 };
 
+var loadAndShowNearestDemands = function(userPosition, map, mapTypeOptions)
+{
+   var ajaxEndpointUrl = mapTypeOptions.demandsEndpointUrl;
 
-var renderInTemplate = function(offer) {
+   var onLoadSuccess = function(returnedData) {
+      if ('demandList' in returnedData) {
+        if ('demands' in returnedData['demandList']) {
+          for (var i=0; i < returnedData['demandList']['demands'].length; i++) {
+            var demand = returnedData['demandList']['demands'][i];
+            showDemandInMap(map, demand, mapTypeOptions);
+          }
+        }
+      }
+   };
+
+  var demandService = new Demands(ajaxEndpointUrl);
+  demandService.getDemandsByCriteria({
+        lat : userPosition.latitude,
+        lng : userPosition.longitude
+    }, onLoadSuccess
+  );
+};
+
+var showOfferInMap = function(map, offer, mapTypeOptions) {
+  var html = renderOfferInTemplate(offer, mapTypeOptions);
+  var offerMarker = L.marker([offer.location.latitude, offer.location.longitude], {icon: offerIcon}).addTo(map);
+
+  offerMarker.bindPopup(html);
+};
+
+var showDemandInMap = function(map, demand, mapTypeOptions) {
+  var html = renderDemandInTemplate(demand, mapTypeOptions);
+  var demandMarker = L.marker([demand.location.latitude, demand.location.longitude], {icon: demandIcon}).addTo(map);
+
+  demandMarker.bindPopup(html);
+};
+
+var filterImageUrl = function(originalUrl) {
+  return originalUrl.replace(neeedo.getApiHttpsUrl(), neeedo.getApiHttpUrl());
+};
+
+var renderOfferInTemplate = function(offer, mapTypeOptions) {
   var source = $("#offerMarker").html();
   var template = Handlebars.compile(source);
 
   var image = '/images/Offer_Dummy.png';
   var imageTitle = 'Dummy';
-  
+
+  var viewOfferUrl = mapTypeOptions.viewOfferUrl;
+  var viewUrl = viewOfferUrl.replace('%%offerId%%', offer.id);
+
   if (offer.imageList.images.length > 0) {
     var firstImage = offer.imageList.images[0];
-    image = offer.imageList.baseUrl + '/' + firstImage.fileName;
+    image = filterImageUrl(offer.imageList.baseUrl) + '/' + firstImage.fileName;
     imageTitle = firstImage.fileName;
   }
 
-  var context = {tags: offer.tags, price: offer.price, image: image, imageTitle: imageTitle};
+  var context = {
+          viewUrl: viewUrl,
+          tags: offer.tags,
+          price: offer.price,
+          image: image,
+          imageTitle: imageTitle};
+
   return template(context);
 };
 
-var showOfferInMap = function(map, offer) {
-  var html = renderInTemplate(offer);
-  var offerMarker = L.marker([offer.location.latitude, offer.location.longitude]).addTo(map);
+var renderDemandInTemplate = function(demand, mapTypeOptions) {
+  var source = $("#demandMarker").html();
+  var template = Handlebars.compile(source);
+  var viewDemandUrl = mapTypeOptions.viewDemandUrl;
+  var viewUrl = viewDemandUrl.replace('%%demandId%%', demand.id);
 
-  var tags = offer.tags.join(', ');
-  offerMarker.bindPopup(html);
+  var context = {
+          viewUrl: viewUrl,
+          mustTags: demand.mustTags,
+          shouldTags: demand.shouldTags,
+          priceFrom: demand.price.min,
+          priceTo: demand.price.max
+  };
 
-  return offerFeature;
+  return template(context);
 };
 
 /*
@@ -113,7 +174,9 @@ var showOfferInMap = function(map, offer) {
 $(document).ready(function() {
   var mapElementId = 'map';
   var mapElement = $('#map');
-  userIcon = new  L.icon({iconUrl: '/images/icons/user.gif'});
+  userIcon = new L.icon({iconUrl: '/images/icons/user.gif'});
+  demandIcon = new L.icon({iconUrl: '/images/icons/demand.png'});
+  offerIcon = new L.icon({iconUrl: '/images/icons/offer.png'});
 
   if (mapElement.length) {
     // default data coming from backend config file
@@ -121,6 +184,8 @@ $(document).ready(function() {
     var demandsEndpointUrl = mapElement.data('demandsourceurl');
     var offersEndpointUrl = mapElement.data('offersourceurl');
     var mapType = mapElement.data('maptype');
+    var viewOfferUrl = mapElement.data('offerviewurl');
+    var viewDemandUrl = mapElement.data('demandviewurl');
 
     var mapLocationCenter = getGeolocation(function (position) {
       console.log('got position: ' + position);
@@ -149,7 +214,9 @@ $(document).ready(function() {
       triggerSpecificMapTypeOperations(userPosition,  {
         mapType: mapType,
         demandsEndpointUrl: demandsEndpointUrl,
-        offersEndpointUrl: offersEndpointUrl
+        offersEndpointUrl: offersEndpointUrl,
+        viewOfferUrl: viewOfferUrl,
+        viewDemandUrl: viewDemandUrl
       });
     });
   }

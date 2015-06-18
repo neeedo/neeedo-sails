@@ -2,10 +2,17 @@
      data-mapType="<%= mapType %>"
      data-demandSourceUrl="<%= demandSourceUrl %>"
      data-offerSourceUrl="<%= offerSourceUrl %>"
+     data-demandViewUrl="<%= DemandService.getViewUrl() %>"
+     data-offerViewUrl="<%= OfferService.getViewUrl() %>"
      data-defaultLongitude="<%= LocaleService.getDefaultLongitude(req)%>"
      data-defaultLatitude="<%= LocaleService.getDefaultLatitude(req) %>"
      data-initialZoomStep="<%= MapService.getDefaultZoomStep() %>" >
 
 </div>
 
+<% /* the following partials will be dynamically rendered by the browser's javascript
+   * These are handlebar templates.
+   * The rendered objects are coming from the webapp's AJAX endpoints, e.g. DemandController::ajaxGet().
+   */ %>
 <%- partial ('./offerMarker.ejs') %>
+<%- partial ('./demandMarker.ejs') %>

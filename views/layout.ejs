@@ -42,6 +42,7 @@
     <link rel="stylesheet" href="/styles/importer.css">
     <link rel="stylesheet" href="/styles/lib/bootstrap-theme.css">
     <link rel="stylesheet" href="/styles/lib/bootstrap.css">
+    <link rel="stylesheet" href="/styles/lib/jquery.tagit.css">
     <link rel="stylesheet" href="/styles/lib/lightslider.css">
     <!--STYLES END-->
 
@@ -55,7 +56,7 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
   </head> <!-- HEAD-->
 
-  <body data-target=".navbar-collapse" data-apiUrl="<%= sails.config.neeedo.apiClient.apiUrls.http %>" class="cbp-spmenu-push">
+  <body data-target=".navbar-collapse" data-apiUrlHttp="<%= sails.config.neeedo.apiClient.apiUrls.http %>" data-apiUrlHttps="<%= sails.config.neeedo.apiClient.apiUrls.https %>" class="cbp-spmenu-push">
     <div class="wrapper">
     <%- partial ('./partials/header.ejs') %>
     <%- partial ('./partials/messages.ejs') %>
@@ -66,7 +67,7 @@
     <%- partial ('./partials/navigation.ejs') %>
     <%- partial ('./partials/footer.ejs') %>
        <!--TEMPLATES-->
-
+       
        <!--TEMPLATES END-->
 
 
@@ -126,11 +127,13 @@
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/lib/classie.js"></script>
     <script src="/js/lib/handlebars-v3.0.0.js"></script>
+    <script src="/js/lib/handlebars-v3.0.3.js"></script>
     <script src="/js/lib/lightslider.js"></script>
     <script src="/js/lib/map.js"></script>
     <script src="/js/lib/modernizr.custom.js"></script>
     <script src="/js/lib/neeedo.js"></script>
     <script src="/js/lib/spin.js"></script>
+    <script src="/js/lib/tag-it.js"></script>
     <script src="/js/npm.js"></script>
     <!--SCRIPTS END-->
   </body>

@@ -320,7 +320,7 @@ $(document).ready(function () {
     autocomplete: {
       source: function( request, response ) {
         $.ajax({
-          url: $("body").data("apiurl") + "/completion/tag/" + request.term,
+          url: neeedo.getApiHttpUrl() + "/completion/tag/" + request.term,
           success: function( data ) {
             response( $.map( data.completedTags, function( item ) {
               return {
@@ -340,7 +340,7 @@ $(document).ready(function () {
 
   function getSuggests() {
     $.ajax({
-        url: $("body").data("apiurl") + "/completion/suggest/" + $("#mustTagsDemand").tagit("assignedTags").join(" "),
+        url: neeedo.getApiHttpUrl() + "/completion/suggest/" + $("#mustTagsDemand").tagit("assignedTags").join(" "),
         success: function( data ) {
             console.log(data.suggestedTags.join(" "));
             $("#myTags").text(data.suggestedTags.join(" "));
@@ -434,3 +434,53 @@ Offers.prototype.getOffersByCriteria = function(criteria, onLoadSuccessCallback)
       onLoadSuccessCallback(data);
     })
 };
+
+var Demands = function(ajaxEndpoint) {
+  this.ajaxEndpoint = ajaxEndpoint;
+
+  this.buildQueryString = function(criteria) {
+    var queryParameters = [];
+
+    if ("limit" in criteria) {
+      queryParameters.push("limit=" + criteria["limit"]);
+    }
+
+    if ("page" in criteria) {
+      queryParameters.push("page=" + criteria["page"]);
+    }
+
+    if ("lat" in criteria) {
+      queryParameters.push("lat=" + criteria["lat"]);
+    }
+
+    if ("lng" in criteria) {
+      queryParameters.push("lng=" + criteria["lng"]);
+    }
+
+    return "?" + queryParameters.join("&");
+  };
+};
+
+Demands.prototype.getDemandsByCriteria = function(criteria, onLoadSuccessCallback) {
+  var requestUrl = this.ajaxEndpoint + this.buildQueryString(criteria);
+
+  $.get(requestUrl)
+    .done(function( data ) {
+      onLoadSuccessCallback(data);
+    })
+};
+
+var Neeedo = function()
+{
+
+};
+
+Neeedo.prototype.getApiHttpUrl = function() {
+  return $("body").data("apiurlhttp");
+};
+
+Neeedo.prototype.getApiHttpsUrl = function() {
+  return $("body").data("apiurlhttps");
+};
+
+var neeedo = new Neeedo();

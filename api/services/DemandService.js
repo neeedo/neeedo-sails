@@ -157,6 +157,10 @@ module.exports = {
     return "demands" in req.session && demandId in req.session.demands && undefined != req.session.demands[demandId];
   },
 
+  getViewUrl: function() {
+    return 'demands/view/demandId/%%demandId%%';
+  },
+
   getEditUrl: function(demandModel) {
     if (undefined == demandModel.getId()) {
       return '/';
