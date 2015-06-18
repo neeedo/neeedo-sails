@@ -178,8 +178,5 @@ module.exports = {
     };
 
     OfferService.loadOffer(req, onLoadSuccessCallback, onErrorCallback);
-  },
-  uploadImage: function (req, res) {
-
   }
 }

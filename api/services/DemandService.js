@@ -95,15 +95,10 @@ module.exports = {
 
   matchOffers: function(demandModel, req, onSuccessCallback, onErrorCallback) {
     try {
-      var limit = req.param("limit", PaginatorService.getDefaultLimit());
-      var pageNumber = req.param("page", PaginatorService.getFirstPageNumber());
-      var offset = PaginatorService.calculateOffset(limit, pageNumber);
-
-      // TODO hand in to api-node-js-client later
       var demandQuery = ApiClientService.newDemandQueryFromRequest(req);
 
       var matchingService = new MatchingService();
-      matchingService.matchDemand(demandModel, offset, limit, onSuccessCallback, onErrorCallback);
+      matchingService.matchDemand(demandModel, demandQuery, onSuccessCallback, onErrorCallback);
     } catch (e) {
       onErrorCallback(ApiClientService.newError("matchOffers:" + e.message, 'Your inputs were not valid.'));
     }

@@ -216,6 +216,9 @@ module.exports = {
         depth: null
       }) + " was loaded successfully.");
 
+      if (!DemandService.setBelongsToCurrentUser(req, res, loadedDemand)) {
+        return res.redirect(DemandService.getOverviewUrl());
+      }
 
       DemandService.matchOffers(loadedDemand, req, onMatchCallback, onErrorCallback);
     };
