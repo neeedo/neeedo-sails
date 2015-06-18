@@ -132,7 +132,9 @@ module.exports = {
      }
    },
 
-  loadDemand: function(req, demandId, onLoadCallback, onErrorCallback) {
+  loadDemand: function(req, onLoadCallback, onErrorCallback) {
+    var demandId = req.param("demandId");
+
     if (this.isInSession(req, demandId)) {
       try {
         sails.log.info('Attempt to restore demand with ID ' + demandId + " from session.");
@@ -158,7 +160,7 @@ module.exports = {
   },
 
   getViewUrl: function() {
-    return 'demands/view/demandId/%%demandId%%';
+    return '/demands/view/demandId/%%demandId%%';
   },
 
   getEditUrl: function(demandModel) {
@@ -166,7 +168,7 @@ module.exports = {
       return '/';
     }
 
-    return 'demands/edit/demandId/' + demandModel.getId();
+    return '/demands/edit/demandId/' + demandModel.getId();
   },
 
   getMatchingUrl: function(demandModel) {
@@ -174,7 +176,7 @@ module.exports = {
       return '/';
     }
 
-    return 'matching/demandId/' + demandModel.getId();
+    return '/matching/demandId/' + demandModel.getId();
   },
 
   getDeleteUrl: function(demandModel) {
@@ -182,7 +184,7 @@ module.exports = {
       return '/';
     }
 
-    return 'demands/delete/demandId/' + demandModel.getId();
+    return '/demands/delete/demandId/' + demandModel.getId();
   },
 
   getOverviewUrl: function(demandModel) {
@@ -190,7 +192,7 @@ module.exports = {
   },
 
   getDemandsGetUrl: function() {
-   return 'demands/ajax-get';
+   return '/demands/ajax-get';
   },
 
   belongsToCurrentUser: function(req, demand) {

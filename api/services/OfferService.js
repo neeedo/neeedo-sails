@@ -103,7 +103,9 @@ module.exports = {
      }
    },
 
-  loadOffer: function(req, offerId, onLoadCallback, onErrorCallback) {
+  loadOffer: function(req, onLoadCallback, onErrorCallback) {
+    var offerId = req.param("offerId");
+
     if (this.isInSession(req, offerId)) {
       try {
         sails.log.info('Attempt to restore offer with ID ' + offerId + " from session: session centent " +
@@ -137,11 +139,11 @@ module.exports = {
       return '/';
     }
 
-    return 'offers/edit/offerId/' + offerModel.getId();
+    return '/offers/edit/offerId/' + offerModel.getId();
   },
 
   getViewUrl: function() {
-    return 'offers/view/offerId/%%offerId%%';
+    return '/offers/view/offerId/%%offerId%%';
   },
 
   getDeleteUrl: function(offerModel) {
@@ -149,7 +151,7 @@ module.exports = {
       return '/';
     }
 
-    return 'offers/delete/offerId/' + offerModel.getId();
+    return '/offers/delete/offerId/' + offerModel.getId();
   },
 
   getOverviewUrl: function(demandModel) {
@@ -157,7 +159,7 @@ module.exports = {
   },
 
   getOffersGetUrl: function() {
-    return 'offers/ajax-get';
+    return '/offers/ajax-get';
   },
 
   belongsToCurrentUser: function(req, offer) {

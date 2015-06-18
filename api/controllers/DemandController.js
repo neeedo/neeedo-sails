@@ -1,6 +1,25 @@
 var util = require('util');
 
 module.exports = {
+  view: function(req, res) {
+    var onErrorCallback = function(errorModel) {
+      ApiClientService.logMessages(errorModel);
+      ApiClientService.addFlashMessages(req, res, errorModel);
+
+      res.redirect('/');
+    };
+
+    var onLoadSuccessCallback = function(loadedDemand) {
+      res.view('demand/view', {
+        locals: {
+          demand : loadedDemand
+         }
+      });
+    };
+
+    DemandService.loadDemand(req, onLoadSuccessCallback, onErrorCallback);
+  },
+
   /**
    * Get action to get most recent demands by criteria, such as LatLng.
    * @param req
@@ -64,6 +83,7 @@ module.exports = {
       showFormWithDefaultValues();
     }
   },
+
   edit: function (req, res) {
     var showFormWithDemandValues = function(loadedDemand) {
       res.view('demand/edit', {
@@ -125,8 +145,7 @@ module.exports = {
 
     };
 
-    var demandId = req.param("demandId");
-    DemandService.loadDemand(req, demandId, onLoadSuccessCallback, onErrorCallback);
+    DemandService.loadDemand(req, onLoadSuccessCallback, onErrorCallback);
   },
   delete: function (req, res) {
     /*
@@ -164,8 +183,7 @@ module.exports = {
       DemandService.deleteDemand(loadedDemand, onDeleteSuccessCallback, onErrorCallback);
     };
 
-    var demandId = req.param("demandId");
-    DemandService.loadDemand(req, demandId, onLoadSuccessCallback, onErrorCallback);
+    DemandService.loadDemand(req, onLoadSuccessCallback, onErrorCallback);
   },
 
   matching: function(req, res) {
@@ -202,7 +220,6 @@ module.exports = {
       DemandService.matchOffers(loadedDemand, req, onMatchCallback, onErrorCallback);
     };
 
-    var demandId = req.param("demandId");
-    DemandService.loadDemand(req, demandId, onLoadSuccessCallback, onErrorCallback);
+    DemandService.loadDemand(req, onLoadSuccessCallback, onErrorCallback);
   }
 }

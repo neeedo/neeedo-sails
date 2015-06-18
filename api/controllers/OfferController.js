@@ -1,6 +1,25 @@
 var util = require('util');
 
 module.exports = {
+  view: function(req, res) {
+    var onErrorCallback = function(errorModel) {
+      ApiClientService.logMessages(errorModel);
+      ApiClientService.addFlashMessages(req, res, errorModel);
+
+      res.redirect('/');
+    };
+
+    var onLoadSuccessCallback = function(loadedOffer) {
+      res.view('offer/view', {
+        locals: {
+          offer : loadedOffer
+        }
+      });
+    };
+
+    OfferService.loadOffer(req, onLoadSuccessCallback, onErrorCallback);
+  },
+
   /**
    * Get action to get most recent offers by criteria, such as LatLng.
    * @param req
@@ -120,8 +139,7 @@ module.exports = {
 
     };
 
-    var offerId = req.param("offerId");
-    OfferService.loadOffer(req, offerId, onLoadSuccessCallback, onErrorCallback);
+    OfferService.loadOffer(req, onLoadSuccessCallback, onErrorCallback);
   },
   delete: function (req, res) {
     /*
@@ -159,8 +177,7 @@ module.exports = {
       OfferService.deleteOffer(loadedOffer, onDeleteSuccessCallback, onErrorCallback);
     };
 
-    var offerId = req.param("offerId");
-    OfferService.loadOffer(req, offerId, onLoadSuccessCallback, onErrorCallback);
+    OfferService.loadOffer(req, onLoadSuccessCallback, onErrorCallback);
   },
   uploadImage: function (req, res) {
 

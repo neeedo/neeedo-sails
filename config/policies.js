@@ -31,6 +31,7 @@ module.exports.policies = {
   },
   OfferController: {
     '*'     : false,
+    'view': ['setLocale'],
     'ajaxGet': ['setLocale', 'isNotLoggedIn'],
     'create': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
     'edit': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
@@ -38,6 +39,7 @@ module.exports.policies = {
   },
   DemandController: {
     '*'     : false,
+    'view'  : ['setLocale'],
     'ajaxGet': ['setLocale', 'isNotLoggedIn'],
     'create': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
     'edit': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
