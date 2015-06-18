@@ -87,8 +87,8 @@ describe('[UNIT TEST] DemandController', function() {
             shouldTags: "tag1, tag2,...",
             minPrice: 0,
             maxPrice: 50,
-            lat: 35.92516,
-            lng: 12.37528,
+            lat: "",
+            lng: "",
             distance: 30,
             btnLabel: 'Create'
           }
