@@ -23,8 +23,8 @@ module.exports = {
         locals: {
           tags: "tag1, tag2,...",
           price: 10,
-          lat: 35.92516,
-          lng: 12.37528,
+          lat: "",
+          lng: "",
           images: FileService.getLeastUploadedFiles(req),
           btnLabel: 'Create'
         }

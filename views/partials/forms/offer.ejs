@@ -56,6 +56,19 @@
         <input type="number" name="price" id="priceOffer" class="form-control"
                placeholder="<%= i18n('Preis') %>" value="<%- price %>"/>
 
+        <div class="row">
+          <div class="col-lg-6">
+            <label for="useGeolocation"><%= i18n('Use my current location') %></label>
+            <input type="checkbox" id="useGeolocation" checked
+                   data-translationNoGeolocation="<%= i18n("We couldn't determine your location. Please check your browser settings or type in your desired address directly.") %>"
+                   data-translationNoAddress="<%= i18n("Please enter an valid address.") %>">
+
+            <div id="addressContainer" class="ui-widget">
+              <label for="address"><%= i18n('Address') %></label>
+              <input type="text" id="address">
+            </div>
+          </div>
+        </div>
 
         <input type="hidden" name="lat" id="latOffer" value="<%- lat %>"/>
         <input type="hidden" name="lng" id="lonOffer" value="<%- lng %>"/>

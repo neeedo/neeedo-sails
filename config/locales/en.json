@@ -88,5 +88,9 @@
   "Your login credentials are incorrect.":"Your login credentials are incorrect.",
   "The given image could not be found.": "The given image could not be found.",
   "The image couldn't be deleted." : "The image couldn't be deleted.",
-  "Could not upload the given image. Please contact Neeedo customer care" : "Could not upload the given image. Please contact Neeedo customer care"
+  "Could not upload the given image. Please contact Neeedo customer care" : "Could not upload the given image. Please contact Neeedo customer care",
+  "Use my current location" : "Use my current location",
+  "Address" : "Address",
+  "We couldn't determine your location. Please check your browser settings or type in your desired address directly." : "We couldn't determine your location. Please check your browser settings or type in your desired address directly.",
+  "Please enter an valid address." : "Please enter an valid address."
 }

@@ -97,5 +97,9 @@
   "The most recent demands couldn't be loaded. Please contact Neeedo customer care.": "Leider konnten die letzten Gesuche nicht geladen werden. Bitte kontaktiere den Neeedo-Kundenservice.",
   "Your login credentials are incorrect.":"Ungültige Zugangsdaten. Bitte versuche es noch einmal!",
   "The given image could not be found.": "Das angegebene Bild konnte nicht gefunden werden.",
-  "The image couldn't be deleted." : "Das angegebene Bild konnte nicht gelöscht werden."
+  "The image couldn't be deleted." : "Das angegebene Bild konnte nicht gelöscht werden.",
+  "Use my current location" : "Meinen aktuellen Standort verwenden",
+  "Address" : "Adresse",
+  "We couldn't determine your location. Please check your browser settings or type in your desired address directly." : "Wir konnten deinen Standort leider nicht bestimmen. Bitte prüfe deine Browser-Einstellungen oder gib deine bevorzugte Adresse direkt ein.",
+  "Please enter an valid address." : "Bitte gib eine gültige Adresse ein."
 }
