@@ -142,7 +142,9 @@ var renderOfferInTemplate = function(offer, mapTypeOptions) {
           tags: offer.tags,
           price: offer.price,
           image: image,
-          imageTitle: imageTitle};
+          imageTitle: imageTitle,
+          translations: mapTypeOptions.translations
+  };
 
   return template(context);
 };
@@ -158,7 +160,8 @@ var renderDemandInTemplate = function(demand, mapTypeOptions) {
           mustTags: demand.mustTags,
           shouldTags: demand.shouldTags,
           priceFrom: demand.price.min,
-          priceTo: demand.price.max
+          priceTo: demand.price.max,
+          translations: mapTypeOptions.translations
   };
 
   return template(context);
@@ -216,7 +219,13 @@ $(document).ready(function() {
         demandsEndpointUrl: demandsEndpointUrl,
         offersEndpointUrl: offersEndpointUrl,
         viewOfferUrl: viewOfferUrl,
-        viewDemandUrl: viewDemandUrl
+        viewDemandUrl: viewDemandUrl,
+        translations: {
+          price: mapElement.data('translationprice'),
+          offering: mapElement.data('translationoffering'),
+          lookingFor: mapElement.data('translationsearching'),
+          details: mapElement.data('translationdetails')
+        }
       });
     });
   }
