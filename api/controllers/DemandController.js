@@ -187,6 +187,7 @@ module.exports = {
   },
 
   matching: function(req, res) {
+    var currentDemand;
     /*
      * ---------- callbacks ----------
      */
@@ -195,6 +196,11 @@ module.exports = {
         showHidden: false,
         depth: null
       }));
+
+      if (0 == matchedOfferList.getOffers().length) {
+        FlashMessagesService.setErrorMessage("Sorry, we couldn't find any matching offers. Please try to specify your demand better.", req, res);
+        return res.redirect(DemandService.getEditUrl(currentDemand));
+      }
 
       res.view('offer/matching', {
         locals: {
@@ -207,7 +213,7 @@ module.exports = {
       ApiClientService.logMessages(errorModel);
       ApiClientService.addFlashMessages(req, res, errorModel);
 
-      res.redirect(DemandService.getOverviewUrl());;
+      res.redirect(DemandService.getOverviewUrl());
     };
 
     var onLoadSuccessCallback = function(loadedDemand) {
@@ -220,6 +226,7 @@ module.exports = {
         return res.redirect(DemandService.getOverviewUrl());
       }
 
+      currentDemand = loadedDemand;
       DemandService.matchOffers(loadedDemand, req, onMatchCallback, onErrorCallback);
     };
 
