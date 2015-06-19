@@ -210,7 +210,8 @@ var renderOfferInTemplate = function(offer) {
           price: offer.price,
           image: image,
           imageTitle: imageTitle,
-          translations: mapTypeOptions.translations
+          translations: mapTypeOptions.translations,
+          user: offer.user
   };
 
   return template(context);
@@ -228,7 +229,8 @@ var renderDemandInTemplate = function(demand) {
           shouldTags: demand.shouldTags,
           priceFrom: demand.price.min,
           priceTo: demand.price.max,
-          translations: mapTypeOptions.translations
+          translations: mapTypeOptions.translations,
+          user: demand.user
   };
 
   return template(context);
