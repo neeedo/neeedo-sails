@@ -101,5 +101,9 @@
   "Use my current location" : "Meinen aktuellen Standort verwenden",
   "Address" : "Adresse",
   "We couldn't determine your location. Please check your browser settings or type in your desired address directly." : "Wir konnten deinen Standort leider nicht bestimmen. Bitte prüfe deine Browser-Einstellungen oder gib deine bevorzugte Adresse direkt ein.",
-  "Please enter an valid address." : "Bitte gib eine gültige Adresse ein."
+  "Please enter an valid address." : "Bitte gib eine gültige Adresse ein.",
+  "Create and find matching offers" : "Passende Angebote finden",
+  "Edit and find matching offers" : "Ändern und passende Angebote finden",
+  "Matched offers" : "Passende Angebote",
+  "Your demand" : "Dein Gesuch"
 }

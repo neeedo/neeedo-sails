@@ -47,7 +47,7 @@ module.exports = {
           lat: "",
           lng: "",
           distance: 30,
-          btnLabel: 'Create'
+          btnLabel: 'Create and find matching offers'
         }
       });
     };
@@ -64,7 +64,7 @@ module.exports = {
       FlashMessagesService.setSuccessMessage('Your demand was created successfully.', req, res);
       DemandService.storeInSession(req, createdDemand);
 
-      res.redirect(DemandService.getEditUrl(createdDemand));
+      res.redirect(DemandService.getMatchingUrl(createdDemand));
     };
 
     var onErrorCallback = function(errorModel) {
@@ -95,7 +95,7 @@ module.exports = {
           lat: loadedDemand.getLocation().getLatitude(),
           lng: loadedDemand.getLocation().getLongitude(),
           distance: loadedDemand.getDistance(),
-          btnLabel: 'Edit'
+          btnLabel: 'Edit and find matching offers'
         }
       });
     };
@@ -112,7 +112,7 @@ module.exports = {
       FlashMessagesService.setSuccessMessage('Your demand was updated successfully.', req, res);
       DemandService.storeInSession(req, updatedDemand);
 
-      res.redirect(DemandService.getOverviewUrl());
+      res.redirect(DemandService.getMatchingUrl(updatedDemand));
     };
 
     var onErrorCallback = function(errorModel) {
@@ -188,6 +188,7 @@ module.exports = {
 
   matching: function(req, res) {
     var currentDemand;
+
     /*
      * ---------- callbacks ----------
      */
@@ -204,7 +205,8 @@ module.exports = {
 
       res.view('offer/matching', {
         locals: {
-          offers: matchedOfferList.getOffers()
+          offers: matchedOfferList.getOffers(),
+          demand: currentDemand
         }
       });
     };
@@ -227,6 +229,10 @@ module.exports = {
       }
 
       currentDemand = loadedDemand;
+
+      // Uncomment the following line if you want to work with test data
+      //OfferService.loadMostRecentOffers(req, onMatchCallback, onErrorCallback);
+      // Comment the following line if you want to work with test data
       DemandService.matchOffers(loadedDemand, req, onMatchCallback, onErrorCallback);
     };
 

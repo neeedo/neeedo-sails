@@ -1,9 +1,19 @@
-<div>
-  <ul>
-    <% for (offer in offers) { %>
-        <li><%= offer.getId() %></li>
-    <% } %>
-  </ul>
+<div id= main class="container">
+  <div class="container">
+    <h1><%= i18n('Your demand')%></h1>
 
+    <%- partial ('../demand/view.ejs',{demand: demand}) %>
+  </div>
+
+  <div class="container">
+    <h1><%= i18n('Matched offers')%></h1>
+
+    <div class="container elementWrapper ">
+      <ul id="lightSliderOffer">
+        <% offers.forEach(function(offer) { %>
+        <%- partial ('../partials/offersForList.ejs',{offer: offer}) %>
+        <% }); %>
+      </ul>
+    </div>
+  </div>
 </div>
-

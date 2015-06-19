@@ -92,5 +92,9 @@
   "Use my current location" : "Use my current location",
   "Address" : "Address",
   "We couldn't determine your location. Please check your browser settings or type in your desired address directly." : "We couldn't determine your location. Please check your browser settings or type in your desired address directly.",
-  "Please enter an valid address." : "Please enter an valid address."
+  "Please enter an valid address." : "Please enter an valid address.",
+  "Create and find matching offers" : "Find matching offers",
+  "Edit and find matching offers" : "Edit and find matching offers",
+  "Matched offers" : "Matched offers",
+  "Your demand" : "Your demand"
 }
