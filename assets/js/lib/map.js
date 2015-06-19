@@ -17,6 +17,7 @@ var offersOverlay;
  * #############################
  */
 var map,
+    userPosition,
     mapTypeOptions,
     userIcon,
     demandIcon,
@@ -74,6 +75,7 @@ var triggerSpecificMapTypeOperations = function (currentPosition) {
 
     switch (mapTypeOptions.mapType) {
       case 'all': // nearest demands + offers
+        showUsersPosition(userPosition);
         loadAndShowNearestDemandsAndOffers(currentPosition, map);
         break;
       case 'demandMatching': // nearest demands + offers
@@ -102,6 +104,17 @@ var onOffersLoadSuccess = function(returnedData) {
         showOfferInMap(map, offer);
       }
     }
+  }
+
+  // demand was returned (matching action)
+  if ('additionalJson' in returnedData && 'demand' in returnedData.additionalJson) {
+    var demand = returnedData.additionalJson.demand;
+
+    // center map on demand
+    map.setView([demand.location.latitude, demand.location.longitude]);
+
+    // show demand marker in map
+    showDemandInMap(map, demand);
   }
 };
 
@@ -267,7 +280,7 @@ $(document).ready(function() {
 
     var mapLocationCenter = getGeolocation(function (position) {
       // default position as returned by backend
-      var userPosition = {
+      userPosition = {
         longitude : mapElement.data('defaultlongitude'),
         latitude : mapElement.data('defaultlatitude')
       };
@@ -285,10 +298,9 @@ $(document).ready(function() {
       });
 
       console.log('initialized map :)');
-
-      showUsersPosition(userPosition);
-      // initially load near offers + demands to users position
       mapTypeOptions = getMapTypeOptions();
+
+      // initially load near offers + demands to users position
       triggerSpecificMapTypeOperations(userPosition);
 
       // load near demands + offers if the user refocused the map
