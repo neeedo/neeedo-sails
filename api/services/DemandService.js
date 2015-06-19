@@ -88,7 +88,7 @@ module.exports = {
         }
       });
     };
-    
+
     var onLoadSuccessCallback = function(loadedDemand) {
       if (!DemandService.setBelongsToCurrentUser(req, res, loadedDemand)) {
         return res.redirect(DemandService.getOverviewUrl());
@@ -142,16 +142,18 @@ module.exports = {
     }
   },
 
-  loadAndMatchOffers: function(req, res, onMatchCallback, onErrorCallback) {
+  loadAndMatchOffers: function(req, res, onLoadInBetween, onMatchCallback, onErrorCallback) {
     var onLoadSuccessCallback = function(loadedDemand) {
       if (!DemandService.setBelongsToCurrentUser(req, res, loadedDemand)) {
         return res.redirect(DemandService.getOverviewUrl());
       }
 
+      onLoadInBetween(loadedDemand);
+
       // Uncomment the following line if you want to work with test data
-      //OfferService.loadMostRecentOffers(req, onMatchCallback, onErrorCallback);
+      OfferService.loadMostRecentOffers(req, onMatchCallback, onErrorCallback);
       // Comment the following line if you want to work with test data
-      DemandService.matchOffers(loadedDemand, req, onMatchCallback, onErrorCallback);
+      //DemandService.matchOffers(loadedDemand, req, onMatchCallback, onErrorCallback);
     };
 
     this.loadDemand(req, onLoadSuccessCallback, onErrorCallback);
@@ -236,6 +238,14 @@ module.exports = {
     }
 
     return '/matching/demandId/' + demandModel.getId();
+  },
+
+  getAjaxMatchingUrl: function(demandModel) {
+    if (undefined == demandModel.getId()) {
+      return '/';
+    }
+
+    return '/ajax-matching/demandId/' + demandModel.getId();
   },
 
   getDeleteUrl: function(demandModel) {

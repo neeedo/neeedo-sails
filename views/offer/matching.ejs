@@ -15,5 +15,11 @@
         <% }); %>
       </ul>
     </div>
+
+    <div class="container elementWrapper  ">
+      <% if (false !== showMap)  { %>
+      <%- partial ('../partials/map/map.ejs', { mapType: showMap.mapType, demandMatchingSourceUrl: showMap.demandMatchingSourceUrl, demandSourceUrl: undefined, offerSourceUrl: undefined}) %>
+      <% } %>
+    </div>
   </div>
 </div>

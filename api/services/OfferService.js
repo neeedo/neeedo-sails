@@ -248,12 +248,13 @@ module.exports = {
     }
   },
 
-  sendOfferListJsonResponse: function(res, offerList)
+  sendOfferListJsonResponse: function(res, offerList, additionalJson)
   {
     res.status(200);
 
     res.json({
-      offerList : offerList
+      offerList : offerList,
+      additionalJson : additionalJson
     });
   },
 

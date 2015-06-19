@@ -46,8 +46,9 @@ module.exports.routes = {
   '/demands/view/demandId/:demandId' : 'DemandController.view',
   '/demands/edit/demandId/:demandId' : 'DemandController.edit',
   '/demands/delete/demandId/:demandId' : 'DemandController.delete',
-  '/dashboard': 'UserController.dashboard',
   '/matching/demandId/:demandId': 'DemandController.matching',
+  'get /ajax-matching/demandId/:demandId': 'DemandController.ajaxMatching',
+  '/dashboard': 'UserController.dashboard',
   '/user/setLocale/locale/:locale' : 'UserController.setLocale',
   'post /files/upload-ajax' : 'FileController.uploadAjax',
   '/files/upload' : 'FileController.upload'

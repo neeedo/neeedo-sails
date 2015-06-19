@@ -132,23 +132,30 @@ module.exports = {
     DemandService.loadAndDeleteDemand(req, res, onDeleteSuccessCallback, onErrorCallback);
   },
 
-  matchingAjax: function(req, res) {
+  ajaxMatching: function(req, res) {
+    var actualDemand;
+
     var onMatchCallback = function(offerList) {
-      OfferService.sendOfferListJsonResponse(res, offerList);
+      OfferService.sendOfferListJsonResponse(res, offerList, { demand: actualDemand });
     };
 
     var onErrorCallback = function(errorModel) {
       DemandService.sendErrorJsonResponse(res, errorModel);
     };
 
-    DemandService.loadAndMatchOffers(req, res, onMatchCallback, onErrorCallback);
+    DemandService.loadAndMatchOffers(req, res, function(demand) { actualDemand = demand }, onMatchCallback, onErrorCallback);
   },
 
   matching: function(req, res) {
+    var actualDemand;
+
     /*
      * ---------- callbacks ----------
      */
     var onMatchCallback = function(matchedOfferList, currentDemand) {
+      if (undefined == currentDemand) {
+        currentDemand = actualDemand;
+      }
       sails.log.info("Matched offers " + util.inspect(matchedOfferList, {
         showHidden: false,
         depth: null
@@ -162,7 +169,11 @@ module.exports = {
       res.view('offer/matching', {
         locals: {
           offers: matchedOfferList.getOffers(),
-          demand: currentDemand
+          demand: currentDemand,
+          showMap: {
+            mapType: "demandMatching",
+            demandMatchingSourceUrl: DemandService.getAjaxMatchingUrl(currentDemand)
+          }
         }
       });
     };
@@ -174,6 +185,11 @@ module.exports = {
       res.redirect(DemandService.getOverviewUrl());
     };
 
-    DemandService.loadAndMatchOffers(req, res, onMatchCallback, onErrorCallback);
+    // TODO remove when matching by API is working and the most recent offers aren't used here anymore
+    var onLoadInBetween = function (demand){
+      actualDemand = demand;
+    }
+
+    DemandService.loadAndMatchOffers(req, res, onLoadInBetween, onMatchCallback, onErrorCallback);
   }
 }

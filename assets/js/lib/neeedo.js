@@ -598,6 +598,34 @@ Demands.prototype.getDemandsByCriteria = function(criteria, onLoadSuccessCallbac
     })
 };
 
+
+var DemandsMatching = function(ajaxEndpoint) {
+  this.ajaxEndpoint = ajaxEndpoint;
+
+  this.buildQueryString = function(criteria) {
+    var queryParameters = [];
+
+    if ("limit" in criteria) {
+      queryParameters.push("limit=" + criteria["limit"]);
+    }
+
+    if ("page" in criteria) {
+      queryParameters.push("page=" + criteria["page"]);
+    }
+
+    return "?" + queryParameters.join("&");
+  };
+};
+
+DemandsMatching.prototype.getMatchingOffers = function(criteria, onLoadSuccessCallback) {
+  var requestUrl = this.ajaxEndpoint + this.buildQueryString(criteria);
+
+  $.get(requestUrl)
+    .done(function( data ) {
+      onLoadSuccessCallback(data);
+    })
+};
+
 var Neeedo = function()
 {
 

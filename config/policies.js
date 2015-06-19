@@ -44,7 +44,8 @@ module.exports.policies = {
     'create': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
     'edit': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
     'delete': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn'],
-    'matching': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn']
+    'matching': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn'],
+    'ajaxMatching': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn']
   },
   UserController: {
     '*': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn'],

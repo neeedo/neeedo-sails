@@ -19,7 +19,7 @@
 
       <div class="container elementWrapper  ">
         <% if (false !== showMap)  { %>
-        <%- partial ('./partials/map/map.ejs', { mapType: showMap.mapType, demandSourceUrl: showMap.demandSourceUrl, offerSourceUrl: showMap.offerSourceUrl}) %>
+        <%- partial ('./partials/map/map.ejs', { mapType: showMap.mapType, demandSourceUrl: showMap.demandSourceUrl, offerSourceUrl: showMap.offerSourceUrl, demandMatchingSourceUrl: undefined}) %>
         <% } %>
       </div>
       <% if (LoginService.userIsLoggedIn(req)) {%>

@@ -17,6 +17,7 @@ var offersOverlay;
  * #############################
  */
 var map,
+    mapTypeOptions,
     userIcon,
     demandIcon,
     offerIcon,
@@ -66,14 +67,17 @@ var resetDemandAndOfferMarkers = function() {
   demandMarkers = [];
 };
 
-var triggerSpecificMapTypeOperations = function (currentPosition, mapTypeOptions) {
+var triggerSpecificMapTypeOperations = function (currentPosition) {
   if (undefined === lastPositionOnTrigger || distanceIsLargeEnoughForLoadingNewDemandsOffers(currentPosition, lastPositionOnTrigger)) {
     console.log('resetting...');
     resetDemandAndOfferMarkers();
 
     switch (mapTypeOptions.mapType) {
       case 'all': // nearest demands + offers
-        loadAndShowNearestDemandsAndOffers(currentPosition, map, mapTypeOptions);
+        loadAndShowNearestDemandsAndOffers(currentPosition, map);
+        break;
+      case 'demandMatching': // nearest demands + offers
+        loadAndShowMatchingDemands(map);
         break;
       default:
         console.log('Unknown map type ' + mapTypeOptions.mapType);
@@ -84,36 +88,48 @@ var triggerSpecificMapTypeOperations = function (currentPosition, mapTypeOptions
   }
 };
 
-var loadAndShowNearestDemandsAndOffers = function(userPosition, map, mapTypeOptions) {
-  loadAndShowNearestOffers(userPosition, map, mapTypeOptions);
-  loadAndShowNearestDemands(userPosition, map, mapTypeOptions);
+var loadAndShowNearestDemandsAndOffers = function(userPosition, map) {
+  loadAndShowNearestOffers(userPosition, map);
+  loadAndShowNearestDemands(userPosition, map);
 };
 
-var loadAndShowNearestOffers = function(userPosition, map, mapTypeOptions)
-{
-   var ajaxEndpointUrl = mapTypeOptions.offersEndpointUrl;
 
-   var onLoadSuccess = function(returnedData) {
-      if ('offerList' in returnedData) {
-        if ('offers' in returnedData['offerList']) {
-          for (var i=0; i < returnedData['offerList']['offers'].length; i++) {
-            var offer = returnedData['offerList']['offers'][i];
-            showOfferInMap(map, offer, mapTypeOptions);
-          }
-        }
+var onOffersLoadSuccess = function(returnedData) {
+  if ('offerList' in returnedData) {
+    if ('offers' in returnedData['offerList']) {
+      for (var i=0; i < returnedData['offerList']['offers'].length; i++) {
+        var offer = returnedData['offerList']['offers'][i];
+        showOfferInMap(map, offer);
       }
-   };
+    }
+  }
+};
+
+var loadAndShowMatchingDemands = function(map) {
+  var ajaxEndpointUrl = mapTypeOptions.demandMatchingEndpointUrl;
+
+  var demandMatchingService = new DemandsMatching(ajaxEndpointUrl);
+  demandMatchingService.getMatchingOffers({
+      limit : mapTypeOptions.itemLimit
+    }, onOffersLoadSuccess
+  );
+};
+
+
+var loadAndShowNearestOffers = function(userPosition, map)
+{
+  var ajaxEndpointUrl = mapTypeOptions.offersEndpointUrl;
 
   var offerService = new Offers(ajaxEndpointUrl);
   offerService.getOffersByCriteria({
         lat : userPosition.latitude,
         lng : userPosition.longitude,
         limit : mapTypeOptions.itemLimit
-    }, onLoadSuccess
+    }, onOffersLoadSuccess
   );
 };
 
-var loadAndShowNearestDemands = function(userPosition, map, mapTypeOptions)
+var loadAndShowNearestDemands = function(userPosition, map)
 {
    var ajaxEndpointUrl = mapTypeOptions.demandsEndpointUrl;
 
@@ -122,7 +138,7 @@ var loadAndShowNearestDemands = function(userPosition, map, mapTypeOptions)
         if ('demands' in returnedData['demandList']) {
           for (var i=0; i < returnedData['demandList']['demands'].length; i++) {
             var demand = returnedData['demandList']['demands'][i];
-            showDemandInMap(map, demand, mapTypeOptions);
+            showDemandInMap(map, demand);
           }
         }
       }
@@ -137,8 +153,8 @@ var loadAndShowNearestDemands = function(userPosition, map, mapTypeOptions)
   );
 };
 
-var showOfferInMap = function(map, offer, mapTypeOptions) {
-  var html = renderOfferInTemplate(offer, mapTypeOptions);
+var showOfferInMap = function(map, offer) {
+  var html = renderOfferInTemplate(offer);
   var offerMarker = L.marker([offer.location.latitude, offer.location.longitude], {icon: offerIcon}).addTo(map);
 
   offerMarker.bindPopup(html);
@@ -146,8 +162,8 @@ var showOfferInMap = function(map, offer, mapTypeOptions) {
   offerMarkers.push(offerMarker);
 };
 
-var showDemandInMap = function(map, demand, mapTypeOptions) {
-  var html = renderDemandInTemplate(demand, mapTypeOptions);
+var showDemandInMap = function(map, demand) {
+  var html = renderDemandInTemplate(demand);
   var demandMarker = L.marker([demand.location.latitude, demand.location.longitude], {icon: demandIcon}).addTo(map);
 
   demandMarker.bindPopup(html);
@@ -159,7 +175,7 @@ var filterImageUrl = function(originalUrl) {
   return originalUrl.replace(neeedo.getApiHttpsUrl(), neeedo.getApiHttpUrl());
 };
 
-var renderOfferInTemplate = function(offer, mapTypeOptions) {
+var renderOfferInTemplate = function(offer) {
   var source = $("#offerMarker").html();
   var template = Handlebars.compile(source);
 
@@ -187,7 +203,7 @@ var renderOfferInTemplate = function(offer, mapTypeOptions) {
   return template(context);
 };
 
-var renderDemandInTemplate = function(demand, mapTypeOptions) {
+var renderDemandInTemplate = function(demand) {
   var source = $("#demandMarker").html();
   var template = Handlebars.compile(source);
   var viewDemandUrl = mapTypeOptions.viewDemandUrl;
@@ -218,6 +234,7 @@ var getMapTypeOptions = function()
     mapType: mapType,
     demandsEndpointUrl: demandsEndpointUrl,
     offersEndpointUrl: offersEndpointUrl,
+    demandMatchingEndpointUrl: mapElement.data('demandmatchingsourceurl'),
     viewOfferUrl: viewOfferUrl,
     viewDemandUrl: viewDemandUrl,
     itemLimit: mapElement.data('itemlimit'),
@@ -271,8 +288,8 @@ $(document).ready(function() {
 
       showUsersPosition(userPosition);
       // initially load near offers + demands to users position
-      var mapTypeOptions = getMapTypeOptions();
-      triggerSpecificMapTypeOperations(userPosition, mapTypeOptions);
+      mapTypeOptions = getMapTypeOptions();
+      triggerSpecificMapTypeOperations(userPosition);
 
       // load near demands + offers if the user refocused the map
       map.on('mouseup', function(e) {
@@ -281,7 +298,7 @@ $(document).ready(function() {
            latitude: e.latlng.lat
          };
 
-        triggerSpecificMapTypeOperations(newPosition, mapTypeOptions);
+        triggerSpecificMapTypeOperations(newPosition);
       });
     });
   }
