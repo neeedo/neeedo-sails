@@ -9,6 +9,9 @@ $(".errorMsg").fadeIn('slow',function() {
   $(this).delay(5000).fadeOut('slow');
 });
 
+new CBPFWTabs( document.getElementById( 'tabs' ) );
+
+
 /* ##############################################
  *
  *              MENU TOGGLE
@@ -242,7 +245,7 @@ var deleteImage = function(event) {
 $(document).ready(function () {
   var inputFiles = $('#fileupload-input');
   fileuploadForm = $('#fileupload');
-  errorMessageTarget = $('#fileupload-messages'),
+  errorMessageTarget = $('#fileupload-messages');
   SpinnerObject = Spinner;
 
   var deleteFileButtons = $('.fileupload-deleteImage');

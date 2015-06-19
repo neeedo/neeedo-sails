@@ -2,8 +2,11 @@
 
   <div class="container hidden-xs " id="bigScreen">
 
-    <div class="container">
+    <div class="elementWrapper">
+      <h1>MAP</h1>
+    </div>
 
+    <div class="container">
       <% if (LoginService.userIsLoggedIn(req)) {%>
       <h1><%= i18n('Your Offers')%></h1>
       <%} else{%>
@@ -39,40 +42,40 @@
 
   <div class="container visible-xs-block">
 
-    <div class=" elementWrapper">
-      <div class="tabPanel" role="tabpanel">
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist" id="myTab">
-          <li role="presentation" class="active"><a href="#demands" aria-controls="demands" role="tab" data-toggle="tab"><%= i18n('Demands')%></a></li>
-          <li role="presentation"><a href="#offers" aria-controls="offers" role="tab" data-toggle="tab"><%= i18n('Offers')%></a></li>
-          <li role="presentation"><a href="#smallMap" aria-controls="smallMap" role="tab" data-toggle="tab"><%= i18n('Map')%></a></li>
-
+    <div id="tabs" class="tabs">
+      <nav>
+        <ul>
+          <li><a href="#section-1">
+              <% if (LoginService.userIsLoggedIn(req)) {%>
+              <%= i18n('Your Offers')%>
+              <%} else{%>
+              <%= i18n('Recent Offers')%>
+              <%}%></a>
+          </li>
+          <li><a href="#section-2">
+              <% if (LoginService.userIsLoggedIn(req)) {%>
+              <%= i18n('Your Demands')%>
+              <%} else{%>
+              <%= i18n('Recent Demands')%>
+              <%}%></a>
+          </li>
         </ul>
-      </div> <!--TabPanel-->
-
-      <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="demands">
-          <ul>
-          <% demands.forEach(function(demand) { %>
-             <%- partial ('./partials/demandsForList.ejs',{demand: demand}) %>
-            <% }); %>
-          </ul>
-        </div>
-
-        <div role="tabpanel" class="tab-pane" id="offers">
-          <ul>
-            <% offers.forEach(function(offer) { %>
+      </nav>
+      <div class="content">
+        <section id="section-1">
+          <% offers.forEach(function(offer) { %>
             <%- partial ('./partials/offersForList.ejs',{offer: offer}) %>
-            <% }); %>
-          </ul>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="smallMap" >
-          <h1>MAP</h1>
-        </div>
-      </div>    <!-- Tab panes -->
-    </div>
-  </div> <!--Small Screen-->
+          <% }); %>
+        </section>
+        <section id="section-2">
+          <% demands.forEach(function(demand) { %>
+            <%- partial ('./partials/demandsForList.ejs',{demand: demand}) %>
+          <% }); %>
+        </section>
+      </div><!-- /content -->
+    </div><!-- /tabs -->
 
+  </div> <!--Small Screen-->
 </div> <!--Main Container-->
 
 <script>
