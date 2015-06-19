@@ -151,9 +151,9 @@ module.exports = {
       onLoadInBetween(loadedDemand);
 
       // Uncomment the following line if you want to work with test data
-      OfferService.loadMostRecentOffers(req, onMatchCallback, onErrorCallback);
+      //OfferService.loadMostRecentOffers(req, onMatchCallback, onErrorCallback);
       // Comment the following line if you want to work with test data
-      //DemandService.matchOffers(loadedDemand, req, onMatchCallback, onErrorCallback);
+      DemandService.matchOffers(loadedDemand, req, onMatchCallback, onErrorCallback);
     };
 
     this.loadDemand(req, onLoadSuccessCallback, onErrorCallback);

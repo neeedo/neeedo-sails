@@ -90,7 +90,7 @@ describe('[UNIT TEST] DemandController', function() {
             lat: "",
             lng: "",
             distance: 30,
-            btnLabel: 'Create'
+            btnLabel: 'Create and find matching offers'
           }
         }
       ).should.be.True;
