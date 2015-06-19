@@ -73,6 +73,43 @@ module.exports = {
     return new ClientDemandService();
   },
 
+  loadAndUpdateDemand: function(req, res, onUpdateSuccessCallback, onErrorCallback) {
+    var showFormWithDemandValues = function(loadedDemand) {
+      res.view('demand/edit', {
+        locals: {
+          mustTags: ApiClientService.toTagString(loadedDemand.getMustTags()),
+          shouldTags: ApiClientService.toTagString(loadedDemand.getShouldTags()),
+          minPrice: loadedDemand.getPrice().getMin(),
+          maxPrice: loadedDemand.getPrice().getMax(),
+          lat: loadedDemand.getLocation().getLatitude(),
+          lng: loadedDemand.getLocation().getLongitude(),
+          distance: loadedDemand.getDistance(),
+          btnLabel: 'Edit and find matching offers'
+        }
+      });
+    };
+    
+    var onLoadSuccessCallback = function(loadedDemand) {
+      if (!DemandService.setBelongsToCurrentUser(req, res, loadedDemand)) {
+        return res.redirect(DemandService.getOverviewUrl());
+      }
+
+      if ("POST" == req.method) {
+        DemandService.updateDemand(loadedDemand, req, onUpdateSuccessCallback, onErrorCallback);
+      } else {
+        if (undefined == loadedDemand) {
+          FlashMessagesService.setErrorMessage('The demand could not be loaded.', req, res);
+          return res.redirect(DemandService.getOverviewUrl());
+        }
+
+        showFormWithDemandValues(loadedDemand);
+      }
+
+    };
+
+    this.loadDemand(req, onLoadSuccessCallback, onErrorCallback);
+  },
+
   updateDemand: function(demandModel, req, onSuccessCallback, onErrorCallBack) {
     try {
       ApiClientService.validateAndSetDemandFromRequest(req, demandModel, demandModel.getUser(), onErrorCallBack);
@@ -84,6 +121,18 @@ module.exports = {
     }
   },
 
+  loadAndDeleteDemand: function(req, res, onDeleteSuccessCallback, onErrorCallback) {
+    var onLoadSuccessCallback = function(loadedDemand) {
+      if (!DemandService.setBelongsToCurrentUser(req, res, loadedDemand)) {
+        return res.redirect(DemandService.getOverviewUrl());
+      }
+
+      DemandService.deleteDemand(loadedDemand, onDeleteSuccessCallback, onErrorCallback);
+    };
+
+    this.loadDemand(req, onLoadSuccessCallback, onErrorCallback);
+  },
+
   deleteDemand: function(demandModel, onSuccessCallback, onErrorCallBack) {
     try {
       var demandService = new ClientDemandService();
@@ -91,6 +140,21 @@ module.exports = {
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("deleteDemand:" + e.message, 'Your inputs were not valid.'));
     }
+  },
+
+  loadAndMatchOffers: function(req, res, onMatchCallback, onErrorCallback) {
+    var onLoadSuccessCallback = function(loadedDemand) {
+      if (!DemandService.setBelongsToCurrentUser(req, res, loadedDemand)) {
+        return res.redirect(DemandService.getOverviewUrl());
+      }
+
+      // Uncomment the following line if you want to work with test data
+      //OfferService.loadMostRecentOffers(req, onMatchCallback, onErrorCallback);
+      // Comment the following line if you want to work with test data
+      DemandService.matchOffers(loadedDemand, req, onMatchCallback, onErrorCallback);
+    };
+
+    this.loadDemand(req, onLoadSuccessCallback, onErrorCallback);
   },
 
   matchOffers: function(demandModel, req, onSuccessCallback, onErrorCallback) {

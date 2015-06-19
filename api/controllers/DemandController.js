@@ -85,21 +85,6 @@ module.exports = {
   },
 
   edit: function (req, res) {
-    var showFormWithDemandValues = function(loadedDemand) {
-      res.view('demand/edit', {
-        locals: {
-          mustTags: ApiClientService.toTagString(loadedDemand.getMustTags()),
-          shouldTags: ApiClientService.toTagString(loadedDemand.getShouldTags()),
-          minPrice: loadedDemand.getPrice().getMin(),
-          maxPrice: loadedDemand.getPrice().getMax(),
-          lat: loadedDemand.getLocation().getLatitude(),
-          lng: loadedDemand.getLocation().getLongitude(),
-          distance: loadedDemand.getDistance(),
-          btnLabel: 'Edit and find matching offers'
-        }
-      });
-    };
-
     /*
      * ---------- callbacks ----------
      */
@@ -122,40 +107,14 @@ module.exports = {
       res.redirect(DemandService.getOverviewUrl());
     };
 
-    var onLoadSuccessCallback = function(loadedDemand) {
-      sails.log.info("Demand " + util.inspect(loadedDemand, {
-        showHidden: false,
-        depth: null
-      }) + " was loaded successfully.");
-
-      if (!DemandService.setBelongsToCurrentUser(req, res, loadedDemand)) {
-        return res.redirect(DemandService.getOverviewUrl());
-      }
-
-      if ("POST" == req.method) {
-        DemandService.updateDemand(loadedDemand, req, onUpdateSuccessCallback, onErrorCallback);
-      } else {
-        if (undefined == loadedDemand) {
-          FlashMessagesService.setErrorMessage('The demand could not be loaded.', req, res);
-          return res.redirect(DemandService.getOverviewUrl());
-        }
-
-        showFormWithDemandValues(loadedDemand);
-      }
-
-    };
-
-    DemandService.loadDemand(req, onLoadSuccessCallback, onErrorCallback);
+    DemandService.loadAndUpdateDemand(req, res, onUpdateSuccessCallback, onErrorCallback);
   },
+
   delete: function (req, res) {
     /*
      * ---------- callbacks ----------
      */
     var onDeleteSuccessCallback = function(deletedDemand) {
-      sails.log.info("Demand " + util.inspect(deletedDemand, {
-        showHidden: false,
-        depth: null
-      }) + " was deleted successfully.");
 
       FlashMessagesService.setSuccessMessage('Your demand was deleted successfully.', req, res);
       DemandService.removeFromSession(req, deletedDemand);
@@ -170,29 +129,26 @@ module.exports = {
       res.redirect(DemandService.getOverviewUrl());;;
     };
 
-    var onLoadSuccessCallback = function(loadedDemand) {
-      sails.log.info("Demand " + util.inspect(loadedDemand, {
-        showHidden: false,
-        depth: null
-      }) + " was loaded successfully.");
+    DemandService.loadAndDeleteDemand(req, res, onDeleteSuccessCallback, onErrorCallback);
+  },
 
-      if (!DemandService.setBelongsToCurrentUser(req, res, loadedDemand)) {
-        return res.redirect(DemandService.getOverviewUrl());
-      }
-
-      DemandService.deleteDemand(loadedDemand, onDeleteSuccessCallback, onErrorCallback);
+  matchingAjax: function(req, res) {
+    var onMatchCallback = function(offerList) {
+      OfferService.sendOfferListJsonResponse(res, offerList);
     };
 
-    DemandService.loadDemand(req, onLoadSuccessCallback, onErrorCallback);
+    var onErrorCallback = function(errorModel) {
+      DemandService.sendErrorJsonResponse(res, errorModel);
+    };
+
+    DemandService.loadAndMatchOffers(req, res, onMatchCallback, onErrorCallback);
   },
 
   matching: function(req, res) {
-    var currentDemand;
-
     /*
      * ---------- callbacks ----------
      */
-    var onMatchCallback = function(matchedOfferList) {
+    var onMatchCallback = function(matchedOfferList, currentDemand) {
       sails.log.info("Matched offers " + util.inspect(matchedOfferList, {
         showHidden: false,
         depth: null
@@ -218,24 +174,6 @@ module.exports = {
       res.redirect(DemandService.getOverviewUrl());
     };
 
-    var onLoadSuccessCallback = function(loadedDemand) {
-      sails.log.info("Demand " + util.inspect(loadedDemand, {
-        showHidden: false,
-        depth: null
-      }) + " was loaded successfully.");
-
-      if (!DemandService.setBelongsToCurrentUser(req, res, loadedDemand)) {
-        return res.redirect(DemandService.getOverviewUrl());
-      }
-
-      currentDemand = loadedDemand;
-
-      // Uncomment the following line if you want to work with test data
-      //OfferService.loadMostRecentOffers(req, onMatchCallback, onErrorCallback);
-      // Comment the following line if you want to work with test data
-      DemandService.matchOffers(loadedDemand, req, onMatchCallback, onErrorCallback);
-    };
-
-    DemandService.loadDemand(req, onLoadSuccessCallback, onErrorCallback);
+    DemandService.loadAndMatchOffers(req, res, onMatchCallback, onErrorCallback);
   }
 }

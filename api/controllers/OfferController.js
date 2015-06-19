@@ -81,19 +81,8 @@ module.exports = {
       showFormWithDefaultValues();
     }
   },
+
   edit: function (req, res) {
-    var showFormWithOfferValues = function(offerModel) {
-      res.view('offer/edit', {
-        locals: {
-          tags: ApiClientService.toTagString(offerModel.getTags()),
-          price: offerModel.getPrice(),
-          lat: offerModel.getLocation().getLatitude(),
-          lng: offerModel.getLocation().getLongitude(),
-          images: FileService.getLeastUploadedFilesAndCurrentOnes(req, offerModel.getImageList()),
-          btnLabel: 'Edit'
-        }
-      });
-    };
     /*
      * ---------- callbacks ----------
      */
@@ -116,31 +105,9 @@ module.exports = {
       res.redirect(OfferService.getOverviewUrl());
     };
 
-    var onLoadSuccessCallback = function(loadedOffer) {
-      sails.log.info("Offer " + util.inspect(loadedOffer, {
-        showHidden: false,
-        depth: null
-      }) + " was loaded successfully.");
-
-      if (!OfferService.setBelongsToCurrentUser(req, res, loadedOffer)) {
-        return res.redirect(OfferService.getOverviewUrl());
-      }
-
-      if ("POST" == req.method) {
-        OfferService.updateOffer(loadedOffer, req, onUpdateSuccessCallback, onErrorCallback);
-      } else {
-        if (undefined == loadedOffer) {
-          FlashMessagesService.setErrorMessage('The offer could not be loaded.', req, res);
-          return res.redirect(OfferService.getOverviewUrl());
-        }
-
-        showFormWithOfferValues(loadedOffer);
-      }
-
-    };
-
-    OfferService.loadOffer(req, onLoadSuccessCallback, onErrorCallback);
+    OfferService.loadAndUpdateOffer(req, res, onUpdateSuccessCallback, onErrorCallback);
   },
+
   delete: function (req, res) {
     /*
      * ---------- callbacks ----------
@@ -164,19 +131,6 @@ module.exports = {
       res.redirect(OfferService.getOverviewUrl());
     };
 
-    var onLoadSuccessCallback = function(loadedOffer) {
-      sails.log.info("Offer " + util.inspect(loadedOffer, {
-        showHidden: false,
-        depth: null
-      }) + " was loaded successfully.");
-
-      if (!OfferService.setBelongsToCurrentUser(req, res, loadedOffer)) {
-        return res.redirect(OfferService.getOverviewUrl());
-      }
-
-      OfferService.deleteOffer(loadedOffer, onDeleteSuccessCallback, onErrorCallback);
-    };
-
-    OfferService.loadOffer(req, onLoadSuccessCallback, onErrorCallback);
+    OfferService.loadAndDeleteOffer(req, res, onDeleteSuccessCallback, onErrorCallback);
   }
 }

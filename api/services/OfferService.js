@@ -59,6 +59,46 @@ module.exports = {
     }
   },
 
+  loadAndUpdateOffer: function(req, res, onUpdateSuccessCallback, onErrorCallback) {
+    var showFormWithOfferValues = function(offerModel) {
+      res.view('offer/edit', {
+        locals: {
+          tags: ApiClientService.toTagString(offerModel.getTags()),
+          price: offerModel.getPrice(),
+          lat: offerModel.getLocation().getLatitude(),
+          lng: offerModel.getLocation().getLongitude(),
+          images: FileService.getLeastUploadedFilesAndCurrentOnes(req, offerModel.getImageList()),
+          btnLabel: 'Edit'
+        }
+      });
+    };
+
+    var onLoadSuccessCallback = function(loadedOffer) {
+      sails.log.info("Offer " + util.inspect(loadedOffer, {
+        showHidden: false,
+        depth: null
+      }) + " was loaded successfully.");
+
+      if (!OfferService.setBelongsToCurrentUser(req, res, loadedOffer)) {
+        return res.redirect(OfferService.getOverviewUrl());
+      }
+
+      if ("POST" == req.method) {
+        OfferService.updateOffer(loadedOffer, req, onUpdateSuccessCallback, onErrorCallback);
+      } else {
+        if (undefined == loadedOffer) {
+          FlashMessagesService.setErrorMessage('The offer could not be loaded.', req, res);
+          return res.redirect(OfferService.getOverviewUrl());
+        }
+
+        showFormWithOfferValues(loadedOffer);
+      }
+
+    };
+
+    this.loadOffer(req, onLoadSuccessCallback, onErrorCallback);
+  },
+
   updateOffer: function(offerModel, req, onSuccessCallback, onErrorCallBack) {
     try {
       ApiClientService.validateAndSetOfferFromRequest(req, offerModel, offerModel.getUser(), onErrorCallBack);
@@ -68,6 +108,18 @@ module.exports = {
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("updateOffer:" + e.message, 'Your inputs were not valid.'));
     }
+  },
+
+  loadAndDeleteOffer: function(req, res, onDeleteSuccessCallback, onErrorCallback) {
+    var onLoadSuccessCallback = function(loadedOffer) {
+      if (!OfferService.setBelongsToCurrentUser(req, res, loadedOffer)) {
+        return res.redirect(OfferService.getOverviewUrl());
+      }
+
+      OfferService.deleteOffer(loadedOffer, onDeleteSuccessCallback, onErrorCallback);
+    };
+
+    this.loadOffer(req, onLoadSuccessCallback, onErrorCallback);
   },
 
   deleteOffer: function(offerModel, onSuccessCallback, onErrorCallBack) {
