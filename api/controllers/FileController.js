@@ -18,7 +18,7 @@ module.exports = {
       }
     };
 
-    var processSuccess = function(res, message, uploadedFiles) {
+    var processSuccess = function(res, message, allUploadedImageList) {
       FlashMessagesService.setSuccessMessage(message, req, res);
 
       if (!UrlService.redirectToLastRedirectUrl(req, res)) {

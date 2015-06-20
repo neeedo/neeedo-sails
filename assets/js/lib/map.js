@@ -183,11 +183,6 @@ var showDemandInMap = function(map, demand) {
   demandMarkers.push(offerMarker);
 };
 
-var filterImageUrl = function(originalUrl) {
-  // make use of http instead of https to get the image
-  return originalUrl.replace(neeedo.getApiHttpsUrl(), neeedo.getApiHttpUrl());
-};
-
 var renderOfferInTemplate = function(offer) {
   var source = $("#offerMarker").html();
   var template = Handlebars.compile(source);
@@ -200,7 +195,7 @@ var renderOfferInTemplate = function(offer) {
 
   if (offer.imageList.images.length > 0) {
     var firstImage = offer.imageList.images[0];
-    image = filterImageUrl(offer.imageList.baseUrl) + '/' + firstImage.fileName;
+    image = neeedo.filterImageUrl(offer.imageList.baseUrl) + '/' + firstImage.fileName;
     imageTitle = firstImage.fileName;
   }
 

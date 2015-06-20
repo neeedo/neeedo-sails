@@ -91,6 +91,8 @@ module.exports = {
         // only process valid files
         _this.processFiles(req, res, validationResult['validFiles'], onProcessSuccessCallback, onProcessErrorCallback);
       } else {
+        sails.log.error('in else');
+
         // only invalid files given
         onErrorCallback(res, validationErrorMessage);
       }
@@ -130,17 +132,19 @@ module.exports = {
     } else {
       var validator = this.getValidator(req, res);
 
-      _.each(uploadedFiles, function(uploadedFile) {
-          if (!validator.isValid(uploadedFile)) {
-            messages.push(validator.getErrorMessages());
+      for (var i=0; i < uploadedFiles.length; i++) {
+        var uploadedFile = uploadedFiles[i];
 
-            // remove file from .tmp folder synchronously
-            fs.unlinkSync(uploadedFile.fd);
-          } else {
-            // file is valid and can be uploaded to API
-            validFiles.push(uploadedFile);
-          }
-      });
+        if (!validator.isValid(uploadedFile)) {
+          messages.push(validator.getErrorMessages());
+
+          // remove file from .tmp folder synchronously
+          fs.unlinkSync(uploadedFile.fd);
+        } else {
+          // file is valid and can be uploaded to API
+          validFiles.push(uploadedFile);
+        }
+      }
     }
 
     return {
@@ -206,15 +210,17 @@ module.exports = {
         });
 
         // append existing files (from session) so that they will be stored, too
+        // TODO appending newly uploaded files to the session doesn't make sense because the user could have deleted the old files in the browser (which we can't determine here)
+        /*
         var existingImages = _this.getLeastUploadedFiles(req);
 
-        _.each(existingImages.getImages(), function(existingImage) {
-            imageList.addImage(existingImage);
-        });
+        for (var i = 0; i < existingImages.getImages().length; i++) {
+          imageList.addImage(existingImages.getImages()[i]);
+        }*/
 
         // store serialized image list in session
         _this.storeInSession(req, imageList.serializeForApi());
-        onOuterSuccessCallback(res, res.i18n('Your files were uploaded successfully') + ' ' + message, validatedAndProcessFiles);
+        onOuterSuccessCallback(res, res.i18n('Your files were uploaded successfully') + ' ' + message, imageList);
       }
     };
 
@@ -267,6 +273,8 @@ module.exports = {
   },
 
   sendJsonErrorResponse : function(res, message) {
+    sails.log.error('send json error response...');
+
     res.status(400);
 
     res.json({
@@ -275,18 +283,22 @@ module.exports = {
     });
   },
 
-  sendJsonSuccessResponse : function(res, message, uploadedFiles) {
+  sendJsonSuccessResponse : function(res, message, allUploadedImageList) {
     res.status(200);
 
     res.json({
         success : true,
         message : message,
-        uploadedFiles : uploadedFiles
+        uploadedFiles : allUploadedImageList
     });
   },
 
   getImageUploadUrl : function() {
     return '/files/upload?type=image';
+  },
+
+  getAjaxImageUploadUrl : function() {
+    return '/files/upload-ajax?type=image'
   },
 
   filterGetImageUrl : function(neeedoApiClientUrl) {

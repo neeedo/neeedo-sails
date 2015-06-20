@@ -67,6 +67,7 @@ module.exports.policies = {
   FileController: {
     '*' : false,
 
-    'upload' : ['hasValidFileType', 'setLocale', 'isLoggedIn']
+    'upload' : ['hasValidFileType', 'setLocale', 'isLoggedIn'],
+    'uploadAjax' : ['hasValidFileType', 'setLocale', 'isLoggedIn']
   }
 };

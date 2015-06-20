@@ -52,8 +52,10 @@ var files = [],
     uploadTargetUrl,
     errors = [],
     fileuploadForm,
+    fileuploadFiles,
     offerForm,
     spinnerObject,
+    deleteFileButtons,
     errorMessageTarget;
 
 /* #############
@@ -160,33 +162,34 @@ var uploadImages = function(event) {
     showProgress();
     deactivateOfferSubmit();
 
-    this.submit();
-
-    // TODO get AJAX action working if desired
-    /*
+    // append images to form data object
     var data = new FormData();
 
-    $.each(files, function (key, value) {
-      data.append(key, value);
-    });
+    for (var i=0; i < files.length; i++) {
+      var file = files[i];
+      data.append('files', file, file.name);
+    }
 
     $.ajax({
       url: uploadTargetUrl,
       type: 'POST',
       data: data,
       cache: false,
-      dataType: 'json',
       processData: false,
       contentType: false,
       success: function (data, textStatus, jqXHR) {
-        console.log(data);
+        hideProgress();
+        activateOfferSubmit();
         errorMessageTarget.html('<p>' + data.message + '</p>');
+        showUploadedFiles(data.uploadedFiles);
       },
       error: function (jqXHR, textStatus, errorThrown) {
+        hideProgress();
+        activateOfferSubmit();
         console.log('Upload error: ' + errorThrown);
         errorMessageTarget.html('<p>' + errorMessageTarget.data('messageuploaderror') + '</p>');
       }
-    });*/
+    });
   } else {
     errorMessageTarget.html('<p>' + errors.join(' ') + '</p>');
   }
@@ -220,9 +223,65 @@ var showProgress = function() {
   var spinner = new SpinnerObject(opts).spin(targetElement);
 };
 
+var hideProgress = function(){
+  $('.spinner').remove();
+};
+
+var showUploadedFiles = function(allUploadedFiles) {
+  resetImagesInPreviewList();
+  resetImagesInOfferHiddenField();
+
+  for (var i = 0; i < allUploadedFiles.images.length; i++ ) {
+    var file = allUploadedFiles.images[i];
+    addToPreviewList(file);
+    addToHiddenFields(file);
+  }
+
+  // bind events
+  $('.fileupload-deleteImage').on('click', deleteImage);
+};
+
+var resetImagesInOfferHiddenField = function() {
+  var hiddenFields = $('input[name="images[]"]');
+
+  hiddenFields.remove();
+};
+
+var resetImagesInPreviewList = function() {
+  $('.previewImages').remove();
+};
+
+var renderImageInPreviewList = function(image) {
+  var source = $("#offerPreviewImage").html();
+  var template = Handlebars.compile(source);
+
+  var context = {
+    imageUrl: neeedo.filterImageUrl(image.baseUrl + '/' + image.fileName),
+    imageFileName: image.fileName,
+    translations: {
+      delete: errorMessageTarget.data('messagedelete')
+    }
+  };
+
+  return template(context);
+};
+
+var addToPreviewList = function (file) {
+  fileuploadFiles.append(renderImageInPreviewList(file));
+};
+
+var addToHiddenFields = function (file) {
+  offerForm.append('<input type="hidden" name="images[]" value="' + file.fileName + '">');
+};
+
 var deactivateOfferSubmit = function() {
   var submitBtn = offerForm.find("button[type='submit']");
   submitBtn.attr('disabled','disabled');
+};
+
+var activateOfferSubmit = function() {
+  var submitBtn = offerForm.find("button[type='submit']");
+  submitBtn.removeAttr('disabled');
 };
 
 var deleteImage = function(event) {
@@ -245,16 +304,17 @@ var deleteImage = function(event) {
 $(document).ready(function () {
   var inputFiles = $('#fileupload-input');
   fileuploadForm = $('#fileupload');
+  fileuploadFiles = $('#fileupload-files');
   errorMessageTarget = $('#fileupload-messages');
   SpinnerObject = Spinner;
 
   var deleteFileButtons = $('.fileupload-deleteImage');
   offerForm = $('#createOffer');
 
-  uploadTargetUrl = fileuploadForm.attr('action');
+  uploadTargetUrl = fileuploadForm.data('ajaxuploadurl');
 
   inputFiles.on('change', prepareImages);
-  fileuploadForm.on('submit', uploadImages);
+  $('#fileupload-submit').on('click', uploadImages);
   deleteFileButtons.on('click', deleteImage);
 });
 
@@ -669,6 +729,11 @@ Neeedo.prototype.getDistanceBetweenTwoCoordinatesInKm = function (position1, pos
   return EQUATOR_RADIUS * Math.acos(Math.sin(latitude1Rad) * Math.sin(latitude2Rad)
       + Math.cos(latitude1Rad) * Math.cos(latitude2Rad) * Math.cos(longitude2Rad - longitudeRad)
     );
+};
+
+Neeedo.prototype.filterImageUrl = function(originalUrl) {
+  // make use of http instead of https to get the image
+  return originalUrl.replace(neeedo.getApiHttpsUrl(), neeedo.getApiHttpUrl());
 };
 
 var neeedo = new Neeedo();
