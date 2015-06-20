@@ -9,7 +9,7 @@ $(".errorMsg").fadeIn('slow',function() {
   $(this).delay(5000).fadeOut('slow');
 });
 
-new CBPFWTabs( document.getElementById( 'tabs' ) );
+//new CBPFWTabs( document.getElementById( 'tabs' ) );
 
 
 /* ##############################################

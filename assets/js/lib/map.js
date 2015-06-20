@@ -262,6 +262,15 @@ var getMapTypeOptions = function()
   }
 };
 
+
+var getGeolocation = function(callback) {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(callback);
+  } else {
+    callback(false);
+  }
+};
+
 /*
  * #############################
  * #
