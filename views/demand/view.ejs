@@ -1,9 +1,9 @@
     <div class="demandView">
-      <h4 class="media-heading title"><%= demand.getMustTags() %></h4>
+        <%- partial ('../partials/crudButtonsDemands.ejs',{demand: demand}) %>
+        <h4 class="media-heading title"><%= demand.getMustTags() %></h4>
       <p><%= demand.getShouldTags() %></p>
       <p><%= i18n('Distance')%>:<%= demand.getDistance() %></p>
       <p><%= i18n('Price')%>:<%= demand.getPrice().getMin() %> - <%= demand.getPrice().getMax() %><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></p>
-      <%- partial ('../partials/crudButtonsDemands.ejs',{demand: demand}) %>
     </div>
 
 

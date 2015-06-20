@@ -9,9 +9,6 @@ $(".errorMsg").fadeIn('slow',function() {
   $(this).delay(5000).fadeOut('slow');
 });
 
-//new CBPFWTabs( document.getElementById( 'tabs' ) );
-
-
 /* ##############################################
  *
  *              MENU TOGGLE
@@ -550,38 +547,38 @@ $(document).ready(function () {
  */
 
 $(document).ready(function() {
-  $(document).ready(function() {
-    $("#lightSliderOffer").lightSlider({
-      loop:true,
-      autoWidth: false,
-      adaptiveHeight: false,
-      easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
-      responsive : [
-        {
-          breakpoint:1024,
-          settings: {
-            item:2,
-            slideMove:1
+  $("#lightSliderOffer").lightSlider({
+    loop:true,
+    autoWidth: false,
+    adaptiveHeight: false,
+    easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
+    responsive : [
+      {
+        breakpoint:1024,
+        settings: {
+          item:2,
+          slideMove:1
           }
         }
       ]
     });
-    $("#lightSliderDemand").lightSlider({
-      loop:true,
-      autoWidth: false,
-      adaptiveHeight: false,
-      easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
-      responsive : [
-        {
-          breakpoint:1024,
-          settings: {
-            item:2,
-            slideMove:1
-          }
+  $("#lightSliderDemand").lightSlider({
+    loop:true,
+    autoWidth: false,
+    adaptiveHeight: false,
+    easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
+    responsive : [
+      {
+        breakpoint:1024,
+        settings: {
+          item:2,
+          slideMove:1
         }
-      ]
-    });
-  });});
+      }
+    ]
+  });
+    new CBPFWTabs( document.getElementById( 'tabs' ) );
+});
 
 /* ##############################################
  *

@@ -2,10 +2,6 @@
 
   <div class="container hidden-xs " id="bigScreen">
 
-    <div class="elementWrapper">
-      <h1>MAP</h1>
-    </div>
-
     <div class="container">
       <% if (LoginService.userIsLoggedIn(req)) {%>
       <h1><%= i18n('Your Offers')%></h1>
@@ -41,6 +37,10 @@
   </div> <!-- Big Screen-->
 
   <div class="container visible-xs-block">
+
+    <div class="elementWrapper">
+      <h1>MAP</h1>
+    </div>
 
     <div id="tabs" class="tabs">
       <nav>
