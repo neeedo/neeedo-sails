@@ -315,7 +315,7 @@ $(document).ready(function() {
       triggerSpecificMapTypeOperations(userPosition);
 
       // load near demands + offers if the user refocused the map
-      map.on('mouseup', function(e) {
+      map.on('moveend', function(e) {
          var newPosition = {
            longitude: e.latlng.lng,
            latitude: e.latlng.lat
