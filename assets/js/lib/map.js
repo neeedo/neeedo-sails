@@ -317,8 +317,8 @@ $(document).ready(function() {
       // load near demands + offers if the user refocused the map
       map.on('moveend', function(e) {
          var newPosition = {
-           longitude: e.latlng.lng,
-           latitude: e.latlng.lat
+           longitude: map.getCenter().lng,
+           latitude: map.getCenter().lat
          };
 
         triggerSpecificMapTypeOperations(newPosition);
