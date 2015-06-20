@@ -257,14 +257,16 @@ var renderImageInPreviewList = function(image) {
     imageFileName: image.fileName,
     translations: {
       delete: errorMessageTarget.data('messagedelete')
-    }
+    },
+    cssClass : 'previewImages'
   };
 
   return template(context);
 };
 
 var addToPreviewList = function (file) {
-  fileuploadFiles.append(renderImageInPreviewList(file));
+  var html = renderImageInPreviewList(file);
+  fileuploadFiles.append(html);
 };
 
 var addToHiddenFields = function (file) {
