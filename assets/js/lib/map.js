@@ -258,14 +258,6 @@ var getMapTypeOptions = function()
 };
 
 
-var getGeolocation = function(callback) {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(callback);
-  } else {
-    callback(false);
-  }
-};
-
 /*
  * #############################
  * #
@@ -285,6 +277,7 @@ $(document).ready(function() {
     var initialZoom = mapElement.data('initialzoomstep');
 
     var mapLocationCenter = getGeolocation(function (position) {
+      console.log('in callback');
       // default position as returned by backend
       userPosition = {
         longitude : mapElement.data('defaultlongitude'),

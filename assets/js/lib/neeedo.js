@@ -329,9 +329,15 @@ var geolocationCheckbox,
   ;
 
 var getGeolocation = function(callback) {
+  var failureCallback = function(error) {
+      // user didn't allow geoloc, request timed out or other error
+      callback(false);
+  };
+
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(callback);
+    navigator.geolocation.getCurrentPosition(callback, failureCallback);
   } else {
+    // feature is not available
     callback(false);
   }
 };
