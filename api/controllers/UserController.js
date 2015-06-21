@@ -23,7 +23,10 @@ module.exports = {
           locals: {
             demands: usersDemands.getDemands(),
             offers: usersOffers.getOffers(),
-            showMap: false
+            showMap: false,
+            offerSourceUrl: OfferService.getOffersGetUrl(),
+            demandSourceUrl: DemandService.getDemandsGetUrl(),
+            pagination: PaginatorService.getSettings()
           }
         });
       };
@@ -36,7 +39,10 @@ module.exports = {
           locals: {
             offers: usersOffers.getOffers(),
             demands: [],
-            showMap: false
+            showMap: false,
+            offerSourceUrl: OfferService.getOffersGetUrl(),
+            demandSourceUrl: DemandService.getDemandsGetUrl(),
+            pagination: PaginatorService.getSettings()
           }
         });
       };
@@ -56,7 +62,10 @@ module.exports = {
         locals: {
           offers: [],
           demands: [],
-          showMap: false
+          showMap: false,
+          offerSourceUrl: OfferService.getOffersGetUrl(),
+          demandSourceUrl: DemandService.getDemandsGetUrl(),
+          pagination: PaginatorService.getSettings()
         }
       });
     };

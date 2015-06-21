@@ -9,7 +9,7 @@
       <h1><%= i18n('Recent Offers')%></h1>
       <%}%>
       <div class="container elementWrapper ">
-        <ul id="lightSliderOffer">
+        <ul id="lightSliderOffer" data-itemLimit="<%- pagination.limit %>" data-currentPage="<%- pagination.firstPageNumber %>" data-sourceUrl="<%- offerSourceUrl %>">
           <% offers.forEach(function(offer) { %>
           <%- partial ('./partials/offersForList.ejs',{offer: offer}) %>
           <% }); %>
@@ -27,7 +27,7 @@
       <h1><%= i18n('Recent Demands')%></h1>
       <%}%>
       <div class="container elementWrapper ">
-          <ul id="lightSliderDemand" >
+          <ul id="lightSliderDemand" data-itemLimit="<%- pagination.limit %>" data-currentPage="<%- pagination.firstPageNumber %>" data-sourceUrl="<%- demandSourceUrl %>">
             <% demands.forEach(function(demand) { %>
             <%- partial ('./partials/demandsForList.ejs',{demand: demand}) %>
             <% }); %>

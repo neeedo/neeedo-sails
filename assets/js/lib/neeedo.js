@@ -555,6 +555,13 @@ $(document).ready(function () {
  */
 
 $(document).ready(function() {
+  var lightSliderOffer = $("#lightSliderOffer");
+
+  // pagination info for AJAX reload of demands and offers
+  var offerFirstPageNumber = lightSliderOffer.data('currentpage');
+  var offerLimit = lightSliderOffer.data('itemlimit');
+  var offerSourceUrl = lightSliderOffer.data('sourceurl');
+
   $("#lightSliderOffer").lightSlider({
     loop:true,
     autoWidth: false,
@@ -568,8 +575,27 @@ $(document).ready(function() {
           slideMove:1
           }
         }
-      ]
-    });
+      ],
+    onBeforeSlide: function (el) {
+      // current slide count starts at 1
+      if (el.getCurrentSlideCount() % offerLimit <= 2) {
+        // reload on second-last item
+        loadMoreOffers(el.getCurrentSlideCount(), offerFirstPageNumber, offerLimit, offerSourceUrl, function(returnedData) {
+          addOffersToSlider(returnedData);
+        });
+      }
+
+      console.log('current slide count: ' + el.getCurrentSlideCount());
+    }
+  });
+
+  var lightSliderDemand = $("#lightSliderDemand");
+
+  // pagination info for AJAX reload of demands and offers
+  var demandFirstPageNumber = lightSliderDemand.data('currentpage');
+  var demandLimit = lightSliderDemand.data('itemlimit');
+  var demandSourceUrl = lightSliderDemand.data('sourceurl');
+
   $("#lightSliderDemand").lightSlider({
     loop:true,
     autoWidth: false,
@@ -583,11 +609,55 @@ $(document).ready(function() {
           slideMove:1
         }
       }
-    ]
+    ],
+    onBeforeSlide: function (el) {
+      // current slide count starts at 1
+      if (el.getCurrentSlideCount() % demandLimit <= 2) {
+        // reload on second-last item
+        loadMoreDemands(el.getCurrentSlideCount(), demandFirstPageNumber, demandLimit, function(returnedData) {
+          addDemandsToSlider(returnedData);
+        });
+      }
+
+      console.log('current slide count: ' + el.getCurrentSlideCount());
+    }
   });
     new CBPFWTabs( document.getElementById( 'tabs' ) );
 });
 
+var calculateNextPageNumber = function(currentItemNumber, firstPageNumber, limit) {
+  return Math.floor(currentItemNumber / limit) + firstPageNumber + 1;
+};
+
+var loadMoreOffers = function(currentItemNumber, firstPageNumber, limit, dataSourceUrl, onLoadedCallback) {
+  var nextPageNumber = calculateNextPageNumber(currentItemNumber, firstPageNumber, limit);
+
+  var offerService = new Offers(dataSourceUrl);
+  offerService.getOffersByCriteria({
+      page : nextPageNumber,
+      limit : limit
+    }, onLoadedCallback
+  );
+};
+
+var loadMoreDemands = function(currentItemNumber, firstPageNumber, limit, dataSourceUrl) {
+  var nextPageNumber = calculateNextPageNumber(currentItemNumber, firstPageNumber, limit);
+
+  var demandService = new Demands(dataSourceUrl);
+  demandService.getDemandsByCriteria({
+      page : nextPageNumber,
+      limit : limit
+    }, onLoadedCallback
+  );
+};
+
+var addDemandsToSlider = function(returnedData) {
+  console.log('adding demands to slider: ' + returnedData);
+};
+
+var addOffersToSlider = function(returnedData) {
+  console.log('adding offers to slider: ' + returnedData);
+};
 /* ##############################################
  *
  *              AJAX functions
