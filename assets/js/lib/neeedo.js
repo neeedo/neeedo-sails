@@ -554,6 +554,12 @@ $(document).ready(function () {
  * #############################################
  */
 
+/**
+ * Object of URL -> page number to keep info if the page number was already AJAX-requested.
+ * @type {{}}
+ */
+var alreadyLoaded = {};
+
 $(document).ready(function() {
   var lightSliderOffer = $("#lightSliderOffer");
 
@@ -577,10 +583,20 @@ $(document).ready(function() {
         }
       ],
     onBeforeSlide: function (el) {
+      var nextPageNumber = calculateNextPageNumber(el.getCurrentSlideCount(), offerFirstPageNumber, offerLimit);
+
       // current slide count starts at 1
-      if (el.getCurrentSlideCount() % offerLimit <= 2) {
+      if (el.getCurrentSlideCount() % offerLimit <= 2
+        && !wasAlreadyLoaded(offerSourceUrl, nextPageNumber)) {
         // reload on second-last item
-        loadMoreOffers(el.getCurrentSlideCount(), offerFirstPageNumber, offerLimit, offerSourceUrl, function(returnedData) {
+        loadMoreOffers(nextPageNumber, offerLimit, offerSourceUrl, function(returnedData) {
+          if (! (offerSourceUrl in alreadyLoaded)) {
+            alreadyLoaded[offerSourceUrl] = [];
+          }
+
+          // store that page number was already requested
+          alreadyLoaded[offerSourceUrl].push(nextPageNumber);
+
           addOffersToSlider(returnedData);
         });
       }
@@ -611,10 +627,20 @@ $(document).ready(function() {
       }
     ],
     onBeforeSlide: function (el) {
+      var nextPageNumber = calculateNextPageNumber(el.getCurrentSlideCount(), demandFirstPageNumber, demandLimit);
+
       // current slide count starts at 1
-      if (el.getCurrentSlideCount() % demandLimit <= 2) {
+      if (el.getCurrentSlideCount() % demandLimit <= 2
+        && !wasAlreadyLoaded(demandSourceUrl, nextPageNumber)) {
         // reload on second-last item
-        loadMoreDemands(el.getCurrentSlideCount(), demandFirstPageNumber, demandLimit, function(returnedData) {
+        loadMoreDemands(nextPageNumber, demandLimit, demandSourceUrl, function(returnedData) {
+          if (! (offerSourceUrl in alreadyLoaded)) {
+            alreadyLoaded[demandSourceUrl] = [];
+          }
+
+          // store that page number was already requested
+          alreadyLoaded[demandSourceUrl].push(nextPageNumber);
+
           addDemandsToSlider(returnedData);
         });
       }
@@ -625,13 +651,15 @@ $(document).ready(function() {
     new CBPFWTabs( document.getElementById( 'tabs' ) );
 });
 
+var wasAlreadyLoaded = function(dataSourceUrl, nextPageNumber) {
+  return dataSourceUrl in alreadyLoaded &&  -1 !== alreadyLoaded[dataSourceUrl].indexOf(nextPageNumber);
+};
+
 var calculateNextPageNumber = function(currentItemNumber, firstPageNumber, limit) {
   return Math.floor(currentItemNumber / limit) + firstPageNumber + 1;
 };
 
-var loadMoreOffers = function(currentItemNumber, firstPageNumber, limit, dataSourceUrl, onLoadedCallback) {
-  var nextPageNumber = calculateNextPageNumber(currentItemNumber, firstPageNumber, limit);
-
+var loadMoreOffers = function(nextPageNumber, limit, dataSourceUrl, onLoadedCallback) {
   var offerService = new Offers(dataSourceUrl);
   offerService.getOffersByCriteria({
       page : nextPageNumber,
@@ -640,9 +668,7 @@ var loadMoreOffers = function(currentItemNumber, firstPageNumber, limit, dataSou
   );
 };
 
-var loadMoreDemands = function(currentItemNumber, firstPageNumber, limit, dataSourceUrl) {
-  var nextPageNumber = calculateNextPageNumber(currentItemNumber, firstPageNumber, limit);
-
+var loadMoreDemands = function(nextPageNumber, limit, dataSourceUrl, onLoadedCallback) {
   var demandService = new Demands(dataSourceUrl);
   demandService.getDemandsByCriteria({
       page : nextPageNumber,
