@@ -133,9 +133,7 @@ module.exports = {
   },
 
   ajaxMatching: function(req, res) {
-    var actualDemand;
-
-    var onMatchCallback = function(offerList) {
+    var onMatchCallback = function(offerList, actualDemand) {
       OfferService.sendOfferListJsonResponse(res, offerList, { demand: actualDemand });
     };
 
@@ -143,7 +141,7 @@ module.exports = {
       DemandService.sendErrorJsonResponse(res, errorModel);
     };
 
-    DemandService.loadAndMatchOffers(req, res, function(demand) { actualDemand = demand }, onMatchCallback, onErrorCallback);
+    DemandService.loadAndMatchOffers(req, res, onMatchCallback, onErrorCallback);
   },
 
   matching: function(req, res) {
@@ -153,9 +151,6 @@ module.exports = {
      * ---------- callbacks ----------
      */
     var onMatchCallback = function(matchedOfferList, currentDemand) {
-      if (undefined == currentDemand) {
-        currentDemand = actualDemand;
-      }
       sails.log.info("Matched offers " + util.inspect(matchedOfferList, {
         showHidden: false,
         depth: null
@@ -173,7 +168,9 @@ module.exports = {
           showMap: {
             mapType: "demandMatching",
             demandMatchingSourceUrl: DemandService.getAjaxMatchingUrl(currentDemand)
-          }
+          },
+          demandMatchingSourceUrl: DemandService.getAjaxMatchingUrl(currentDemand),
+          pagination: PaginatorService.getSettings()
         }
       });
     };
@@ -185,11 +182,6 @@ module.exports = {
       res.redirect(DemandService.getOverviewUrl());
     };
 
-    // TODO remove when matching by API is working and the most recent offers aren't used here anymore
-    var onLoadInBetween = function (demand){
-      actualDemand = demand;
-    }
-
-    DemandService.loadAndMatchOffers(req, res, onLoadInBetween, onMatchCallback, onErrorCallback);
+    DemandService.loadAndMatchOffers(req, res, onMatchCallback, onErrorCallback);
   }
 }

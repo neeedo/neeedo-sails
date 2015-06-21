@@ -9,7 +9,8 @@
       <h1><%= i18n('Recent Offers')%></h1>
       <%}%>
       <div class="container elementWrapper ">
-        <ul id="lightSliderOffer" data-itemLimit="<%- pagination.limit %>"
+        <ul id="lightSliderOffer"
+            data-itemLimit="<%- pagination.limit %>"
             data-currentPage="<%- pagination.firstPageNumber %>"
             data-sourceUrl="<%- offerSourceUrl %>"
             data-viewUrl="<%- OfferService.getViewUrl() %>"

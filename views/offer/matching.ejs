@@ -9,7 +9,13 @@
     <h1><%= i18n('Matched offers')%></h1>
 
     <div class="container elementWrapper ">
-      <ul id="lightSliderOffer">
+      <ul id="lightSliderOffer"
+          data-itemLimit="<%- pagination.limit %>"
+          data-currentPage="<%- pagination.firstPageNumber %>"
+          data-sourceUrl="<%- demandMatchingSourceUrl %>"
+          data-viewUrl="<%- OfferService.getViewUrl() %>"
+          data-translationPrice="<%= i18n('Price') %>"
+        >
         <% offers.forEach(function(offer) { %>
         <%- partial ('../partials/offersForList.ejs',{offer: offer}) %>
         <% }); %>
