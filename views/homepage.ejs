@@ -33,6 +33,13 @@
             <% }); %>
           </ul>
         </div>
+
+      <% /* the following partials will be dynamically rendered by the browser's javascript
+       * These are handlebar templates.
+       * The rendered objects are coming from the webapp's AJAX endpoints, e.g. UserController::ajaxGet().
+       */ %>
+      <%- partial ('./partials/demandsForListAjax.ejs') %>
+      <%- partial ('./partials/offersForListAjax.ejs') %>
     </div>
   </div> <!-- Big Screen-->
 
