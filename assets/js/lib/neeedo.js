@@ -22,6 +22,12 @@ showLeft.onclick = function() {
   classie.toggle( this, 'active' );
   classie.toggle( menuLeft, 'cbp-spmenu-open' );
 };
+var menuLeftSmall = document.getElementById( 'cbp-spmenu-s2' );
+
+showLeftBtn.onclick = function() {
+  classie.toggle( this, 'active' );
+  classie.toggle( menuLeftSmall, 'cbp-spmenu-open' );
+};
 
 /*
 $( "#loginBtn" ).click(function() {
@@ -742,3 +748,4 @@ Neeedo.prototype.filterImageUrl = function(originalUrl) {
 };
 
 var neeedo = new Neeedo();
+

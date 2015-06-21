@@ -269,8 +269,8 @@ $(document).ready(function() {
   var mapElementId = 'map';
   var mapElement = $('#map');
   userIcon = new L.icon({iconUrl: '/images/icons/user.gif'});
-  demandIcon = new L.icon({iconUrl: '/images/icons/demand.png'});
-  offerIcon = new L.icon({iconUrl: '/images/icons/offer.png'});
+  demandIcon = new L.icon({iconUrl: '/images/icons/demands_pin.png'});
+  offerIcon = new L.icon({iconUrl: '/images/icons/offers_pin.png'});
 
   if (mapElement.length) {
     // default data coming from backend config file

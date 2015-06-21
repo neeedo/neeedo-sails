@@ -1,14 +1,13 @@
 <div id= main class="container">
 
-  <div class="container hidden-xs " id="bigScreen">
-
-    <div class="container">
+  <div class=" hidden-xs " id="bigScreen">
+     <h1><%= i18n("What's new?")%></h1>
       <% if (LoginService.userIsLoggedIn(req)) {%>
       <h1><%= i18n('Your Offers')%></h1>
       <%} else{%>
       <h1><%= i18n('Recent Offers')%></h1>
       <%}%>
-      <div class="container elementWrapper ">
+      <div class="elementWrapper ">
         <ul id="lightSliderOffer">
           <% offers.forEach(function(offer) { %>
           <%- partial ('./partials/offersForList.ejs',{offer: offer}) %>
@@ -16,7 +15,7 @@
         </ul>
       </div>
 
-      <div class="container elementWrapper  ">
+      <div class="elementWrapper  ">
         <% if (false !== showMap)  { %>
         <%- partial ('./partials/map/map.ejs', { mapType: showMap.mapType, demandSourceUrl: showMap.demandSourceUrl, offerSourceUrl: showMap.offerSourceUrl, demandMatchingSourceUrl: undefined}) %>
         <% } %>
@@ -26,21 +25,16 @@
       <%} else{%>
       <h1><%= i18n('Recent Demands')%></h1>
       <%}%>
-      <div class="container elementWrapper ">
+      <div class="elementWrapper ">
           <ul id="lightSliderDemand" >
             <% demands.forEach(function(demand) { %>
             <%- partial ('./partials/demandsForList.ejs',{demand: demand}) %>
             <% }); %>
           </ul>
         </div>
-    </div>
   </div> <!-- Big Screen-->
 
-  <div class="container visible-xs-block">
-
-    <div class="elementWrapper">
-      <h1>MAP</h1>
-    </div>
+  <div class="visible-xs-block">
 
     <div id="tabs" class="tabs">
       <nav>
@@ -77,8 +71,3 @@
 
   </div> <!--Small Screen-->
 </div> <!--Main Container-->
-
-<script>
-
-
-</script>

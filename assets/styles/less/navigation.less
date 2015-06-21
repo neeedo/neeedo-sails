@@ -2,43 +2,35 @@
         NAVIGATION
 ***************************/
 .cbp-spmenu {
-  background: @MetroGreen;
+  margin-top: @headerHeight ;
   position: fixed;
-  border-right: 3px solid #4c6a62;
+  border-right: 5px ridge @BorderColor;
+  background-color: white;
   h3 {
-    color: #e0e0e0;
-    font-size: 1.9em;
+    background-color: white;
     padding: 20px;
     margin: 0;
-    font-weight: 300;
-    background: @DarkerMetroGreen;
-    height: 70px;
-    border-bottom: 5px groove @MetroGreen;
+    height: @headerHeight;
+    border-bottom: 5px ridge @BorderColor;
   }
   a {
+    background-color: white;
     display: block;
-    color: #fff;
-    font-size: 1.1em;
-    font-weight: 300;
     &:hover {
-      background: @DarkerMetroGreen;
-      color: #fff;
       text-decoration: none;
     }
     &:active {
-      background: #afdefa;
-      color: @DarkerMetroGreen;
+
     }
   }
 }
-
 .cbp-spmenu-vertical {
   width: 240px;
   height: 100%;
   top: 0;
   z-index: 1000;
   a {
-    border-bottom: 1px solid @DarkerMetroGreen;
+    border-bottom: 1px ridge @BorderColor;
     padding: 1em;
   }
 }
@@ -75,24 +67,33 @@
 }
 
 #showLeft{
+  background-color: white;
   position: absolute;
   right: -50px;
   width: 50px;
   top: 40%;
-  background-color: @MetroGreen;
-  font-size: 1.2em;
-  font-weight: bold;
   padding: 20px;
   margin: 0;
-  color: #fff;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  border-right: 3px solid #4c6a62;
-  border-top: 3px solid #4c6a62;
-  border-bottom: 3px solid #4c6a62;
+  border-right: 5px ridge @BorderColor;
+  border-top: 5px ridge @BorderColor;
+  border-bottom: 5px ridge @BorderColor;
   border-left: none;
   &:hover{
-    text-shadow: 0 0 0.2em @DarkerMetroGreen, 0 0 0.2em @DarkerMetroGreen, 0 0 0.2em @DarkerMetroGreen;
+    color: @BasicFontInv;
+  }
+  &:focus{
+    outline: none;
+  }
+}
+#showLeftBtn{
+  width: 50px;
+  max-width: 60px;
+  margin-left: 0.5em ;
+  margin-top: 1em;
+  &:hover{
+    color: @BasicFontInv;
   }
   &:focus{
     outline: none;
@@ -103,10 +104,6 @@
   z-index: 9000;
 }
 
-nav img{
-  width: 60px;
-  max-width: 60px;
-  position: absolute;
-  right: 5px;
-  top: 5px;
+#cbp-spmenu-s2{
+  z-index: 9000;
 }

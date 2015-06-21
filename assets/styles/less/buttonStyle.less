@@ -1,4 +1,3 @@
-
 /* Button Style */
 .formBtn{
   &:active {
@@ -17,27 +16,21 @@
 
 .btn1 {
   &:extend(.btn);
-  color: #000;
-  background: @MetroGreen;
   border: 4px solid @MetroGreen;
-  text-shadow: 0 0 1px #fff;
   &:hover{
-    background: transparent;
-    color: #fff;
-    text-shadow: 0 0 1px #000;
   }
 }
 
 .btn2 {
   &:extend(.btn);
-  color: #fff;
-  background: @DarkerMetroGreen;
   border: 4px solid @DarkerMetroGreen;
-  text-shadow: 0 0 1px #000;
   &:hover{
-    background: transparent;
-    color: #000;
-    text-shadow: 0 0 1px #fff;
   }
 }
 
+.headerBtn{
+  width: 100%;
+  display: block;
+  padding: 27px 0;
+  height: 65px;
+}
