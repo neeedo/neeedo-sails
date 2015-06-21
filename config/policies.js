@@ -49,7 +49,8 @@ module.exports.policies = {
   },
   UserController: {
     '*': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn'],
-
+    'ajaxGetOffers' : ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn'],
+    'ajaxGetDemands' : ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn'],
     // setLocale can be accessed public and logged-in
     'setLocale': ['resetUploadedFiles', 'setLocale']
   },

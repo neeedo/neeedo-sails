@@ -634,7 +634,7 @@ $(document).ready(function() {
         && !wasAlreadyLoaded(demandSourceUrl, nextPageNumber)) {
         // reload on second-last item
         loadMoreDemands(nextPageNumber, demandLimit, demandSourceUrl, function(returnedData) {
-          if (! (offerSourceUrl in alreadyLoaded)) {
+          if (! (demandSourceUrl in alreadyLoaded)) {
             alreadyLoaded[demandSourceUrl] = [];
           }
 

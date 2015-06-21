@@ -264,6 +264,11 @@ module.exports = {
    return '/demands/ajax-get';
   },
 
+  getUsersDemandsGetUrl: function() {
+    return '/user/ajax-get-demands';
+  },
+
+
   belongsToCurrentUser: function(req, demand) {
     return LoginService.userIsLoggedIn(req)
       && undefined !== demand.getUser()
