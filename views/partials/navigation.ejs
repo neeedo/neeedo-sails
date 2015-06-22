@@ -1,5 +1,4 @@
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-  <h3></h3>
   <a href="<%= UrlService.to('/') %>"><%= i18n('Home') %></a>
   <% if (!LoginService.userIsLoggedIn(req)) { %>
   <a href="<%= UrlService.to('/register') %>"><%= i18n('Register') %></a>

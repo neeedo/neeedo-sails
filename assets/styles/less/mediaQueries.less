@@ -6,6 +6,7 @@
   /* HEADER */
   #header h1{
     font-size: 2em;
+
   }
 
   #login{
@@ -57,6 +58,10 @@
 /* Example media queries */
 
 @media screen and (max-width: 52.375em) {
+
+  .container{
+    margin-left: @menuBtnWidth !important;
+  }
   .tabs nav a span {
     display: none;
   }
@@ -131,5 +136,25 @@
 
   .mediabox p {
     margin: 0;
+  }
+
+  .headerLogin{
+    padding-top: 3.5em;
+  }
+  .headerBtn{
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: 1.2em !important;
+  }
+  #loginBtn{
+    padding-left: 1.5em;
+  }
+  #loggedIn{
+    margin-top: 1em;
+    font-size: 1.2em !important;
+    padding-left: 4em;
+  }
+  #logoutBtn{
+    margin-left: -1.5em;
   }
 }
