@@ -268,7 +268,7 @@ var getMapTypeOptions = function()
 $(document).ready(function() {
   var mapElementId = 'map';
   var mapElement = $('#map');
-  userIcon = new L.icon({iconUrl: '/images/icons/user.gif'});
+  userIcon = new L.icon({iconUrl: '/images/icons/user_pin.png'});
   demandIcon = new L.icon({iconUrl: '/images/icons/demands_pin.png'});
   offerIcon = new L.icon({iconUrl: '/images/icons/offers_pin.png'});
 

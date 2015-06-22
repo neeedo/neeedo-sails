@@ -39,10 +39,10 @@
       <% if (LoginService.userIsLoggedIn(req)) { %>
       <form method="POST" id="loggedIn" action="<%= UrlService.to('/logout') %>">
         <div class="row">
-          <div class="col-xs-6">
+          <div class="col-xs-6 text-center">
             <p><%= i18n('Hello %s!', LoginService.getCurrentUser(req).getUsername()) %></p>
           </div>
-          <div class="col-xs-6">
+          <div class="col-xs-6 text-center">
             <input class="btn1 formBtn" type="submit" value="<%= i18n('Logout') %>" id="logoutBtn" />
           </div>
         </div>

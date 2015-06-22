@@ -2,10 +2,10 @@
         HEADER
 ***************************/
 header{
-  display: block;
+  z-index: 8000;
   height: @headerHeight;
   margin-bottom: 20px;
-  border-bottom: 5px ridge @BorderColor;
+  border-bottom: 1px solid;
   .img{
     width: 65px;
     margin: 4px;
@@ -14,15 +14,13 @@ header{
   }
   h1 {
     display: block;
-    margin: 0.2em;
-    padding-top: 15px;
+    margin: 0 ;
+    padding-top: 0.3em;
   }
   .local {
-    padding-top: 10px;
-    margin-left: -20px;
     a {
-      padding: 0;
-      margin: 5px;
+      padding-top: 0;
+      margin: 0;
     }
   }
 }
@@ -30,8 +28,9 @@ header{
 .headerLogin{
   display: block;
   width: 100%;
+  padding-top: 2.4em;
   div{
-    padding: 0;
+    padding-top: 0;
   }
 }
 
@@ -39,16 +38,5 @@ header{
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   transition: all 0.3s ease;
-}
-
-#loggedIn{
-  margin-top: 15px;
-  p{
-    margin-left: -10px;
-  }
-}
-
-#logoutBtn{
-  margin-left: -15px;
 }
 

@@ -22,13 +22,6 @@ showLeft.onclick = function() {
   classie.toggle( this, 'active' );
   classie.toggle( menuLeft, 'cbp-spmenu-open' );
 };
-var menuLeftSmall = document.getElementById( 'cbp-spmenu-s2' );
-
-showLeftBtn.onclick = function() {
-  classie.toggle( this, 'active' );
-  classie.toggle( menuLeftSmall, 'cbp-spmenu-open' );
-};
-
 /*
 $( "#loginBtn" ).click(function() {
   $( "#login" ).slideToggle( "slow" );
@@ -561,6 +554,7 @@ $(document).ready(function () {
  */
 
 $(document).ready(function() {
+  new CBPFWTabs( document.getElementById( 'tabs' ) );
   $("#lightSliderOffer").lightSlider({
     loop:true,
     autoWidth: false,
@@ -591,8 +585,8 @@ $(document).ready(function() {
       }
     ]
   });
-    new CBPFWTabs( document.getElementById( 'tabs' ) );
 });
+
 
 /* ##############################################
  *

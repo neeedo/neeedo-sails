@@ -1,25 +1,18 @@
 <header id="header">
     <div class="row">
-        <div class="col-xs-1 ">
-            <button id="showLeftBtn" class="visible-xs">
-                <span>toggle menu</span>
-            </button>
+        <div class="col-xs-2">
+
         </div>
         <div class="col-xs-2">
-            <a href="<%= UrlService.to('/') %>">
-                <img src="/images/neeedo_Logo.png" alt="Neeedo Logo" class="img"/>
-            </a>
-        </div>
-        <div class="col-xs-2 text-center">
             <h1>Neeedo</h1>
         </div>
-        <div class="col-xs-2">
+        <div class="col-xs-1">
         </div>
-        <div class="col-xs-4">
+        <div class="col-xs-6">
             <%- partial('./login.ejs') %>
         </div>
         <div class="col-xs-1 local">
-            <% // list all available locales / languages and provide link to set  %>
+            <% // list all available locales / languages and provide link to set   %>
             <% for (var localeI = 0; localeI < LocaleService.getAvailableLocales().length; localeI++) { %>
             <% var locale = LocaleService.getAvailableLocales()[localeI] %>
             <a href="<%= UrlService.to(LocaleService.getSetLocaleUrl(locale)) %>">

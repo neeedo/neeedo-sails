@@ -1,3 +1,7 @@
+/***************************
+        TYPO
+***************************/
+
 .container h1{
   font-family: 'amatic';
   color: @DarkerMetroGreen;
@@ -34,11 +38,13 @@
 }
 
 #header {
-  font-family: lobster-two !important;
+  font-family: 'amatic' !important;
   h1 {
     font-size: 3.5em;
     font-weight: bold;
     color: @HeaderFontColor;
+    text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+
   }
   .local {
     a {
@@ -75,4 +81,12 @@
 #showLeft{
   font-size: 1.2em;
   font-weight: bold;
+}
+
+#loggedIn{
+  color: @HeaderFontColor;
+  font-size: 2em ;
+}
+#logoutBtn:hover{
+  color: @HeaderFontColorInv;
 }

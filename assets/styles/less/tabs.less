@@ -8,7 +8,7 @@
 
 /* Nav */
 .tabs nav {
-  text-align: center;
+  text-align: right;
   ul {
     padding: 0;
     margin: 0;
@@ -19,7 +19,7 @@
       border-bottom: none;
       margin: 0 0.25em;
       display: block;
-      float: left;
+      float: right;
       position: relative;
     }
   }
@@ -49,8 +49,8 @@
 }
 
 .tabs nav li.tab-current {
-  border: 1px solid #47a3da;
-  box-shadow: inset 0 2px #47a3da;
+  border: 1px solid @MetroGreen;
+  box-shadow: inset 0 2px @MetroGreen;
   border-bottom: none;
   z-index: 100;
   &:before{
@@ -60,7 +60,7 @@
     right: 100%;
     bottom: 0;
     width: 1000px;
-    background: #47a3da;
+    background: @MetroGreen;
   }
   &:after{
     &:extend(&:before);
@@ -69,17 +69,18 @@
     width: 4000px;
   }
   a {
-    color: #47a3da;
+    color: @MetroGreen;
   }
 }
 
 /* Icons */
-.icon-food:before {
-  content: "\e600";
+
+.icon-demand:before {
+  content: "\e0A5";
 }
 
-.icon-lab:before {
-  content: "\e601";
+.icon-offer:before {
+  content: "\E935";
 }
 
 .icon-cup:before {

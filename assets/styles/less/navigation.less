@@ -2,19 +2,15 @@
         NAVIGATION
 ***************************/
 .cbp-spmenu {
-  margin-top: @headerHeight ;
   position: fixed;
-  border-right: 5px ridge @BorderColor;
-  background-color: white;
+  border-right: 1px solid;
+  background-color: @MainBackground;
   h3 {
-    background-color: white;
     padding: 20px;
     margin: 0;
     height: @headerHeight;
-    border-bottom: 5px ridge @BorderColor;
   }
   a {
-    background-color: white;
     display: block;
     &:hover {
       text-decoration: none;
@@ -28,7 +24,6 @@
   width: 240px;
   height: 100%;
   top: 0;
-  z-index: 1000;
   a {
     border-bottom: 1px ridge @BorderColor;
     padding: 1em;
@@ -67,18 +62,15 @@
 }
 
 #showLeft{
-  background-color: white;
   position: absolute;
-  right: -50px;
-  width: 50px;
-  top: 40%;
+  right: -@menuBtnWidth;
+  width: @menuBtnWidth;
+  top: 0;
+  height: 100%;
   padding: 20px;
   margin: 0;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  border-right: 5px ridge @BorderColor;
-  border-top: 5px ridge @BorderColor;
-  border-bottom: 5px ridge @BorderColor;
   border-left: none;
   &:hover{
     color: @BasicFontInv;
@@ -87,19 +79,6 @@
     outline: none;
   }
 }
-#showLeftBtn{
-  width: 50px;
-  max-width: 60px;
-  margin-left: 0.5em ;
-  margin-top: 1em;
-  &:hover{
-    color: @BasicFontInv;
-  }
-  &:focus{
-    outline: none;
-  }
-}
-
 #cbp-spmenu-s1{
   z-index: 9000;
 }

@@ -1,73 +1,78 @@
-<div id= main class="container">
+<div id=main>
 
-  <div class=" hidden-xs " id="bigScreen">
-     <h1><%= i18n("What's new?")%></h1>
-      <% if (LoginService.userIsLoggedIn(req)) {%>
-      <h1><%= i18n('Your Offers')%></h1>
-      <%} else{%>
-      <h1><%= i18n('Recent Offers')%></h1>
-      <%}%>
-      <div class="elementWrapper ">
-        <ul id="lightSliderOffer">
-          <% offers.forEach(function(offer) { %>
-          <%- partial ('./partials/offersForList.ejs',{offer: offer}) %>
-          <% }); %>
-        </ul>
-      </div>
+    <div class=" container hidden-xs ">
+        <h1><%= i18n("What's new?") %></h1>
 
-      <div class="elementWrapper  ">
-        <% if (false !== showMap)  { %>
-        <%- partial ('./partials/map/map.ejs', { mapType: showMap.mapType, demandSourceUrl: showMap.demandSourceUrl, offerSourceUrl: showMap.offerSourceUrl, demandMatchingSourceUrl: undefined}) %>
+        <% if (LoginService.userIsLoggedIn(req)) { %>
+        <h1><%= i18n('Your Offers') %></h1>
+        <% } else{ %>
+        <h1><%= i18n('Recent Offers') %></h1>
         <% } %>
-      </div>
-      <% if (LoginService.userIsLoggedIn(req)) {%>
-      <h1><%= i18n('Your Demands')%></h1>
-      <%} else{%>
-      <h1><%= i18n('Recent Demands')%></h1>
-      <%}%>
-      <div class="elementWrapper ">
-          <ul id="lightSliderDemand" >
-            <% demands.forEach(function(demand) { %>
-            <%- partial ('./partials/demandsForList.ejs',{demand: demand}) %>
+        <ul id="lightSliderOffer">
+            <% offers.forEach(function(offer) { %>
+            <%- partial('./partials/offersForList.ejs', {offer: offer}) %>
             <% }); %>
-          </ul>
-        </div>
-  </div> <!-- Big Screen-->
-
-  <div class="visible-xs-block">
-
-    <div id="tabs" class="tabs">
-      <nav>
-        <ul>
-          <li><a href="#section-1">
-              <% if (LoginService.userIsLoggedIn(req)) {%>
-              <%= i18n('Your Offers')%>
-              <%} else{%>
-              <%= i18n('Recent Offers')%>
-              <%}%></a>
-          </li>
-          <li><a href="#section-2">
-              <% if (LoginService.userIsLoggedIn(req)) {%>
-              <%= i18n('Your Demands')%>
-              <%} else{%>
-              <%= i18n('Recent Demands')%>
-              <%}%></a>
-          </li>
         </ul>
-      </nav>
-      <div class="content">
-        <section id="section-1">
-          <% offers.forEach(function(offer) { %>
-            <%- partial ('./partials/offersForList.ejs',{offer: offer}) %>
-          <% }); %>
-        </section>
-        <section id="section-2">
-          <% demands.forEach(function(demand) { %>
-            <%- partial ('./partials/demandsForList.ejs',{demand: demand}) %>
-          <% }); %>
-        </section>
-      </div><!-- /content -->
-    </div><!-- /tabs -->
 
-  </div> <!--Small Screen-->
-</div> <!--Main Container-->
+        <% if (false !== showMap)  { %>
+        <%- partial('./partials/map/map.ejs', {
+            mapType: showMap.mapType,
+            demandSourceUrl: showMap.demandSourceUrl,
+            offerSourceUrl: showMap.offerSourceUrl,
+            demandMatchingSourceUrl: undefined
+        }) %>
+        <% } %>
+        <% if (LoginService.userIsLoggedIn(req)) { %>
+        <h1><%= i18n('Your Demands') %></h1>
+        <% } else{ %>
+        <h1><%= i18n('Recent Demands') %></h1>
+        <% } %>
+        <ul id="lightSliderDemand">
+            <% demands.forEach(function(demand) { %>
+            <%- partial('./partials/demandsForList.ejs', {demand: demand}) %>
+            <% }); %>
+        </ul>
+    </div>
+    <!-- Big Screen-->
+
+    <div class="visible-xs-block container">
+        <div id="tabs" class="tabs">
+            <nav>
+                <ul>
+                    <li><a href="#section-1" class="icon-offer"><span>
+                                <% if (LoginService.userIsLoggedIn(req)) { %>
+                                <%= i18n('Your Offers') %>
+                                <% } else{ %>
+                                <%= i18n('Recent Offers') %>
+                                <% } %>
+                            </span></a>
+                    </li>
+                    <li><a href="#section-2" class="icon-demand"><span>
+                                <% if (LoginService.userIsLoggedIn(req)) { %>
+                                <%= i18n('Your Demands') %>
+                                <% } else{ %>
+                                <%= i18n('Recent Demands') %>
+                                <% } %>
+                            </span></a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="content">
+                <section id="section-1">
+                    <% offers.forEach(function(offer) { %>
+                    <%- partial('./partials/offersForList.ejs', {offer: offer}) %>
+                    <% }); %>
+                </section>
+                <section id="section-2">
+                    <% demands.forEach(function(demand) { %>
+                    <%- partial('./partials/demandsForList.ejs', {demand: demand}) %>
+                    <% }); %>
+                </section>
+            </div>
+            <!-- /content -->
+        </div>
+        <!-- /tabs -->
+        <!--Small Screen-->
+    </div>
+    <!--Main Container-->
+</div>
