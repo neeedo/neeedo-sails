@@ -186,16 +186,20 @@ module.exports = {
     return "offers" in req.session && offerId in req.session.offers && undefined != req.session.offers[offerId];
   },
 
+  getCreateUrl: function() {
+    return UrlService.to('/offers/create');
+  },
+
   getEditUrl: function(offerModel) {
     if (undefined == offerModel.getId()) {
       return '/';
     }
 
-    return '/offers/edit/offerId/' + offerModel.getId();
+    return UrlService.to('/offers/edit/offerId/' + offerModel.getId());
   },
 
   getViewUrl: function() {
-    return '/offers/view/offerId/%%offerId%%';
+    return UrlService.to('/offers/view/offerId/%%offerId%%');
   },
 
   getDeleteUrl: function(offerModel) {
@@ -203,19 +207,19 @@ module.exports = {
       return '/';
     }
 
-    return '/offers/delete/offerId/' + offerModel.getId();
+    return UrlService.to('/offers/delete/offerId/' + offerModel.getId());
   },
 
   getOverviewUrl: function(demandModel) {
-    return '/dashboard';
+    return UrlService.to('/dashboard');
   },
 
   getOffersGetUrl: function() {
-    return '/offers/ajax-get';
+    return UrlService.to('/offers/ajax-get');
   },
 
   getUsersOffersGetUrl: function() {
-    return '/user/ajax-get-offers';
+    return UrlService.to('/user/ajax-get-offers');
   },
 
   belongsToCurrentUser: function(req, offer) {

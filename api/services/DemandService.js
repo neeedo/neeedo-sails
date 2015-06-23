@@ -215,8 +215,12 @@ module.exports = {
     return "demands" in req.session && demandId in req.session.demands && undefined != req.session.demands[demandId];
   },
 
+  getCreateUrl: function() {
+    return UrlService.to('/demands/create');
+  },
+
   getViewUrl: function () {
-    return '/demands/view/demandId/%%demandId%%';
+    return UrlService.to('/demands/view/demandId/%%demandId%%');
   },
 
   getEditUrl: function (demandModel) {
@@ -224,7 +228,7 @@ module.exports = {
       return '/';
     }
 
-    return '/demands/edit/demandId/' + demandModel.getId();
+    return UrlService.to('/demands/edit/demandId/' + demandModel.getId());
   },
 
   getMatchingUrl: function (demandModel) {
@@ -232,7 +236,7 @@ module.exports = {
       return '/';
     }
 
-    return '/matching/demandId/' + demandModel.getId();
+    return UrlService.to('/matching/demandId/' + demandModel.getId());
   },
 
   getAjaxMatchingUrl: function (demandModel) {
@@ -240,7 +244,7 @@ module.exports = {
       return '/';
     }
 
-    return '/ajax-matching/demandId/' + demandModel.getId();
+    return UrlService.to('/ajax-matching/demandId/' + demandModel.getId());
   },
 
   getDeleteUrl: function (demandModel) {
@@ -248,19 +252,19 @@ module.exports = {
       return '/';
     }
 
-    return '/demands/delete/demandId/' + demandModel.getId();
+    return UrlService.to('/demands/delete/demandId/' + demandModel.getId());
   },
 
   getOverviewUrl: function (demandModel) {
-    return '/dashboard';
+    return UrlService.to('/dashboard');
   },
 
   getDemandsGetUrl: function () {
-    return '/demands/ajax-get';
+    return UrlService.to('/demands/ajax-get');
   },
 
   getUsersDemandsGetUrl: function () {
-    return '/user/ajax-get-demands';
+    return UrlService.to('/user/ajax-get-demands');
   },
 
 

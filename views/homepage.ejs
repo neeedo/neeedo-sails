@@ -7,11 +7,11 @@
         <div class="container">
             <% if (LoginService.userIsLoggedIn(req)) { %>
             <h1><%= i18n('Your Offers') %><a
-                        href="<%= UrlService.to('/offers/create') %>"><%= i18n('Create offer') %></a>
+                        href="<%= OfferService.getCreateUrl() %>"><%= i18n('Create offer') %></a>
             </h1>
             <% } else{ %>
             <h1><%= i18n('Recent Offers') %><a
-                        href="<%= UrlService.to('/offers/create') %>"><%= i18n('Create offer') %></a>
+                        href="<%= OfferService.getCreateUrl() %>"><%= i18n('Create offer') %></a>
             </h1>
             <% } %>
             <div class="container elementWrapper ">
@@ -40,11 +40,11 @@
             </div>
             <% if (LoginService.userIsLoggedIn(req)) { %>
             <h1><%= i18n('Your Demands') %><a
-                        href="<%= UrlService.to('/demands/create') %>"><%= i18n('Create demand') %></a>
+                        href="<%= DemandService.getCreateUrl() %>"><%= i18n('Create demand') %></a>
             </h1>
             <% } else{ %>
             <h1><%= i18n('Recent Demands') %><a
-                        href="<%= UrlService.to('/demands/create') %>"><%= i18n('Create demand') %></a>
+                        href="<%= DemandService.getCreateUrl() %>"><%= i18n('Create demand') %></a>
             </h1>
             <% } %>
             <div class="container elementWrapper ">
