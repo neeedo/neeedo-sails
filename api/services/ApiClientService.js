@@ -7,6 +7,7 @@ var Location = apiClient.models.Location,
     Offer = apiClient.models.Offer,
     OfferQuery = apiClient.models.OfferQuery,
     Demand = apiClient.models.Demand,
+    User = apiClient.models.User,
     DemandQuery = apiClient.models.DemandQuery,
     Register = apiClient.models.Register,
     Login = apiClient.models.Login,
@@ -343,5 +344,20 @@ module.exports = {
     }
 
     return requestLocation;
+  },
+
+  newDemand: function() {
+    return new Demand();
+
+  },
+
+  newOffer: function() {
+    return new Offer();
+  },
+
+  newUser: function() {
+    return new User();
   }
+
+
 };

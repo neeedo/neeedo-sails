@@ -1,4 +1,7 @@
     <li class="listItem">
+        <% // I'm actually not sure why we need to unserialize again, but the following line is really important when this partial is used during an AJAX action, do not remove! %>
+        <% demand = ApiClientService.newDemand().loadFromSerialized(demand) %>
+
         <%- partial ('../partials/crudButtonsDemands.ejs',{demand: demand}) %>
         <div class="media-body">
         <h4 class="media-heading title"><%= demand.getMustTags() %></h4>

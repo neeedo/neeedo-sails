@@ -1,5 +1,5 @@
 var apiClient = require('neeedo-api-nodejs-client'),
-    util = require('util');
+  util = require('util');
 
 var Demand = apiClient.models.Demand;
 var DemandList = apiClient.models.DemandList;
@@ -8,7 +8,7 @@ var DemandListService = apiClient.services.DemandList;
 var MatchingService = apiClient.services.Matching;
 
 module.exports = {
-  newDemandListService: function() {
+  newDemandListService: function () {
     return new DemandListService();
   },
 
@@ -18,7 +18,7 @@ module.exports = {
    * @param onSuccessCallback
    * @param onErrorCallback
    */
-  loadUsersDemands: function(req, onSuccessCallback, onErrorCallback) {
+  loadUsersDemands: function (req, onSuccessCallback, onErrorCallback) {
     try {
       var demandListService = this.newDemandListService();
       var demandQuery = ApiClientService.newDemandQueryFromRequest(req);
@@ -35,7 +35,7 @@ module.exports = {
    * @param onSuccessCallback
    * @param onErrorCallback
    */
-  loadMostRecentDemands: function(req, onSuccessCallback, onErrorCallback) {
+  loadMostRecentDemands: function (req, onSuccessCallback, onErrorCallback) {
     try {
       var demandQuery = ApiClientService.newDemandQueryFromRequest(req);
       var demandListService = this.newDemandListService();
@@ -54,7 +54,7 @@ module.exports = {
    * @param onSuccessCallback
    * @param onErrorCallBack
    */
-  createDemand: function(req, onSuccessCallback, onErrorCallBack) {
+  createDemand: function (req, onSuccessCallback, onErrorCallBack) {
     try {
       var demandModel = ApiClientService.validateAndCreateNewDemandFromRequest(req, onErrorCallBack);
 
@@ -65,16 +65,16 @@ module.exports = {
     }
   },
 
-  newDemand: function() {
+  newDemand: function () {
     return new Demand();
   },
 
-  newClientDemandService: function() {
+  newClientDemandService: function () {
     return new ClientDemandService();
   },
 
-  loadAndUpdateDemand: function(req, res, onUpdateSuccessCallback, onErrorCallback) {
-    var showFormWithDemandValues = function(loadedDemand) {
+  loadAndUpdateDemand: function (req, res, onUpdateSuccessCallback, onErrorCallback) {
+    var showFormWithDemandValues = function (loadedDemand) {
       res.view('demand/edit', {
         locals: {
           mustTags: ApiClientService.toTagString(loadedDemand.getMustTags()),
@@ -89,7 +89,7 @@ module.exports = {
       });
     };
 
-    var onLoadSuccessCallback = function(loadedDemand) {
+    var onLoadSuccessCallback = function (loadedDemand) {
       if (!DemandService.setBelongsToCurrentUser(req, res, loadedDemand)) {
         return res.redirect(DemandService.getOverviewUrl());
       }
@@ -110,7 +110,7 @@ module.exports = {
     this.loadDemand(req, onLoadSuccessCallback, onErrorCallback);
   },
 
-  updateDemand: function(demandModel, req, onSuccessCallback, onErrorCallBack) {
+  updateDemand: function (demandModel, req, onSuccessCallback, onErrorCallBack) {
     try {
       ApiClientService.validateAndSetDemandFromRequest(req, demandModel, demandModel.getUser(), onErrorCallBack);
 
@@ -121,8 +121,8 @@ module.exports = {
     }
   },
 
-  loadAndDeleteDemand: function(req, res, onDeleteSuccessCallback, onErrorCallback) {
-    var onLoadSuccessCallback = function(loadedDemand) {
+  loadAndDeleteDemand: function (req, res, onDeleteSuccessCallback, onErrorCallback) {
+    var onLoadSuccessCallback = function (loadedDemand) {
       if (!DemandService.setBelongsToCurrentUser(req, res, loadedDemand)) {
         return res.redirect(DemandService.getOverviewUrl());
       }
@@ -133,7 +133,7 @@ module.exports = {
     this.loadDemand(req, onLoadSuccessCallback, onErrorCallback);
   },
 
-  deleteDemand: function(demandModel, onSuccessCallback, onErrorCallBack) {
+  deleteDemand: function (demandModel, onSuccessCallback, onErrorCallBack) {
     try {
       var demandService = new ClientDemandService();
       demandService.deleteDemand(demandModel, onSuccessCallback, onErrorCallBack);
@@ -142,8 +142,8 @@ module.exports = {
     }
   },
 
-  loadAndMatchOffers: function(req, res, onMatchCallback, onErrorCallback) {
-    var onLoadSuccessCallback = function(loadedDemand) {
+  loadAndMatchOffers: function (req, res, onMatchCallback, onErrorCallback) {
+    var onLoadSuccessCallback = function (loadedDemand) {
       if (!DemandService.setBelongsToCurrentUser(req, res, loadedDemand)) {
         return res.redirect(DemandService.getOverviewUrl());
       }
@@ -154,7 +154,7 @@ module.exports = {
     this.loadDemand(req, onLoadSuccessCallback, onErrorCallback);
   },
 
-  matchOffers: function(demandModel, req, onSuccessCallback, onErrorCallback) {
+  matchOffers: function (demandModel, req, onSuccessCallback, onErrorCallback) {
     try {
       var demandQuery = ApiClientService.newDemandQueryFromRequest(req);
 
@@ -165,30 +165,30 @@ module.exports = {
     }
   },
 
-  storeInSession: function(req, demandModel) {
+  storeInSession: function (req, demandModel) {
     var demandId = demandModel.getId();
 
-    if (! ("demands" in req.session)) {
+    if (!("demands" in req.session)) {
       req.session.demands = {};
     }
 
     req.session.demands[demandId] = demandModel;
   },
 
-  storeListInSession: function(req, demandListModel) {
-    for (var i=0; i < demandListModel.getDemands().length; i++) {
+  storeListInSession: function (req, demandListModel) {
+    for (var i = 0; i < demandListModel.getDemands().length; i++) {
       DemandService.storeInSession(req, demandListModel.getDemands()[i]);
     }
   },
 
-   removeFromSession: function(req, demandModel) {
-     var demandId = demandModel.getId();
-     if (this.isInSession(req, demandModel.getId())) {
-       req.session.demands[demandId] = undefined;
-     }
-   },
+  removeFromSession: function (req, demandModel) {
+    var demandId = demandModel.getId();
+    if (this.isInSession(req, demandModel.getId())) {
+      req.session.demands[demandId] = undefined;
+    }
+  },
 
-  loadDemand: function(req, onLoadCallback, onErrorCallback) {
+  loadDemand: function (req, onLoadCallback, onErrorCallback) {
     var demandId = req.param("demandId");
 
     if (this.isInSession(req, demandId)) {
@@ -211,15 +211,15 @@ module.exports = {
     }
   },
 
-  isInSession: function(req, demandId) {
+  isInSession: function (req, demandId) {
     return "demands" in req.session && demandId in req.session.demands && undefined != req.session.demands[demandId];
   },
 
-  getViewUrl: function() {
+  getViewUrl: function () {
     return '/demands/view/demandId/%%demandId%%';
   },
 
-  getEditUrl: function(demandModel) {
+  getEditUrl: function (demandModel) {
     if (undefined == demandModel.getId()) {
       return '/';
     }
@@ -227,7 +227,7 @@ module.exports = {
     return '/demands/edit/demandId/' + demandModel.getId();
   },
 
-  getMatchingUrl: function(demandModel) {
+  getMatchingUrl: function (demandModel) {
     if (undefined == demandModel.getId()) {
       return '/';
     }
@@ -235,7 +235,7 @@ module.exports = {
     return '/matching/demandId/' + demandModel.getId();
   },
 
-  getAjaxMatchingUrl: function(demandModel) {
+  getAjaxMatchingUrl: function (demandModel) {
     if (undefined == demandModel.getId()) {
       return '/';
     }
@@ -243,7 +243,7 @@ module.exports = {
     return '/ajax-matching/demandId/' + demandModel.getId();
   },
 
-  getDeleteUrl: function(demandModel) {
+  getDeleteUrl: function (demandModel) {
     if (undefined == demandModel.getId()) {
       return '/';
     }
@@ -251,27 +251,26 @@ module.exports = {
     return '/demands/delete/demandId/' + demandModel.getId();
   },
 
-  getOverviewUrl: function(demandModel) {
-   return '/dashboard';
+  getOverviewUrl: function (demandModel) {
+    return '/dashboard';
   },
 
-  getDemandsGetUrl: function() {
-   return '/demands/ajax-get';
+  getDemandsGetUrl: function () {
+    return '/demands/ajax-get';
   },
 
-  getUsersDemandsGetUrl: function() {
+  getUsersDemandsGetUrl: function () {
     return '/user/ajax-get-demands';
   },
 
 
-  belongsToCurrentUser: function(req, demand) {
+  belongsToCurrentUser: function (req, demand) {
     return LoginService.userIsLoggedIn(req)
       && undefined !== demand.getUser()
       && LoginService.getCurrentUser(req).getId() == demand.getUser().getId();
   },
 
-  setBelongsToCurrentUser: function(req, res, demand)
-  {
+  setBelongsToCurrentUser: function (req, res, demand) {
     if (this.belongsToCurrentUser(req, demand)) {
       demand.setUser(LoginService.getCurrentUser(req));
       return true;
@@ -281,13 +280,57 @@ module.exports = {
     }
   },
 
-  sendDemandListJsonResponse: function(res, demandList)
-  {
+  sendDemandListJsonResponse: function (req, res, demandList) {
     res.status(200);
-
-    res.json({
-      demandList : demandList
+    
+    this.appendHtmlIfDesired(demandList, req, res, function () {
+      res.json({
+        demandList: demandList
+      });
     });
+  },
+
+  /**
+   * Iterate over each demand in the given list and append the rendered HTML to the field 'html'.
+   *
+   * Use the partial demandsForList.js which are used in the sliders.
+   *
+   * @param demandList
+   * @param req
+   * @param res
+   * @param callback
+   */
+  appendHtmlIfDesired: function (demandList, req, res, callback) {
+    // check if getHtml parameter is given in request
+    var getHtml = req.param('getHtml', undefined);
+
+    if (getHtml) {
+      var counter = 0;
+
+      _.each(demandList.getDemands(), function (demand) {
+          ViewService.renderView(
+            "partials/demandsForList",
+            {
+              demand: demand,
+              req: req,
+              i18n: res.i18n
+            },
+            function (html) {
+              counter++;
+
+              demand.html = html;
+
+              if (counter == demandList.getDemands().length) {
+                // all demands were appended by rendered partial
+                callback();
+              }
+            })
+        }
+      );
+    } else {
+      // do not append
+      callback();
+    }
   },
 
   /**
@@ -296,14 +339,13 @@ module.exports = {
    * @param res
    * @param errorModel , see neeedo-api-nodejs-client
    */
-  sendErrorJsonResponse: function(res, errorModel)
-  {
+  sendErrorJsonResponse: function (res, errorModel) {
     sails.log.error('OfferService:sendErrorJsonResponse(): ' + errorModel.getLogMessages()[0]);
 
     res.status(400);
 
     res.json({
-      message : errorModel.getErrorMessages()[0]
+      message: errorModel.getErrorMessages()[0]
     });
   }
 

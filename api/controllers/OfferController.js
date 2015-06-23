@@ -27,7 +27,7 @@ module.exports = {
    */
   ajaxGet: function(req, res) {
     var onSuccessCallback = function(offerList) {
-      OfferService.sendOfferListJsonResponse(res, offerList, {});
+      OfferService.sendOfferListJsonResponse(req, res, offerList, {});
     };
     var onErrorCallback = function(errorModel) {
       OfferService.sendErrorJsonResponse(res, errorModel);

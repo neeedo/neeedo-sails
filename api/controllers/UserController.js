@@ -8,7 +8,7 @@ module.exports = {
    */
   ajaxGetDemands: function(req, res) {
     var onSuccessCallback = function(demandList) {
-      DemandService.sendDemandListJsonResponse(res, demandList);
+      DemandService.sendDemandListJsonResponse(req, res, demandList);
     };
     var onErrorCallback = function(errorModel) {
       DemandService.sendErrorJsonResponse(res, errorModel);
@@ -23,11 +23,11 @@ module.exports = {
    * @param res
    */
   ajaxGetOffers: function(req, res) {
-    var onSuccessCallback = function(demandList) {
-      DemandService.sendDemandListJsonResponse(res, demandList);
+    var onSuccessCallback = function(offerList) {
+      OfferService.sendOfferListJsonResponse(req, res, offerList);
     };
     var onErrorCallback = function(errorModel) {
-      DemandService.sendErrorJsonResponse(res, errorModel);
+      OfferService.sendErrorJsonResponse(res, errorModel);
     };
 
     OfferService.loadUsersOffers(req, onSuccessCallback, onErrorCallback);

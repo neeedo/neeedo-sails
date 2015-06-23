@@ -1,4 +1,7 @@
 <li class="listItem">
+  <% // I'm actually not sure why we need to unserialize again, but the following line is really important when this partial is used during an AJAX action, do not remove! %>
+  <% offer = ApiClientService.newOffer().loadFromSerialized(offer) %>
+
   <%- partial ('../partials/crudButtonsOffer.ejs',{offer: offer}) %>
   <div class="media-left">
     <a href="<%- OfferService.getViewUrl().replace('%%offerId%%', offer.getId()) %>">

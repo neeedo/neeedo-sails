@@ -252,14 +252,59 @@ module.exports = {
     }
   },
 
-  sendOfferListJsonResponse: function(res, offerList, additionalJson)
+  sendOfferListJsonResponse: function(req, res, offerList, additionalJson)
   {
     res.status(200);
 
-    res.json({
-      offerList : offerList,
-      additionalJson : additionalJson
+    this.appendHtmlIfDesired(offerList, req, res, function () {
+      res.json({
+        offerList: offerList,
+        additionalJson : additionalJson
+      });
     });
+  },
+
+  /**
+   * Iterate over each demand in the given list and append the rendered HTML to the field 'html'.
+   *
+   * Use the partial offersForList.js which are used in the sliders.
+   *
+   * @param offerList
+   * @param req
+   * @param res
+   * @param callback
+   */
+  appendHtmlIfDesired: function (offerList, req, res, callback) {
+    // check if getHtml parameter is given in request
+    var getHtml = req.param('getHtml', undefined);
+
+    if (getHtml) {
+      var counter = 0;
+
+      _.each(offerList.getOffers(), function (offer) {
+          ViewService.renderView(
+            "partials/offersForList",
+            {
+              offer: offer,
+              req: req,
+              i18n: res.i18n
+            },
+            function (html) {
+              counter++;
+
+              offer.html = html;
+
+              if (counter == offerList.getOffers().length) {
+                // all demands were appended by rendered partial
+                callback();
+              }
+            })
+        }
+      );
+    } else {
+      // do not append
+      callback();
+    }
   },
 
   /**

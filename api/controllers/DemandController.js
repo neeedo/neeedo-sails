@@ -27,7 +27,7 @@ module.exports = {
    */
   ajaxGet: function(req, res) {
      var onSuccessCallback = function(demandList) {
-         DemandService.sendDemandListJsonResponse(res, demandList);
+         DemandService.sendDemandListJsonResponse(req, res, demandList);
      };
      var onErrorCallback = function(errorModel) {
          DemandService.sendErrorJsonResponse(res, errorModel);
@@ -134,7 +134,7 @@ module.exports = {
 
   ajaxMatching: function(req, res) {
     var onMatchCallback = function(offerList, actualDemand) {
-      OfferService.sendOfferListJsonResponse(res, offerList, { demand: actualDemand });
+      OfferService.sendOfferListJsonResponse(req, res, offerList, { demand: actualDemand });
     };
 
     var onErrorCallback = function(errorModel) {
