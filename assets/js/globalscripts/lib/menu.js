@@ -14,9 +14,9 @@ showLeft.onclick = function() {
 
 /*
  $( "#loginBtn" ).click(function() {
- $( "#login" ).slideToggle( "slow" );
+ $( "#login" ).slideToggle( "normal" );
  });
- */
+*/
 
 function toggle_visibility(id) {
   var e = document.getElementById(id);
