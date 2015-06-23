@@ -27,6 +27,9 @@ var map,
     demandMarkers = []
   ;
 
+
+
+
 var initializeMap = function(target, data) {
   map = L.map('map').setView([data.latitude, data.longitude], data.initialZoom);
 
@@ -268,9 +271,21 @@ var getMapTypeOptions = function()
 $(document).ready(function() {
   var mapElementId = 'map';
   var mapElement = $('#map');
-  userIcon = new L.icon({iconUrl: '/images/icons/user_pin.png'});
-  demandIcon = new L.icon({iconUrl: '/images/icons/demands_pin.png'});
-  offerIcon = new L.icon({iconUrl: '/images/icons/offers_pin.png'});
+  userIcon = new L.icon({iconUrl: '/images/icons/user_pin.png',
+      iconSize:     [61, 61], // size of the icon
+      iconAnchor:   [31, 61], // point of the icon which will correspond to marker's location
+      popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+  });
+  demandIcon = new L.icon({iconUrl: '/images/icons/demands_pin.png',
+    iconSize:     [61, 61], // size of the icon
+    iconAnchor:   [31, 61], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -65] // point from which the popup should open relative to the iconAnchor
+  });
+  offerIcon = new L.icon({iconUrl: '/images/icons/offers_pin.png',
+    iconSize:     [61, 61], // size of the icon
+    iconAnchor:   [31, 61], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -65] // point from which the popup should open relative to the iconAnchor
+  });
 
   if (mapElement.length) {
     // default data coming from backend config file
