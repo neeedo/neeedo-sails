@@ -4,12 +4,11 @@
  *
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
- * 
+ *
  * Copyright 2014, Codrops
  * http://www.codrops.com
  */
-;( function( window ) {
-	
+
 	'use strict';
 
 	var transEndEventNames = {
@@ -23,7 +22,7 @@
 		support = { transitions : Modernizr.csstransitions };
 
 	function extend( a, b ) {
-		for( var key in b ) { 
+		for( var key in b ) {
 			if( b.hasOwnProperty( key ) ) {
 				a[key] = b[key];
 			}
@@ -52,13 +51,13 @@
 		this.questionsCount = this.questions.length;
 		// show first question
 		classie.addClass( this.questions[0], 'current' );
-		
+
 		// next question control
 		this.ctrlNext = this.el.querySelector( 'button.next' );
 
 		// progress bar
 		this.progress = this.el.querySelector( 'div.progress' );
-		
+
 		// question number status
 		this.questionStatus = this.el.querySelector( 'span.number' );
 		// current question placeholder
@@ -70,7 +69,7 @@
 
 		// error message
 		this.error = this.el.querySelector( 'span.error-message' );
-		
+
 		// init events
 		this._initEvents();
 	};
@@ -89,9 +88,9 @@
 		firstElInput.addEventListener( 'focus', onFocusStartFn );
 
 		// show next question
-		this.ctrlNext.addEventListener( 'click', function( ev ) { 
+		this.ctrlNext.addEventListener( 'click', function( ev ) {
 			ev.preventDefault();
-			self._nextQuestion(); 
+			self._nextQuestion();
 		} );
 
 		// pressing enter will jump to next question
@@ -110,7 +109,7 @@
 			// tab
 			if( keyCode === 9 ) {
 				ev.preventDefault();
-			} 
+			}
 		} );
 	};
 
@@ -213,10 +212,10 @@
 	stepsForm.prototype._showError = function( err ) {
 		var message = '';
 		switch( err ) {
-			case 'EMPTYSTR' : 
+			case 'EMPTYSTR' :
 				message = 'Please fill the field before continuing';
 				break;
-			case 'INVALIDEMAIL' : 
+			case 'INVALIDEMAIL' :
 				message = 'Please fill a valid email address';
 				break;
 			// ...
@@ -232,5 +231,3 @@
 
 	// add to global namespace
 	window.stepsForm = stepsForm;
-
-})( window );
