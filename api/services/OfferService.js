@@ -278,7 +278,7 @@ module.exports = {
     // check if getHtml parameter is given in request
     var getHtml = req.param('getHtml', undefined);
 
-    if (getHtml) {
+    if (getHtml && offerList.getOffers().length > 0) {
       var counter = 0;
 
       _.each(offerList.getOffers(), function (offer) {

@@ -282,7 +282,7 @@ module.exports = {
 
   sendDemandListJsonResponse: function (req, res, demandList) {
     res.status(200);
-    
+
     this.appendHtmlIfDesired(demandList, req, res, function () {
       res.json({
         demandList: demandList
@@ -304,27 +304,27 @@ module.exports = {
     // check if getHtml parameter is given in request
     var getHtml = req.param('getHtml', undefined);
 
-    if (getHtml) {
+    if (getHtml && demandList.getDemands().length > 0) {
       var counter = 0;
 
       _.each(demandList.getDemands(), function (demand) {
-          ViewService.renderView(
-            "partials/demandsForList",
-            {
-              demand: demand,
-              req: req,
-              i18n: res.i18n
-            },
-            function (html) {
-              counter++;
+            ViewService.renderView(
+              "partials/demandsForList",
+              {
+                demand: demand,
+                req: req,
+                i18n: res.i18n
+              },
+              function (html) {
+                counter++;
 
-              demand.html = html;
+                demand.html = html;
 
-              if (counter == demandList.getDemands().length) {
-                // all demands were appended by rendered partial
-                callback();
-              }
-            })
+                if (counter == demandList.getDemands().length) {
+                  // all demands were appended by rendered partial
+                  callback();
+                }
+              })
         }
       );
     } else {

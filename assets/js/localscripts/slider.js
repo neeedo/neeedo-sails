@@ -27,7 +27,7 @@ $(document).ready(function() {
   };
 
   lightSliderOffer = $("#lightSliderOffer").lightSlider({
-    loop:true,
+    loop:false,
     autoWidth: false,
     adaptiveHeight: false,
     easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
@@ -78,7 +78,7 @@ $(document).ready(function() {
   viewDemandUrl = lightSliderDemandEl.data('viewurl');
 
   lightSliderDemand = $("#lightSliderDemand").lightSlider({
-    loop:true,
+    loop:false,
     autoWidth: false,
     adaptiveHeight: false,
     easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
@@ -128,7 +128,8 @@ $(document).ready(function() {
     var offerService = new Offers(dataSourceUrl);
     offerService.getOffersByCriteria({
         page : nextPageNumber,
-        limit : limit
+        limit : limit,
+        getHtml : true
       }, onLoadedCallback
     );
   };
@@ -137,7 +138,8 @@ $(document).ready(function() {
     var demandService = new Demands(dataSourceUrl);
     demandService.getDemandsByCriteria({
         page : nextPageNumber,
-        limit : limit
+        limit : limit,
+        getHtml : true
       }, onLoadedCallback
     );
   };
@@ -169,63 +171,12 @@ $(document).ready(function() {
   };
 
   var addOfferToSlider = function(offer) {
-    var html = renderOfferInAjaxTemplate(offer);
-
-    lightSliderOffer.prepend(html);
+    $("#lightSliderOffer").append(offer.html);
     lightSliderOffer.refresh();
   };
 
   var addDemandToSlider = function(demand) {
-    var html = renderDemandInAjaxTemplate(demand);
-
-    lightSliderDemand.prepend(html);
+    $("#lightSliderDemand").append(demand.html);
     lightSliderDemand.refresh();
-  };
-
-  var renderOfferInAjaxTemplate = function(offer) {
-    var source = $("#offerHandlebarsListItem").html();
-    var template = Handlebars.compile(source);
-
-    var image = '/images/Offer_Dummy.png';
-    var imageTitle = 'Dummy';
-
-    var viewUrl = viewOfferUrl.replace('%%offerId%%', offer.id);
-
-    var firstImage = undefined;
-    if (offer.imageList.images.length > 0) {
-      var image = offer.imageList.images[0];
-
-      firstImage = {
-        url: neeedo.filterImageUrl(offer.imageList.baseUrl) + '/' + image.fileName,
-        alt: image.fileName
-      };
-    }
-
-    var offerContext = offer;
-    offerContext['viewUrl'] = viewUrl;
-    offerContext['firstImage'] = firstImage;
-
-    var context = {
-      offer: offerContext,
-      translations: offerTranslations
-    };
-
-    return template(context);
-  };
-
-  var renderDemandInAjaxTemplate = function(demand) {
-    var source = $("#demandHandlebarsListItem").html();
-    var template = Handlebars.compile(source);
-    var viewUrl = viewDemandUrl.replace('%%demandId%%', demand.id);
-
-    var demandContext = demand;
-    demandContext['viewUrl'] = viewUrl;
-
-    var context = {
-      demand: demandContext,
-      translations: demandTranslations
-    };
-
-    return template(context);
   };
 });

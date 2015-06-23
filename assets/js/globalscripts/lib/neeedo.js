@@ -28,6 +28,10 @@ var Offers = function(ajaxEndpoint) {
          queryParameters.push("lng=" + criteria["lng"]);
       }
 
+      if ("getHtml" in criteria) {
+         queryParameters.push("getHtml=1");
+      }
+
       return "?" + queryParameters.join("&");
   };
 };
@@ -63,6 +67,10 @@ var Demands = function(ajaxEndpoint) {
       queryParameters.push("lng=" + criteria["lng"]);
     }
 
+    if ("getHtml" in criteria) {
+      queryParameters.push("getHtml=1");
+    }
+
     return "?" + queryParameters.join("&");
   };
 };
@@ -89,6 +97,10 @@ var DemandsMatching = function(ajaxEndpoint) {
 
     if ("page" in criteria) {
       queryParameters.push("page=" + criteria["page"]);
+    }
+
+    if ("getHtml" in criteria) {
+      queryParameters.push("getHtml=1");
     }
 
     return "?" + queryParameters.join("&");

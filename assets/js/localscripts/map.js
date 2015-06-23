@@ -255,7 +255,7 @@ var getMapTypeOptions = function()
       price: mapElement.data('translationprice'),
       offering: mapElement.data('translationoffering'),
       lookingFor: mapElement.data('translationsearching'),
-      details: mapElement.data('translationdetails'),
+      details: mapElement.data('translationdetails')
     }
   }
 };
