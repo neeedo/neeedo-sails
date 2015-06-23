@@ -16,11 +16,14 @@ module.exports = {
           locals: {
             demands: mostRecentDemands.getDemands(),
             offers: mostRecentOffers.getOffers(),
+            offerSourceUrl: OfferService.getOffersGetUrl(),
+            demandSourceUrl: DemandService.getDemandsGetUrl(),
             showMap: {
               mapType: "all",
               demandSourceUrl: DemandService.getDemandsGetUrl(),
               offerSourceUrl: OfferService.getOffersGetUrl()
-            }
+            },
+            pagination: PaginatorService.getSettings()
           }
         });
       };
@@ -33,11 +36,14 @@ module.exports = {
           locals: {
             offers: mostRecentOffers.getOffers(),
             demands: [],
+            offerSourceUrl: OfferService.getOffersGetUrl(),
+            demandSourceUrl: DemandService.getDemandsGetUrl(),
             showMap: {
               mapType: "all",
               demandSourceUrl: DemandService.getDemandsGetUrl(),
               offerSourceUrl: OfferService.getOffersGetUrl()
-            }
+            },
+            pagination: PaginatorService.getSettings()
           }
         });
       };
@@ -57,11 +63,14 @@ module.exports = {
         locals: {
           offers: [],
           demands: [],
+          offerSourceUrl: OfferService.getOffersGetUrl(),
+          demandSourceUrl: DemandService.getDemandsGetUrl(),
           showMap: {
             mapType: "all",
             demandSourceUrl: DemandService.getDemandsGetUrl(),
             offerSourceUrl: OfferService.getOffersGetUrl()
-          }
+          },
+          pagination: PaginatorService.getSettings()
         }
       });
     };

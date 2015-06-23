@@ -214,6 +214,10 @@ module.exports = {
     return '/offers/ajax-get';
   },
 
+  getUsersOffersGetUrl: function() {
+    return '/user/ajax-get-offers';
+  },
+
   belongsToCurrentUser: function(req, offer) {
     return (LoginService.userIsLoggedIn(req)
       && undefined != offer.getUser()

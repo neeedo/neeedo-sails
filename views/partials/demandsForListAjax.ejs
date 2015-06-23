@@ -1,0 +1,11 @@
+<div id="demandHandlebarsListItem">
+    <li class="listItem">
+        <div class="media-body">
+        <h4 class="media-heading title">{{ demand.mustTags }}</h4>
+        <p>{{ demand.shouldTags }}></p>
+        <p>{{ translations.distance }} {{ demand.distance }} </p>
+        <p>{{ translations.price }}: {{ demand.price.min }} - {{ demand.price.max }}<span class="glyphicon glyphicon-euro" aria-hidden="true"></span></p>
+        <p><strong>{{ demand.user.username }}</strong></p>
+      </div>
+    </li>
+</div>

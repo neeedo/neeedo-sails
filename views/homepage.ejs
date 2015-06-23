@@ -9,7 +9,13 @@
       <h1><%= i18n('Recent Offers')%></h1>
       <%}%>
       <div class="container elementWrapper ">
-        <ul id="lightSliderOffer">
+        <ul id="lightSliderOffer"
+            data-itemLimit="<%- pagination.limit %>"
+            data-currentPage="<%- pagination.firstPageNumber %>"
+            data-sourceUrl="<%- offerSourceUrl %>"
+            data-viewUrl="<%- OfferService.getViewUrl() %>"
+            data-translationPrice="<%= i18n('Price') %>"
+          >
           <% offers.forEach(function(offer) { %>
           <%- partial ('./partials/offersForList.ejs',{offer: offer}) %>
           <% }); %>
@@ -27,12 +33,25 @@
       <h1><%= i18n('Recent Demands')%></h1>
       <%}%>
       <div class="container elementWrapper ">
-          <ul id="lightSliderDemand" >
+          <ul id="lightSliderDemand" data-itemLimit="<%- pagination.limit %>"
+              data-currentPage="<%- pagination.firstPageNumber %>"
+              data-sourceUrl="<%- demandSourceUrl %>"
+              data-viewUrl="<%- DemandService.getViewUrl() %>"
+              data-translationPrice="<%= i18n('Price') %>"
+              data-translationDistance="<%= i18n('Distance') %>"
+            >
             <% demands.forEach(function(demand) { %>
             <%- partial ('./partials/demandsForList.ejs',{demand: demand}) %>
             <% }); %>
           </ul>
         </div>
+
+      <% /* the following partials will be dynamically rendered by the browser's javascript
+       * These are handlebar templates.
+       * The rendered objects are coming from the webapp's AJAX endpoints, e.g. UserController::ajaxGet().
+       */ %>
+      <%- partial ('./partials/demandsForListAjax.ejs') %>
+      <%- partial ('./partials/offersForListAjax.ejs') %>
     </div>
   </div> <!-- Big Screen-->
 

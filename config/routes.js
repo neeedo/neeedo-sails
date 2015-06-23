@@ -50,6 +50,8 @@ module.exports.routes = {
   'get /ajax-matching/demandId/:demandId': 'DemandController.ajaxMatching',
   '/dashboard': 'UserController.dashboard',
   '/user/setLocale/locale/:locale' : 'UserController.setLocale',
+  '/user/ajax-get-demands' : 'UserController.ajaxGetDemands',
+  '/user/ajax-get-offers' : 'UserController.ajaxGetOffers',
   'post /files/upload-ajax' : 'FileController.uploadAjax',
   '/files/upload' : 'FileController.upload'
 

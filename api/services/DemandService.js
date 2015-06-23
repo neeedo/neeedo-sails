@@ -142,17 +142,12 @@ module.exports = {
     }
   },
 
-  loadAndMatchOffers: function(req, res, onLoadInBetween, onMatchCallback, onErrorCallback) {
+  loadAndMatchOffers: function(req, res, onMatchCallback, onErrorCallback) {
     var onLoadSuccessCallback = function(loadedDemand) {
       if (!DemandService.setBelongsToCurrentUser(req, res, loadedDemand)) {
         return res.redirect(DemandService.getOverviewUrl());
       }
 
-      onLoadInBetween(loadedDemand);
-
-      // Uncomment the following line if you want to work with test data
-      //OfferService.loadMostRecentOffers(req, onMatchCallback, onErrorCallback);
-      // Comment the following line if you want to work with test data
       DemandService.matchOffers(loadedDemand, req, onMatchCallback, onErrorCallback);
     };
 
@@ -263,6 +258,11 @@ module.exports = {
   getDemandsGetUrl: function() {
    return '/demands/ajax-get';
   },
+
+  getUsersDemandsGetUrl: function() {
+    return '/user/ajax-get-demands';
+  },
+
 
   belongsToCurrentUser: function(req, demand) {
     return LoginService.userIsLoggedIn(req)
