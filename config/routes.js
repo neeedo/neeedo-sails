@@ -33,25 +33,57 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': 'IndexController.index',
+
   '/register': 'RegistrationController.register',
+
   '/login': 'LoginController.login',
   '/logout': 'LoginController.logout',
+
+  /*************************************************************************
+   *
+   *                        Offers
+   *
+   *************************************************************************/
   'get /offers/ajax-get' : 'OfferController.ajaxGet',
   '/offers/create' : 'OfferController.create',
   '/offers/view/offerId/:offerId' : 'OfferController.view',
   '/offers/edit/offerId/:offerId' : 'OfferController.edit',
   '/offers/delete/offerId/:offerId' : 'OfferController.delete',
+
+  /*************************************************************************
+   *
+   *                        Demands
+   *
+   *************************************************************************/
   'get /demands/ajax-get' : 'DemandController.ajaxGet',
   '/demands/create' : 'DemandController.create',
   '/demands/view/demandId/:demandId' : 'DemandController.view',
   '/demands/edit/demandId/:demandId' : 'DemandController.edit',
   '/demands/delete/demandId/:demandId' : 'DemandController.delete',
+
+  /*************************************************************************
+   *
+   *                        Matching
+   *
+   *************************************************************************/
   '/matching/demandId/:demandId': 'DemandController.matching',
   'get /ajax-matching/demandId/:demandId': 'DemandController.ajaxMatching',
+
+  /*************************************************************************
+   *
+   *                        User
+   *
+   *************************************************************************/
   '/dashboard': 'UserController.dashboard',
   '/user/setLocale/locale/:locale' : 'UserController.setLocale',
   '/user/ajax-get-demands' : 'UserController.ajaxGetDemands',
   '/user/ajax-get-offers' : 'UserController.ajaxGetOffers',
+
+  /*************************************************************************
+   *
+   *                        Files
+   *
+   *************************************************************************/
   'post /files/upload-ajax' : 'FileController.uploadAjax',
   '/files/upload' : 'FileController.upload'
 

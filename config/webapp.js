@@ -76,7 +76,7 @@ module.exports.webapp = {
         longitude: 13.40833333333334
       },
       en: {
-        // London, Germany
+        // London, GB
         latitude: 51.50939,
         longitude: -0.11832
       }
