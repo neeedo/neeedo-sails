@@ -1,6 +1,4 @@
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-  <h3><%= i18n('Menu') %></h3>
-  <img src="/images/neeedo_Logo.png" alt="Neeedo Logo" class="img"/>
   <a href="<%= UrlService.to('/') %>"><%= i18n('Home') %></a>
   <% if (!LoginService.userIsLoggedIn(req)) { %>
   <a href="<%= UrlService.to('/register') %>"><%= i18n('Register') %></a>
@@ -8,5 +6,8 @@
   <% } %>
   <a href="<%= UrlService.to('/offers/create') %>"><%= i18n('Create offer') %></a>
   <a href="<%= UrlService.to('/demands/create') %>"><%= i18n('Create demand') %></a>
-  <button id="showLeft">M<br />e<br />n<br /><%= i18n('u') %></button>
+  <button id="showLeft"> M<br />e<br />n<br /><%= i18n('u') %></button>
+  <a href="<%= UrlService.to('/') %>">
+    <img src="/images/neeedo_Logo.png" alt="Neeedo Logo" class="img"/>
+  </a>
 </nav>

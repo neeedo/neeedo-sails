@@ -555,7 +555,6 @@ $(document).ready(function () {
  * #############################################
  */
 
-
 $(document).ready(function() {
   /**
    * Object of URL -> page number to keep info if the page number was already AJAX-requested.

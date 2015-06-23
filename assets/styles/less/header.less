@@ -2,81 +2,37 @@
         HEADER
 ***************************/
 header{
-  display: block;
-  height: 70px;
-  background-color: @DarkerMetroGreen;
-  border-bottom: 5px groove @MetroGreen;
+  z-index: 8000;
+  height: @headerHeight;
   margin-bottom: 20px;
-}
-
-#header {
-  .img{
-    width: 65px;
-    padding: 2px;
-    display: block;
-  }
+  border-bottom: 1px solid @BorderColor;
   h1 {
     display: block;
-    margin: 0.2em;
-    font-size: 1.5em;
-    color: #fff;
-    font-weight: bold;
-    text-shadow: 0 4px 3px rgba(0, 0, 0, 0.4),
-    0 8px 13px rgba(0, 0, 0, 0.1),
-    0 18px 23px rgba(0, 0, 0, 0.1);
-    padding-top: 15px;
+    margin: 0 ;
+    padding-left: 0.3em;
+    padding-top: 0.3em;
   }
   .local {
-    padding-top: 10px;
-    margin-left: -20px;
     a {
-      padding: 0;
-      margin: 5px;
-      color: #fff;
-      &:hover, &:active, &:focus{
-        text-decoration: none;
-      }
+      padding-top: 0;
+      margin: 0;
     }
   }
 }
-  .headerLogin{
-    display: block;
-    width: 100%;
-    div{
-      padding: 0;
-    }
-  }
 
-  .trans{
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    transition: all 0.3s ease;
+.headerLogin{
+  display: block;
+  width: 100%;
+  padding-left: 2.2em;
+  padding-top: 2.6em;
+  div{
+    padding-top: 0;
   }
+}
 
-  .headerBtn{
-    background-color: @DarkerMetroGreen;
-    color: #fff;
-    width: 100%;
-    display: block;
-    padding: 27px 0;
-    font-size: 0.7em;
-    height: 65px;
-    &:hover, &:focus{
-      color: #fff;
-      text-decoration: none;
-      text-shadow: 0 0 0.2em #000, 0 0 0.2em #000, 0 0 0.2em #000;
-    }
-  }
-
-  #loggedIn{
-    margin-top: 15px;
-    p{
-      color: #fff;
-      margin-left: -10px;
-    }
-  }
-
-  #logoutBtn{
-    margin-left: -15px;
-  }
+.trans{
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
 

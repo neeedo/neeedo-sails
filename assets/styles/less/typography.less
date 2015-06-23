@@ -1,5 +1,92 @@
+/***************************
+        TYPO
+***************************/
+
 .container h1{
+  font-family: 'amatic';
   color: @DarkerMetroGreen;
   text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
   font-weight: bold;
+}
+
+.headerBtn{
+  color:@HeaderFontColor;
+  font-size: 2em;
+  height: 65px;
+  &:hover, &:focus{
+    color: @HeaderFontColorInv;
+    text-decoration: none;
+  }
+}
+
+.footer{
+  a{
+    &:hover, &:focus{
+      font-weight: bold;
+    }
+  }
+  small{
+    font-size: 0.7em;
+  }
+}
+
+.form {
+  label{
+    font-weight: normal;
+    font-size: 0.8em;
+  }
+}
+
+#header {
+  font-family: 'amatic' !important;
+  h1 {
+    font-size: 3.5em;
+    font-weight: bold;
+    color: @HeaderFontColor;
+    text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+
+  }
+  .local {
+    a {
+      &:hover, &:active, &:focus{
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+#login{
+  text-align: left;
+  label{
+    color: @HeaderFontColor;
+    font-weight: normal;
+    font-size: 0.8em;  }
+
+}
+
+.cbp-spmenu {
+  h3 {
+    font-size: 1.9em;
+    font-weight: 300;
+  }
+  a {
+    font-size: 1.1em;
+    font-weight: 300;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+#showLeft{
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+#loggedIn{
+  color: @HeaderFontColor;
+  font-size: 2em ;
+}
+#logoutBtn:hover{
+  color: @HeaderFontColorInv;
 }

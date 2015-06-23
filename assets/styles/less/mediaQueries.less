@@ -6,7 +6,7 @@
   /* HEADER */
   #header h1{
     font-size: 2em;
-    padding-top: 10px;
+
   }
 
   #login{
@@ -34,11 +34,9 @@
   /* HEADER */
   #header h1{
     font-size: 3em;
-    padding: 5px;
   }
 
   #header .local{
-    padding-top: 20px;
   }
 
   #login{
@@ -48,12 +46,115 @@
   /* NAVIGATION */
   .headerBtn{
     font-size: 1.2em;
-    padding: 23px;
   }
 
   /* Flash Messages */
   .errorMsg{
     width: 50%;
     left: 25%;
+  }
+}
+
+/* Example media queries */
+
+@media screen and (max-width: 52.375em) {
+
+  .container{
+    margin-left: @menuBtnWidth !important;
+  }
+  .tabs nav a span {
+    display: none;
+  }
+
+  .tabs nav a:before {
+    margin-right: 0;
+  }
+
+  .mediabox {
+    float: none;
+    width: auto;
+    padding: 0 0 35px 0;
+    font-size: 90%;
+  }
+
+  .mediabox img {
+    float: left;
+    margin: 0 25px 10px 0;
+    max-width: 40%;
+  }
+
+  .mediabox h3 {
+    margin-top: 0;
+  }
+
+  .mediabox p {
+    margin-left: 40%;
+    margin-left: calc(40% + 25px);
+  }
+
+  .mediabox:before,
+  .mediabox:after {
+    content: '';
+    display: table;
+  }
+
+  .mediabox:after {
+    clear: both;
+  }
+}
+
+@media screen and (max-width: 32em) {
+  .tabs nav ul,
+  .tabs nav ul li a {
+    width: 100%;
+    padding: 0;
+  }
+
+  .tabs nav ul li {
+    width: 20%;
+    width: calc(20% + 1px);
+    margin: 0 0 0 -1px;
+  }
+
+  .tabs nav ul li:last-child {
+    border-right: none;
+  }
+
+  .mediabox {
+    text-align: center;
+  }
+
+  .mediabox img {
+    float: none;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  .mediabox h3 {
+    margin: 1.25em 0 1em;
+  }
+
+  .mediabox p {
+    margin: 0;
+  }
+
+  .headerLogin{
+    padding-top: 3.5em;
+  }
+  .headerBtn{
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: 1.2em !important;
+  }
+  #loginBtn{
+    padding-left: 1.5em;
+  }
+  #loggedIn{
+    margin-top: 1em;
+    font-size: 1.2em !important;
+    padding-left: 4em;
+  }
+  #logoutBtn{
+    margin-left: -1.5em;
   }
 }
