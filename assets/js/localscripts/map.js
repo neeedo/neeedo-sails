@@ -276,7 +276,7 @@ $(document).ready(function() {
     // default data coming from backend config file
     var initialZoom = mapElement.data('initialzoomstep');
 
-    var mapLocationCenter = getGeolocation(function (position) {
+    var mapLocationCenter = neeedo.getGeolocation(function (position) {
       console.log('in callback');
       // default position as returned by backend
       userPosition = {
