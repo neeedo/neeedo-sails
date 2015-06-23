@@ -1,0 +1,29 @@
+/* ##############################################
+ *
+ *              MENU TOGGLE
+ *
+ * #############################################
+ */
+var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+  body = document.body;
+
+showLeft.onclick = function() {
+  classie.toggle( this, 'active' );
+  classie.toggle( menuLeft, 'cbp-spmenu-open' );
+};
+
+/*
+ $( "#loginBtn" ).click(function() {
+ $( "#login" ).slideToggle( "slow" );
+ });
+ */
+
+function toggle_visibility(id) {
+  var e = document.getElementById(id);
+  if(e.style.display == 'none'){
+    e.style.display = 'block';
+    $('#email').focus();
+  }
+  else
+    e.style.display = 'none';
+}
