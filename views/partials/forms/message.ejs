@@ -12,7 +12,9 @@
   <div class="row">
     <div class="col-md-5">
       <label for="messageBody"><%= i18n("Message") %></label>
-      <textarea id="messageBody"><%- defaultMessage %></textarea>
+      <textarea id="messageBody" name="messageBody"><%- defaultMessage %></textarea>
+
+      <input type="hidden" name="recipientId" value="<%- recipientId %>" />
     </div>
   </div>
   <div class="row">

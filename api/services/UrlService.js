@@ -22,5 +22,4 @@ module.exports = {
   setRedirectUrl: function(req) {
     req.session.redirectUrl = req.url;
   }
-
 };

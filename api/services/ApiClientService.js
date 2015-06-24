@@ -7,11 +7,13 @@ var Location = apiClient.models.Location,
     Offer = apiClient.models.Offer,
     OfferQuery = apiClient.models.OfferQuery,
     Demand = apiClient.models.Demand,
+    Message = apiClient.models.Message,
     User = apiClient.models.User,
     DemandQuery = apiClient.models.DemandQuery,
     Register = apiClient.models.Register,
     Login = apiClient.models.Login,
     ImageService = apiClient.services.Image,
+    MessageService = apiClient.services.Message,
     DemandPrice = apiClient.models.DemandPrice;
 
 var imageService = new ImageService();
@@ -129,6 +131,14 @@ module.exports = {
 
   newPasswordFromRequest : function(req) {
     return req.param("password");
+  },
+
+  newMessageBodyFromRequest : function(req) {
+    return req.param("messageBody");
+  },
+
+  newRecipientIdFromRequest : function(req) {
+    return req.param("recipientId");
   },
 
   toTagString : function(tagArray) {
@@ -263,6 +273,34 @@ module.exports = {
   },
 
   validateDemandFromRequest: function(req) {
+    // TODO implement
+    return {
+      success: true,
+      message: ''
+    };
+  },
+
+  validateAndCreateNewMessageFromRequest: function(req, onErrorCallback) {
+    var messageModel = new Message();
+
+    this.validateAndSetMessageFromRequest(req, messageModel, LoginService.getCurrentUser(req), onErrorCallback);
+
+    return messageModel;
+  },
+
+  validateAndSetMessageFromRequest: function(req, messageModel, sender, onErrorCallback) {
+    var validationResult = this.validateMessageFromRequest(req);
+
+    if (!validationResult.success) {
+      onErrorCallback(ApiClientService.newError("validateAndSetMessageFromRequest: ", validationResult.message));
+    } else {
+      messageModel.setBody(this.newMessageBodyFromRequest(req))
+        .setSender(sender);
+      messageModel.getRecipient().setId(this.newRecipientIdFromRequest(req));
+    }
+  },
+
+  validateMessageFromRequest: function(req) {
     // TODO implement
     return {
       success: true,

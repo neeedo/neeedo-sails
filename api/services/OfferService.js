@@ -202,6 +202,10 @@ module.exports = {
     return UrlService.to('/offers/view/offerId/%%offerId%%');
   },
 
+  getViewUrlForOffer: function(offer) {
+    return this.getViewUrl().replace("%%offerId%%", offer.getId());
+  },
+
   getDeleteUrl: function(offerModel) {
     if (undefined == offerModel.getId()) {
       return '/';

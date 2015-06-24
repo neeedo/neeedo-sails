@@ -29,6 +29,10 @@ module.exports.policies = {
   IndexController: {
     'index': ['resetUploadedFiles', 'setLocale', 'isNotLoggedIn', 'setRedirectUrl']
   },
+  MessageService: {
+    '*'     : false,
+    'create': ['setLocale', 'setRedirectUrl', 'isLoggedIn']
+  },
   OfferController: {
     '*'     : false,
     'view': ['setLocale', 'setRedirectUrl'],

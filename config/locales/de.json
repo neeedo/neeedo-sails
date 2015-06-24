@@ -111,5 +111,12 @@
   "Can you tell me something about it?" : "Kannst du mir ein paar Details nennen?",
   "Send message to offeror" : "Kontaktiere den Anbieter",
   "Send" : "Senden",
-  "Please login in order to send message to the offeror" : "Logge dich ein, um eine Nachricht zu schreiben."
+  "Please login in order to send message to the offeror" : "Logge dich ein, um eine Nachricht zu schreiben.",
+  "Greetings, %s" : "Gruß, %s",
+  "Your message was sent successfully." : "Deine Nachricht wurde erfolgreich gesendet.",
+  "Could not load the conversations. Please contact Neeedo customer care." : "Deine Unterhaltungen konnten nicht geladen werden. Bitte kontaktiere den Neeedo Kundenservice.",
+  "Could not mark the message as read / unread. Please contact Neeedo customer care." : "Die Nachricht konnte nicht geladen werden. Bitte kontaktiere den Neeedo Kundenservice.",
+  "Could not load the messages of the given conversation. Please contact Neeedo customer care." : "Deine Nachrichten konnten nicht geladen werden. Bitte kontaktiere den Neeedo Kundenservice.",
+  "Could not create the message. Please contact Neeedo customer care." : "Deine Nachricht konnte nicht gesendet werden. Bitte kontaktiere den Neeedo Kundenservice.",
+  "Your message couldn't be sent." : "Deine Nachricht konnte nicht gesendet werden."
 }

@@ -21,7 +21,8 @@
         offer: offer,
         title: "Send message to offeror",
         notLoggedInMessage: 'Please login in order to send message to the offeror',
-        defaultMessage: MessageService.buildDefaultMessageForOffer(offer, res)
+        defaultMessage: MessageService.buildDefaultMessageForOffer(offer, req, res),
+        recipientId: offer.getUser().getId()
       }
     ) %>
   </div>
