@@ -190,7 +190,7 @@ Neeedo.prototype.getLocation = function(onLocationCallback) {
     }
   }
 
-  getGeolocation(geoCallback);
+  neeedo.getGeolocation(geoCallback);
 };
 
 var neeedo = new Neeedo();

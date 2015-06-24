@@ -15,6 +15,7 @@
   "technical_error_on_registration": "Leider ist bei der Registierung ein Fehler aufgetreten. Bitte versuche es später noch einmal",
   "Welcome to Neeedo, %s!": "Willkommen bei Neeedo, %s!",
   "Hello %s!": "Hallo %s!",
+  "Hello %s": "Hallo %s",
   "Have fun here on Neeedo.com!": "Viel Spaß hier auf Neeedo.com!",
   "login_no_success": "Ungültige Zugangsdaten. Bitte versuche es noch einmal!",
   "An internal error occured during the registration. Please contact Neeedo customer care." : " Es ist ein interner Fehler aufgetreten. Bitte kontaktiere den Neeedo-Kundenservice.",
@@ -105,5 +106,10 @@
   "Create and find matching offers" : "Passende Angebote finden",
   "Edit and find matching offers" : "Ändern und passende Angebote finden",
   "Matched offers" : "Passende Angebote",
-  "Your demand" : "Dein Gesuch"
+  "Your demand" : "Dein Gesuch",
+  "I'm interested in your offer %s." : "Ich bin an deinem Angebot unter %s interessiert.",
+  "Can you tell me something about it?" : "Kannst du mir ein paar Details nennen?",
+  "Send message to offeror" : "Kontaktiere den Anbieter",
+  "Send" : "Senden",
+  "Please login in order to send message to the offeror" : "Logge dich ein, um eine Nachricht zu schreiben."
 }
