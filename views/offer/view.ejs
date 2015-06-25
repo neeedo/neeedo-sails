@@ -1,31 +1,24 @@
-
 <div class="container">
-  <div class="">
-    <img src="<%- OfferService.getFirstImage(offer).path %>" alt="<%- OfferService.getFirstImage(offer).altText %>">
-  </div>
+  <img src="<%- OfferService.getFirstImage(offer).path %>" alt="<%- OfferService.getFirstImage(offer).altText %>">
 
   <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
-  <div class="">
-    <h4 class="media-heading title"><%= offer.getTags() %></h4>
+  <h4 class="media-heading title"><%= offer.getTags() %></h4>
 
-    <p>
-      <% offer.getImageList() %>
-    </p>
+  <p>
+    <% offer.getImageList() %>
+  </p>
 
-    <p><%= i18n('Price') %>:<%= offer.getPrice() %> <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
-    </p>
-  </div>
+  <p><%= i18n('Price') %>:<%= offer.getPrice() %> <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
+  </p>
 
-  <div class="">
-    <%- partial('../partials/forms/message.ejs', {
-        offer: offer,
-        title: "Send message to offeror",
-        notLoggedInMessage: 'Please login in order to send message to the offeror',
-        defaultMessage: MessageService.buildDefaultMessageForOffer(offer, req, res),
-        recipientId: offer.getUser().getId()
-      }
-    ) %>
-  </div>
+  <%- partial('../partials/forms/message.ejs', {
+      offer: offer,
+      title: "Send message to offeror",
+      notLoggedInMessage: 'Please login in order to send message to the offeror',
+      defaultMessage: MessageService.buildDefaultMessageForOffer(offer, req, res),
+      recipientId: offer.getUser().getId()
+    }
+  ) %>
 </div>
 
 
