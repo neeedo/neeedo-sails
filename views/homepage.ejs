@@ -6,13 +6,9 @@
 
         <div class="container">
             <% if (LoginService.userIsLoggedIn(req)) { %>
-            <h1><%= i18n('Your Offers') %><a
-                        href="<%= OfferService.getCreateUrl() %>"><%= i18n('Create offer') %></a>
-            </h1>
+                <h1><%= i18n('Your Offers') %> <a class="createLink" href="<%= OfferService.getCreateUrl() %>"></a></h1>
             <% } else{ %>
-            <h1><%= i18n('Recent Offers') %><a
-                        href="<%= OfferService.getCreateUrl() %>"><%= i18n('Create offer') %></a>
-            </h1>
+            <h1><%= i18n('Recent Offers') %></h1>
             <% } %>
             <div class="container elementWrapper ">
                 <ul id="lightSliderOffer"
@@ -39,13 +35,10 @@
                 <% } %>
             </div>
             <% if (LoginService.userIsLoggedIn(req)) { %>
-            <h1><%= i18n('Your Demands') %><a
-                        href="<%= DemandService.getCreateUrl() %>"><%= i18n('Create demand') %></a>
+            <h1><%= i18n('Your Demands') %><a class="createLink" href="<%= DemandService.getCreateUrl() %>"></a>
             </h1>
             <% } else{ %>
-            <h1><%= i18n('Recent Demands') %><a
-                        href="<%= DemandService.getCreateUrl() %>"><%= i18n('Create demand') %></a>
-            </h1>
+            <h1><%= i18n('Recent Demands') %></h1>
             <% } %>
             <div class="container elementWrapper ">
                 <ul id="lightSliderDemand" data-itemLimit="<%- pagination.limit %>"
