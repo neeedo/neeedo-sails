@@ -118,5 +118,6 @@
   "Could not mark the message as read / unread. Please contact Neeedo customer care." : "Die Nachricht konnte nicht geladen werden. Bitte kontaktiere den Neeedo Kundenservice.",
   "Could not load the messages of the given conversation. Please contact Neeedo customer care." : "Deine Nachrichten konnten nicht geladen werden. Bitte kontaktiere den Neeedo Kundenservice.",
   "Could not create the message. Please contact Neeedo customer care." : "Deine Nachricht konnte nicht gesendet werden. Bitte kontaktiere den Neeedo Kundenservice.",
-  "Your message couldn't be sent." : "Deine Nachricht konnte nicht gesendet werden."
+  "Your message couldn't be sent." : "Deine Nachricht konnte nicht gesendet werden.",
+  "You cannot view messages of other users." : "Du kannst dir nicht die Nachrichten anderer Benutzer ansehen"
 }

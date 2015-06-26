@@ -14,7 +14,11 @@ var Location = apiClient.models.Location,
     Login = apiClient.models.Login,
     ImageService = apiClient.services.Image,
     MessageService = apiClient.services.Message,
-    DemandPrice = apiClient.models.DemandPrice;
+    DemandPrice = apiClient.models.DemandPrice,
+    Conversation= apiClient.models.Conversation,
+    ConversationQuery = apiClient.models.ConversationQuery,
+    ConversationList = apiClient.models.ConversationList
+  ;
 
 var imageService = new ImageService();
 
@@ -139,6 +143,18 @@ module.exports = {
 
   newRecipientIdFromRequest : function(req) {
     return req.param("recipientId");
+  },
+
+  newMessageIdFromRequest: function(req) {
+    return req.param("messageId");
+  },
+
+  newConversationFromRequest: function(req) {
+    var recipientId = req.param("recipientId");
+
+    return new Conversation()
+      .setSender(LoginService.getCurrentUser(req))
+      .setRecipient(this.newUser().setId(recipientId));
   },
 
   toTagString : function(tagArray) {
@@ -395,7 +411,21 @@ module.exports = {
 
   newUser: function() {
     return new User();
+  },
+
+  newConversationList: function() {
+    return new ConversationList();
+  },
+
+  newConversationQueryForReadConversations: function() {
+    return new ConversationQuery().setReadFlag(true);
+  },
+
+  newConversationQueryForUnreadConversations: function() {
+    return new ConversationQuery().setReadFlag(false);
+  },
+
+  newMessage: function() {
+    return new Message();
   }
-
-
 };

@@ -109,5 +109,6 @@
   "Could not mark the message as read / unread. Please contact Neeedo customer care." : "Could not mark the message as read / unread. Please contact Neeedo customer care.",
   "Could not load the messages of the given conversation. Please contact Neeedo customer care." : "Could not load the messages of the given conversation. Please contact Neeedo customer care.",
   "Could not create the message. Please contact Neeedo customer care." : "Could not create the message. Please contact Neeedo customer care.",
-  "Your message couldn't be sent." : "Your message couldn't be sent."
+  "Your message couldn't be sent." : "Your message couldn't be sent.",
+  "You cannot view messages of other users." : "You cannot view messages of other users."
 }
