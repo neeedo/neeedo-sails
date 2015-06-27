@@ -1,12 +1,12 @@
-<div id= main class="container">
+<div id=main class="container">
   <div class="container">
-    <h1><%= i18n('Your demand')%></h1>
+    <h1><%= i18n('Your demand') %></h1>
 
-    <%- partial ('../demand/view.ejs',{demand: demand}) %>
+    <%- partial('../demand/view.ejs', {demand: demand}) %>
   </div>
 
   <div class="container">
-    <h1><%= i18n('Matched offers')%></h1>
+    <h1><%= i18n('Matched offers') %></h1>
 
     <div class="container elementWrapper ">
       <ul id="lightSliderOffer"
@@ -17,14 +17,19 @@
           data-translationPrice="<%= i18n('Price') %>"
         >
         <% offers.forEach(function(offer) { %>
-        <%- partial ('../partials/offersForList.ejs',{offer: offer}) %>
+        <%- partial('../partials/offersForList.ejs', {offer: offer}) %>
         <% }); %>
       </ul>
     </div>
 
     <div class="container elementWrapper  ">
       <% if (false !== showMap)  { %>
-      <%- partial ('../partials/map/map.ejs', { mapType: showMap.mapType, demandMatchingSourceUrl: showMap.demandMatchingSourceUrl, demandSourceUrl: undefined, offerSourceUrl: undefined}) %>
+      <%- partial('../partials/map/map.ejs', {
+        mapType: showMap.mapType,
+        demandMatchingSourceUrl: showMap.demandMatchingSourceUrl,
+        demandSourceUrl: undefined,
+        offerSourceUrl: undefined
+      }) %>
       <% } %>
     </div>
   </div>

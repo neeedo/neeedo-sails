@@ -1,13 +1,27 @@
-    <li class="listItem">
-        <% // I'm actually not sure why we need to unserialize again, but the following line is really important when this partial is used during an AJAX action, do not remove! %>
-        <% demand = ApiClientService.newDemand().loadFromSerialized(demand) %>
+<li class="listItem ">
+  <% // I'm actually not sure why we need to unserialize again, but the following line is really important when this partial is used during an AJAX action, do not remove!        %>
+  <% demand = ApiClientService.newDemand().loadFromSerialized(demand) %>
 
-        <%- partial ('../partials/crudButtonsDemands.ejs',{demand: demand}) %>
-        <div class="media-body">
-        <h4 class="media-heading title"><%= demand.getMustTags() %></h4>
-        <p><%= demand.getShouldTags() %></p>
-        <p><%= i18n('Distance')%>:<%= demand.getDistance() %></p>
-        <p><%= i18n('Price')%>:<%= demand.getPrice().getMin() %> - <%= demand.getPrice().getMax() %><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></p>
-        <p><strong><%= demand.getUser().getUsername() %></strong></p>
-      </div>
-    </li>
+  <div class="media-body">
+
+    <label class="media-heading " for="mustTags"><%= i18n('Must have`s') %></label>
+
+    <p id="mustTags"><%= demand.getMustTags() %></p>
+
+    <label for="shouldTags"><%= i18n('Should have`s') %></label>
+
+    <p id="shouldTags"><%= demand.getShouldTags() %></p>
+
+    <label for="dist"><%= i18n('Distance') %></label>
+
+    <p id="dist"><%= i18n('Distance') %>:<%= demand.getDistance() %></p>
+
+    <label for="price"><%= i18n('Price') %></label>
+
+    <p id="price"><%= i18n('Price') %>:<%= demand.getPrice().getMin() %> - <%= demand.getPrice().getMax() %><span
+        class="glyphicon glyphicon-euro" aria-hidden="true"></span></p>
+
+  </div>
+  <%- partial('../partials/crudButtonsDemands.ejs', {demand: demand}) %>
+
+</li>

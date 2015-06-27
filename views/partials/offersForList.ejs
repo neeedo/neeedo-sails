@@ -1,18 +1,25 @@
 <li class="listItem">
-  <% // I'm actually not sure why we need to unserialize again, but the following line is really important when this partial is used during an AJAX action, do not remove! %>
+  <% // I'm actually not sure why we need to unserialize again, but the following line is really important when this partial is used during an AJAX action, do not remove!      %>
   <% offer = ApiClientService.newOffer().loadFromSerialized(offer) %>
 
-  <%- partial ('../partials/crudButtonsOffer.ejs',{offer: offer}) %>
   <div class="media-left">
     <a href="<%- OfferService.getViewUrl().replace('%%offerId%%', offer.getId()) %>">
-      <img class="offerImageSmall" src="<%- OfferService.getFirstImage(offer).path %>" alt="<%- OfferService.getFirstImage(offer).altText %>">
+      <img class="offerImageSmall" src="<%- OfferService.getFirstImage(offer).path %>"
+           alt="<%- OfferService.getFirstImage(offer).altText %>">
     </a>
   </div>
+
   <div class="media-body">
-    <h4 class="media-heading title"><%= offer.getTags()%></h4>
-    <p><%= i18n('Price')%>:<%= offer.getPrice() %> <span class="glyphicon glyphicon-euro" aria-hidden="true"></span></p>
-    <p><strong><%= offer.getUser().getUsername() %></strong></p>
+    <label for="tags" class="media-heading"><%= i18n('I offer: ') %></label>
+    <h4 class="media-heading" id="tags">
+      <%= offer.getTags() %>
+    </h4>
+
+    <label for="price"><%= i18n('Price') %>:</label>
+
+    <p id="price"> <%= offer.getPrice() %><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></p>
   </div>
+  <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
 </li>
 
 

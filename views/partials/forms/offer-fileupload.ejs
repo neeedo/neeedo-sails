@@ -1,4 +1,4 @@
-<% // image chooser %>
+<% // image chooser  %>
 <div id="fileupload"
      action="<%= FileService.getImageUploadUrl() %>"
      method="post"
@@ -9,8 +9,9 @@
      data-ajaxUploadUrl="<%= FileService.getAjaxImageUploadUrl() %>"
   >
   <div>
-    <p><% FileService.getImageValidator(i18n).getDescriptions().forEach(
-      function ( description ) { %>
+    <p>
+      <% FileService.getImageValidator(i18n).getDescriptions().forEach(
+      function (description) { %>
       <%= description['key'] %>: <%= description['value'] %> <br>
       <% }) %>
     </p>
@@ -28,13 +29,13 @@
        data-messageUploadError="<%= i18n('Error - unable to upload files. Please contact Neeedo customer care.') %>"
        data-messageDelete="<%= i18n('Delete') %>"
     >
-    <% //upload messages will be shown here %>
+    <% //upload messages will be shown here  %>
   </div>
   <div id="fileupload-files">
     <ul>
       <% images.getImages().forEach(function(image) { %>
       <li class="previewImages"><img src="<%= FileService.filterGetImageUrl(image.getUrl()) %>"
-               alt="<%= image.getFileName() %>">
+                                     alt="<%= image.getFileName() %>">
         <input type="button" class="fileupload-deleteImage"
                value="<%= i18n('Delete') %>"
                data-imageName="<%= image.getFileName() %>">
