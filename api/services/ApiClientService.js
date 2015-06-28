@@ -5,6 +5,7 @@ var apiClient = require('neeedo-api-nodejs-client')
 var Location = apiClient.models.Location,
     Error = apiClient.models.Error,
     Offer = apiClient.models.Offer,
+    OfferList = apiClient.models.OfferList,
     OfferQuery = apiClient.models.OfferQuery,
     Demand = apiClient.models.Demand,
     Message = apiClient.models.Message,
@@ -427,5 +428,9 @@ module.exports = {
 
   newMessage: function() {
     return new Message();
+  },
+
+  newOfferList: function() {
+    return new OfferList();
   }
 };

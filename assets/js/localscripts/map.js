@@ -84,6 +84,10 @@ var triggerSpecificMapTypeOperations = function (currentPosition) {
       case 'demandMatching': // nearest demands + offers
         loadAndShowMatchingDemands(map);
         break;
+      case 'showOffer': // nearest demands + offers
+        showUsersPosition(userPosition);
+        loadAndShowOffer(mapTypeOptions.offersEndpointUrl);
+        break;
       default:
         console.log('Unknown map type ' + mapTypeOptions.mapType);
     }
@@ -169,6 +173,25 @@ var loadAndShowNearestDemands = function(userPosition, map)
   );
 };
 
+var loadAndShowOffer = function(offerGetUrl) {
+  var onLoadSuccess = function (returnedData) {
+    if ('offerList' in returnedData) {
+      if ('offers' in returnedData['offerList']) {
+        for (var i = 0; i < returnedData['offerList']['offers'].length; i++) {
+          var offer = returnedData['offerList']['offers'][i];
+          showOfferInMap(map, offer);
+          // center map on offer
+          map.setView([offer.location.latitude, offer.location.longitude]);
+        }
+      }
+    }
+  };
+
+
+  var offerService = new Offers(offerGetUrl);
+  offerService.getOffersByUrl(offerGetUrl, onLoadSuccess);
+};
+
 var showOfferInMap = function(map, offer) {
   var html = renderOfferInTemplate(offer);
   var offerMarker = L.marker([offer.location.latitude, offer.location.longitude], {icon: offerIcon}).addTo(map);
@@ -209,7 +232,8 @@ var renderOfferInTemplate = function(offer) {
           image: image,
           imageTitle: imageTitle,
           translations: mapTypeOptions.translations,
-          user: offer.user
+          user: offer.user,
+          showDetailsLink: mapTypeOptions.showDetailsLink
   };
 
   return template(context);
@@ -243,6 +267,11 @@ var getMapTypeOptions = function()
   var viewOfferUrl = mapElement.data('offerviewurl');
   var viewDemandUrl = mapElement.data('demandviewurl');
 
+  var showDetailsLink = true;
+  if (undefined !== mapElement.data('showdetailslink')) {
+    showDetailsLink = mapElement.data('showdetailslink');
+  }
+  
   return {
     mapType: mapType,
     demandsEndpointUrl: demandsEndpointUrl,
@@ -256,7 +285,8 @@ var getMapTypeOptions = function()
       offering: mapElement.data('translationoffering'),
       lookingFor: mapElement.data('translationsearching'),
       details: mapElement.data('translationdetails')
-    }
+    },
+    showDetailsLink: showDetailsLink
   }
 };
 

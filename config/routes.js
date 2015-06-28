@@ -45,6 +45,7 @@ module.exports.routes = {
    *
    *************************************************************************/
   'get /offers/ajax-get' : 'OfferController.ajaxGet',
+  'get /offers/ajax-get-single' : 'OfferController.ajaxGetSingle',
   '/offers/create' : 'OfferController.create',
   '/offers/view/offerId/:offerId' : 'OfferController.view',
   '/offers/edit/offerId/:offerId' : 'OfferController.edit',

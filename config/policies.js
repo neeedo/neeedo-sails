@@ -37,6 +37,7 @@ module.exports.policies = {
     '*'     : false,
     'view': ['setLocale', 'setRedirectUrl'],
     'ajaxGet': ['setLocale', 'isNotLoggedIn'],
+    'ajaxGetSingle': ['setLocale'],
     'create': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
     'edit': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
     'delete': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn']

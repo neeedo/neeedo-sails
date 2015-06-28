@@ -45,6 +45,13 @@ Offers.prototype.getOffersByCriteria = function(criteria, onLoadSuccessCallback)
     })
 };
 
+Offers.prototype.getOffersByUrl = function(requestUrl, onLoadSuccessCallback) {
+  $.get(requestUrl)
+    .done(function( data ) {
+      onLoadSuccessCallback(data);
+    })
+};
+
 var Demands = function(ajaxEndpoint) {
   this.ajaxEndpoint = ajaxEndpoint;
 

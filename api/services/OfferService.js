@@ -226,6 +226,10 @@ module.exports = {
     return UrlService.to('/user/ajax-get-offers');
   },
 
+  getSingleGetUrl: function(loadedOffer) {
+    return UrlService.to('/offers/ajax-get-single?offerId=' + loadedOffer.getId());
+  },
+
   belongsToCurrentUser: function(req, offer) {
     return (LoginService.userIsLoggedIn(req)
       && undefined != offer.getUser()

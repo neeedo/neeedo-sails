@@ -1,22 +1,38 @@
 <div class="container">
-  <img src="<%- OfferService.getFirstImage(offer).path %>" alt="<%- OfferService.getFirstImage(offer).altText %>">
+  <div class="row">
+    <div class="col-xs-6">
+      <img src="<%- OfferService.getFirstImage(offer).path %>" alt="<%- OfferService.getFirstImage(offer).altText %>">
 
-  <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
-  <h4 class="media-heading title"><%= offer.getTags() %></h4>
+      <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
+      <h4 class="media-heading title"><%= offer.getTags() %></h4>
 
-  <p>
-    <% offer.getImageList() %>
-  </p>
+      <p>
+        <% offer.getImageList() %>
+      </p>
 
-  <p><%= i18n('Price') %>:<%= offer.getPrice() %> <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
-  </p>
+      <p><%= i18n('Price') %>:<%= offer.getPrice() %> <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
+      </p>
 
-  <%- partial('../partials/forms/message.ejs', {
-      offer: offer,
-      title: "Send message to offeror",
-      notLoggedInMessage: 'Please login in order to send message to the offeror',
-      defaultMessage: MessageService.buildDefaultMessageForOffer(offer, req, res),
-      recipientId: offer.getUser().getId()
-    }
-  ) %>
+      <%- partial('../partials/forms/message.ejs', {
+          offer: offer,
+          title: "Send message to offeror",
+          notLoggedInMessage: 'Please login in order to send message to the offeror',
+          defaultMessage: MessageService.buildDefaultMessageForOffer(offer, req, res),
+          recipientId: offer.getUser().getId()
+        }
+      ) %>
+    </div>
+    <div class="col-xs-6">
+        <% if (false !== showMap)  { %>
+        <%- partial('../partials/map/map.ejs', {
+          mapType: showMap.mapType,
+          demandSourceUrl: undefined,
+          offerSourceUrl: showMap.offerSourceUrl,
+          demandMatchingSourceUrl: undefined,
+          showDetailsLink : false
+        }) %>
+        <% } %>
+    </div>
+  </div>
 </div>
+

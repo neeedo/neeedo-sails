@@ -12,7 +12,11 @@ module.exports = {
     var onLoadSuccessCallback = function(loadedOffer) {
       res.view('offer/view', {
         locals: {
-          offer : loadedOffer
+          offer : loadedOffer,
+          showMap: {
+            mapType: "showOffer",
+            offerSourceUrl: OfferService.getSingleGetUrl(loadedOffer)
+          }
         }
       });
     };
@@ -34,6 +38,21 @@ module.exports = {
     };
 
     OfferService.loadMostRecentOffers(req, onSuccessCallback, onErrorCallback);
+  },
+
+  ajaxGetSingle: function(req, res) {
+    var onSuccessCallback = function(offer) {
+      var offerList = ApiClientService.newOfferList();
+      offerList.addOffer(offer);
+
+      OfferService.sendOfferListJsonResponse(req, res, offerList, {});
+    };
+    var onErrorCallback = function(errorModel) {
+      OfferService.sendErrorJsonResponse(res, errorModel);
+    };
+
+    OfferService.loadOffer(req, onSuccessCallback, onErrorCallback);
+
   },
 
   create: function (req, res) {
