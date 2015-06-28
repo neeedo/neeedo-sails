@@ -3,17 +3,16 @@
     <div class="col-xs-6">
 
       <ul id="offerGallery">
-        <% if(offer.getImageList().length > 0){
-          offer.getImageList().forEach(function(image){ %>
+        <% if(offer.getImages().length > 0){
+          offer.getImages().forEach(function(image){ %>
         <li data-thumb="<%- image.getUrl() %>" data-src="img/largeImage.jpg">
-          <img src="<%- image.getUrl() %>" alt="<%- image.getUrl() %>">
+          <img class="galleryImg" src="<%- image.getUrl() %>" alt="<%- image.getUrl() %>">
         </li>
         <% })}else{%>
         <li data-thumb="<%- OfferService.getFirstImage(offer).path %>" data-src="img/largeImage.jpg">
-          <img src="<%- OfferService.getFirstImage(offer).path %>" alt="<%- OfferService.getFirstImage(offer).altText %>">
+          <img class="galleryImg" src=<%- OfferService.getFirstImage(offer).path %> alt="<%- OfferService.getFirstImage(offer).altText %>">
         </li>
         <%} %>
-
       </ul>
 
       <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
