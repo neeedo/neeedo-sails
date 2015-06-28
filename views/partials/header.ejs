@@ -5,9 +5,11 @@
     <div class="col-xs-2">
       <h1>Neeedo</h1>
     </div>
-    <div class="col-xs-6">
+    <!--2 x col-xs-3-->
+      <%- partial('./registerPartial.ejs') %>
       <%- partial('./login.ejs') %>
-    </div>
+    <!--2 x col-xs-3-->
+
     <div class="col-xs-1 local">
       <% // list all available locales / languages and provide link to set    %>
       <% for (var localeI = 0; localeI < LocaleService.getAvailableLocales().length; localeI++) { %>

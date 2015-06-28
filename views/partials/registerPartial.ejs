@@ -1,0 +1,10 @@
+<% if (!LoginService.userIsLoggedIn(req)) { %>
+  <div class="col-xs-3 text-right headerElement">
+    <a href="<%= UrlService.to('/register') %>"><%= i18n('Register') %></a>
+  </div>
+<% } %>
+<% if (LoginService.userIsLoggedIn(req)) { %>
+    <div class="col-xs-3 headerElement">
+      <p><%= i18n('Hello %s!', LoginService.getCurrentUser(req).getUsername()) %></p>
+    </div>
+<% } %>

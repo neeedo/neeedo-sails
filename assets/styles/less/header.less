@@ -20,13 +20,19 @@ header{
   }
 }
 
-.headerLogin{
+.headerElement{
   display: block;
   width: 100%;
-  padding-left: 2.2em;
-  padding-top: 2.6em;
+  font-size: 2em;
+  padding-top: 1.3em;
   div{
     padding-top: 0;
+  }
+  a{
+    color: @HeaderFontColor;
+    &:hover, &:active{
+      color: @HeaderFontColorInv;
+    }
   }
 }
 
@@ -35,4 +41,3 @@ header{
   -moz-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-
