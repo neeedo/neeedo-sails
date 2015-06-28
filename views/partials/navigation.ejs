@@ -5,8 +5,8 @@
   <a href="<%= UrlService.to('/register') %>"><%= i18n('Register') %></a>
   <a href="<%= UrlService.to('/register') %>"><%= i18n('Login') %></a>
   <% } %>
-  <a href="<%= UrlService.to('/offers/create') %>"><%= i18n('Create offer') %></a>
-  <a href="<%= UrlService.to('/demands/create') %>"><%= i18n('Create demand') %></a>
+  <a class="icon-offer" href="<%= UrlService.to('/offers/create') %>"><%= i18n('Create offer') %></a>
+  <a class="icon-demand" href="<%= UrlService.to('/demands/create') %>"><%= i18n('Create demand') %></a>
   <% if (LoginService.userIsLoggedIn(req)) { %>
   <a href="<%= UrlService.to('/logout') %>"><%= i18n('Logout') %></a>
   <% } %>
