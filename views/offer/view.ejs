@@ -5,7 +5,6 @@
 
       <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
       <h4 class="media-heading title"><%= offer.getTags() %></h4>
-
       <p>
         <% offer.getImageList() %>
       </p>
@@ -13,14 +12,6 @@
       <p><%= i18n('Price') %>:<%= offer.getPrice() %> <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
       </p>
 
-      <%- partial('../partials/forms/message.ejs', {
-          offer: offer,
-          title: "Send message to offeror",
-          notLoggedInMessage: 'Please login in order to send message to the offeror',
-          defaultMessage: MessageService.buildDefaultMessageForOffer(offer, req, res),
-          recipientId: offer.getUser().getId()
-        }
-      ) %>
     </div>
     <div class="col-xs-6">
         <% if (false !== showMap)  { %>
@@ -34,5 +25,23 @@
         <% } %>
     </div>
   </div>
+  <%- partial('../partials/forms/message.ejs', {
+      offer: offer,
+      title: "Send message to offeror",
+      notLoggedInMessage: 'Please login in order to send message to the offeror',
+      defaultMessage: MessageService.buildDefaultMessageForOffer(offer, req, res),
+      recipientId: offer.getUser().getId()
+    }
+  ) %>
+
+  <ul id="offerGallery">
+    <li data-thumb="img/thumb/cS-1.jpg" data-src="img/largeImage.jpg">
+      <img src="img/cS-1.jpg" />
+    </li>
+    <li data-thumb="img/thumb/cS-2.jpg" data-src="img/largeImage1.jpg">
+      <img src="img/cS-2.jpg" />
+    </li>
+  </ul>
 </div>
 
+<% block('localScripts', '<script src="/js/localscripts/gallery.js"></script>') %>
