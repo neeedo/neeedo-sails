@@ -1,28 +1,38 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-6">
-      <img src="<%- OfferService.getFirstImage(offer).path %>" alt="<%- OfferService.getFirstImage(offer).altText %>">
+
+      <ul id="offerGallery">
+        <% if(offer.getImageList().length > 0){
+          offer.getImageList().forEach(function(image){ %>
+        <li data-thumb="<%- image.getUrl() %>" data-src="img/largeImage.jpg">
+          <img src="<%- image.getUrl() %>" alt="<%- image.getUrl() %>">
+        </li>
+        <% })}else{%>
+        <li data-thumb="<%- OfferService.getFirstImage(offer).path %>" data-src="img/largeImage.jpg">
+          <img src="<%- OfferService.getFirstImage(offer).path %>" alt="<%- OfferService.getFirstImage(offer).altText %>">
+        </li>
+        <%} %>
+
+      </ul>
 
       <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
       <h4 class="media-heading title"><%= offer.getTags() %></h4>
-      <p>
-        <% offer.getImageList().length %>
-      </p>
 
       <p><%= i18n('Price') %>:<%= offer.getPrice() %> <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
       </p>
 
     </div>
     <div class="col-xs-6">
-        <% if (false !== showMap)  { %>
-        <%- partial('../partials/map/map.ejs', {
-          mapType: showMap.mapType,
-          demandSourceUrl: undefined,
-          offerSourceUrl: showMap.offerSourceUrl,
-          demandMatchingSourceUrl: undefined,
-          showDetailsLink : false
-        }) %>
-        <% } %>
+      <% if (false !== showMap)  { %>
+      <%- partial('../partials/map/map.ejs', {
+        mapType: showMap.mapType,
+        demandSourceUrl: undefined,
+        offerSourceUrl: showMap.offerSourceUrl,
+        demandMatchingSourceUrl: undefined,
+        showDetailsLink: false
+      }) %>
+      <% } %>
     </div>
   </div>
   <%- partial('../partials/forms/message.ejs', {
@@ -33,15 +43,6 @@
       recipientId: offer.getUser().getId()
     }
   ) %>
-
-  <ul id="offerGallery">
-    <li data-thumb="img/thumb/cS-1.jpg" data-src="img/largeImage.jpg">
-      <img src="img/cS-1.jpg" />
-    </li>
-    <li data-thumb="img/thumb/cS-2.jpg" data-src="img/largeImage1.jpg">
-      <img src="img/cS-2.jpg" />
-    </li>
-  </ul>
 </div>
 
 <% block('localScripts', '<script src="/js/localscripts/gallery.js"></script>') %>
