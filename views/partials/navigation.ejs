@@ -10,5 +10,9 @@
   <% if (LoginService.userIsLoggedIn(req)) { %>
   <a href="<%= UrlService.to('/logout') %>"><%= i18n('Logout') %></a>
   <% } %>
+  <a href="<%= UrlService.to('/mailbox') %>"><%= i18n('Mailbox')%> <span id="newMsgCount"></span></a>
+
   <button id="showLeft"> M<br/>e<br/>n<br/><%= i18n('u') %></button>
 </nav>
+
+<% block('localScripts', '<script src="/js/localscripts/messages.js"></script>') %>

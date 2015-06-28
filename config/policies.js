@@ -31,7 +31,8 @@ module.exports.policies = {
   },
   MessageService: {
     '*'     : false,
-    'create': ['setLocale', 'setRedirectUrl', 'isLoggedIn']
+    'create': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
+    'getUnreadMessagesCount':['isLoggedIn']
   },
   OfferController: {
     '*'     : false,

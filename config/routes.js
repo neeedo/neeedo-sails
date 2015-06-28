@@ -86,6 +86,9 @@ module.exports.routes = {
    *
    *************************************************************************/
   '/messages/create': 'MessageController.create',
+  'get /messages/count': 'MessageController.getUnreadMessagesCount',
+
+
 
   /*************************************************************************
    *

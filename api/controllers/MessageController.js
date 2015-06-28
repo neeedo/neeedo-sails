@@ -35,5 +35,19 @@ module.exports = {
     } else {
       onErrorCallback(ApiClientService.newError("Attempt to do GET on Message::create action", "Your message couldn't be sent."));
     }
+  },
+
+  getUnreadMessagesCount: function(req, res){
+
+      var onSuccessCallback = function(numberOfUnreadMsg) {
+       res.json(numberOfUnreadMsg);
+      };
+      var onErrorCallback = function(errorModel) {
+        res.status(400);
+      };
+
+      MessageService.getNumberOfUnreadConversations(req, onSuccessCallback, onErrorCallback);
+
   }
+
 }

@@ -6,7 +6,7 @@
       <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
       <h4 class="media-heading title"><%= offer.getTags() %></h4>
       <p>
-        <% offer.getImageList() %>
+        <% offer.getImageList().length %>
       </p>
 
       <p><%= i18n('Price') %>:<%= offer.getPrice() %> <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
