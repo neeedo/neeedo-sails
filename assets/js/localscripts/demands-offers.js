@@ -158,6 +158,9 @@ $(document).ready(function () {
     toggleGeolocationAndAdressFields(geolocationCheckbox.prop('checked'));
   });
 
+  function split( val ) {
+    return val.split( /,\s*/ );
+  }
 
   provideAddressAutoComplete();/*
   offerForm.on('submit', setLocationIfChecked);
@@ -190,7 +193,18 @@ $(document).ready(function () {
       getSuggests();
     }
   });*/
-  $("#mustTagsDemand").autocomplete({
+  $("#mustTagsDemand")
+    .bind( "keydown", function( event ) {
+      if (event.keyCode == $.ui.keyCode.ENTER) {
+        event.preventDefault();
+        event.stopPropagation();
+      } else if ( event.keyCode === $.ui.keyCode.TAB &&
+        $( this ).autocomplete( "instance" ).menu.active ) {
+        event.preventDefault();
+      }
+    })
+    .autocomplete({
+      minLength: 3,
       source: function( request, response ) {
         $.ajax({
           url: neeedo.getApiHttpUrl() + "/completion/tag/" + request.term,
@@ -204,12 +218,29 @@ $(document).ready(function () {
           }
         });
       },
-      minLength: 3
+      focus: function() {
+        // prevent value inserted on focus
+        return false;
+      },
+      select: function( event, ui ) {
+        var terms = split( this.value );
+        // remove the current input
+        terms.pop();
+        // add the selected item
+        terms.push( ui.item.value );
+        // add placeholder to get the comma-and-space at the end
+        terms.push( "" );
+        this.value = terms.join( ", " );
+        return false;
+     },
+      change: function( event, ui ) {
+        getSuggests();
+      }
   });
 
   function getSuggests() {
     $.ajax({
-      url: neeedo.getApiHttpUrl() + "/completion/suggest/" + $("#mustTagsDemand").tagit("assignedTags").join(" "),
+      url: neeedo.getApiHttpUrl() + "/completion/suggest/" + $("#mustTagsDemand").val().trim(),
       success: function( data ) {
         console.log(data.suggestedTags.join(" "));
         $("#myTags").text(data.suggestedTags.join(" "));
