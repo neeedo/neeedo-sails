@@ -1,6 +1,6 @@
 <% if (req.session.flash) { %>
   <% if(req.session.flash.success) { %>
-  <div class="text-center errorMsg alert alert-success">
+  <div class="text-center errorMsg successMsg alert alert-success">
     <%- FlashMessagesService.getSuccessMessage(req) %>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>

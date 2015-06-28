@@ -40,13 +40,13 @@ module.exports = {
     var showFormWithDefaultValues = function() {
       res.view('demand/create', {
         locals: {
-          mustTags: "tag1, tag2,...",
-          shouldTags: "tag1, tag2,...",
-          minPrice: 0,
-          maxPrice: 50,
+          mustTags: "",
+          shouldTags: "",
+          minPrice: "",
+          maxPrice: "",
           lat: "",
           lng: "",
-          distance: 30,
+          distance: "",
           btnLabel: 'Create and find matching offers'
         }
       });
