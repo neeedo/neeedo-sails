@@ -1,33 +1,52 @@
 <div class="container elementWrapper">
-  <form id="theForm" class="simform" autocomplete="off">
+  <h1 class="modal-title"><%= i18n("I'm looking for") %></h1>
+  <form id="createDemand" method="POST" class="simform">
     <div class="simform-inner">
       <ol class="questions">
         <li>
-          <span><label for="q1">What's your favorite movie?</label></span>
-          <input id="q1" name="q1" type="text"/>
+          <span><label for="mustTagsDemand"><%= i18n("must have") %></label></span>
+          <input id="mustTagsDemand" type="text"
+                 name="mustTags" value="<%- mustTags %>"
+                 placeholder="<%= i18n('must have') %>"/>
         </li>
         <li>
-          <span><label for="q2">Where do you live?</label></span>
-          <input id="q2" name="q2" type="text"/>
+          <span><label for="shouldTagsDemand"><%= i18n("should have") %></label></span>
+          <input id="shouldTagsDemand" type="text"
+                 name="shouldTags" value="<%- shouldTags %>"
+                 placeholder="<%= i18n('should have') %>"/>
         </li>
         <li>
-          <span><label for="q3">What time do you got to work?</label></span>
-          <input id="q3" name="q3" type="text"/>
+          <span><label for="minPriceDemand"><%= i18n("Price from") %></label></span>
+          <input id="minPriceDemand" type="number"
+                 name="minPrice" value="<%- minPrice %>"
+                 placeholder="<%= i18n('from') %>"/>
         </li>
         <li>
-          <span><label for="q4">How do you like your veggies?</label></span>
-          <input id="q4" name="q4" type="text"/>
+          <span><label for="maxPriceDemand"><%= i18n("Price to") %></label></span>
+          <input id="maxPriceDemand" type="number"
+                 name="maxPrice" value="<%- maxPrice %>"
+                 placeholder="<%= i18n('to') %>"/>
         </li>
         <li>
-          <span><label for="q5">What book inspires you?</label></span>
-          <input id="q5" name="q5" type="text"/>
+          <span><label for="maxDistanceDemand"><%= i18n("Maximum distance") %></label></span>
+          <input id="maxDistanceDemand" type="number"
+                 name="distance" value="<%- distance %>"
+                 placeholder="<%= i18n('to') %>"/>
         </li>
         <li>
-          <span><label for="q6">What's your profession?</label></span>
-          <input id="q6" name="q6" type="text"/>
+          <span><label for="useGeolocation"><%= i18n("Use my current location") %></label></span>
+          <input type="checkbox" id="useGeolocation" checked
+                 data-translationNoGeolocation="<%= i18n("We couldn't determine your location. Please check your browser settings or type in your desired address directly.") %>"
+                 data-translationNoAddress="<%= i18n("Please enter an valid address.") %>">
+          <div id="addressContainer" class="ui-widget">
+            <label for="address" id="addressLabel"><%= i18n('Address') %></label>
+            <input type="text" id="address">
+          </div>
+          <input type="hidden" name="lat" id="latDemand" value="<%- lat %>"/>
+          <input type="hidden" name="lng" id="lonDemand" value="<%- lng %>"/>
         </li>
       </ol><!-- /questions -->
-      <button class="submit" type="submit">Send answers</button>
+      <button class="submit" type="submit" id="demandSubmitBtn"><%= i18n(btnLabel) %></button>
       <div class="controls">
         <button class="next"></button>
         <div class="progress"></div>
@@ -42,93 +61,6 @@
   </form><!-- /simform -->
 </div>
 
-<form method="POST" id="createDemand">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title"><%= i18n("I'm looking for") %></h4>
-    </div>
-    <div class="modal-body">
-        <label for="mustTagsDemand"><%= i18n("must have") %></label>
-        <input class="form-control" id="mustTagsDemand" type="text"
-               name="mustTags" value="<%- mustTags %>"
-               placeholder="<%= i18n('must have') %>"/>
-
-        <div class="row">
-            <div class="col-lg-6" id="myTags">
-
-            </div>
-        </div>
-
-      <div class="row">
-        <div class="col-lg-6" id="myTags">
-          <label for="shouldTagsDemand"><%= i18n("should have") %></label>
-          <input class="form-control" id="shouldTagsDemand" type="text"
-                 name="shouldTags" value="<%- shouldTags %>"
-                 placeholder="<%= i18n('should have') %>"/>
-        </div>
-      </div>
-
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="input-group">
-                    <label for="minPriceDemand"><%= i18n("Price from")
-                        %></label>
-                    <input type="number" id="minPriceDemand"
-                           class="form-control" name="minPrice"
-                           value="<%- minPrice %>" placeholder="<%= i18n("from") %>"/>
-                </div>
-                <!-- /input-group -->
-            </div>
-            <!-- /.col-lg-6 -->
-
-            <div class="col-lg-6">
-                <div class="input-group">
-                    <label for="maxPriceDemand"><%= i18n("Price to") %></label>
-                    <input type="number" id="maxPriceDemand"
-                           class="form-control" name="maxPrice"
-                           value="<%- maxPrice %>" placeholder="<%= i18n(" to") %>"/>
-                </div>
-                <!-- /input-group -->
-            </div>
-            <!-- /.col-lg-6 -->
-        </div>
-        <!-- /.row -->
-
-      <div class="row">
-        <div class="col-lg-6">
-        <label for="maxPriceDemand"><%= i18n("Maximum distance") %></label>
-        <input type="number" id="maxDistanceDemand" class="form-control"
-               name="distance" value="<%- distance %>" placeholder="<%= i18n("to") %>"/>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-6">
-          <label for="useGeolocation"><%= i18n('Use my current location') %></label>
-          <input type="checkbox" id="useGeolocation" checked
-            data-translationNoGeolocation="<%= i18n("We couldn't determine your location. Please check your browser settings or type in your desired address directly.") %>"
-            data-translationNoAddress="<%= i18n("Please enter an valid address.") %>">
-
-          <div id="addressContainer" class="ui-widget">
-            <label for="address" id="addressLabel"><%= i18n('Address') %></label>
-            <input type="text" id="address">
-          </div>
-        </div>
-      </div>
-
-        <input type="hidden" name="lat" id="latDemand" value="<%- lat %>"/>
-        <input type="hidden" name="lng" id="lonDemand" value="<%- lng %>"/>
-
-
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-default" data-dismiss="modal">
-                <%= i18n(btnLabel) %>
-            </button>
-        </div>
-    </div>
-</form>
 
 <% block('localScripts', '<script src="/js/localscripts/demands-offers.js"></script>') %>
 

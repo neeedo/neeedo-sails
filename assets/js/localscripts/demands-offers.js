@@ -14,10 +14,7 @@ var locationIsValid = function(latInput, lngInput) {
   return latInput.val().match(coordinatePattern) && lngInput.val().match(coordinatePattern);
 }
 
-var setLocationIfChecked = function(event) {
-  event.stopPropagation();
-  event.preventDefault();
-
+var setLocationIfChecked = function(form) {
   var _this = this;
   var latInput = $("input[name='lat']");
   var lngInput = $("input[name='lng']");
@@ -30,19 +27,19 @@ var setLocationIfChecked = function(event) {
       } else {
         setLatitudeAndLongitudeInHiddenField(location);
 
-        _this.submit();
       }
-    }
+      form.submit();
+    };
+    neeedo.getLocation(onLocationCallback);
   } else {
     // make sure that location was set via address
     if (!locationIsValid(latInput, lngInput)) {
       alert(geolocationCheckbox.data('translationnoaddress'));
     } else {
-      _this.submit();
+      form.submit();
     }
   }
 
-  neeedo.getLocation(onLocationCallback);
 };
 
 var setLatitudeAndLongitudeInHiddenField = function(location) {
@@ -131,6 +128,16 @@ var provideAddressAutoComplete = function() {
 };
 
 $(document).ready(function () {
+  var theForm = document.getElementById( 'createDemand' );
+
+  new stepsForm( theForm, {
+    onSubmit : function( form ) {
+      // hide form
+      classie.addClass( theForm.querySelector( '.simform-inner' ), 'hide' );
+      setLocationIfChecked(form);
+
+    }
+  } );
   var offerForm = $('#createOffer');
   var demandForm = $('#createDemand');
   geolocationCheckbox = $('#useGeolocation');
@@ -152,17 +159,16 @@ $(document).ready(function () {
   });
 
 
-  provideAddressAutoComplete();
-
+  provideAddressAutoComplete();/*
   offerForm.on('submit', setLocationIfChecked);
   demandForm.on('submit', setLocationIfChecked);
-
+*/
   /* ##################
    * #
    * # Tag completion
    * #
    * ##################
-   */
+
   $("#mustTagsDemand").tagit({
     autocomplete: {
       source: function( request, response ) {
@@ -194,5 +200,5 @@ $(document).ready(function () {
       }
     });
 
-  }
+  }*/
 });
