@@ -127,7 +127,12 @@ var provideAddressAutoComplete = function() {
 };
 
 $(document).ready(function () {
-  var theForm = document.getElementById( 'createDemand' );
+  if(document.getElementById('createDemand')) {
+    var theForm = document.getElementById('createDemand');
+  }
+  if(document.getElementById('createOffer')) {
+    var theForm = document.getElementById('createOffer');
+  }
 
   new stepsForm( theForm, {
     onSubmit : function( form ) {
