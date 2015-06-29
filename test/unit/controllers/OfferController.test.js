@@ -89,8 +89,8 @@ describe('[UNIT TEST] OfferController', function() {
       stubbedRes.view.calledWith(
         'offer/create', {
           locals: {
-            tags: "tag1, tag2,...",
-            price: 10,
+            tags: "",
+            price: "",
             lat: "",
             lng: "",
             images: "",

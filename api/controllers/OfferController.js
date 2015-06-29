@@ -59,8 +59,8 @@ module.exports = {
     var showFormWithDefaultValues = function() {
       res.view('offer/create', {
         locals: {
-          tags: "tag1, tag2,...",
-          price: 10,
+          tags: "",
+          price: "",
           lat: "",
           lng: "",
           images: FileService.getLeastUploadedFiles(req),
