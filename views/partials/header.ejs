@@ -10,20 +10,28 @@
     <%- partial('./login.ejs') %>
     <!--2 x col-xs-3-->
 
-    <div class="col-xs-2 ">
-      <div class="row">
-        <div class="col-xs-6 headerIcon">
-          <a href="<%= UrlService.to('/mailbox') %>"><span class="icon-mail4" id="newMsgCount"></span></a>
-        </div>
-        <div class="col-xs-6 local">
-          <% // list all available locales / languages and provide link to set        %>
+    <div class="col-xs-1 headerIcon ">
+
+      <a href="<%= UrlService.to('/mailbox') %>"><span class="icon-mail4" id="newMsgCount"></span></a>
+    </div>
+
+    <div class="col-xs-1 headerIcon">
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="true">
+          <img src="/images/<%= LocaleService.readUsersPreferedLocaleOrReturnDefault(req) %>.png" alt="lang"/>
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <% // list all available locales / languages and provide link to set           %>
           <% for (var localeI = 0; localeI < LocaleService.getAvailableLocales().length; localeI++) { %>
           <% var locale = LocaleService.getAvailableLocales()[localeI] %>
-          <a href="<%= UrlService.to(LocaleService.getSetLocaleUrl(locale)) %>">
-            <img src="/images/<%= locale %>.png" alt="<%= locale %>"/>
-          </a>
+          <li><a href="<%= UrlService.to(LocaleService.getSetLocaleUrl(locale)) %>">
+              <img src="/images/<%= locale %>.png" alt="<%= locale %>"/>
+            </a>
+          </li>
           <% } %>
-        </div>
+        </ul>
       </div>
     </div>
   </div>

@@ -11,9 +11,11 @@
 
   <div class="media-body">
     <label for="tags" class="media-heading"><%= i18n('I offer: ') %></label>
-    <h4 class="media-heading" id="tags">
-      <%= offer.getTags() %>
-    </h4>
+    <ul class="media-heading" id="tags">
+      <% offer.getTags().forEach(function(tag){ %>
+      <li><%= tag%></li>
+      <%})%>
+    </ul>
 
     <h4><%= offer.getImages().length%></h4>
     <label for="price"><%= i18n('Price') %>:</label>

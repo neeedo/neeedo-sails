@@ -1,5 +1,5 @@
 <% if (!LoginService.userIsLoggedIn(req)) { %>
-<div class="col-xs-3 text-center headerElement">
+<div class="col-xs-2 text-center headerElement" xmlns="http://www.w3.org/1999/html">
   <div class="row">
     <div class="col-xs-12">
       <a href="#" onclick="toggle_visibility('login');" id="loginBtn"><%= i18n('Login') %></a>
@@ -24,18 +24,18 @@
     </div>
     <div class="row">
       <div class="col-xs-7 col-xs-offset-4">
-        <input class="btn1 formBtn" type="submit" value="<%= i18n('Login') %>" id="sendbtn"/>
+        <input class="btn1 formBtn" type="submit" id="sendbtn" value="<%= i18n('Login') %>"/>
       </div>
     </div>
   </form>
 </div>
 <% } %>
 <% if (LoginService.userIsLoggedIn(req)) { %>
-<div class="col-xs-3 text-center">
+<div class="col-xs-2 text-center">
   <div class="row">
     <div class="col-xs-12">
       <form method="POST" id="loggedIn" action="<%= UrlService.to('/logout') %>">
-        <input class="btn1 formBtn" type="submit" value="<%= i18n('Logout') %>" id="logoutBtn"/>
+        <button class="btn1 formbtn" type="submit" id="logoutBtn"><%= i18n('Logout') %></button>
       </form>
     </div>
   </div>

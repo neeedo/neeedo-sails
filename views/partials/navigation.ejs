@@ -1,16 +1,16 @@
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-  <a href="<%= UrlService.to('/') %>"><%= i18n('Home') %>
+  <a class="icon-home" href="<%= UrlService.to('/') %>"><%= i18n('Home') %>
     <img src="/images/neeedo_Logo.png" alt="Neeedo Logo" class="img"/></a>
   <% if (!LoginService.userIsLoggedIn(req)) { %>
   <a href="<%= UrlService.to('/register') %>"><%= i18n('Register') %></a>
   <a href="<%= UrlService.to('/register') %>"><%= i18n('Login') %></a>
   <% } %>
-  <a class="icon-offer" href="<%= UrlService.to('/offers/create') %>"><%= i18n('Create offer') %></a>
-  <a class="icon-demand" href="<%= UrlService.to('/demands/create') %>"><%= i18n('Create demand') %></a>
+  <a class="icon-offer"href="<%= UrlService.to('/offers/create') %>"><%= i18n('Create offer') %><span ></span> </a>
+  <a class="icon-demand"href="<%= UrlService.to('/demands/create') %>"><%= i18n('Create demand') %> <span ></span> </a>
   <% if (LoginService.userIsLoggedIn(req)) { %>
   <a href="<%= UrlService.to('/logout') %>"><%= i18n('Logout') %></a>
   <% } %>
-  <a href="<%= UrlService.to('/mailbox') %>"><%= i18n('Mailbox')%> <span id="newMsgCount"></span></a>
+  <a class="icon-mail4" href="<%= UrlService.to('/mailbox') %>"><%= i18n('Mailbox')%> <span id="newMsgCount"></span></a>
 
   <button id="showLeft"> M<br/>e<br/>n<br/><%= i18n('u') %></button>
 </nav>

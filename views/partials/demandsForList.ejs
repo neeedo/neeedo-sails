@@ -1,25 +1,50 @@
 <li class="listItem ">
-  <% // I'm actually not sure why we need to unserialize again, but the following line is really important when this partial is used during an AJAX action, do not remove!        %>
+  <% // I'm actually not sure why we need to unserialize again, but the following line is really important when this partial is used during an AJAX action, do not remove!         %>
   <% demand = ApiClientService.newDemand().loadFromSerialized(demand) %>
 
   <div class="media-body">
 
-    <label class="media-heading " for="mustTags"><%= i18n('Must have`s') %></label>
+    <div class="row">
+      <div class="col-xs-6">
 
-    <p id="mustTags"><%= demand.getMustTags() %></p>
+        <label class="media-heading " for="mustTags"><%= i18n('Must have`s') %></label>
 
-    <label for="shouldTags"><%= i18n('Should have`s') %></label>
+        <ul id="mustTags">
+          <% demand.getMustTags().forEach(function(mustTags){ %>
+          <li>
+            <%= mustTags %>
+          </li>
+          <% }) %>
+        </ul>
 
-    <p id="shouldTags"><%= demand.getShouldTags() %></p>
+      </div>
+      <div class="col-xs-6">
+        <label for="shouldTags"><%= i18n('Should have`s') %></label>
 
-    <label for="dist"><%= i18n('Distance') %></label>
+        <ul id="shouldTags">
+          <% demand.getShouldTags().forEach(function(shouldTags){ %>
+          <li>
+            <%= shouldTags %>
+          </li>
+          <% }) %>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
 
-    <p id="dist"><%= i18n('Distance') %>:<%= demand.getDistance() %></p>
+        <label for="dist"><%= i18n('Distance') %></label>
 
-    <label for="price"><%= i18n('Price') %></label>
+        <p id="dist"><%= i18n('Distance') %>:<%= demand.getDistance() %></p>
 
-    <p id="price"><%= i18n('Price') %>:<%= demand.getPrice().getMin() %> - <%= demand.getPrice().getMax() %><span
-        class="glyphicon glyphicon-euro" aria-hidden="true"></span></p>
+      </div>
+      <div class="col-xs-6">
+        <label for="price"><%= i18n('Price') %></label>
+
+        <p id="price"><%= i18n('Price') %>:<%= demand.getPrice().getMin() %> - <%= demand.getPrice().getMax() %><span
+            class="glyphicon glyphicon-euro" aria-hidden="true"></span></p>
+      </div>
+    </div>
 
   </div>
   <%- partial('../partials/crudButtonsDemands.ejs', {demand: demand}) %>

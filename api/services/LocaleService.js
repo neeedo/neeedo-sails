@@ -33,6 +33,7 @@ module.exports = {
     };
   },
 
+
   getAvailableLocales: function() {
     return sails.config.i18n.locales;
   },
