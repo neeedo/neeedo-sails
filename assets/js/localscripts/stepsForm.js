@@ -210,17 +210,6 @@
 
 	// TODO (next version..)
 	stepsForm.prototype._showError = function( err ) {
-		var message = '';
-		switch( err ) {
-			case 'EMPTYSTR' :
-				message = 'Please fill the field before continuing';
-				break;
-			case 'INVALIDEMAIL' :
-				message = 'Please fill a valid email address';
-				break;
-			// ...
-		};
-		this.error.innerHTML = message;
 		classie.addClass( this.error, 'show' );
 	}
 

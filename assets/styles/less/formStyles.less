@@ -268,7 +268,7 @@
 .simform .error-message {
   padding: 0.4em 3.5em 0 0;
   width: 100%;
-  color: rgba(0,0,0,0.7);
+  color: rgba(255, 0, 0, 0.70);
   font-style: italic;
   font-size: 0.4em;
 }
@@ -340,4 +340,33 @@ input[type=text]::-ms-clear {
   .simform {
     font-size: 1.2em;
   }
+}
+
+.ui-menu .ui-menu-item{
+  line-height: 1.5em;
+  background-color: #e0e0e0;
+  border-top: none;
+}
+
+#useGeolocation:focus, #useGeolocation:checked, #useGeolocation::selection, #useGeolocation:active, #useGeolocation:visited{
+  border: none;
+}
+
+#useGeolocation{
+  width: 20px;
+  height: 20px;
+  margin: 0 0 0 5px;
+}
+
+#addressLabel{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type=number] {
+  -moz-appearance:textfield;
 }

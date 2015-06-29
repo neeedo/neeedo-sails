@@ -124,5 +124,6 @@
   "Could not load the messages of the given conversation. Please contact Neeedo customer care." : "Deine Nachrichten konnten nicht geladen werden. Bitte kontaktiere den Neeedo Kundenservice.",
   "Could not create the message. Please contact Neeedo customer care." : "Deine Nachricht konnte nicht gesendet werden. Bitte kontaktiere den Neeedo Kundenservice.",
   "Your message couldn't be sent." : "Deine Nachricht konnte nicht gesendet werden.",
-  "You cannot view messages of other users." : "Du kannst dir nicht die Nachrichten anderer Benutzer ansehen"
+  "You cannot view messages of other users." : "Du kannst dir nicht die Nachrichten anderer Benutzer ansehen",
+  "Please fill the field before continuing" : "Bitte füllen Sie das Feld aus"
 }
