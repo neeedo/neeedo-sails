@@ -199,9 +199,16 @@
 	// the validation function
 	stepsForm.prototype._validade = function() {
 		// current question´s input
-		var input = this.questions[ this.current ].querySelector( 'input' ).value;
-		if( input === '' ) {
-			this._showError( 'EMPTYSTR' );
+		var input = this.questions[ this.current ].querySelector( 'input' );
+    if(input.type == "checkbox" && !input.checked){
+      input = this.questions[ this.current ].querySelector( 'div').querySelector( 'input' );
+      if( input.value === '' ){
+        this._showError( 'EMPTYSTR' );
+        return false;
+      }
+    }
+    if( input.value === '' ){
+      this._showError( 'EMPTYSTR' );
 			return false;
 		}
 

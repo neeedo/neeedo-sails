@@ -26,7 +26,7 @@ var setLocationIfChecked = function(form) {
         alert(geolocationCheckbox.data('translationnogeolocation'));
       } else {
         setLatitudeAndLongitudeInHiddenField(location);
-0
+        0
       }
       form.submit();
     };
@@ -120,7 +120,6 @@ var provideAddressAutoComplete = function() {
    fetchedAddresses.push(address.display_name);
    }
    };
-
    $('#address').autocomplete({
    source: fetchedAddresses
    });
@@ -163,36 +162,36 @@ $(document).ready(function () {
   }
 
   provideAddressAutoComplete();/*
-  offerForm.on('submit', setLocationIfChecked);
-  demandForm.on('submit', setLocationIfChecked);
-  /* ##################
+   offerForm.on('submit', setLocationIfChecked);
+   demandForm.on('submit', setLocationIfChecked);
+   /* ##################
    * #
    * # Tag completion
    * #
    * ##################*/
 
   /*
-  $("#mustTagsDemand").tagit({
-    autocomplete: {
-      source: function( request, response ) {
-        $.ajax({
-          url: neeedo.getApiHttpUrl() + "/completion/tag/" + request.term,
-          success: function( data ) {
-            response( $.map( data.completedTags, function( item ) {
-              return {
-                label: item,
-                value: item
-              }
-            }));
-          }
-        });
-      },
-      minLength: 2
-    },
-    afterTagAdded: function(event, ui) {
-      getSuggests();
-    }
-  });*/
+   $("#mustTagsDemand").tagit({
+   autocomplete: {
+   source: function( request, response ) {
+   $.ajax({
+   url: neeedo.getApiHttpUrl() + "/completion/tag/" + request.term,
+   success: function( data ) {
+   response( $.map( data.completedTags, function( item ) {
+   return {
+   label: item,
+   value: item
+   }
+   }));
+   }
+   });
+   },
+   minLength: 2
+   },
+   afterTagAdded: function(event, ui) {
+   getSuggests();
+   }
+   });*/
   $("#mustTagsDemand")
     .bind( "keydown", function( event ) {
       if (event.keyCode == $.ui.keyCode.ENTER) {
@@ -232,11 +231,11 @@ $(document).ready(function () {
         terms.push( "" );
         this.value = terms.join( ", " );
         return false;
-     },
+      },
       change: function( event, ui ) {
         getSuggests();
       }
-  });
+    });
 
   function getSuggests() {
     $.ajax({
