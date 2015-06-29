@@ -5,8 +5,8 @@
       <ul id="offerGallery">
         <% if(offer.getImages().length > 0){
           offer.getImages().forEach(function(image){ %>
-        <li data-thumb=<%- image.getUrl() %> data-src="img/largeImage.jpg">
-          <img class="galleryImg" src= <%- image.getUrl() %> alt="<%- image.getUrl() %>">
+        <li data-thumb=<%- FileService.filterGetImageUrl(image.getUrl()) %> data-src="img/largeImage.jpg">
+          <img class="galleryImg" src= <%- FileService.filterGetImageUrl(image.getUrl()) %> alt="<%- image.getUrl() %>">
         </li>
         <% })}else{%>
         <li data-thumb="<%- OfferService.getFirstImage(offer).path %>" data-src="img/largeImage.jpg">
