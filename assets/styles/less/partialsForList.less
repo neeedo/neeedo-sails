@@ -1,19 +1,53 @@
-.listItem{
-  background-color: @MetroGreyBlue;
-  height: 10em;
+.listItem {
   margin-bottom: 1em;
+
+  h4 {
+    margin: 0;
+    margin-bottom: 0.5em;
+  }
+  ul {
+    padding: 0;
+  }
+
+
+}
+
+.offers{
+  &:extend(.listItem);
+  height: 30em;
+  .thumbnail {
+    background-color: @OfferColor;
+    height: 29em;
+    padding: 1em;
+    img {
+      height: 15em;
+      width: auto;
+    }
+  }
+}
+
+.demands{
+  &:extend(.listItem);
+  background-color: @DemandColor;
+  height: 10em;
   padding: 1em;
 }
 
-.visible-xs-block .listItem{
+.visible-xs-block .listItem {
   width: 100%;
+  img {
+    width: inherit;
+  }
 }
 
-.hidden-xs .listItem{
+.hidden-xs .listItem {
   width: 33%;
+  img {
+    width: auto;
+  }
 
 }
 
 #demandHandlebarsListItem, #offerHandlebarsListItem {
-  display : none;
+  display: none;
 }

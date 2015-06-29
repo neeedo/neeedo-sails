@@ -1,28 +1,44 @@
-<li class="listItem">
-  <% // I'm actually not sure why we need to unserialize again, but the following line is really important when this partial is used during an AJAX action, do not remove!      %>
+<li class="offers">
+  <% // I'm actually not sure why we need to unserialize again, but the following line is really important when this partial is used during an AJAX action, do not remove!                %>
   <% offer = ApiClientService.newOffer().loadFromSerialized(offer) %>
 
-  <div class="media-left">
+  <div class="thumbnail">
     <a href="<%- OfferService.getViewUrl().replace('%%offerId%%', offer.getId()) %>">
       <img class="offerImageSmall" src="<%- OfferService.getFirstImage(offer).path %>"
            alt="<%- OfferService.getFirstImage(offer).altText %>">
     </a>
+
+    <div class="caption">
+      <div class="row">
+
+        <div class="col-xs-4">
+          <h4> <%= i18n('I offer: ') %> </h4>
+
+        </div>
+        <div class="col-xs-5">
+          <% offer.getTags().forEach(function(tag){ %>
+          <span><%= tag + ", " %></span>
+          <% }) %>
+        </div>
+
+        <div class="col-xs-1">
+          <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-8">
+          <h4 for="price"><%= i18n('Price') %>:<span id="price"> <%= offer.getPrice() %><span
+                class="glyphicon glyphicon-euro" aria-hidden="true"></span></span>
+          </h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-8">
+          <a href="<%- OfferService.getViewUrl().replace('%%offerId%%', offer.getId()) %>"><%= i18n('Details') %></a>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="media-body">
-    <label for="tags" class="media-heading"><%= i18n('I offer: ') %></label>
-    <ul class="media-heading" id="tags">
-      <% offer.getTags().forEach(function(tag){ %>
-      <li><%= tag%></li>
-      <%})%>
-    </ul>
-
-    <h4><%= offer.getImages().length%></h4>
-    <label for="price"><%= i18n('Price') %>:</label>
-
-    <p id="price"> <%= offer.getPrice() %><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></p>
-  </div>
-  <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
 </li>
 
 
