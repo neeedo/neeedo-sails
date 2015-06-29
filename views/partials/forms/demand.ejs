@@ -35,10 +35,13 @@
                  placeholder="<%= i18n('to') %>"/>
         </li>
         <li>
-          <span><label for="useGeolocation"><%= i18n("Use my current location") %></label></span>
+          <span><label for="useGeolocation"><%= i18n("Location") %></label></span>
+          <span id="locationCheckbox">
+          <label for="useGeolocation" id="locLabel"><%= i18n("Use my current location") %></label>
           <input type="checkbox" id="useGeolocation" checked
-                   data-translationNoGeolocation="<%= i18n("We couldn't determine your location. Please check your browser settings or type in your desired address directly.") %>"
-                   data-translationNoAddress="<%= i18n("Please enter an valid address.") %>">
+                 data-translationNoGeolocation="<%= i18n("We couldn't determine your location. Please check your browser settings or type in your desired address directly.") %>"
+                 data-translationNoAddress="<%= i18n("Please enter an valid address.") %>">
+          </span>
           <div id="addressContainer" class="ui-widget">
             <label for="address" id="addressLabel"><%= i18n('Address') %></label>
             <input type="text" id="address">

@@ -207,6 +207,9 @@
         return false;
       }
     }
+    if( input.type == 'file'){
+      return true;
+    }
     if( input.value === '' ){
       this._showError( 'EMPTYSTR' );
 			return false;

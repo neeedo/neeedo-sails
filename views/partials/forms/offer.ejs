@@ -17,22 +17,26 @@
                  placeholder="<%= i18n('Preis') %>"/>
         </li>
         <li>
-          <%- partial('./offer-fileupload.ejs') %>
-          <% images.getImages().forEach(function(image) { %>
-          <input type="hidden" name="images[]" value="<%= image.getFileName() %>">
-          <% }) %>
-        </li>
-        <li>
-          <span><label for="useGeolocation"><%= i18n("Use my current location") %></label></span>
+          <span><label for="useGeolocation"><%= i18n("Location") %></label></span>
+          <span id="locationCheckbox">
+          <label for="useGeolocation" id="locLabel"><%= i18n("Use my current location") %></label>
           <input type="checkbox" id="useGeolocation" checked
                  data-translationNoGeolocation="<%= i18n("We couldn't determine your location. Please check your browser settings or type in your desired address directly.") %>"
                  data-translationNoAddress="<%= i18n("Please enter an valid address.") %>">
+          </span>
           <div id="addressContainer" class="ui-widget">
             <label for="address" id="addressLabel"><%= i18n('Address') %></label>
             <input type="text" id="address">
           </div>
           <input type="hidden" name="lat" id="latDemand" value="<%- lat %>"/>
           <input type="hidden" name="lng" id="lonDemand" value="<%- lng %>"/>
+        </li>
+        <li>
+          <span><label for="images[]"><%= i18n("Image upload") %></label></span>
+          <%- partial('./offer-fileupload.ejs') %>
+          <% images.getImages().forEach(function(image) { %>
+          <input type="hidden" id="images[]" name="images[]" value="<%= image.getFileName() %>">
+          <% }) %>
         </li>
       </ol><!-- /questions -->
       <button class="submit" type="submit" id="demandSubmitBtn"><%= i18n(btnLabel) %></button>
