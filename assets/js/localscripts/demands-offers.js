@@ -138,6 +138,9 @@ $(document).ready(function () {
     onSubmit : function( form ) {
       // hide form
       classie.addClass( theForm.querySelector( '.simform-inner' ), 'hide' );
+      // hide suggested tags
+      $("#myTags").hide();
+      
       setLocationIfChecked(form);
 
     }

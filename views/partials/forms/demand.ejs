@@ -8,7 +8,6 @@
           <input id="mustTagsDemand" type="text"
                  name="mustTags" value="<%- mustTags %>"
                  placeholder="<%= i18n('must have') %>"/>
-          <p id="myTags"></p>
         </li>
         <li>
           <span><label for="shouldTagsDemand"><%= i18n("should have") %></label></span>
@@ -63,6 +62,9 @@
     </div><!-- /simform-inner -->
     <span class="final-message"></span>
   </form><!-- /simform -->
+
+  <% // Tag suggestion will be rendered here %>
+  <div><p id="myTags"></p></div>
 </div>
 
 
