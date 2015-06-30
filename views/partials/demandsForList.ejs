@@ -3,7 +3,7 @@
   <% demand = ApiClientService.newDemand().loadFromSerialized(demand) %>
 
   <div class="row">
-    <div class="col-xs-6">
+    <div class="col-xs-5">
 
       <label for="mustTags"><%= i18n('Must have`s') %></label>
 
@@ -16,7 +16,7 @@
       </ul>
 
     </div>
-    <div class="col-xs-6">
+    <div class="col-xs-5">
       <label for="shouldTags"><%= i18n('Should have`s') %></label>
 
       <ul id="shouldTags">
@@ -27,22 +27,24 @@
         <% }) %>
       </ul>
     </div>
+    <div class="col-xs-1">
+      <%- partial('../partials/crudButtonsDemands.ejs', {demand: demand}) %>
+    </div>
   </div>
   <div class="row">
-    <div class="col-xs-6">
+    <div class="col-xs-5">
 
       <label for="dist"><%= i18n('Distance') %>:
       </label>
       <span id="dist"><%= demand.getDistance() %> km</span>
 
     </div>
-    <div class="col-xs-6">
+    <div class="col-xs-5">
       <label for="price"><%= i18n('Price') %>:</label>
       <span id="price"><%= demand.getPrice().getMin() %> - <%= demand.getPrice().getMax() %><span
           class="glyphicon glyphicon-euro" aria-hidden="true"></span></span>
 
     </div>
   </div>
-  <%- partial('../partials/crudButtonsDemands.ejs', {demand: demand}) %>
 
 </li>
