@@ -151,11 +151,11 @@ module.exports = {
   },
 
   newConversationFromRequest: function(req) {
-    var recipientId = req.param("recipientId");
+    var senderId = req.param("senderId");
 
     return new Conversation()
-      .setSender(LoginService.getCurrentUser(req))
-      .setRecipient(this.newUser().setId(recipientId));
+      .setSender(this.newUser().setId(senderId))
+      .setRecipient(LoginService.getCurrentUser(req));
   },
 
   toTagString : function(tagArray) {

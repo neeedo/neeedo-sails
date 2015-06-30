@@ -38,7 +38,6 @@ module.exports = {
   },
 
   getUnreadMessagesCount: function(req, res){
-
       var onSuccessCallback = function(numberOfUnreadMsg) {
        res.json(numberOfUnreadMsg);
       };
@@ -71,7 +70,12 @@ module.exports = {
   },
 
   ajaxLoadMessageByConversation: function(req, res) {
-
+    var onSuccessCallback = function(messageList) {
+      MessageService.sendMessageListJsonResponse(req, res, messageList);
+    };
+    var onErrorCallback = function(errorModel) {
+      MessageService.sendErrorJsonResponse(res, errorModel);
+    };
 
     MessageService.loadMessageFromConversation(req, onSuccessCallback, onErrorCallback);
   }

@@ -1,9 +1,9 @@
 var apiClient = require('neeedo-api-nodejs-client');
 
 var MessageService = apiClient.services.Message,
-    MessageListService = apiClient.services.MessageList,
-    ConversationListService = apiClient.services.ConversationList,
-    ConversationQuery = apiClient.models.ConversationQuery
+  MessageListService = apiClient.services.MessageList,
+  ConversationListService = apiClient.services.ConversationList,
+  ConversationQuery = apiClient.models.ConversationQuery
   ;
 
 module.exports = {
@@ -18,7 +18,7 @@ module.exports = {
     }
   },
 
-  loadReadConversations: function(req, onSuccessCallback, onErrorCallBack) {
+  loadReadConversations: function (req, onSuccessCallback, onErrorCallBack) {
     try {
       var _this = this;
 
@@ -45,7 +45,7 @@ module.exports = {
     }
   },
 
-  loadUnReadConversations: function(req, onSuccessCallback, onErrorCallBack) {
+  loadUnReadConversations: function (req, onSuccessCallback, onErrorCallBack) {
     try {
       var conversationService = new ConversationListService();
       var conversationQuery = ApiClientService.newConversationQueryForUnreadConversations();
@@ -57,22 +57,22 @@ module.exports = {
     }
   },
 
-  getAllConversations: function(req, onSuccessCallback, onErrorCallback) {
-      var _this = this;
-      var onReadConversationsLoadCallback = function(readConversationList) {
-        var onUnreadConversationsLoadCallback = function(unreadConversationList) {
-          onSuccessCallback(readConversationList, unreadConversationList);
-        };
-
-        _this.loadUnReadConversations(req, onUnreadConversationsLoadCallback, onErrorCallback);
+  getAllConversations: function (req, onSuccessCallback, onErrorCallback) {
+    var _this = this;
+    var onReadConversationsLoadCallback = function (readConversationList) {
+      var onUnreadConversationsLoadCallback = function (unreadConversationList) {
+        onSuccessCallback(readConversationList, unreadConversationList);
       };
 
-      this.loadReadConversations(req, onReadConversationsLoadCallback, onErrorCallback);
+      _this.loadUnReadConversations(req, onUnreadConversationsLoadCallback, onErrorCallback);
+    };
+
+    this.loadReadConversations(req, onReadConversationsLoadCallback, onErrorCallback);
   },
 
-  getNumberOfUnreadConversations: function(req, onSuccessCallback, onErrorCallback) {
+  getNumberOfUnreadConversations: function (req, onSuccessCallback, onErrorCallback) {
     try {
-      var onLoadedCallback = function(conversationList) {
+      var onLoadedCallback = function (conversationList) {
         // the number of unread conversations is the actual size of the conversations array
         onSuccessCallback(conversationList.getConversations().length);
       };
@@ -83,13 +83,13 @@ module.exports = {
     }
   },
 
-  loadMessageFromConversation: function(req, onSuccessCallback, onErrorCallBack) {
+  loadMessageFromConversation: function (req, onSuccessCallback, onErrorCallBack) {
     try {
       var _this = this;
 
-      var onLoadedCallback = function(messageList) {
+      var onLoadedCallback = function (messageList) {
         // first store the messages in the session, than continue
-        _this.storeMessagesInSession(req, messageList);
+        _this.storeMessageListInSession(req, messageList);
 
         onSuccessCallback(messageList);
       };
@@ -120,8 +120,8 @@ module.exports = {
     } else {
       // message needs to be loaded via API
       var _this = this;
-      var onApiLoadedCallback = function(messageList) {
-        _this.storeMessagesInSession(req, messageList);
+      var onApiLoadedCallback = function (messageList) {
+        _this.storeMessageListInSession(req, messageList);
 
         var message = _this.findMessageInList(messageId, messageList);
 
@@ -144,8 +144,8 @@ module.exports = {
     }
   },
 
-  findMessageInList: function(messageId, messageList) {
-    for (var i=0; i < messageList.getMessages().length; i++) {
+  findMessageInList: function (messageId, messageList) {
+    for (var i = 0; i < messageList.getMessages().length; i++) {
       var message = messageList.getMessages()[i];
 
       if (messageId == message.getId()) {
@@ -156,7 +156,7 @@ module.exports = {
     return undefined;
   },
 
-  loadMessageAndToggleRead: function(req, res, onSuccessCallback, onErrorCallback) {
+  loadMessageAndToggleRead: function (req, res, onSuccessCallback, onErrorCallback) {
     var onLoadSuccessCallback = function (loadedMessage) {
       this.toggleRead(loadedMessage, req, onSuccessCallback, onErrorCallback);
     };
@@ -164,10 +164,10 @@ module.exports = {
     this.loadMessage(req, onLoadSuccessCallback, onErrorCallback);
   },
 
-  toggleRead: function(message, req, onSuccessCallback, onErrorCallback) {
+  toggleRead: function (message, req, onSuccessCallback, onErrorCallback) {
     try {
       var _this = this;
-      var onToggleSuccessCallback = function(toggledMessage) {
+      var onToggleSuccessCallback = function (toggledMessage) {
         if (toggledMessage.wasRead()) {
           var conversation = toggledMessage.getConversation();
 
@@ -206,7 +206,7 @@ module.exports = {
     return "conversations" in req.session && "read" in req.session.conversations;
   },
 
-  addToReadConversationsInSession: function(req, conversation) {
+  addToReadConversationsInSession: function (req, conversation) {
     if (this.areReadConversationsInSession() && undefined !== this.loadReadConversationsFromSession(req)) {
       // only add the conversation to the read ones in the session if there are already some existing. Otherwise, the conversations need to be loaded via API again.
       var readConversationsList = this.loadReadConversationsFromSession(req);
@@ -227,11 +227,11 @@ module.exports = {
 
   storeMessageListInSession: function (req, messageListModel) {
     for (var i = 0; i < messageListModel.getMessages().length; i++) {
-      this.storeInSession(req, messageListModel.getMessages()[i]);
+      this.storeMessageInSession(req, messageListModel.getMessages()[i]);
     }
   },
 
-  loadMessageFromSession: function(req, messageId) {
+  loadMessageFromSession: function (req, messageId) {
     if (this.isMessageInSession(req, messageId)) {
       return ApiClientService.newMessage().loadFromSerialized(req.session.messages[messageId]);
     }
@@ -239,30 +239,30 @@ module.exports = {
     return undefined;
   },
 
-  isMessageInSession: function(req, messageId) {
+  isMessageInSession: function (req, messageId) {
     return "messages" in req.session && demandId in req.session.messages && undefined != req.session.messages[messageId];
   },
 
-  getCreateUrl: function() {
+  getCreateUrl: function () {
     return UrlService.to('/messages/create');
   },
 
-  getMailboxUrl: function() {
+  getMailboxUrl: function () {
     return UrlService.to('/mailbox');
   },
 
-  buildDefaultMessageForOffer: function(offer, req, res) {
+  buildDefaultMessageForOffer: function (offer, req, res) {
     var msg = res.i18n("Hello %s", offer.getUser().getUsername())
-        + ", \n"
-        + res.i18n("I'm interested in your offer %s.",
-          sails.getBaseurl() + OfferService.getViewUrl().replace("%%offerId%%", offer.getId()))
-        + "\n"
-        + res.i18n("Can you tell me something about it?")
-        + "\n";
+      + ", \n"
+      + res.i18n("I'm interested in your offer %s.",
+        sails.getBaseurl() + OfferService.getViewUrl().replace("%%offerId%%", offer.getId()))
+      + "\n"
+      + res.i18n("Can you tell me something about it?")
+      + "\n";
 
     if (LoginService.userIsLoggedIn(req)) {
       msg += res.i18n("Greetings, %s", LoginService.getCurrentUser(req).getUsername())
-        + "\n";
+      + "\n";
 
     }
 
@@ -275,18 +275,18 @@ module.exports = {
       && ((undefined !== message.getSender()
       && LoginService.getCurrentUser(req).getId() == message.getSender().getId()
       )
-      ||  (undefined !== message.getRecipient()
+      || (undefined !== message.getRecipient()
       && LoginService.getCurrentUser(req).getId() == message.getRecipient().getId()
       ));
   },
 
-  currentUserIsSender: function(req, message) {
+  currentUserIsSender: function (req, message) {
     return LoginService.userIsLoggedIn(req)
       && undefined !== message.getSender()
       && LoginService.getCurrentUser(req).getId() == message.getSender().getId();
   },
 
-  currentUserIsRecipient: function(req, message) {
+  currentUserIsRecipient: function (req, message) {
     return LoginService.userIsLoggedIn(req)
       && undefined !== message.getRecipient()
       && LoginService.getCurrentUser(req).getId() == message.getRecipient().getId();
@@ -303,5 +303,72 @@ module.exports = {
       FlashMessagesService.setErrorMessage('You cannot view messages of other users.', req, res);
       return false;
     }
+  },
+
+  sendMessageListJsonResponse: function (req, res, messageList) {
+    res.status(200);
+
+    res.json({
+      messageList: messageList
+    });
+  },
+
+  /**
+   * Iterate over each message in the given list and append the rendered HTML to the field 'html'.
+   *
+   * Use the partial demandsForList.js which are used in the sliders.
+   *
+   * @param messageList
+   * @param req
+   * @param res
+   * @param callback
+   */
+  appendHtmlIfDesired: function (messageList, req, res, callback) {
+    // check if getHtml parameter is given in request
+    var getHtml = req.param('getHtml', undefined);
+
+    if (getHtml && messageList.getMessages().length > 0) {
+      var counter = 0;
+
+      _.each(messageList.getMessages(), function (demand) {
+          ViewService.renderView(
+            "partials/demandsForList",
+            {
+              demand: demand,
+              req: req,
+              i18n: res.i18n
+            },
+            function (html) {
+              counter++;
+
+              demand.html = html;
+
+              if (counter == messageList.getDemands().length) {
+                // all demands were appended by rendered partial
+                callback();
+              }
+            })
+        }
+      );
+    } else {
+      // do not append
+      callback();
+    }
+  },
+  /**
+   * Send JSON error response.
+   *
+   * @param res
+   * @param errorModel , see neeedo-api-nodejs-client
+   */
+  sendErrorJsonResponse: function (res, errorModel) {
+    sails.log.error('MessageService:sendErrorJsonResponse(): ' + errorModel.getLogMessages()[0]);
+
+    res.status(400);
+
+    res.json({
+      message: errorModel.getErrorMessages()[0]
+    });
   }
-};
+}
+;
