@@ -1,5 +1,5 @@
 <li class="offers">
-  <% // I'm actually not sure why we need to unserialize again, but the following line is really important when this partial is used during an AJAX action, do not remove!                %>
+  <% // I'm actually not sure why we need to unserialize again, but the following line is really important when this partial is used during an AJAX action, do not remove!                  %>
   <% offer = ApiClientService.newOffer().loadFromSerialized(offer) %>
 
   <div class="thumbnail">
@@ -16,9 +16,19 @@
 
         </div>
         <div class="col-xs-5">
-          <% offer.getTags().forEach(function(tag){ %>
-          <span><%= tag + ", " %></span>
-          <% }) %>
+          <div class="read-more-wrap">
+            <% var count = 0;
+              offer.getTags().forEach(function(tag){
+            if(count < 5){ %>
+            <span><%= tag + ", " %></span>
+            <% }else{ %>
+            <span class="read-more-target"><%= tag + ", " %></span>
+            <% }count++; })
+            if(count>5){%>
+            <span for="post-2" class="read-more-trigger">...</span>
+            <a href="<%- OfferService.getViewUrl().replace('%%offerId%%', offer.getId()) %>"><%= i18n('More Details') %></a>
+            <%}%>
+          </div>
         </div>
 
         <div class="col-xs-1">
@@ -32,11 +42,8 @@
           </h4>
         </div>
       </div>
-      <div class="row">
-        <div class="col-xs-8">
-          <a href="<%- OfferService.getViewUrl().replace('%%offerId%%', offer.getId()) %>"><%= i18n('Details') %></a>
-        </div>
-      </div>
+
+
     </div>
   </div>
 </li>
