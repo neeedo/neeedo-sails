@@ -25,7 +25,7 @@
             <span class="read-more-target"><%= tag + ", " %></span>
             <% }count++; })
             if(count>5){%>
-            <span for="post-2" class="read-more-trigger">...</span>
+            <span for="post-2">...</span>
             <a href="<%- OfferService.getViewUrl().replace('%%offerId%%', offer.getId()) %>"><%= i18n('More Details') %></a>
             <%}%>
           </div>
