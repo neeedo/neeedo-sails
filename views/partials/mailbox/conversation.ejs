@@ -9,9 +9,11 @@
       <% } %>
     </h4>
   </div>
-  <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+  <div id="collapseOne" class="panel-collapse collapse in messages-collapse" data-senderId="<%- conversation.getSender().getId() %>" role="tabpanel" aria-labelledby="headingOne">
     <div class="panel-body">
-      <% // here, the messages %>
+      <ul class="messages-preview">
+
+      </ul>
     </div>
   </div>
 </div>

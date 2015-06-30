@@ -123,6 +123,30 @@ DemandsMatching.prototype.getMatchingOffers = function(criteria, onLoadSuccessCa
     })
 };
 
+var Messages = function() {
+  this.ajaxEndpoint = '/messages/ajax-load-messages-by-conversation';
+
+  this.buildQueryString = function(criteria) {
+    var queryParameters = [];
+
+    // senderId of the user who sent the message (coming from conversation object)
+    if ("senderId" in criteria) {
+      queryParameters.push("senderId=" + criteria["senderId"]);
+    }
+
+    return "?" + queryParameters.join("&");
+  };
+};
+
+Messages.prototype.getMessagesFromSenderAndCurrentlyLoggedIn = function(criteria, onLoadSuccessCallback) {
+  var requestUrl = this.ajaxEndpoint + this.buildQueryString(criteria);
+
+  $.get(requestUrl)
+    .done(function( data ) {
+      onLoadSuccessCallback(data);
+    })
+};
+
 var Neeedo = function()
 {
 
