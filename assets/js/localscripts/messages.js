@@ -1,11 +1,11 @@
 $(document).ready(function () {
-  var getUnreadMsgCount = function () {
+  var setUnreadMsgCount = function () {
     $.get("/messages/count")
       .done(function (count) {
-        if (!LoginService.userIsLoggedIn(req)) {
-          $("#newMsgCount")(count);
-        }
+          $(".newMsgCount").text(count);
       }
     )
-  }
+  };
+
+  setUnreadMsgCount();
 });

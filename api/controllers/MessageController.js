@@ -47,7 +47,32 @@ module.exports = {
       };
 
       MessageService.getNumberOfUnreadConversations(req, onSuccessCallback, onErrorCallback);
+  },
 
+  mailbox: function(req, res) {
+    var onSuccessCallback = function(readConversationList, unreadConversationList) {
+      res.view('message/mailbox', {
+        locals: {
+          readConversationList : readConversationList,
+          unreadConversationList : unreadConversationList
+        }
+      });
+    };
+    var onErrorCallback = function(errorModel) {
+      ApiClientService.logMessages(errorModel);
+      ApiClientService.addFlashMessages(req, res, errorModel);
+
+      if (!UrlService.redirectToLastRedirectUrl(req, res)) {
+        res.redirect('/dashboard');
+      }
+    };
+
+    MessageService.getAllConversations(req, onSuccessCallback, onErrorCallback);
+  },
+
+  ajaxLoadMessageByConversation: function(req, res) {
+
+
+    MessageService.loadMessageFromConversation(req, onSuccessCallback, onErrorCallback);
   }
-
-}
+};

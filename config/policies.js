@@ -27,11 +27,12 @@ module.exports.policies = {
   ***************************************************************************/
 
   IndexController: {
-    'index': ['resetUploadedFiles', 'setLocale', 'isNotLoggedIn', 'setRedirectUrl']
+    'index': ['resetUploadedFiles', 'setLocale', 'isNotLoggedIn']
   },
-  MessageService: {
+  MessageController: {
     '*'     : false,
-    'create': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
+    'create': ['setLocale', 'isLoggedIn'],
+    'mailbox': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
     'getUnreadMessagesCount':['isLoggedIn']
   },
   OfferController: {
@@ -54,7 +55,7 @@ module.exports.policies = {
     'ajaxMatching': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn']
   },
   UserController: {
-    '*': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn'],
+    '*': ['resetUploadedFiles', 'setLocale', 'isLoggedIn'],
     'ajaxGetOffers' : ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn'],
     'ajaxGetDemands' : ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn'],
     // setLocale can be accessed public and logged-in
@@ -64,12 +65,12 @@ module.exports.policies = {
     '*': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', false], // default policy for login controller actions
 
     'login' : ['resetUploadedFiles', 'setLocale', 'isNotLoggedIn'],
-    'logout' : ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn']
+    'logout' : ['resetUploadedFiles', 'setLocale', 'isLoggedIn']
   },
   RegistrationController: {
     '*': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', false], // default policy for registration controller actions
 
-    'register' : ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isNotLoggedIn']
+    'register' : ['resetUploadedFiles', 'setLocale', 'isNotLoggedIn']
   },
   FileController: {
     '*' : false,

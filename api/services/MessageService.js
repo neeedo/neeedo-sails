@@ -36,7 +36,7 @@ module.exports = {
         };
 
         var conversationService = new ConversationListService();
-        var conversationQuery = ApiClientService.newConversationQueryForReadMessages();
+        var conversationQuery = ApiClientService.newConversationQueryForReadConversations();
 
         conversationService.loadBySender(LoginService.getCurrentUser(req), conversationQuery, onLoadedCallback, onErrorCallBack);
       }
@@ -55,6 +55,19 @@ module.exports = {
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("loadUnReadConversations:" + e.message, 'Your inputs were not valid.'));
     }
+  },
+
+  getAllConversations: function(req, onSuccessCallback, onErrorCallback) {
+      var _this = this;
+      var onReadConversationsLoadCallback = function(readConversationList) {
+        var onUnreadConversationsLoadCallback = function(unreadConversationList) {
+          onSuccessCallback(readConversationList, unreadConversationList);
+        };
+
+        _this.loadUnReadConversations(req, onUnreadConversationsLoadCallback, onErrorCallback);
+      };
+
+      this.loadReadConversations(req, onReadConversationsLoadCallback, onErrorCallback);
   },
 
   getNumberOfUnreadConversations: function(req, onSuccessCallback, onErrorCallback) {
