@@ -12,7 +12,7 @@
 
     <div class="col-xs-1 headerIcon ">
 
-      <a href="<%= UrlService.to('/mailbox') %>"><span class="icon-mail4" id="newMsgCount"></span></a>
+      <a href="<%= UrlService.to('/mailbox') %>"><span class="icon-mail4 badge newMsgCount"></span></a>
     </div>
 
     <div class="col-xs-1 headerIcon">
@@ -37,4 +37,6 @@
   </div>
 </header>
 
-<% block('localScripts', '<script src="/js/localscripts/messages.js"></script>') %>
+<% if (LoginService.userIsLoggedIn(req)) { %>
+  <% block('localScripts', '<script src="/js/localscripts/messages.js"></script>') %>
+<% } %>

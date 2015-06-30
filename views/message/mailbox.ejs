@@ -1,10 +1,10 @@
 <div class="container">
   <div class="panel-group" id="mailbox-accordion" role="tablist" aria-multiselectable="true">
     <% unreadConversationList.getConversations().forEach(function (conversation) { %>
-    <%- partial('../partials/mailbox/conversation.ejs', {conversation: conversation}) %>
+    <%- partial('../partials/mailbox/conversation.ejs', {conversation: conversation, isUnread: true}) %>
     <% }); %>
     <% readConversationList.getConversations().forEach(function (conversation) { %>
-    <%- partial('../partials/mailbox/conversation.ejs', {conversation: conversation}) %>
+    <%- partial('../partials/mailbox/conversation.ejs', {conversation: conversation, isUnread: false}) %>
     <% }); %>
   </div>
 </div>

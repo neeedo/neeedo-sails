@@ -68,5 +68,11 @@ module.exports = {
     };
 
     MessageService.getAllConversations(req, onSuccessCallback, onErrorCallback);
+  },
+
+  ajaxLoadMessageByConversation: function(req, res) {
+
+
+    MessageService.loadMessageFromConversation(req, onSuccessCallback, onErrorCallback);
   }
 };
