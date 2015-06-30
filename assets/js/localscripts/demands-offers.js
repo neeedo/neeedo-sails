@@ -138,9 +138,13 @@ $(document).ready(function () {
     onSubmit : function( form ) {
       // hide form
       classie.addClass( theForm.querySelector( '.simform-inner' ), 'hide' );
+
       // hide suggested tags
       $("#myTags").hide();
-      
+      // hide upload containers
+      $("#fileupload-messages").hide();
+      $("#fileupload-files").hide();
+
       setLocationIfChecked(form);
 
     }

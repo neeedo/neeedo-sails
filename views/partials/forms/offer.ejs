@@ -33,7 +33,7 @@
         </li>
         <li>
           <span><label for="images[]"><%= i18n("Image upload") %></label></span>
-          <%- partial('./offer-fileupload.ejs') %>
+          <%- partial('./offer-fileupload.ejs', { renderMessages: false, renderPreviewImages: false }) %>
           <% images.getImages().forEach(function(image) { %>
           <input type="hidden" id="images[]" name="images[]" value="<%= image.getFileName() %>">
           <% }) %>
@@ -52,6 +52,10 @@
     </div><!-- /simform-inner -->
     <span class="final-message"></span>
   </form><!-- /simform -->
+
+  <% // Tag suggestion will be rendered here %>
+  <div class="fileupload-validation-messages"><%- partial('./offer-fileupload-messages.ejs') %></div>
+  <div class="fileupload-preview-images"><%- partial('./offer-fileupload-previewimages.ejs') %></div>
 </div>
 
 <% /* the following partial will be dynamically rendered by the browser's javascript

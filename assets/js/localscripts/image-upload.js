@@ -271,7 +271,10 @@ $(document).ready(function () {
 
   uploadTargetUrl = fileuploadForm.data('ajaxuploadurl');
 
-  inputFiles.on('change', prepareImages);
-  $('#fileupload-submit').on('click', uploadImages);
+  inputFiles.on('change', function(event) {
+    prepareImages(event);
+    uploadImages(event);
+  });
+  //$('#fileupload-submit').on('click', uploadImages);
   deleteFileButtons.on('click', deleteImage);
 });

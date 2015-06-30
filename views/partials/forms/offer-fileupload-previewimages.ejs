@@ -1,0 +1,12 @@
+<div id="fileupload-files">
+  <ul>
+    <% images.getImages().forEach(function(image) { %>
+    <li class="previewImages"><img src="<%= FileService.filterGetImageUrl(image.getUrl()) %>"
+                                   alt="<%= image.getFileName() %>">
+      <input type="button" class="fileupload-deleteImage"
+             value="<%= i18n('Delete') %>"
+             data-imageName="<%= image.getFileName() %>">
+    </li>
+    <% }) %>
+  </ul>
+</div>

@@ -18,31 +18,14 @@
     </p>
       <input type="file" name="files" id="fileupload-input" multiple>
 
-      <input type="button" id="fileupload-submit"
-             value="<%= i18n('Upload images') %>">
+      <!--<input type="button" id="fileupload-submit" value="<%= i18n('Upload images') %>">-->
   </div>
-  <div id="fileupload-messages"
-       data-messageNoFiles="<%= i18n('Please select at least one file.') %>"
-       data-messageInvalidType="<%= i18n('The file %%FILE%% has a type that is not allowed.') %>"
-       data-messageFileTooLarge="<%= i18n('The file %%FILE%% is too large.') %>"
-       data-messageTooManyFiles="<%= i18n('You choosed too many files.') %>"
-       data-messageUploadError="<%= i18n('Error - unable to upload files. Please contact Neeedo customer care.') %>"
-       data-messageDelete="<%= i18n('Delete') %>"
-    >
-    <% //upload messages will be shown here  %>
-  </div>
-  <div id="fileupload-files">
-    <ul>
-      <% images.getImages().forEach(function(image) { %>
-      <li class="previewImages"><img src="<%= FileService.filterGetImageUrl(image.getUrl()) %>"
-                                     alt="<%= image.getFileName() %>">
-        <input type="button" class="fileupload-deleteImage"
-               value="<%= i18n('Delete') %>"
-               data-imageName="<%= image.getFileName() %>">
-      </li>
-      <% }) %>
-    </ul>
-  </div>
+  <% if (renderMessages) { %>
+    <%- partial('./offer-fileupload-messages.ejs') %>
+  <% } %>
+  <% if (renderPreviewImages) { %>
+    <%- partial('./offer-fileupload-previewimages.ejs') %>
+  <% } %>
 </div>
 
 <% block('localScripts', '<script src="/js/localscripts/image-upload.js"></script>') %>
