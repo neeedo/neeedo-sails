@@ -1,22 +1,38 @@
 <header id="header">
   <div class="row">
-    <div class="col-xs-2">
+    <div class="col-xs-1">
+      <a href="<%= UrlService.to('/') %>">
+        <img src="/images/neeedo_Logo.png" alt="Neeedo Logo" class="img"/></a>
     </div>
-    <div class="col-xs-2">
+    <div class="col-xs-1">
       <h1><a href="<%= UrlService.to('/') %>">Neeedo
         </a></h1>
     </div>
-    <!--2 x col-xs-3-->
+    <div class="col-xs-2 headerElement">
+      <% if (LoginService.userIsLoggedIn(req)) { %>
+
+      <a class="icon-offer" href="<%= UrlService.to('/offers/create') %>"><%= i18n('Create offer') %><span></span> </a>
+      <% } %>
+
+    </div>
+    <div class="col-xs-2 headerElement">
+      <% if (LoginService.userIsLoggedIn(req)) { %>
+
+      <a class="icon-demand" href="<%= UrlService.to('/demands/create') %>"><%= i18n('Create demand') %>
+        <span></span></a>
+      <% } %>
+
+    </div>
+    <!--2 x col-xs-2-->
     <%- partial('./registerPartial.ejs') %>
     <%- partial('./login.ejs') %>
-    <!--2 x col-xs-3-->
+    <!--2 x col-xs-2-->
 
     <div class="col-xs-1 headerIcon ">
-
       <a href="<%= UrlService.to('/mailbox') %>"><span class="icon-mail4 badge newMsgCount"></span></a>
     </div>
 
-    <div class="col-xs-1 headerIcon">
+    <div class="col-xs-1 headerElement">
 
       <% // list all available locales / languages and provide link to set             %>
       <% for (var localeI = 0; localeI < LocaleService.getAvailableLocales().length; localeI++) { %>
@@ -30,5 +46,5 @@
 </header>
 
 <% if (LoginService.userIsLoggedIn(req)) { %>
-  <% block('localScripts', '<script src="/js/localscripts/messages.js"></script>') %>
+<% block('localScripts', '<script src="/js/localscripts/messages.js"></script>') %>
 <% } %>
