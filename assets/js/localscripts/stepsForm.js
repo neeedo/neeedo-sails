@@ -207,7 +207,7 @@
         return false;
       }
     }
-    if( input.type == 'file'){
+    if( input.type == 'file' || input.id == 'shouldTagsDemand'){
       return true;
     }
     if( input.value === '' ){
