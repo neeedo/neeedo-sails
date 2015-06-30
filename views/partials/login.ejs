@@ -1,5 +1,5 @@
 <% if (!LoginService.userIsLoggedIn(req)) { %>
-<div class="col-xs-2 text-center headerElement" xmlns="http://www.w3.org/1999/html">
+<div class="col-xs-1 headerElement" xmlns="http://www.w3.org/1999/html">
   <div class="row">
     <div class="col-xs-12">
       <a type="button" data-toggle="modal" data-target="#myModal">
@@ -10,11 +10,11 @@
 </div>
 <% } %>
 <% if (LoginService.userIsLoggedIn(req)) { %>
-<div class="col-xs-2 text-center">
+<div class="col-xs-1">
   <div class="row">
     <div class="col-xs-12">
       <form method="POST" id="loggedIn" action="<%= UrlService.to('/logout') %>">
-        <button class="btn1 formbtn" type="submit" id="logoutBtn"><%= i18n('Logout') %></button>
+        <button class="btn " type="submit" id="logoutBtn"><%= i18n('Logout') %></button>
       </form>
     </div>
   </div>
@@ -32,16 +32,16 @@
           <h4 class="modal-title text-center" id="myModalLabel"><%= i18n('Please Login') %></h4>
         </div>
         <div class="modal-body">
-
           <div class="input-group input-group-lg login-inputs">
             <span class="input-group-addon" id="sizing-addon1"><%= i18n('E-Mail') %></span>
-            <input id="email" type="email" name="email" class="form-control glowing-border" placeholder="<%= i18n('E-Mail') %>" aria-describedby="sizing-addon1" required>
-
-          </div><div class="input-group input-group-lg login-inputs">
-            <span class="input-group-addon" id="sizing-addon2"><%= i18n('Password') %></span>
-            <input id="password" type="password" name="password" class="form-control" placeholder="<%= i18n('Password') %>" aria-describedby="sizing-addon2"required>
+            <input id="email" type="email" name="email" class="form-control glowing-border"
+                   placeholder="<%= i18n('E-Mail') %>" aria-describedby="sizing-addon1" required/>
           </div>
-
+          <div class="input-group input-group-lg login-inputs">
+            <span class="input-group-addon" id="sizing-addon2"><%= i18n('Password') %></span>
+            <input id="password" type="password" name="password" class="form-control"
+                   placeholder="<%= i18n('Password') %>" aria-describedby="sizing-addon2" required/>
+          </div>
         </div>
         <div class="modal-footer">
           <input class="btn" type="submit" id="sendbtn" value="<%= i18n('Login') %>"/>
