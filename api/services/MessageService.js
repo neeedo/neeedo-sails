@@ -194,7 +194,7 @@ module.exports = {
       };
 
       var messageService = new MessageService();
-      messageService.toggleRead(message, onToggleSuccessCallback, onErrorCallback);
+      messageService.toggleRead(LoginService.getCurrentUser(req), message, onToggleSuccessCallback, onErrorCallback);
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("createMessage:" + e.message, 'Your inputs were not valid.'));
     }

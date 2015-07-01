@@ -432,5 +432,33 @@ module.exports = {
 
   newOfferList: function() {
     return new OfferList();
+  },
+
+  validateAndCreateNewOfferIdFromRequest: function(req, onErrorCallback) {
+    var validationResult = ApiClientService.validateOfferIdFromRequest(req);
+
+    if (!validationResult.success) {
+      onErrorCallback(ApiClientService.newError("validateAndCreateNewOfferIdFromRequest: ", validationResult.message));
+    } else {
+      return validationResult.offerId;
+    }
+  },
+
+  validateOfferIdFromRequest: function(req) {
+    var offerId = req.param('offerId');
+
+    if (-1 !== offerId.indexOf("image")) {
+      return {
+        success: false,
+        message: '',
+        offerId: offerId
+      };
+    }
+
+    return {
+      success: true,
+      message: '',
+      offerId: offerId
+    };
   }
 };

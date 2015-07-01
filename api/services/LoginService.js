@@ -61,5 +61,9 @@ module.exports = {
 
   redirectToAfterLoginUrl: function(req, res) {
     return UrlService.redirectToLastRedirectUrl(req, res);
+  },
+
+  getLoginUrl: function(req) {
+    return UrlService.to('/register');
   }
 };

@@ -112,5 +112,11 @@
   "Your message couldn't be sent." : "Your message couldn't be sent.",
   "You cannot view messages of other users." : "You cannot view messages of other users.",
   "Please fill the field before continuing" : "Please fill the field before continuing",
-  "Image upload" : "Image upload"
+  "Image upload" : "Image upload",
+  "Back to Mailbox" : "Back to Mailbox",
+  "Your conversation with %s" : "Your conversation with %s",
+  "Message" : "Message",
+  "From" : "From",
+  "New" : "New",
+  "Reply" : "Reply"
 }

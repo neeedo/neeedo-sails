@@ -156,11 +156,11 @@ module.exports = {
    },
 
   loadOffer: function(req, onLoadCallback, onErrorCallback) {
-    var offerId = req.param("offerId");
+    var offerId = ApiClientService.validateAndCreateNewOfferIdFromRequest(req, onErrorCallback);
 
     if (this.isInSession(req, offerId)) {
       try {
-        sails.log.info('Attempt to restore offer with ID ' + offerId + " from session: session centent " +
+        sails.log.info('Attempt to restore offer with ID ' + offerId + " from session: session content " +
         util.inspect(req.session.offers[offerId], {
           showHidden: false,
             depth: null

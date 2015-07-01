@@ -23,6 +23,14 @@ module.exports = {
   },
 
   setRedirectUrl: function(req) {
-    req.session.redirectUrl = req.url;
+    if (this.isValid(req.url)) {
+      sails.log.info('setting redirect url: ' + req.url);
+      req.session.redirectUrl = req.url;
+    }
+  },
+
+  isValid: function(url) {
+    // bugfix TODO find out where this request is coming from
+    return (-1 == url.indexOf("image"));
   }
 };

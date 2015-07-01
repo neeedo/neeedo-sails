@@ -127,5 +127,11 @@
   "Your message couldn't be sent." : "Deine Nachricht konnte nicht gesendet werden.",
   "You cannot view messages of other users." : "Du kannst dir nicht die Nachrichten anderer Benutzer ansehen",
   "Please fill the field before continuing" : "Bitte füllen Sie das Feld aus",
-  "Image upload" : "Bilder upload"
+  "Image upload" : "Bilder upload",
+  "Back to Mailbox" : "Zurück zu den Nachrichten",
+  "Your conversation with %s" : "Dein Nachrichtenverlauf mit %s",
+  "Message" : "Nachricht",
+  "From" : "Von",
+  "New" : "Neu",
+  "Reply" : "Antworten"
 }
