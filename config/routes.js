@@ -86,9 +86,10 @@ module.exports.routes = {
    *
    *************************************************************************/
   '/messages/create': 'MessageController.create',
-  'get /messages/count': 'MessageController.getUnreadMessagesCount',
-  'get /messages/ajax-load-messages-by-conversation': 'MessageController.ajaxLoadMessageByConversation',
+  'get /messages/count': 'MessageController.ajaxGetUnreadMessagesCount',
+  'get /messages/ajax-load-messages-by-conversation': 'MessageController.ajaxLoadMessagesByConversation',
   '/mailbox': 'MessageController.mailbox',
+  '/messages/view/messageId/:messageId/senderId/:senderId': 'MessageController.viewMessage',
 
   /*************************************************************************
    *

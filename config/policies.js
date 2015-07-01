@@ -33,8 +33,9 @@ module.exports.policies = {
     '*'     : false,
     'create': ['setLocale', 'isLoggedIn'],
     'mailbox': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
-    'getUnreadMessagesCount':['isLoggedIn'],
-    'ajaxLoadMessageByConversation':['isLoggedIn']
+    'viewMessage': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
+    'ajaxGetUnreadMessagesCount':['isLoggedIn'],
+    'ajaxLoadMessagesByConversation':['isLoggedIn']
   },
   OfferController: {
     '*'     : false,

@@ -33,7 +33,6 @@ module.exports = {
     };
   },
 
-
   getAvailableLocales: function() {
     return sails.config.i18n.locales;
   },
@@ -58,6 +57,13 @@ module.exports = {
 
   getDefaultLongitude: function(req) {
     return this.getDefaultLocation(req).longitude;
+  },
+
+  formatTimestamp: function(timestampInMilliseconds) {
+    var date = new Date(timestampInMilliseconds);
+
+    return date.getDate() + "." + (date.getMonth() + 1)  + "." + date.getFullYear()
+      + " - " + date.getHours() + ":" + date.getMinutes();
   }
 
 };

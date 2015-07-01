@@ -26,6 +26,7 @@ module.exports = {
 
       if (undefined !== readConversationsFromSession) {
         // loaded from session
+        sails.log.info('loaded conversations from session: ' + util.inspect(readConversationsFromSession, {showHidden: false, depth: 3}));
         onSuccessCallback(readConversationsFromSession);
       } else {
         // load from API
@@ -83,7 +84,7 @@ module.exports = {
     }
   },
 
-  loadMessageFromConversation: function (req, onSuccessCallback, onErrorCallBack) {
+  loadMessagesFromConversation: function (req, onSuccessCallback, onErrorCallBack) {
     try {
       var _this = this;
 
@@ -99,7 +100,7 @@ module.exports = {
       var messageListService = new MessageListService();
       messageListService.loadByConversation(conversation, onLoadedCallback, onErrorCallBack);
     } catch (e) {
-      onErrorCallBack(ApiClientService.newError("loadMessageFromConversation:" + e.message, 'Your inputs were not valid.'));
+      onErrorCallBack(ApiClientService.newError("loadMessagesFromConversation:" + e.message, 'Your inputs were not valid.'));
     }
   },
 
@@ -110,12 +111,12 @@ module.exports = {
 
     if (undefined !== messageFromSession) {
       // message was loaded from session
-      if (!this.setBelongsToCurrentUser(req, res, loadedMessage)) {
+      if (!this.setBelongsToCurrentUser(req, res, messageFromSession)) {
         onErrorCallback(ApiClientService.newError("loadMessage: attempt to load message with ID " + messageId + " that doesn't belong to user",
           "You cannot view messages of other users."));
       } else {
         // loaded from session
-        onSuccessCallback(messageFromSession);
+        onLoadCallback(messageFromSession);
       }
     } else {
       // message needs to be loaded via API
@@ -126,7 +127,7 @@ module.exports = {
         var message = _this.findMessageInList(messageId, messageList);
 
         if (undefined == message) {
-          onErrorCallBack(ApiClientService.newError("loadMessage: message with ID " + messageId + " was not found", 'Your inputs were not valid.'))
+          onErrorCallback(ApiClientService.newError("loadMessage: message with ID " + messageId + " was not found", 'Your inputs were not valid.'))
         }
 
         if (!_this.setBelongsToCurrentUser(req, res, loadedMessage)) {
@@ -134,7 +135,7 @@ module.exports = {
             "You cannot view messages of other users."));
         } else {
           // loaded via API
-          onSuccessCallback(message);
+          onLoadCallback(message);
         }
       };
 
@@ -156,12 +157,29 @@ module.exports = {
     return undefined;
   },
 
-  loadMessageAndToggleRead: function (req, res, onSuccessCallback, onErrorCallback) {
-    var onLoadSuccessCallback = function (loadedMessage) {
-      this.toggleRead(loadedMessage, req, onSuccessCallback, onErrorCallback);
+  loadMessagesFromConversationAndMarkAsRead: function (req, res, onSuccessCallback, onErrorCallback) {
+    var _this = this;
+
+    var onConversationloadSuccess = function(messageList) {
+      // let's mark the message as read asynchronously without waiting for the response
+      _this.loadMessageAndToggleRead(req, res, function(message) {}, function(error) {
+        sails.log.error("Couldn't mark message as read: " + util.inspect(error));
+      });
+
+      onSuccessCallback(messageList);
     };
 
-    this.loadMessage(req, onLoadSuccessCallback, onErrorCallback);
+    this.loadMessagesFromConversation(req, onConversationloadSuccess, onErrorCallback);
+  },
+
+  loadMessageAndToggleRead: function (req, res, onSuccessCallback, onErrorCallback) {
+    var _this = this;
+
+    var onLoadSuccessCallback = function (loadedMessage) {
+      _this.toggleRead(loadedMessage, req, onSuccessCallback, onErrorCallback);
+    };
+
+    this.loadMessage(req, res, onLoadSuccessCallback, onErrorCallback);
   },
 
   toggleRead: function (message, req, onSuccessCallback, onErrorCallback) {
@@ -196,18 +214,18 @@ module.exports = {
 
   loadReadConversationsFromSession: function (req) {
     if (this.areReadConversationsInSession(req)) {
-      return ApiClientService.newConversationList().loadFromSerialized(req.session.conversations.read);
+      return ApiClientService.newConversationList().loadFromSerialized(req.session.conversations.read.conversations);
     }
 
     return undefined;
   },
 
   areReadConversationsInSession: function (req) {
-    return "conversations" in req.session && "read" in req.session.conversations;
+    return "conversations" in req.session && "read" in req.session.conversations && "conversations" in req.session.conversations.read;
   },
 
   addToReadConversationsInSession: function (req, conversation) {
-    if (this.areReadConversationsInSession() && undefined !== this.loadReadConversationsFromSession(req)) {
+    if (this.areReadConversationsInSession(req) && undefined !== this.loadReadConversationsFromSession(req)) {
       // only add the conversation to the read ones in the session if there are already some existing. Otherwise, the conversations need to be loaded via API again.
       var readConversationsList = this.loadReadConversationsFromSession(req);
       readConversationsList.addConversation(conversation);
@@ -240,7 +258,7 @@ module.exports = {
   },
 
   isMessageInSession: function (req, messageId) {
-    return "messages" in req.session && demandId in req.session.messages && undefined != req.session.messages[messageId];
+    return "messages" in req.session && messageId in req.session.messages && undefined != req.session.messages[messageId];
   },
 
   getCreateUrl: function () {
@@ -252,7 +270,7 @@ module.exports = {
   },
 
   getViewUrl: function() {
-    return UrlService.to('/messages/view/messageId/%%messageId%%');
+    return UrlService.to('/messages/view/messageId/%%messageId%%/senderId/%%senderId%%');
   },
 
   buildDefaultMessageForOffer: function (offer, req, res) {

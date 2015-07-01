@@ -37,7 +37,7 @@ module.exports = {
     }
   },
 
-  getUnreadMessagesCount: function(req, res){
+  ajaxGetUnreadMessagesCount: function(req, res){
       var onSuccessCallback = function(numberOfUnreadMsg) {
        res.json(numberOfUnreadMsg);
       };
@@ -69,7 +69,7 @@ module.exports = {
     MessageService.getAllConversations(req, onSuccessCallback, onErrorCallback);
   },
 
-  ajaxLoadMessageByConversation: function(req, res) {
+  ajaxLoadMessagesByConversation: function(req, res) {
     var onSuccessCallback = function(messageList) {
       MessageService.sendMessageListJsonResponse(req, res, messageList);
     };
@@ -77,6 +77,28 @@ module.exports = {
       MessageService.sendErrorJsonResponse(res, errorModel);
     };
 
-    MessageService.loadMessageFromConversation(req, onSuccessCallback, onErrorCallback);
+    MessageService.loadMessagesFromConversation(req, onSuccessCallback, onErrorCallback);
+  },
+
+  viewMessage: function(req, res) {
+    var onSuccessCallback = function(messageList) {
+      res.view('message/viewMessage', {
+        locals: {
+          sender : messageList.getMessages().length > 0 ? messageList.getMessages()[0].getSender() : undefined,
+          messageList : messageList
+        }
+      });
+    };
+
+    var onErrorCallback = function(errorModel) {
+      ApiClientService.logMessages(errorModel);
+      ApiClientService.addFlashMessages(req, res, errorModel);
+
+      if (!UrlService.redirectToLastRedirectUrl(req, res)) {
+        res.redirect('/dashboard');
+      }
+    };
+
+    MessageService.loadMessagesFromConversationAndMarkAsRead(req, res, onSuccessCallback, onErrorCallback);
   }
 };

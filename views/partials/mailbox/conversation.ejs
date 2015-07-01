@@ -2,11 +2,11 @@
   <div class="panel-heading" role="tab" id="headingOne">
     <h4 class="panel-title">
       <a role="button" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#<%- collapseId %>" aria-expanded="false" aria-controls="<%- collapseId %>">
+        <% if (isUnread) { %>
         <span class="label label-default"><%- i18n('New') %></span>
+        <% } %>
         <%- i18n('From') %>: <%- conversation.getSender().getUsername() %>
       </a>
-      <% if (isUnread) { %>
-      <% } %>
     </h4>
   </div>
   <div id="<%- collapseId %>" class="panel-collapse collapse messages-collapse" data-senderId="<%- conversation.getSender().getId() %>" role="tabpanel" aria-labelledby="headingOne">

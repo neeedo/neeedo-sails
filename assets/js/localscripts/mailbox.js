@@ -55,7 +55,8 @@ $(document).ready(function () {
       message: {
         viewUrl: getViewUrl(viewUrl, message),
         time: formatTimestamp(message.timestamp),
-        shortBody: shortenMessageBody(message.body, maxCharacters)
+        shortBody: shortenMessageBody(message.body, maxCharacters),
+        sender: message.sender.username
       }
     };
 
@@ -68,7 +69,8 @@ $(document).ready(function () {
 
   var getViewUrl = function (viewUrl, message) {
     if (undefined != viewUrl) {
-      return viewUrl.replace('%%messageId%%', message.id);
+      return viewUrl.replace('%%senderId%%', message.sender.id)
+          .replace('%%messageId%%', message.id);
     }
 
     return '';
