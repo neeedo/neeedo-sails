@@ -10,22 +10,11 @@ $(document).ready(function () {
     removeMessages(_this);
 
     var onMessagesCallback = function (returnedData) {
-      var viewUrl = undefined;
-
-      if ("viewUrl" in returnedData) {
-        viewUrl = returnedData.viewUrl;
-      }
-
-      var maxCharacters = undefined;
-      if ("maxCharacters" in returnedData) {
-        maxCharacters = returnedData.maxCharacters;
-      }
-
       if ("messageList" in returnedData) {
         var messageList = returnedData.messageList;
         if ("messages" in messageList) {
           for (var i = 0; i < messageList.messages.length; i++) {
-            displayMessage(_this, messageList.messages[i], viewUrl, maxCharacters);
+            displayMessage(_this, messageList.messages[i], returnedData);
           }
         }
       }
@@ -41,22 +30,38 @@ $(document).ready(function () {
     );
   });
 
-  var displayMessage = function (element, message, viewUrl, maxCharacters) {
-    var html = renderMessage(message, viewUrl, maxCharacters);
+  var displayMessage = function (element, message, responseData) {
+    var html = renderMessage(message, responseData);
 
     element.append(html);
   };
 
-  var renderMessage = function (message, viewUrl, maxCharacters) {
+  var renderMessage = function (message, responseData) {
+    var viewUrl = undefined;
+
+    if ("viewUrl" in responseData) {
+      viewUrl = responseData.viewUrl;
+    }
+
+    var maxCharacters = undefined;
+    if ("maxCharacters" in responseData) {
+      maxCharacters = responseData.maxCharacters;
+    }
+
+    var currentUser = undefined;
+    if ("currentUser" in responseData) {
+      currentUser = responseData.currentUser;
+    }
+
     var source = messagePreviewTemplateEl.html();
     var template = Handlebars.compile(source);
 
     var context = {
       message: {
-        viewUrl: getViewUrl(viewUrl, message),
+        viewUrl: getViewUrl(viewUrl, message, currentUser),
         time: formatTimestamp(message.timestamp),
         shortBody: shortenMessageBody(message.body, maxCharacters),
-        sender: message.sender.username
+        sender: message.sender
       }
     };
 
@@ -67,10 +72,14 @@ $(document).ready(function () {
     element.empty();
   };
 
-  var getViewUrl = function (viewUrl, message) {
+  var getViewUrl = function (viewUrl, message, currentUser) {
     if (undefined != viewUrl) {
-      return viewUrl.replace('%%senderId%%', message.sender.id)
-          .replace('%%messageId%%', message.id);
+      // senderId should be the other message endpoint, so not the current user
+      return viewUrl
+        .replace('%%senderId%%', (undefined != currentUser && currentUser.id == message.sender.id
+          ? message.recipient.id
+          : message.sender.id))
+        .replace('%%messageId%%', message.id);
     }
 
     return '';

@@ -334,7 +334,8 @@ module.exports = {
     res.json({
       messageList: messageList,
       viewUrl: _this.getViewUrl(),
-      maxCharacters: sails.config.webapp.mailbox.previewMaxCharacters
+      maxCharacters: sails.config.webapp.mailbox.previewMaxCharacters,
+      currentUser: LoginService.getCurrentUser(req)
     });
   },
 
@@ -394,6 +395,26 @@ module.exports = {
     res.json({
       message: errorModel.getErrorMessages()[0]
     });
+  },
+
+  /**
+   * Get user that the current user is having a conversation with by determining the given messageList (response of api client getMessageListByConversation).
+   *
+   * @param messageList
+   * @returns {*}
+   */
+  getConversationPartner: function(req, messageList) {
+    if (messageList.getMessages().length > 0) {
+      var message = messageList.getMessages()[0];
+
+      if (message.getSender().getId() == LoginService.getCurrentUser(req).getId()) {
+        return message.getRecipient();
+      }
+
+      return message.getSender();
+    }
+
+    return undefined;
   }
 }
 ;

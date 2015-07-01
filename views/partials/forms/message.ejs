@@ -1,3 +1,4 @@
+<% if (!LoginService.userIsLoggedIn(req) || recipientId != LoginService.getCurrentUser(req).getId()) { %>
 <div class="row">
   <div class="col-md-5">
     <button type="button" class="close" data-dismiss="modal"
@@ -6,8 +7,8 @@
     <h4><%= i18n(title) %></h4>
   </div>
 </div>
-
-<% if (LoginService.userIsLoggedIn(req)) { %>
+<% } %>
+<% if (LoginService.userIsLoggedIn(req) && recipientId != LoginService.getCurrentUser(req).getId()) { %>
 <form method="POST" id="createMessage" action="<%= MessageService.getCreateUrl() %>">
   <div class="row">
     <div class="col-md-5">
@@ -25,7 +26,7 @@
     </div>
   </div>
 </form>
-<% } else { %>
+<% } else if (!LoginService.userIsLoggedIn(req)) { %>
 <p><%= i18n(notLoggedInMessage) %></p>
 <% } %>
 

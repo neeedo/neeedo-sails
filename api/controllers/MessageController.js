@@ -84,7 +84,7 @@ module.exports = {
     var onSuccessCallback = function(messageList) {
       res.view('message/viewMessage', {
         locals: {
-          sender : messageList.getMessages().length > 0 ? messageList.getMessages()[0].getSender() : undefined,
+          conversationPartner : MessageService.getConversationPartner(req, messageList),
           messageList : messageList
         }
       });

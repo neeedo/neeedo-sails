@@ -1,6 +1,6 @@
 <div class="container">
   <div><a href="<%- MessageService.getMailboxUrl() %>"><%- i18n('Back to Mailbox')%></a><br />
-    <h3><%- i18n('Your conversations with %s', (sender ? sender.getUsername() : '')) %></h3>
+    <h3><%- i18n('Your conversations with %s', (conversationPartner ? conversationPartner.getUsername() : '')) %></h3>
   </div>
   <div>
     <% messageList.getMessages().forEach(function (readMessage) { %>
@@ -16,7 +16,7 @@
         title: "Reply",
         notLoggedInMessage: "Please login in order to reply",
         defaultMessage: "",
-        recipientId: (sender ? sender.getId() : '')
+        recipientId: (conversationPartner ? conversationPartner.getId() : '')
       }
   ) %>
  </div>
