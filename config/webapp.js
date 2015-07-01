@@ -87,5 +87,9 @@ module.exports.webapp = {
     defaultZoomStep: 12,
     // max number of items (demands or offers) that will be loaded in the map
     itemLimit: 50
+  },
+  mailbox: {
+    // max number of characters shown in the mailbox action message prewiew
+    previewMaxCharacters: 60
   }
 };

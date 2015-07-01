@@ -3,44 +3,29 @@ $(document).ready(function () {
   var toggleMessagesEl = $('.messages-collapse');
   var messagesPreviewEl = toggleMessagesEl.find('.messages-preview');
 
-  var renderMessage = function(message) {
-    var source = messagePreviewTemplateEl.html();
-    var template = Handlebars.compile(source);
-
-    var context = {
-      message: {
-        viewUrl: "",
-        time: message.timestamp,
-        shortBody: message.body
-      }
-    };
-
-    return template(context);
-  };
-
-  var displayMessage = function(message) {
-    var html = renderMessage(message);
-
-    messagesPreviewEl.append(html);
-  };
-
-  var removeMessages = function() {
-    messagesPreviewEl.empty();
-
-  };
-
   $(toggleMessagesEl).on('shown.bs.collapse', function () {
     var _this = $(this);
     var senderId = _this.data('senderid');
 
-    removeMessages();
+    removeMessages(_this);
 
-    var onMessagesCallback = function(returnedData) {
+    var onMessagesCallback = function (returnedData) {
+      var viewUrl = undefined;
+
+      if ("viewUrl" in returnedData) {
+        viewUrl = returnedData.viewUrl;
+      }
+
+      var maxCharacters = undefined;
+      if ("maxCharacters" in returnedData) {
+        maxCharacters = returnedData.maxCharacters;
+      }
+
       if ("messageList" in returnedData) {
         var messageList = returnedData.messageList;
         if ("messages" in messageList) {
           for (var i = 0; i < messageList.messages.length; i++) {
-            displayMessage(messageList.messages[i]);
+            displayMessage(_this, messageList.messages[i], viewUrl, maxCharacters);
           }
         }
       }
@@ -54,5 +39,50 @@ $(document).ready(function () {
       },
       onMessagesCallback
     );
-  })
+  });
+
+  var displayMessage = function (element, message, viewUrl, maxCharacters) {
+    var html = renderMessage(message, viewUrl, maxCharacters);
+
+    element.append(html);
+  };
+
+  var renderMessage = function (message, viewUrl, maxCharacters) {
+    var source = messagePreviewTemplateEl.html();
+    var template = Handlebars.compile(source);
+
+    var context = {
+      message: {
+        viewUrl: getViewUrl(viewUrl, message),
+        time: formatTimestamp(message.timestamp),
+        shortBody: shortenMessageBody(message.body, maxCharacters)
+      }
+    };
+
+    return template(context);
+  };
+
+  var removeMessages = function (element) {
+    element.empty();
+  };
+
+  var getViewUrl = function (viewUrl, message) {
+    if (undefined != viewUrl) {
+      return viewUrl.replace('%%messageId%%', message.id);
+    }
+
+    return '';
+  };
+
+  var formatTimestamp = function (timestampInMilliSeconds) {
+    var date = new Date(timestampInMilliSeconds);
+
+    // TODO the date should be delivered by the backend depending on the current locale in the future. For now, it's hard-coded.
+    return date.getDate() + "." + (date.getMonth() + 1)  + "." + date.getFullYear()
+      + " - " + date.getHours() + ":" + date.getMinutes();
+  };
+
+  var shortenMessageBody = function (messageBody, maxNumberOfCharacters) {
+    return messageBody.substring(0, maxNumberOfCharacters) + "...";
+  };
 });

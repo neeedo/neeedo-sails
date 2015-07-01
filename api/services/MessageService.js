@@ -251,6 +251,10 @@ module.exports = {
     return UrlService.to('/mailbox');
   },
 
+  getViewUrl: function() {
+    return UrlService.to('/messages/view/messageId/%%messageId%%');
+  },
+
   buildDefaultMessageForOffer: function (offer, req, res) {
     var msg = res.i18n("Hello %s", offer.getUser().getUsername())
       + ", \n"
@@ -308,8 +312,11 @@ module.exports = {
   sendMessageListJsonResponse: function (req, res, messageList) {
     res.status(200);
 
+    var _this = this;
     res.json({
-      messageList: messageList
+      messageList: messageList,
+      viewUrl: _this.getViewUrl(),
+      maxCharacters: sails.config.webapp.mailbox.previewMaxCharacters
     });
   },
 

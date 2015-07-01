@@ -1,15 +1,15 @@
 <div class="panel panel-default">
   <div class="panel-heading" role="tab" id="headingOne">
     <h4 class="panel-title">
-      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-       <%- i18n('From') %>: <%- conversation.getSender().getUsername() %>
+      <a role="button" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#<%- collapseId %>" aria-expanded="false" aria-controls="<%- collapseId %>">
+        <span class="label label-default"><%- i18n('New') %></span>
+        <%- i18n('From') %>: <%- conversation.getSender().getUsername() %>
       </a>
       <% if (isUnread) { %>
-      <span class="label label-default"><%- i18n('New') %></span>
       <% } %>
     </h4>
   </div>
-  <div id="collapseOne" class="panel-collapse collapse in messages-collapse" data-senderId="<%- conversation.getSender().getId() %>" role="tabpanel" aria-labelledby="headingOne">
+  <div id="<%- collapseId %>" class="panel-collapse collapse messages-collapse" data-senderId="<%- conversation.getSender().getId() %>" role="tabpanel" aria-labelledby="headingOne">
     <div class="panel-body">
       <ul class="messages-preview">
 
