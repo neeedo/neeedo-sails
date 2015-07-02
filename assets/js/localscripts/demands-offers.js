@@ -3,7 +3,8 @@
  *              CREATE OFFER & DEMAND
  *
  * #############################################
- */
+*/
+
 var geolocationCheckbox,
   address,
   addressContainer
@@ -26,7 +27,6 @@ var setLocationIfChecked = function(form) {
         alert(geolocationCheckbox.data('translationnogeolocation'));
       } else {
         setLatitudeAndLongitudeInHiddenField(location);
-        0
       }
       form.submit();
     };
@@ -52,9 +52,13 @@ var setLatitudeAndLongitudeInHiddenField = function(location) {
 
 var toggleGeolocationAndAdressFields = function(useGeolocation) {
   if (useGeolocation) {
-    addressContainer.fadeOut();
+    document.getElementById("address").disabled=true;
+    $('#address').addClass('disabled');
+    $('#address').attr("placeholder","");
   } else {
-    addressContainer.fadeIn();
+    document.getElementById("address").disabled=false;
+    $('#address').removeClass('disabled');
+    $('#address').attr("placeholder","Landsberger Allee, Berlin")
   }
 };
 
@@ -127,28 +131,6 @@ var provideAddressAutoComplete = function() {
 };
 
 $(document).ready(function () {
-  if(document.getElementById('createDemand')) {
-    var theForm = document.getElementById('createDemand');
-  }
-  if(document.getElementById('createOffer')) {
-    var theForm = document.getElementById('createOffer');
-  }
-
-  new stepsForm( theForm, {
-    onSubmit : function( form ) {
-      // hide form
-      classie.addClass( theForm.querySelector( '.simform-inner' ), 'hide' );
-
-      // hide suggested tags
-      $("#myTags").hide();
-      // hide upload containers
-      $("#fileupload-messages").hide();
-      $("#fileupload-files").hide();
-
-      setLocationIfChecked(form);
-
-    }
-  } );
   var offerForm = $('#createOffer');
   var demandForm = $('#createDemand');
   geolocationCheckbox = $('#useGeolocation');
@@ -162,7 +144,9 @@ $(document).ready(function () {
    * ##################
    */
   if (!geolocationCheckbox.checked) {
-    addressContainer.hide();
+    document.getElementById("address").disabled=true;
+    $('#address').addClass('disabled');
+    $('#address').attr("placeholder","");
   }
 
   geolocationCheckbox.change(function() {
@@ -173,7 +157,7 @@ $(document).ready(function () {
     return val.split( /,\s*/ );
   }
 
-  provideAddressAutoComplete();/*
+  provideAddressAutoComplete();
    offerForm.on('submit', setLocationIfChecked);
    demandForm.on('submit', setLocationIfChecked);
    /* ##################
@@ -182,7 +166,6 @@ $(document).ready(function () {
    * #
    * ##################*/
 
-  /*
    $("#mustTagsDemand").tagit({
    autocomplete: {
    source: function( request, response ) {
@@ -203,7 +186,7 @@ $(document).ready(function () {
    afterTagAdded: function(event, ui) {
    getSuggests();
    }
-   });*/
+   });
   $("#mustTagsDemand")
     .bind( "keydown", function( event ) {
       if (event.keyCode == $.ui.keyCode.ENTER) {

@@ -118,5 +118,15 @@
   "Message" : "Message",
   "From" : "From",
   "New" : "New",
-  "Reply" : "Reply"
+  "Reply" : "Reply",
+  "Bicycle, iPhone" : "Bicycle, iPhone",
+  "What are you looking for?" : "What are you looking for?",
+  "blue, screen protector" : "blue, screen protector",
+  "Feature list" : "Feature list",
+  "Minimum price in €" : "Minimum price in €",
+  "Maximum price in €" : "Maximum price in €",
+  "Use current location" : "Use current location",
+  "Type in your address" : "Type in your address",
+  "Maximum distance in km" : "Maximum distance in km",
+  "Location" : "Location"
 }

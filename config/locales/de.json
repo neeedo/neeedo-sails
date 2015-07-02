@@ -133,5 +133,15 @@
   "Message" : "Nachricht",
   "From" : "Von",
   "New" : "Neu",
-  "Reply" : "Antworten"
+  "Reply" : "Antworten",
+  "Bicycle, iPhone" : "Fahrrad, iPhone",
+  "What are you looking for?" : "Was suchen Sie?",
+  "blue, screen protector" : "blau, Displayfolie",
+  "Feature list" : "Eigenschaften",
+  "Minimum price in €" : "Minimum Preis in €",
+  "Maximum price in €" : "Maximum Preis in €",
+  "Use current location" : "Aktuelle Position nutzen",
+  "Type in your address" : "Geben Sie Ihre Adresse ein",
+  "Maximum distance in km" : "Maximale Distanz in KM",
+  "Location" : "Standort"
 }

@@ -9,10 +9,6 @@
   }
 }
 
-#addressLabel {
-
-}
-
 #address {
   width: 100%;
 }
@@ -21,329 +17,114 @@
   display: none;
 }
 
-/* Single Line Form */
-
-.simform {
-  position: relative;
-  margin: 0 auto;
-  padding: 2em 0;
-  max-width: 860px;
-  width: 100%;
-  text-align: left;
-  font-size: 2.5em;
+.form-style{
+  max-width: 600px;
+  margin: 20px auto;
+  background: @MetroGreen;
+  border-radius:2px;
+  padding:20px;
 }
-
-.simform .submit {
-  display: none;
-}
-
-/* Question list style */
-.simform ol {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  position: relative;
-  -webkit-transition: height 0.4s;
-  transition: height 0.4s;
-}
-
-.simform ol:before {
-  content: '';
-  background-color: rgba(0,0,0,0.1);
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 2.35em;
-}
-
-.questions li {
-  z-index: 100;
-  position: relative;
-  visibility: hidden;
-  height: 0;
-  -webkit-transition: visibility 0s 0.4s, height 0s 0.4s;
-  transition: visibility 0s 0.4s, height 0s 0.4s;
-}
-
-.questions li.current,
-.no-js .questions li {
-  visibility: visible;
-  height: auto;
-  -webkit-transition: none;
-  transition: none;
-}
-
-/* Labels */
-.questions li > span {
+.form-style h1{
   display: block;
-  overflow: hidden;
-  height: 55px;
-}
-
-.questions li > span label {
-  display: block;
-  -webkit-transition: -webkit-transform 0.4s;
-  transition: transform 0.4s;
-  -webkit-transform: translateY(-100%);
-  transform: translateY(-100%);
-}
-
-.questions li.current > span label,
-.no-js .questions li > span label {
-  -webkit-transition: none;
-  transition: none;
-  -webkit-transform: translateY(0);
-  transform: translateY(0);
-}
-
-.show-next .questions li.current > span label {
-  -webkit-animation: moveUpFromDown 0.4s both;
-  animation: moveUpFromDown 0.4s both;
-}
-
-@-webkit-keyframes moveUpFromDown {
-  from { -webkit-transform: translateY(100%); }
-  to { -webkit-transform: translateY(0); }
-}
-
-@keyframes moveUpFromDown {
-  from { -webkit-transform: translateY(100%); transform: translateY(100%); }
-  to { -webkit-transform: translateY(0); transform: translateY(0); }
-}
-
-/* Input field */
-.questions input {
-  display: block;
-  margin: 0.3em 0 0 0;
-  padding: 0.5em 1em 0.5em 0.7em;
-  width: calc(100% - 2em);
-  height: 75px;
-  border: none;
-  background: transparent;
-  color: rgba(0,0,0,0.8);
-  font-size: 1em;
-  line-height: 1;
-  opacity: 0;
-  -webkit-transition: opacity 0.3s;
-  transition: opacity 0.3s;
-}
-
-.questions .current input,
-.no-js .questions input {
-  opacity: 1;
-}
-
-.questions input:focus,
-.simform button:focus {
-  outline: none;
-}
-
-/* Next question button */
-.next {
-  position: absolute;
-  right: 0;
-  bottom: 2.7em; /* padding-bottom of form plus progress bar height */
-  display: block;
-  padding: 0;
-  width: 2em;
-  height: 2em;
-  border: none;
-  background: none;
-  color: rgba(0,0,0,0.4);
   text-align: center;
-  opacity: 0;
-  z-index: 100;
-  cursor: pointer;
-  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-  transition: transform 0.3s, opacity 0.3s;
-  -webkit-transform: translateX(-20%);
-  transform: translateX(-20%);
-  pointer-events: none;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  padding: 0;
+  margin: 0px 0px 20px 0px;
 }
-
-.next:hover {
-  color: rgba(0,0,0,0.5);
+.form-style ul{
+  list-style:none;
+  padding:0;
+  margin:0;
 }
-
-.next::after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  content: "\ea3c";
-  text-transform: none;
-  font-weight: normal;
-  font-style: normal;
-  font-variant: normal;
-  font-family: 'icomoon';
-  line-height: 2;
-  speak: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.form-style li{
+  display: block;
+  padding: 9px;
+  margin-bottom: 30px;
+  border-radius: 3px;
 }
-
-.next.show {
-  opacity: 1;
-  -webkit-transform: translateX(0);
-  transform: translateX(0);
-  pointer-events: auto;
-}
-
-/* Progress bar */
-.simform .progress {
-  width: 0%;
-  height: 0.15em;
-  background: rgba(0,0,0,0.3);
-  -webkit-transition: width 0.4s ease-in-out;
-  transition: width 0.4s ease-in-out;
-}
-
-.simform .progress::before {
-  position: absolute;
-  top: auto;
-  width: 100%;
-  height: inherit;
-  background: rgba(0,0,0,0.05);
-  content: '';
-}
-
-/* Number indicator */
-.simform .number {
-  position: absolute;
-  right: 0;
-  overflow: hidden;
-  margin: 0.4em 0;
-  width: 3em;
-  font-weight: 700;
-  font-size: 0.4em;
-}
-
-.simform .number:after {
-  position: absolute;
-  left: 50%;
-  content: '/';
-  opacity: 0.4;
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
-}
-
-.simform .number span {
-  float: right;
-  width: 40%;
-  text-align: center;
-}
-
-.simform .number .number-current {
+.form-style .priceCol{
+  width: 49%;
   float: left;
 }
-
-.simform .number-next {
-  position: absolute;
-  left: 0;
+.form-style #locationCol{
+  width: 24%;
+  float: left;
 }
-
-.simform.show-next .number-current {
-  -webkit-transition: -webkit-transform 0.4s;
-  transition: transform 0.4s;
-  -webkit-transform: translateY(-100%);
-  transform: translateY(-100%);
+.form-style #addressContainer{
+  width: 74%;
+  float: left;
+  font-size: 1em;
 }
-
-.simform.show-next .number-next {
-  -webkit-animation: moveUpFromDown 0.4s both;
-  animation: moveUpFromDown 0.4s both;
+.form-style #distCol{
+  clear: both;
 }
-
-/* Error and final message */
-.simform .error-message,
-.simform .final-message {
-  position: absolute;
-  visibility: hidden;
-  opacity: 0;
-  -webkit-transition: opacity 0.4s;
-  transition: opacity 0.4s;
+.leftCol{
+  margin-right: 1%;
 }
-
-.simform .error-message {
-  padding: 0.4em 3.5em 0 0;
-  width: 100%;
-  color: rgba(255, 0, 0, 0.70);
-  font-style: italic;
-  font-size: 0.4em;
+.rightCol{
+  margin-left: 1%;
 }
-
-.final-message {
-  top: 50%;
-  left: 0;
-  padding: 0.5em;
-  width: 100%;
-  text-align: center;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
+.setBorder{
+  border: 3px solid @MetroGreen;
 }
-
-.error-message.show,
-.final-message.show {
-  visibility: visible;
-  opacity: 1;
-}
-
-.final-message.show {
-  -webkit-transition-delay: 0.5s;
-  transition-delay: 0.5s;
-}
-
-/* Final hiding of form / showing message */
-.simform-inner.hide {
-  visibility: hidden;
-  opacity: 0;
-  -webkit-transition: opacity 0.3s, visibility 0s 0.3s;
-  transition: opacity 0.3s, visibility 0s 0.3s;
-}
-
-/* No JS Fallback */
-.no-js .simform {
-  font-size: 1.75em;
-}
-
-.no-js .questions li {
-  padding: 0 0 2em;
-}
-
-.no-js .simform .submit {
+.form-style li > label{
   display: block;
-  float: right;
-  padding: 10px 20px;
+  float: left;
+  margin-top: -21px;
+  background: @MetroGreen;
+  color: #fff;
+  overflow: hidden;
+}
+.form-style input,
+.form-style select
+{
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  width: 100%;
+  display: block;
+  outline: none;
   border: none;
-  background: rgba(0,0,0,0.3);
-  color: rgba(0,0,0,0.4);
+  color: @DarkerMetroGreen;
+  height: 2.5em;
+  background: #e3e3e3;
 }
-
-.no-js .simform .controls {
-  display: none;
+.form-style input:focus::-webkit-input-placeholder { color:transparent; }
+.form-style input:focus:-moz-placeholder { color:transparent; } /* Firefox 18- */
+.form-style input:focus::-moz-placeholder { color:transparent; } /* Firefox 19+ */
+.form-style input:focus:-ms-input-placeholder { color:transparent; } /* oldIE ;) */
+.form-style li > span{
+  background: #d0d0d0;
+  display: block;
+  padding: 3px;
+  text-align: center;
+  color: @DarkerMetroGreen;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
 }
-
-/* Remove IE clear cross */
-input[type=text]::-ms-clear {
-  display: none;
+.form-style input[type="submit"],
+.form-style input[type="button"]{
+  background: @DarkerMetroGreen;
+  border: none;
+  padding: 10px 20px 10px 20px;
+  border-bottom: 3px solid #7a7a7a;
+  border-radius: 3px;
+  color: #fff;
+  height: 3em;
 }
-
-/* Adjust form for smaller screens */
-@media screen and (max-width: 44.75em) {
-  .simform {
-    font-size: 1.8em;
-  }
+.form-style input[type="submit"]:hover,
+.form-style input[type="button"]:hover{
+  background: @MetroGreen;
+  color:#000;
+  border-bottom: 3px solid #a0a0a0;
 }
-
-@media screen and (max-width: 33.5625em) {
-  .simform {
-    font-size: 1.2em;
-  }
+#submitBtn{
+  border: none;
 }
-
+.disabled{
+  background-color: #d0d0d0 !important;
+}
 .ui-menu .ui-menu-item{
   line-height: 1.5em;
   background-color: #e0e0e0;
@@ -352,12 +133,20 @@ input[type=text]::-ms-clear {
 
 #useGeolocation:focus, #useGeolocation:checked, #useGeolocation::selection, #useGeolocation:active, #useGeolocation:visited{
   border: none;
+  outline: none;
+}
+
+.checkboxContainer{
+  height: 2.5em;
+  width: 100%;
+  background-color: #e0e0e0;
+  margin-top: 4px;
+  padding-top: 9px;
 }
 
 #useGeolocation{
-  width: 20px;
-  height: 20px;
-  margin: 0 0 0 5px;
+  height: 1.3em;
+  margin: 0 auto;
 }
 
 #addressLabel{
@@ -389,6 +178,39 @@ input[type=number] {
 
 #myTags {
   padding-left: 150px;
+}
+
+ul.tagit li.tagit-new{
+  padding: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+ul.tagit input[type="text"]{
+  background-color: #e0e0e0 !important;
+}
+
+ul.tagit{
+  width: 100% !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+.ui-widget-content{
+  border: none !important;
+}
+
+.ui-menu .ui-menu-item{
+  background-color: #fff !important;
+}
+
+.ui-corner-all{
+  background-color: #d0d0d0 !important;
+}
+
+.tagit-label{
+  background-color: #e0e0e0 !important;
 }
 
 #fileUploadLabel{
