@@ -2,46 +2,39 @@
         MEDIA QUERIES
 ***************************/
 /* Tablet */
-@media only screen and (min-width: 570px){
+@media only screen and (min-width: 570px) {
   /* HEADER */
-  #header h1{
-    font-size: 2em;
-
+  header {
+    h1 {
+      font-size: 2em;
+    }
   }
 
-  #login{
+  #login {
     left: -70px;
   }
 
-  #loggedIn{
-    margin-top: 15px;
-  }
 
-  #loggedIn p{
-    margin-top: 5px;
-  }
 
-  #logoutBtn{
+  #logoutBtn {
     margin-left: 0;
   }
 
 }
+
 /* Desktop */
 @media only screen and (min-width: 768px) {
   /* HEADER */
-  #header h1{
+  header h1 {
     font-size: 3em;
   }
 
-  #header .local{
-  }
-
-  #login{
+  #login {
     left: 3em;
   }
 
   /* Flash Messages */
-  .errorMsg{
+  .errorMsg {
     width: 50%;
     left: 25%;
   }
@@ -51,9 +44,10 @@
 
 @media screen and (max-width: 52.375em) {
 
-  .container{
+  .container {
     margin-left: @menuBtnWidth !important;
   }
+
   .tabs nav a span {
     display: none;
   }
@@ -130,28 +124,21 @@
     margin: 0;
   }
 
-  .headerElement{
+  .headerElement {
     font-size: 1.2em !important;
     padding-top: 2.7em;
 
-    a{
+    a {
       padding-left: 2.7em;
     }
   }
 
-  .headerElement{
+  .headerElement {
     padding-left: -1em;
   }
 
-  #loginBtn{
+  #loginBtn {
     padding-left: 1.5em;
   }
-  #loggedIn{
-    margin-top: 1em;
-    font-size: 1.2em !important;
-    padding-left: 4em;
-  }
-  #logoutBtn{
-    margin-left: -1.5em;
-  }
+
 }

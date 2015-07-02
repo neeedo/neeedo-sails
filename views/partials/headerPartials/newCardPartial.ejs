@@ -1,0 +1,25 @@
+<% if (LoginService.userIsLoggedIn(req)) { %>
+<div class="col-xs-4">
+
+  <div class="row">
+    <div class="col-xs-5">
+      <a class="btn round-button" href="<%= UrlService.to('/offers/create') %>">
+        <span class="icon-offer round-button"></span><%= i18n('Create offer') %>
+      </a>
+    </div>
+    <div class="col-xs-5">
+      <a class="btn round-button" href="<%= UrlService.to('/demands/create') %>"><span
+          class="icon-search"></span><%= i18n('Create demand') %>
+      </a>
+    </div>
+  </div>
+
+
+</div>
+
+<% } %>
+<% if (!LoginService.userIsLoggedIn(req)) { %>
+<div class="col-xs-8">
+</div>
+<% } %>
+

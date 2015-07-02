@@ -1,27 +1,20 @@
-<% if (!LoginService.userIsLoggedIn(req)) { %>
-<div class="col-xs-1 headerElement" xmlns="http://www.w3.org/1999/html">
-  <div class="row">
-    <div class="col-xs-12">
-      <a type="button" data-toggle="modal" data-target="#myModal">
-        <%= i18n('Login') %>
-      </a>
-    </div>
-  </div>
-</div>
-<% } %>
-<% if (LoginService.userIsLoggedIn(req)) { %>
 <div class="col-xs-1">
-  <div class="row">
-    <div class="col-xs-12">
-      <form method="POST" id="loggedIn" action="<%= UrlService.to('/logout') %>">
-        <button class="btn " type="submit" id="logoutBtn"><%= i18n('Logout') %></button>
-      </form>
-    </div>
-  </div>
-</div>
-<% } %>
 
-<form class="trans" method="POST" id="login" action="<%= UrlService.to('/login') %>">
+  <% if (!LoginService.userIsLoggedIn(req)) { %>
+  <a class="btn round-button" type="button" data-toggle="modal" data-target="#myModal"><span
+      class=" icon-enter"></span><%= i18n('Login') %>
+  </a>
+  <% } %>
+  <% if (LoginService.userIsLoggedIn(req)) { %>
+  <form method="POST" action="<%= UrlService.to('/logout') %>">
+    <button class="round-button btn " type="submit"><span class="icon-exit"></span><%= i18n('Logout') %></button>
+  </form>
+  <% } %>
+
+</div>
+
+<!-- LOGINMODAL-->
+<form class="trans" method="POST" action="<%= UrlService.to('/login') %>">
   <!-- Modal -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">

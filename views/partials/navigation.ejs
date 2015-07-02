@@ -1,6 +1,5 @@
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left visible-xs" id="cbp-spmenu-s1">
-  <a class="icon-home" href="<%= UrlService.to('/') %>"><%= i18n('Home') %>
-    <img src="/images/neeedo_Logo.png" alt="Neeedo Logo" class="img"/></a>
+  <a class="icon-home" href="<%= UrlService.to('/') %>"><%= i18n('Home') %></a>
   <% if (!LoginService.userIsLoggedIn(req)) { %>
   <a href="<%= UrlService.to('/register') %>"><%= i18n('Register') %></a>
   <a href="<%= UrlService.to('/register') %>"><%= i18n('Login') %></a>

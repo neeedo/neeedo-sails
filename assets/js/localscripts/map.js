@@ -29,7 +29,6 @@ var map,
 
 
 
-
 var initializeMap = function(target, data) {
   map = L.map('map').setView([data.latitude, data.longitude], data.initialZoom);
 
@@ -271,7 +270,7 @@ var getMapTypeOptions = function()
   if (undefined !== mapElement.data('showdetailslink')) {
     showDetailsLink = mapElement.data('showdetailslink');
   }
-  
+
   return {
     mapType: mapType,
     demandsEndpointUrl: demandsEndpointUrl,

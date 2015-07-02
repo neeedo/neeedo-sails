@@ -1,65 +1,50 @@
 /***************************
         HEADER
 ***************************/
-header{
-  z-index: 8000;
+header {
   height: @headerHeight;
-  margin-bottom: 20px;
   border-bottom: 1px solid @BorderColor;
   h1 {
-    display: block;
-    margin: 0 ;
-    padding-left: 0.3em;
-    padding-top: 0.3em;
-    a{
-      color: @HeaderFontColor;
-      &:hover{
-        text-decoration: none;
-      }
-    }
-  }
-  img{
-    padding: 0.5em;
-    max-height: @headerHeight;
-  }
-  .local {
-    padding-top: 0.7em;
 
-    img{
-      margin: 0.2em;
-      height: 1.5em;
-      width: 2.5em;
+  }
+  a {
+    &:hover {
+      text-decoration: none;
     }
+  }
+  img {
+    max-height: @headerHeight;
+    padding: 0.2em;
   }
 }
 
-.headerElement{
+.headerElement {
   display: block;
   width: 100%;
-  font-size: 2em;
-  padding-top: 1.3em;
-  div{
+  font-size: 1.3em;
+  padding-top: 1em;
+  div {
     padding-top: 0;
   }
-  p{
+  p {
     color: @HeaderFontColor;
   }
-  a{
+  a {
     color: @HeaderFontColor;
-    &:hover, &:active{
+    &:hover, &:active {
       color: @HeaderFontColorInv;
     }
   }
 }
 
-.headerIcon{
+.headerIcon {
   &:extend(.headerElement);
-  span{
+  span {
     color: @HeaderFontColor;
   }
 }
 
-.trans{
+.trans {
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   transition: all 0.3s ease;

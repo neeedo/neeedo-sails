@@ -2,28 +2,45 @@
 
   <!-- Description of our Site for unregistered Users-->
   <!--LINKS or TUTORIALS?-->
+  <div class="contentContainer">
+    <div class="text-center description" id="descriptionContainer">
+      <% if (!LoginService.userIsLoggedIn(req)) { %>
+      <h1><%= i18n('Welcome to Neeedo.com') %></h1>
 
-  <div class="text-center description">
-    <% if (!LoginService.userIsLoggedIn(req)) { %>
-    <h1><%= i18n('Welcome to Neeedo.com') %></h1>
+      <h1><%= i18n('A nextgen e-commerce platform') %></h1>
 
-    <h1><%= i18n('A nextgen e-commerce platform') %></h1>
-
-    <h4><span class="glyphicon glyphicon-search"></span> <%= i18n('Search for what you really need') %></h4>
-
-    <h4><span class="glyphicon glyphicon-tags"></span> <%= i18n('Find what you`re really looking for') %></h4>
-
-    <h4><span class="glyphicon glyphicon-heart-empty"></span> <%= i18n('Everything at your nearest') %></h4>
-    <% } %>
+      <div class="navigation row">
+        <div class="col-xs-4">
+          <a href="#demandContainer"><%= i18n('Search for what you really need') %></a>
+        </div>
+        <div class="col-xs-4">
+          <a href="#offerContainer"><%= i18n('Find what you`re really looking for') %></a>
+        </div>
+        <div class="col-xs-4">
+          <a href="#mapContainer"><%= i18n('Everything at your nearest') %></a>
+        </div>
+      </div>
+      <% } %>
+    </div>
+    <div id="mapContainer">
+      <% if (false !== showMap)  { %>
+      <%- partial('./partials/map/map.ejs', {
+        mapType: showMap.mapType,
+        demandSourceUrl: showMap.demandSourceUrl,
+        offerSourceUrl: showMap.offerSourceUrl,
+        demandMatchingSourceUrl: undefined,
+        showDetailsLink: true
+      }) %>
+      <% } %>
+    </div>
   </div>
-
   <div class="hidden-xs">
-    <% if (LoginService.userIsLoggedIn(req)) { %>
-    <h1><%= i18n('Your Offers') %> <a class="createLink" href="<%= OfferService.getCreateUrl() %>"></a></h1>
-    <% } else{ %>
-    <h1><%= i18n('Recent Offers') %></h1>
-    <% } %>
-    <div class="elementWrapper ">
+    <div class="contentContainer" id="offerContainer">
+      <% if (LoginService.userIsLoggedIn(req)) { %>
+      <h1><%= i18n('Your Offers') %> <a class="createLink" href="<%= OfferService.getCreateUrl() %>"></a></h1>
+      <% } else{ %>
+      <h1><%= i18n('Recent Offers') %></h1>
+      <% } %>
       <ul id="lightSliderOffer"
           data-itemLimit="<%- pagination.limit %>"
           data-currentPage="<%- pagination.firstPageNumber %>"
@@ -35,39 +52,30 @@
         <%- partial('./partials/offersForList.ejs', {offer: offer}) %>
         <% }); %>
       </ul>
+
     </div>
-    <div class="elementWrapper  ">
-      <% if (false !== showMap)  { %>
-      <%- partial('./partials/map/map.ejs', {
-        mapType: showMap.mapType,
-        demandSourceUrl: showMap.demandSourceUrl,
-        offerSourceUrl: showMap.offerSourceUrl,
-        demandMatchingSourceUrl: undefined,
-        showDetailsLink : true
-      }) %>
+    <div class="contentContainer" id="demandContainer">
+      <% if (LoginService.userIsLoggedIn(req)) { %>
+      <h1><%= i18n('Your Demands') %><a class="createLink" href="<%= DemandService.getCreateUrl() %>"></a>
+      </h1>
+      <% } else{ %>
+      <h1><%= i18n('Recent Demands') %></h1>
       <% } %>
-    </div>
-    <% if (LoginService.userIsLoggedIn(req)) { %>
-    <h1><%= i18n('Your Demands') %><a class="createLink" href="<%= DemandService.getCreateUrl() %>"></a>
-    </h1>
-    <% } else{ %>
-    <h1><%= i18n('Recent Demands') %></h1>
-    <% } %>
-    <div class="elementWrapper ">
-      <ul id="lightSliderDemand" data-itemLimit="<%- pagination.limit %>"
-          data-currentPage="<%- pagination.firstPageNumber %>"
-          data-sourceUrl="<%- demandSourceUrl %>"
-          data-viewUrl="<%- DemandService.getViewUrl() %>"
-          data-translationPrice="<%= i18n('Price') %>"
-          data-translationDistance="<%= i18n('Distance') %>"
-        >
-        <% demands.forEach(function(demand) { %>
-        <%- partial('./partials/demandsForList.ejs', {demand: demand}) %>
-        <% }); %>
-      </ul>
+      <div class="elementWrapper ">
+        <ul id="lightSliderDemand" data-itemLimit="<%- pagination.limit %>"
+            data-currentPage="<%- pagination.firstPageNumber %>"
+            data-sourceUrl="<%- demandSourceUrl %>"
+            data-viewUrl="<%- DemandService.getViewUrl() %>"
+            data-translationPrice="<%= i18n('Price') %>"
+            data-translationDistance="<%= i18n('Distance') %>"
+          >
+          <% demands.forEach(function(demand) { %>
+          <%- partial('./partials/demandsForList.ejs', {demand: demand}) %>
+          <% }); %>
+        </ul>
+      </div>
     </div>
   </div>
-
   <!-- Big Screen-->
   <div class="visible-xs">
     <div id="tabs" class="tabs">
@@ -122,4 +130,8 @@
       <% } %>
   </div>
 </div>
+</div>
+
 <% block('localScripts', '<script src="/js/localscripts/slider.js"></script>') %>
+
+

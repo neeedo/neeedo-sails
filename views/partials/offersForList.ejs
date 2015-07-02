@@ -21,9 +21,7 @@
               offer.getTags().forEach(function(tag){
             if(count < 5){ %>
             <span><%= tag + ", " %></span>
-            <% }else{ %>
-            <span class="read-more-target"><%= tag + ", " %></span>
-            <% }count++; })
+            <% } count++; })
             if(count>5){%>
             <span for="post-2">...</span>
             <a href="<%- OfferService.getViewUrl().replace('%%offerId%%', offer.getId()) %>"><%= i18n('More Details') %></a>

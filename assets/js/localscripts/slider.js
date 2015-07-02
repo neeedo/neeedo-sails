@@ -179,4 +179,7 @@ $(document).ready(function() {
     $("#lightSliderDemand").append(demand.html);
     lightSliderDemand.refresh();
   };
+ // $(".map").css("min-height",$(window).height()-50);
+  $(".contentContainer").css("min-height",$(window).height()-50);
+
 });
