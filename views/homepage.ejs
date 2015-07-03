@@ -2,28 +2,32 @@
 
   <!-- Description of our Site for unregistered Users-->
   <!--LINKS or TUTORIALS?-->
+  <% if (!LoginService.userIsLoggedIn(req)) { %>
   <div class="contentContainer">
     <div class="text-center description" id="descriptionContainer">
-      <% if (!LoginService.userIsLoggedIn(req)) { %>
       <h1><%= i18n('Welcome to Neeedo.com') %></h1>
 
       <h1><%= i18n('A nextgen e-commerce platform') %></h1>
 
-      <div class="navigation row">
+      <div class="row">
         <div class="col-xs-4">
-          <a href="#demandContainer"><%= i18n('Search for what you really need') %></a>
+          <h3 href="#demandContainer"><%= i18n('Search for what you really need') %></h3>
         </div>
         <div class="col-xs-4">
-          <a href="#offerContainer"><%= i18n('Find what you`re really looking for') %></a>
+          <h3 href="#offerContainer"><%= i18n('Find what you`re really looking for') %></h3>
         </div>
         <div class="col-xs-4">
-          <a href="#mapContainer"><%= i18n('Everything at your nearest') %></a>
+          <h3 href="#mapContainer"><%= i18n('Everything at your nearest') %></h3>
         </div>
       </div>
-      <% } %>
+      <div>
+        <a class="btn" href="#news"><%= i18n('New Stuff') %></a>
+      </div>
     </div>
     <div id="mapContainer">
+
       <% if (false !== showMap)  { %>
+      <h1><%= i18n('In Your Vicinity') %></h1>
       <%- partial('./partials/map/map.ejs', {
         mapType: showMap.mapType,
         demandSourceUrl: showMap.demandSourceUrl,
@@ -34,8 +38,10 @@
       <% } %>
     </div>
   </div>
-  <div class="hidden-xs">
-    <div class="contentContainer" id="offerContainer">
+  <% } %>
+
+  <div class="hidden-xs contentContainer " id="news">
+    <div id="offerContainer">
       <% if (LoginService.userIsLoggedIn(req)) { %>
       <h1><%= i18n('Your Offers') %> <a class="createLink" href="<%= OfferService.getCreateUrl() %>"></a></h1>
       <% } else{ %>
@@ -52,9 +58,9 @@
         <%- partial('./partials/offersForList.ejs', {offer: offer}) %>
         <% }); %>
       </ul>
-
     </div>
-    <div class="contentContainer" id="demandContainer">
+
+    <div id="demandContainer">
       <% if (LoginService.userIsLoggedIn(req)) { %>
       <h1><%= i18n('Your Demands') %><a class="createLink" href="<%= DemandService.getCreateUrl() %>"></a>
       </h1>
@@ -118,8 +124,8 @@
     <!--Small Screen-->
   </div>
   <!--Main Container-->
+  <% if (!LoginService.userIsLoggedIn(req)) { %>
   <div class="description text-center">
-    <% if (!LoginService.userIsLoggedIn(req)) { %>
     <h1 class="center title">"Gibt's das auch als App?"</h1>
 
     <p class=" center">Wir arbeiten hart an der Umsetzung unsere Mobile App. Einen Prototyp können Sie hier am Stand
@@ -127,9 +133,9 @@
 
     <p class="center "><img src="images/appStore.png" class="centralImage"/>
 
-      <% } %>
   </div>
-</div>
+  <% } %>
+
 </div>
 
 <% block('localScripts', '<script src="/js/localscripts/slider.js"></script>') %>

@@ -1,13 +1,13 @@
-<div class="crudbtn media-right btn-group-vertical" role="group">
+<div class="crudbtn btn-group-vertical" role="group">
   <% if (LoginService.userIsLoggedIn(req) && display) { %>
   <div class="toggleFavorite" data-offerId="<%- offer.getId() %>">
       <% if (LoginService.getCurrentUser(req).isFavoriteOffer(offer)) { %>
-        <span class="favoriteIcon isFavorite glyphicon glyphicon-star" aria-hidden="true"></span></a>
+        <span class="favoriteIcon isFavorite glyphicon glyphicon-star" aria-hidden="true"></span>
       <% } else { %>
-        <span class="favoriteIcon isNotFavorite glyphicon glyphicon-star-empty" aria-hidden="true"></span></a>
-      <% } %>
-    <% } %>
+        <span class="favoriteIcon isNotFavorite glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+      <% }%>
   </div>
+  <%}%>
 </div>
 
 <% block('localScripts', '<script src="/js/localscripts/favorites.js"></script>') %>

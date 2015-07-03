@@ -303,7 +303,7 @@ $(document).ready(function () {
       iconSize: [61, 61], // size of the icon
       shadowSize: [61, 61], // size of the shadow
       iconAnchor: [31, 61], // point of the icon which will correspond to marker's location
-      shadowAnchor: [31, 61], // point of the icon which will correspond to marker's location
+      shadowAnchor: [31, 58], // point of the icon which will correspond to marker's location
       popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
     }
   });
