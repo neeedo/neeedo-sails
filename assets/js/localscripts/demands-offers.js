@@ -27,6 +27,7 @@ var setLocationIfChecked = function(form) {
         alert(geolocationCheckbox.data('translationnogeolocation'));
       } else {
         setLatitudeAndLongitudeInHiddenField(location);
+        0
       }
       form.submit();
     };
