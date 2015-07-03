@@ -147,6 +147,30 @@ Messages.prototype.getMessagesFromSenderAndCurrentlyLoggedIn = function(criteria
     })
 };
 
+var Favorites = function() {
+  this.ajaxEndpoint = '/favorites/toggle';
+
+  this.buildQueryString = function(criteria) {
+    var queryParameters = [];
+
+    // senderId of the user who sent the message (coming from conversation object)
+    if ("offerId" in criteria) {
+      queryParameters.push("offerId/" + criteria["offerId"]);
+    }
+
+    return "/" + queryParameters.join("/");
+  };
+};
+
+Favorites.prototype.toggleFavorite = function(criteria, onLoadSuccessCallback) {
+  var requestUrl = this.ajaxEndpoint + this.buildQueryString(criteria);
+
+  $.get(requestUrl)
+    .done(function( data ) {
+      onLoadSuccessCallback(data);
+    })
+};
+
 var Neeedo = function()
 {
 

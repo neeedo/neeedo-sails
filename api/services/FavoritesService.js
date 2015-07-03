@@ -15,9 +15,9 @@ module.exports = {
       var _this = this;
       var onToggleSuccessCallback = function (favoritesModel) {
         if (favoritesService.wasAdded) {
-          _this.addFavoriteOfferToSession(req, favoriteModel, onSuccessCallback, onErrorCallBack);
+          _this.addFavoriteOfferToSession(req, res, favoriteModel, onSuccessCallback, onErrorCallBack);
         } else if (favoritesService.wasRemoved) {
-          _this.removeFavoriteOfferFromSession(req, favoriteModel, onSuccessCallback, onErrorCallBack);
+          _this.removeFavoriteOfferFromSession(req, res, favoriteModel, onSuccessCallback, onErrorCallBack);
         }
       };
 
@@ -69,7 +69,7 @@ module.exports = {
     LoginService.storeUserInSession(user, req);
   },
 
-  addFavoriteOfferToSession: function (req, favoriteModel, onSuccessCallback, onErrorCallback) {
+  addFavoriteOfferToSession: function (req, res, favoriteModel, onSuccessCallback, onErrorCallback) {
     var user = LoginService.getCurrentUser(req);
 
     if (!this.favoritesWereAlreadyLoadedInSession(req)) {
@@ -88,12 +88,14 @@ module.exports = {
 
         onSuccessCallback(favoriteModel);
       },
-      onErrorCallback
+      function (errorModel) {
+        onErrorCallback(req, res, errorModel);
+      }
     )
 
   },
 
-  removeFavoriteOfferFromSession: function (req, favoriteModel, onSuccessCallback, onErrorCallback) {
+  removeFavoriteOfferFromSession: function (req, res, favoriteModel, onSuccessCallback, onErrorCallback) {
     var user = LoginService.getCurrentUser(req);
 
     if (!this.favoritesWereAlreadyLoadedInSession(req)) {
@@ -127,10 +129,10 @@ module.exports = {
   },
 
   sendErrorResponse: function (req, res, errorModel) {
-    sails.log.error(errorModel.getLogMessages().join("\n"));
+    sails.log.error(undefined != errorModel ? errorModel.getLogMessages().join("\n") : 'Error in FavoritesService:sendErrorresponse');
 
     res.status(400);
-    res.json("Error : " + errorModel.getErrorMessages().join('.'));
+    res.json("Error : " + undefined != errorModel ? errorModel.getErrorMessages().join('.') : '');
   }
 }
 ;
