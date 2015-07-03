@@ -28,13 +28,13 @@ describe('[INTEGRATION TEST] LoginController', function() {
     var spy;
 
     before(function(done){
-      spy = sinon.spy(sails.services.loginservice, 'queryUser');
+      spy = sinon.spy(sails.services.loginservice, 'loginUser');
 
       done();
     });
 
     after(function(done){
-      sails.services.loginservice.queryUser.restore();
+      sails.services.loginservice.loginUser.restore();
 
       done();
     });

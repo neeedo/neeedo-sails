@@ -32,7 +32,7 @@ var givenAResponse = function() {
 }
 
 var givenALoginService = function() {
-  return sinon.stub(sails.services.loginservice, 'queryUser');
+  return sinon.stub(sails.services.loginservice, 'loginUser');
 };
 
 var givenALogoutService = function() {
@@ -40,7 +40,7 @@ var givenALogoutService = function() {
 };
 
 var restoreLoginService = function() {
-  sails.services.loginservice.queryUser.restore();
+  sails.services.loginservice.loginUser.restore();
 };
 
 var restoreLogoutService = function() {
