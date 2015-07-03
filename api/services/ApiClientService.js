@@ -9,6 +9,7 @@ var Location = apiClient.models.Location,
     OfferQuery = apiClient.models.OfferQuery,
     Demand = apiClient.models.Demand,
     Message = apiClient.models.Message,
+    Favorite = apiClient.models.Favorite,
     User = apiClient.models.User,
     DemandQuery = apiClient.models.DemandQuery,
     Register = apiClient.models.Register,
@@ -445,6 +446,36 @@ module.exports = {
   },
 
   validateOfferIdFromRequest: function(req) {
+    var offerId = req.param('offerId');
+
+    if (-1 !== offerId.indexOf("image")) {
+      return {
+        success: false,
+        message: '',
+        offerId: offerId
+      };
+    }
+
+    return {
+      success: true,
+      message: '',
+      offerId: offerId
+    };
+  },
+
+  validateAndCreateNewFavoriteFromRequest: function(req, onErrorCallback) {
+    var validationResult = ApiClientService.validateFavoriteFromRequest(req);
+
+    if (!validationResult.success) {
+      onErrorCallback(ApiClientService.newError("validateAndCreateNewFavoriteFromRequest: ", validationResult.message));
+    } else {
+      return new Favorite()
+        .setOffer(new Offer().setId(validationResult.offerId))
+        .setUser(LoginService.getCurrentUser(req));
+    }
+  },
+
+  validateFavoriteFromRequest: function(req) {
     var offerId = req.param('offerId');
 
     if (-1 !== offerId.indexOf("image")) {

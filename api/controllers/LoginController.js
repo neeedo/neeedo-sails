@@ -11,9 +11,6 @@ module.exports = {
           depth: null
         }) + " was logged in successfully.");
 
-      // delegate to LoginService to persist User (with his/her access token)
-      LoginService.storeUserInSession(loggedInUser, req);
-
       if (!LoginService.redirectToAfterLoginUrl(req, res)) {
         res.redirect('/dashboard');
       }
@@ -30,7 +27,7 @@ module.exports = {
      * ---------- functionality ----------
      */
     if ("POST" == req.method) {
-      LoginService.queryUser(req, onSuccessCallback, onErrorCallback);
+      LoginService.loginUser(req, onSuccessCallback, onErrorCallback);
     } else {
       res.view('login/login');
     }

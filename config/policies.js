@@ -37,6 +37,11 @@ module.exports.policies = {
     'ajaxGetUnreadMessagesCount':['isLoggedIn'],
     'ajaxLoadMessagesByConversation':['isLoggedIn']
   },
+  FavoritesController: {
+    '*'     : false,
+    'favoritesList': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
+    'ajaxToggleFavorite':['isLoggedIn']
+  },
   OfferController: {
     '*'     : false,
     'view': ['setLocale', 'setRedirectUrl'],

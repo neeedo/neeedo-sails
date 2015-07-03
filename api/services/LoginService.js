@@ -4,21 +4,34 @@ var apiClient = require('neeedo-api-nodejs-client'),
 var Login = apiClient.models.Login;
 var LoginService = apiClient.services.Login;
 var User = apiClient.models.User;
+var OfferList = apiClient.models.OfferList;
 
 module.exports = {
   /**
-   * Query a given user.
+   * Login by querying a given user.
    *
    * @param req
    * @param onSuccessCallback will be called by the registered user instance delivered from neeedo API
    * @param onErrorCallBack will be called with an error object
    */
-  queryUser: function(req, onSuccessCallback, onErrorCallBack) {
+  loginUser: function(req, onSuccessCallback, onErrorCallBack) {
     try {
+      var _this = this;
+      var onUserLoadedSuccess = function(user) {
+        // delegate to LoginService to persist User (with his/her access token)
+        _this.storeUserInSession(user, req);
+
+        // asynchronously load user's favorites while responding
+        FavoritesService.loadUsersFavoriteOffers(req, function(favoriteOfferList) {}, function(errorModel) {
+          sails.log.error("Error while loading user's favorites: " + util.inspect(errorModel));
+        });
+
+        onSuccessCallback(user);
+      };
       var loginModel = ApiClientService.validateAndCreateNewLoginFromRequest(req, onErrorCallBack);
 
       var loginService = new LoginService();
-      loginService.loginUser(loginModel, onSuccessCallback, onErrorCallBack);
+      loginService.loginUser(loginModel, onUserLoadedSuccess, onErrorCallBack);
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("queryUser:" + e.message, "login_internal_error"));
     }
@@ -53,6 +66,7 @@ module.exports = {
   getCurrentUser: function(req) {
     if ("user" in req.session) {
       var user = new User();
+      user.offerListConstructor = OfferList;
       return user.loadFromSerialized(req.session.user);
     }
 
