@@ -1,44 +1,41 @@
 <header id="header">
-  <div class="row">
-    <div class="col-xs-3">
+  <div class="col-xs-3">
 
-      <a href="<%= UrlService.to('/') %>" >
-        <img src="/images/neeedo_Logo.png" alt="Neeedo Logo" class="img"/><span id="brand">Neeedo</span>
-
-      </a>
-
-    </div>
-    <div class="col-xs-8">
-      <% if (!LoginService.userIsLoggedIn(req)) { %>
-
-    <!--col-xs-2-->
-      <%- partial('./headerPartials/newCardPartial.ejs') %>
-      <%- partial('./headerPartials/registerPartial.ejs') %>
-      <%- partial('./headerPartials/login.ejs') %>
-      <!--col-xs-2-->
-      <% } %>
-
-      <% if (LoginService.userIsLoggedIn(req)) { %>
-      <!--2 x col-xs-2-->
-      <div class="col-xs-3"></div>
-      <%- partial('./headerPartials/newCardPartial.ejs') %>
-      <%- partial('./headerPartials/registerPartial.ejs') %>
-      <%- partial('./headerPartials/login.ejs') %>
-      <!--2 x col-xs-2-->
-      <% } %>
-    </div>
-
-    <div class="col-xs-1">
-      <% // list all available locales / languages and provide link to set                  %>
-      <% for (var localeI = 0; localeI < LocaleService.getAvailableLocales().length; localeI++) { %>
-      <% var locale = LocaleService.getAvailableLocales()[localeI] %>
-      <a href="<%= UrlService.to(LocaleService.getSetLocaleUrl(locale)) %>">
-        <%= locale %>
-      </a>
-      <% } %>
-    </div>
-
+    <a href="<%= UrlService.to('/') %>">
+      <img src="/images/neeedo_Logo.png" alt="Neeedo Logo" class="img"/>
+      <span id="brand">Neeedo</span>
+    </a>
 
   </div>
+  <div class="col-xs-8">
+    <% if (!LoginService.userIsLoggedIn(req)) { %>
+
+    <!--col-xs-2-->
+    <%- partial('./headerPartials/newCardPartial.ejs') %>
+    <%- partial('./headerPartials/registerPartial.ejs') %>
+    <%- partial('./headerPartials/login.ejs') %>
+    <!--col-xs-2-->
+    <% } %>
+
+    <% if (LoginService.userIsLoggedIn(req)) { %>
+    <!--2 x col-xs-2-->
+    <div class="col-xs-3"></div>
+    <%- partial('./headerPartials/newCardPartial.ejs') %>
+    <%- partial('./headerPartials/registerPartial.ejs') %>
+    <%- partial('./headerPartials/login.ejs') %>
+    <!--2 x col-xs-2-->
+    <% } %>
+  </div>
+
+  <div class="col-xs-1">
+    <% // list all available locales / languages and provide link to set                    %>
+    <% for (var localeI = 0; localeI < LocaleService.getAvailableLocales().length; localeI++) { %>
+    <% var locale = LocaleService.getAvailableLocales()[localeI] %>
+    <a class="round-button-small" href="<%= UrlService.to(LocaleService.getSetLocaleUrl(locale)) %>">
+      <%= locale %>
+    </a>
+    <% } %>
+  </div>
+
 </header>
 
