@@ -1,14 +1,20 @@
 <div class="col-xs-1">
 
   <% if (!LoginService.userIsLoggedIn(req)) { %>
-  <a class="btn round-button" type="button" data-toggle="modal" data-target="#myModal"><span
-      class=" icon-enter"></span><%= i18n('Login') %>
-  </a>
+  <div class="headerIconBig">
+    <a type="button" data-toggle="modal" data-target="#myModal"><span
+        class=" icon-enter"></span><p class="hidden-xs"><%= i18n('Login') %></p>
+    </a>
+  </div>
   <% } %>
   <% if (LoginService.userIsLoggedIn(req)) { %>
-  <form method="POST" action="<%= UrlService.to('/logout') %>">
-    <button class="round-button btn " type="submit"><span class="icon-exit"></span><%= i18n('Logout') %></button>
-  </form>
+
+  <div class="headerIconBig">
+      <a href="<%= UrlService.to('/logout') %>">
+        <span class="icon-exit"></span><p class="hidden-xs"><%= i18n('Logout') %></p>
+      </a>
+
+    </div>
   <% } %>
 
 </div>

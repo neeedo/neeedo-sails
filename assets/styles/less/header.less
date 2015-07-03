@@ -2,45 +2,29 @@
         HEADER
 ***************************/
 header {
+  position: relative;
+  background-color: @DARK;
   height: @headerHeight;
-  border-bottom: 1px solid @BorderColor;
-  h1 {
-
-  }
+  font-family: 'sen';
   a {
+    color: @HeaderFontColor;
     &:hover {
       text-decoration: none;
+      }
+    #brand {
+      position: absolute;
+      font-weight: bold;
+      font-size: 4em;
+      top: 10px;
+
+      height: @headerHeight;
+      left: @headerHeight*1.2;
     }
   }
   img {
+    position: absolute;
     max-height: @headerHeight;
     padding: 0.2em;
-  }
-}
-
-.headerElement {
-  display: block;
-  width: 100%;
-  font-size: 1.3em;
-  padding-top: 1em;
-  div {
-    padding-top: 0;
-  }
-  p {
-    color: @HeaderFontColor;
-  }
-  a {
-    color: @HeaderFontColor;
-    &:hover, &:active {
-      color: @HeaderFontColorInv;
-    }
-  }
-}
-
-.headerIcon {
-  &:extend(.headerElement);
-  span {
-    color: @HeaderFontColor;
   }
 }
 
