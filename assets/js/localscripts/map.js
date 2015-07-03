@@ -17,51 +17,50 @@ var offersOverlay;
  * #############################
  */
 var map,
-    userPosition,
-    mapTypeOptions,
-    userIcon,
-    demandIcon,
-    offerIcon,
-    lastPositionOnTrigger,
-    offerMarkers = [],
-    demandMarkers = []
+  userPosition,
+  mapTypeOptions,
+  userIcon,
+  demandIcon,
+  offerIcon,
+  lastPositionOnTrigger,
+  offerMarkers = [],
+  demandMarkers = []
   ;
 
 
-
-var initializeMap = function(target, data) {
+var initializeMap = function (target, data) {
   map = L.map('map').setView([data.latitude, data.longitude], data.initialZoom);
 
   // create the tile layer with correct attribution
-  var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-  var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+  var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+  var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
   var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});
 
   map.addLayer(osm);
 };
 
-var showUsersPosition = function(userPosition) {
+var showUsersPosition = function (userPosition) {
   L.marker([userPosition.latitude, userPosition.longitude], {icon: userIcon}).addTo(map);
 };
 
-var distanceIsLargeEnoughForLoadingNewDemandsOffers = function(newPosition, oldPosition) {
+var distanceIsLargeEnoughForLoadingNewDemandsOffers = function (newPosition, oldPosition) {
   var deltaInKm = 50;
 
   var distanceBetweenTwoCoordinatesInKm = neeedo.getDistanceBetweenTwoCoordinatesInKm(newPosition, oldPosition);
-    if (distanceBetweenTwoCoordinatesInKm > deltaInKm) {
+  if (distanceBetweenTwoCoordinatesInKm > deltaInKm) {
     return true;
   }
 
   return false;
 };
 
-var resetDemandAndOfferMarkers = function() {
-  for (var i=0; i < offerMarkers.length; i++ ) {
+var resetDemandAndOfferMarkers = function () {
+  for (var i = 0; i < offerMarkers.length; i++) {
     var offerMarker = offerMarkers[i];
     map.removeLayer(offerMarker);
   }
 
-  for (var i=0; i < demandMarkers.length; i++ ) {
+  for (var i = 0; i < demandMarkers.length; i++) {
     var demandMarker = demandMarkers[i];
     map.removeLayer(demandMarker);
   }
@@ -96,16 +95,16 @@ var triggerSpecificMapTypeOperations = function (currentPosition) {
   }
 };
 
-var loadAndShowNearestDemandsAndOffers = function(userPosition, map) {
+var loadAndShowNearestDemandsAndOffers = function (userPosition, map) {
   loadAndShowNearestOffers(userPosition, map);
   loadAndShowNearestDemands(userPosition, map);
 };
 
 
-var onOffersLoadSuccess = function(returnedData) {
+var onOffersLoadSuccess = function (returnedData) {
   if ('offerList' in returnedData) {
     if ('offers' in returnedData['offerList']) {
-      for (var i=0; i < returnedData['offerList']['offers'].length; i++) {
+      for (var i = 0; i < returnedData['offerList']['offers'].length; i++) {
         var offer = returnedData['offerList']['offers'][i];
         showOfferInMap(map, offer);
       }
@@ -124,55 +123,53 @@ var onOffersLoadSuccess = function(returnedData) {
   }
 };
 
-var loadAndShowMatchingDemands = function(map) {
+var loadAndShowMatchingDemands = function (map) {
   var ajaxEndpointUrl = mapTypeOptions.demandMatchingEndpointUrl;
 
   var demandMatchingService = new DemandsMatching(ajaxEndpointUrl);
   demandMatchingService.getMatchingOffers({
-      limit : mapTypeOptions.itemLimit
+      limit: mapTypeOptions.itemLimit
     }, onOffersLoadSuccess
   );
 };
 
 
-var loadAndShowNearestOffers = function(userPosition, map)
-{
+var loadAndShowNearestOffers = function (userPosition, map) {
   var ajaxEndpointUrl = mapTypeOptions.offersEndpointUrl;
 
   var offerService = new Offers(ajaxEndpointUrl);
   offerService.getOffersByCriteria({
-        lat : userPosition.latitude,
-        lng : userPosition.longitude,
-        limit : mapTypeOptions.itemLimit
+      lat: userPosition.latitude,
+      lng: userPosition.longitude,
+      limit: mapTypeOptions.itemLimit
     }, onOffersLoadSuccess
   );
 };
 
-var loadAndShowNearestDemands = function(userPosition, map)
-{
-   var ajaxEndpointUrl = mapTypeOptions.demandsEndpointUrl;
+var loadAndShowNearestDemands = function (userPosition, map) {
+  var ajaxEndpointUrl = mapTypeOptions.demandsEndpointUrl;
 
-   var onLoadSuccess = function(returnedData) {
-      if ('demandList' in returnedData) {
-        if ('demands' in returnedData['demandList']) {
-          for (var i=0; i < returnedData['demandList']['demands'].length; i++) {
-            var demand = returnedData['demandList']['demands'][i];
-            showDemandInMap(map, demand);
-          }
+  var onLoadSuccess = function (returnedData) {
+    if ('demandList' in returnedData) {
+      if ('demands' in returnedData['demandList']) {
+        for (var i = 0; i < returnedData['demandList']['demands'].length; i++) {
+          var demand = returnedData['demandList']['demands'][i];
+          showDemandInMap(map, demand);
         }
       }
-   };
+    }
+  };
 
   var demandService = new Demands(ajaxEndpointUrl);
   demandService.getDemandsByCriteria({
-        lat : userPosition.latitude,
-        lng : userPosition.longitude,
-        limit : mapTypeOptions.itemLimit
+      lat: userPosition.latitude,
+      lng: userPosition.longitude,
+      limit: mapTypeOptions.itemLimit
     }, onLoadSuccess
   );
 };
 
-var loadAndShowOffer = function(offerGetUrl) {
+var loadAndShowOffer = function (offerGetUrl) {
   var onLoadSuccess = function (returnedData) {
     if ('offerList' in returnedData) {
       if ('offers' in returnedData['offerList']) {
@@ -191,7 +188,7 @@ var loadAndShowOffer = function(offerGetUrl) {
   offerService.getOffersByUrl(offerGetUrl, onLoadSuccess);
 };
 
-var showOfferInMap = function(map, offer) {
+var showOfferInMap = function (map, offer) {
   var html = renderOfferInTemplate(offer);
   var offerMarker = L.marker([offer.location.latitude, offer.location.longitude], {icon: offerIcon}).addTo(map);
 
@@ -200,7 +197,7 @@ var showOfferInMap = function(map, offer) {
   offerMarkers.push(offerMarker);
 };
 
-var showDemandInMap = function(map, demand) {
+var showDemandInMap = function (map, demand) {
   var html = renderDemandInTemplate(demand);
   var demandMarker = L.marker([demand.location.latitude, demand.location.longitude], {icon: demandIcon}).addTo(map);
 
@@ -208,7 +205,7 @@ var showDemandInMap = function(map, demand) {
   demandMarkers.push(offerMarker);
 };
 
-var renderOfferInTemplate = function(offer) {
+var renderOfferInTemplate = function (offer) {
   var source = $("#offerMarker").html();
   var template = Handlebars.compile(source);
 
@@ -225,40 +222,39 @@ var renderOfferInTemplate = function(offer) {
   }
 
   var context = {
-          viewUrl: viewUrl,
-          tags: offer.tags,
-          price: offer.price,
-          image: image,
-          imageTitle: imageTitle,
-          translations: mapTypeOptions.translations,
-          user: offer.user,
-          showDetailsLink: mapTypeOptions.showDetailsLink
+    viewUrl: viewUrl,
+    tags: offer.tags,
+    price: offer.price,
+    image: image,
+    imageTitle: imageTitle,
+    translations: mapTypeOptions.translations,
+    user: offer.user,
+    showDetailsLink: mapTypeOptions.showDetailsLink
   };
 
   return template(context);
 };
 
-var renderDemandInTemplate = function(demand) {
+var renderDemandInTemplate = function (demand) {
   var source = $("#demandMarker").html();
   var template = Handlebars.compile(source);
   var viewDemandUrl = mapTypeOptions.viewDemandUrl;
   var viewUrl = viewDemandUrl.replace('%%demandId%%', demand.id);
 
   var context = {
-          viewUrl: viewUrl,
-          mustTags: demand.mustTags,
-          shouldTags: demand.shouldTags,
-          priceFrom: demand.price.min,
-          priceTo: demand.price.max,
-          translations: mapTypeOptions.translations,
-          user: demand.user
+    viewUrl: viewUrl,
+    mustTags: demand.mustTags,
+    shouldTags: demand.shouldTags,
+    priceFrom: demand.price.min,
+    priceTo: demand.price.max,
+    translations: mapTypeOptions.translations,
+    user: demand.user
   };
 
   return template(context);
 };
 
-var getMapTypeOptions = function()
-{
+var getMapTypeOptions = function () {
   var mapElement = $('#map');
   var demandsEndpointUrl = mapElement.data('demandsourceurl');
   var offersEndpointUrl = mapElement.data('offersourceurl');
@@ -297,23 +293,30 @@ var getMapTypeOptions = function()
  * #
  * #############################
  */
-$(document).ready(function() {
+$(document).ready(function () {
   var mapElementId = 'map';
   var mapElement = $('#map');
-  userIcon = new L.icon({iconUrl: '/images/icons/user_pin.png',
-      iconSize:     [61, 61], // size of the icon
-      iconAnchor:   [31, 61], // point of the icon which will correspond to marker's location
-      popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+
+  var NeeedoIcon = L.Icon.extend({
+    options:{
+      shadowUrl: 'images/icons/markerShadow.png',
+      iconSize: [61, 61], // size of the icon
+      shadowSize: [61, 61], // size of the shadow
+      iconAnchor: [31, 61], // point of the icon which will correspond to marker's location
+      shadowAnchor: [31, 61], // point of the icon which will correspond to marker's location
+      popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+    }
   });
-  demandIcon = new L.icon({iconUrl: '/images/icons/demands_pin.png',
-    iconSize:     [61, 61], // size of the icon
-    iconAnchor:   [31, 61], // point of the icon which will correspond to marker's location
-    popupAnchor:  [0, -65] // point from which the popup should open relative to the iconAnchor
+
+  userIcon = new NeeedoIcon({
+    iconUrl: '/images/icons/user_pin.png',
+
   });
-  offerIcon = new L.icon({iconUrl: '/images/icons/offers_pin.png',
-    iconSize:     [61, 61], // size of the icon
-    iconAnchor:   [31, 61], // point of the icon which will correspond to marker's location
-    popupAnchor:  [0, -65] // point from which the popup should open relative to the iconAnchor
+  demandIcon = new NeeedoIcon({
+    iconUrl: '/images/icons/demands_pin.png',
+  });
+  offerIcon = new NeeedoIcon({
+    iconUrl: '/images/icons/offers_pin.png',
   });
 
   if (mapElement.length) {
@@ -324,8 +327,8 @@ $(document).ready(function() {
       console.log('in callback');
       // default position as returned by backend
       userPosition = {
-        longitude : mapElement.data('defaultlongitude'),
-        latitude : mapElement.data('defaultlatitude')
+        longitude: mapElement.data('defaultlongitude'),
+        latitude: mapElement.data('defaultlatitude')
       };
 
       if (position) {
@@ -347,11 +350,11 @@ $(document).ready(function() {
       triggerSpecificMapTypeOperations(userPosition);
 
       // load near demands + offers if the user refocused the map
-      map.on('moveend', function(e) {
-         var newPosition = {
-           longitude: map.getCenter().lng,
-           latitude: map.getCenter().lat
-         };
+      map.on('moveend', function (e) {
+        var newPosition = {
+          longitude: map.getCenter().lng,
+          latitude: map.getCenter().lat
+        };
 
         triggerSpecificMapTypeOperations(newPosition);
       });
