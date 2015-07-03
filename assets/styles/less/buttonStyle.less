@@ -63,17 +63,16 @@ button {
       width: @iconSize;
       height: @iconSize;
       line-height: @iconSize;
-      border: 2px solid @BorderColor;
+      border: 2px solid white;
       border-radius: 50%;
-      color: #f5f5f5;
+      color: @HeaderBG;
       text-align: center;
       text-decoration: none;
-      background: #464646;
-      box-shadow: 0 0 3px gray;
+      background: @BLUEGREEN;
+      box-shadow: 0 0 3px @BEIGE;
       font-size: @iconSize;
-      &:hover {
-        background: #262626;
-      }
+      padding-bottom: 3px;
+
     }
     p {
       position: absolute;
@@ -81,6 +80,15 @@ button {
       top: 60%;
       width: 100%;
 
+    }
+    &:hover{
+      span{
+        background: #262626;
+        border-color: @BorderColorInv;
+        color: @HeaderFontColorInv;
+
+
+      }
     }
   }
   .newMsgCount {
