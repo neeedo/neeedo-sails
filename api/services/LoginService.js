@@ -21,12 +21,14 @@ module.exports = {
         // delegate to LoginService to persist User (with his/her access token)
         _this.storeUserInSession(user, req);
 
-        // asynchronously load user's favorites while responding
-        FavoritesService.loadUsersFavoriteOffers(req, function(favoriteOfferList) {}, function(errorModel) {
-          sails.log.error("Error while loading user's favorites: " + util.inspect(errorModel));
+        // load users favorites
+        FavoritesService.loadUsersFavoriteOffers(
+          req,
+          function(favoriteOfferList) {
+            onSuccessCallback(user);
+          }, function(errorModel) {
+            sails.log.error("Error while loading user's favorites: " + util.inspect(errorModel));
         });
-
-        onSuccessCallback(user);
       };
       var loginModel = ApiClientService.validateAndCreateNewLoginFromRequest(req, onErrorCallBack);
 
@@ -49,7 +51,7 @@ module.exports = {
       throw new Error("Type of user must be object.");
     }
 
-    sails.log.info('Stored user in session');
+    sails.log.info('Stored user in session: ' + util.inspect(user));
 
     req.session.user = user;
   },
@@ -67,6 +69,9 @@ module.exports = {
     if ("user" in req.session) {
       var user = new User();
       user.offerListConstructor = OfferList;
+
+      sails.log.info(util.inspect(req.session.user));
+      
       return user.loadFromSerialized(req.session.user);
     }
 

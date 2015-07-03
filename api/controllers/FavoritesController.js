@@ -7,17 +7,14 @@ module.exports = {
        res.json("OK");
       };
 
-      var onErrorCallback = function(errorModel) {
-        res.status(400);
-      };
 
-      FavoritesService.toggleFavorite(req, onSuccessCallback, onErrorCallback);
+      FavoritesService.toggleFavorite(req, res, onSuccessCallback, FavoritesService.sendErrorResponse);
   },
 
   favoritesList: function(req, res) {
     res.view('favorites/favoritesList', {
       locals: {
-        favoriteOffers: LoginService.getCurrentUser(req).getFavoriteOfferList().getOffers(),
+        favoriteOffers: FavoritesService.getFavoriteOffers(req),
         pagination: PaginatorService.getSettings()
       }
     });

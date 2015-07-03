@@ -128,5 +128,7 @@
   "Use current location" : "Use current location",
   "Type in your address" : "Type in your address",
   "Maximum distance in km" : "Maximum distance in km",
-  "Location" : "Location"
+  "Location" : "Location",
+  "You didn't add any favorite offer yet." : "You didn't add any favorite offer yet.",
+  "Favorite Offers" : "Favorite Offers"
 }
