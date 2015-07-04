@@ -55,7 +55,7 @@
           data-translationPrice="<%= i18n('Price') %>"
         >
         <% offers.forEach(function(offer) { %>
-        <%- partial('./partials/offersForList.ejs', {offer: offer}) %>
+        <%- partial('./partials/offersForList.ejs', {offer: offer, displayFavorite : false}) %>
         <% }); %>
       </ul>
     </div>
@@ -109,7 +109,7 @@
       <div class="content">
         <section id="section-1">
           <% offers.forEach(function(offer) { %>
-          <%- partial('./partials/offersForList.ejs', {offer: offer}) %>
+          <%- partial('./partials/offersForList.ejs', {offer: offer, displayFavorite: false}) %>
           <% }); %>
         </section>
         <section id="section-2">
