@@ -74,11 +74,6 @@ module.exports = {
     };
 
     var onLoadSuccessCallback = function(loadedOffer) {
-      sails.log.info("Offer " + util.inspect(loadedOffer, {
-        showHidden: false,
-        depth: null
-      }) + " was loaded successfully.");
-
       if (!OfferService.setBelongsToCurrentUser(req, res, loadedOffer)) {
         return res.redirect(OfferService.getOverviewUrl());
       }

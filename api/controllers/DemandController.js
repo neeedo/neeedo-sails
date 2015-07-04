@@ -56,11 +56,6 @@ module.exports = {
      * ---------- callbacks ----------
      */
     var onSuccessCallback = function(createdDemand) {
-       sails.log.info("demand " + util.inspect(createdDemand, {
-          showHidden: false,
-          depth: null
-        }) + " was created successfully.");
-
       FlashMessagesService.setSuccessMessage('Your demand was created successfully.', req, res);
       DemandService.storeInSession(req, createdDemand);
 
@@ -89,11 +84,6 @@ module.exports = {
      * ---------- callbacks ----------
      */
     var onUpdateSuccessCallback = function(updatedDemand) {
-      sails.log.info("Demand " + util.inspect(updatedDemand, {
-        showHidden: false,
-        depth: null
-      }) + " was created successfully.");
-
       FlashMessagesService.setSuccessMessage('Your demand was updated successfully.', req, res);
       DemandService.storeInSession(req, updatedDemand);
 
@@ -151,11 +141,6 @@ module.exports = {
      * ---------- callbacks ----------
      */
     var onMatchCallback = function(matchedOfferList, currentDemand) {
-      sails.log.info("Matched offers " + util.inspect(matchedOfferList, {
-        showHidden: false,
-        depth: null
-      }));
-
       if (0 == matchedOfferList.getOffers().length) {
         FlashMessagesService.setErrorMessage("Sorry, we couldn't find any matching offers. Please try to specify your demand better.", req, res);
         return res.redirect(DemandService.getEditUrl(currentDemand));

@@ -25,7 +25,6 @@ module.exports = {
         onErrorCallBack(req, res, errorModel);
       };
 
-      sails.log.info('delejating...');
       favoritesService.toggleOfferFavorite(favoriteModel, onToggleSuccessCallback, onToggleErrorCallback);
     } catch (e) {
       onErrorCallBack(req, res, ApiClientService.newError("toggleFavorite:" + e.message, 'Your inputs were not valid.'));
@@ -120,7 +119,6 @@ module.exports = {
   },
 
   getFavoriteOffers: function (req) {
-    sails.log.info(util.inspect(LoginService.getCurrentUser(req)));
     var favoriteOfferList = undefined !== LoginService.getCurrentUser(req).getFavoriteOfferList()
       ? LoginService.getCurrentUser(req).getFavoriteOfferList()
       : ApiClientService.newOfferList();

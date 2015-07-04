@@ -6,11 +6,6 @@ module.exports = {
      * ---------- callbacks ----------
      */
     var onSuccessCallback = function(loggedInUser) {
-       sails.log.info("User " + util.inspect(loggedInUser, {
-          showHidden: false,
-          depth: null
-        }) + " was logged in successfully.");
-
       if (!LoginService.redirectToAfterLoginUrl(req, res)) {
         res.redirect('/dashboard');
       }

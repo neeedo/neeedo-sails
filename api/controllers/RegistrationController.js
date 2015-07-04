@@ -3,11 +3,6 @@ var util = require('util');
 module.exports = {
   register: function (req, res) {
     var onSuccessCallback = function(registeredUser) {
-      sails.log.info("User " + util.inspect(registeredUser, {
-          showHidden: false,
-          depth: null
-        }) + " was registered successfully.");
-
       res.view('registration/register-success', {
         locals: {
           username: registeredUser.getUsername(),

@@ -13,11 +13,8 @@ module.exports = {
       res.redirect(redirectTo);
       delete req.session['redirectUrl'];
 
-      sails.log.info('redirecting to ' + redirectTo);
       return true;
     }
-
-    sails.log.info('not redirecting');
 
     return false;
   },

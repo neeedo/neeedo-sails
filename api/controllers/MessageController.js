@@ -6,11 +6,6 @@ module.exports = {
      * ---------- callbacks ----------
      */
     var onSuccessCallback = function(createdMessage) {
-       sails.log.info("message " + util.inspect(createdMessage, {
-          showHidden: false,
-          depth: null
-        }) + " was created successfully.");
-
       FlashMessagesService.setSuccessMessage('Your message was sent successfully.', req, res);
 
       if (!UrlService.redirectToLastRedirectUrl(req, res)) {

@@ -72,7 +72,6 @@ module.exports = {
       //	Files are located in .tmp/uploads
       var validationResult = _this.validateFilesAndDeleteInvalid(req, res, err, uploadedFiles);
       var validationErrorMessage = validationResult['messages'].join(", ");
-      sails.log.info('Uploaded files:' + util.inspect(uploadedFiles));
 
       if (validationResult['validFiles'].length > 0) {
         var onProcessSuccessCallback = function(processedFiles, processingErrorMessage) {

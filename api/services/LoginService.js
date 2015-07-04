@@ -51,8 +51,6 @@ module.exports = {
       throw new Error("Type of user must be object.");
     }
 
-    sails.log.info('Stored user in session: ' + util.inspect(user));
-
     req.session.user = user;
   },
 
@@ -71,7 +69,7 @@ module.exports = {
       user.offerListConstructor = OfferList;
 
       sails.log.info(util.inspect(req.session.user));
-      
+
       return user.loadFromSerialized(req.session.user);
     }
 

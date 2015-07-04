@@ -73,11 +73,6 @@ module.exports = {
      * ---------- callbacks ----------
      */
     var onSuccessCallback = function(createdOffer) {
-       sails.log.info("Offer " + util.inspect(createdOffer, {
-          showHidden: false,
-          depth: null
-        }) + " was created successfully.");
-
       FlashMessagesService.setSuccessMessage('Your offer was created successfully.', req, res);
       OfferService.storeInSession(req, createdOffer);
 

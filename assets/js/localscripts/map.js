@@ -79,10 +79,10 @@ var triggerSpecificMapTypeOperations = function (currentPosition) {
         showUsersPosition(userPosition);
         loadAndShowNearestDemandsAndOffers(currentPosition, map);
         break;
-      case 'demandMatching': // nearest demands + offers
+      case 'demandMatching': // matched offers for a single demand
         loadAndShowMatchingDemands(map);
         break;
-      case 'showOffer': // nearest demands + offers
+      case 'showOffer': // offer detail page
         showUsersPosition(userPosition);
         loadAndShowOffer(mapTypeOptions.offersEndpointUrl);
         break;
