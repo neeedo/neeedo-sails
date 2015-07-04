@@ -2,6 +2,9 @@
   "name": "neeedo-webapp",
   "private": true,
   "version": "0.0.0",
+  "engines": {
+    "node": "0.12.x"
+  },
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
