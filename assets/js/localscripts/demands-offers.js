@@ -3,19 +3,24 @@
  *              CREATE OFFER & DEMAND
  *
  * #############################################
-*/
+ */
 
 var geolocationCheckbox,
   address,
   addressContainer
   ;
 
-var locationIsValid = function(latInput, lngInput) {
+var locationIsValid = function (latInput, lngInput) {
   var coordinatePattern = /[0-9]+\.[0-9]+/;
   return latInput.val().match(coordinatePattern) && lngInput.val().match(coordinatePattern);
 }
 
-var setLocationIfChecked = function(form) {
+var setLocationIfChecked = function (event) {
+  var form = event.target;
+
+  event.preventDefault();
+  event.stopPropagation();
+
   var _this = this;
   var latInput = $("input[name='lat']");
   var lngInput = $("input[name='lng']");
@@ -27,7 +32,6 @@ var setLocationIfChecked = function(form) {
         alert(geolocationCheckbox.data('translationnogeolocation'));
       } else {
         setLatitudeAndLongitudeInHiddenField(location);
-        0
       }
       form.submit();
     };
@@ -43,7 +47,7 @@ var setLocationIfChecked = function(form) {
 
 };
 
-var setLatitudeAndLongitudeInHiddenField = function(location) {
+var setLatitudeAndLongitudeInHiddenField = function (location) {
   var latInput = $("input[name='lat']");
   var lngInput = $("input[name='lng']");
 
@@ -51,21 +55,21 @@ var setLatitudeAndLongitudeInHiddenField = function(location) {
   lngInput.val(location.longitude);
 };
 
-var toggleGeolocationAndAdressFields = function(useGeolocation) {
+var toggleGeolocationAndAdressFields = function (useGeolocation) {
   if (useGeolocation) {
-    document.getElementById("address").disabled=true;
+    document.getElementById("address").disabled = true;
     $('#address').addClass('disabled');
-    $('#address').attr("placeholder","");
+    $('#address').attr("placeholder", "");
   } else {
-    document.getElementById("address").disabled=false;
+    document.getElementById("address").disabled = false;
     $('#address').removeClass('disabled');
-    $('#address').attr("placeholder","Landsberger Allee, Berlin")
+    $('#address').attr("placeholder", "Landsberger Allee, Berlin")
   }
 };
 
-var provideAddressAutoComplete = function() {
+var provideAddressAutoComplete = function () {
   address.autocomplete({
-    source: function( request, response ) {
+    source: function (request, response) {
       $.ajax({
         url: "http://nominatim.openstreetmap.org/search",
         dataType: "json",
@@ -73,7 +77,7 @@ var provideAddressAutoComplete = function() {
           q: request.term,
           format: 'json'
         },
-        success: function( data ) {
+        success: function (data) {
           // hand in the location names
           var fetchedAddresses = [];
           addressLatLngMap = {};
@@ -83,21 +87,22 @@ var provideAddressAutoComplete = function() {
             if ('display_name' in address
               && 'lat' in address && 'lon' in address) {
               fetchedAddresses.push({
-                label : address.display_name ,
-                location : {
+                label: address.display_name,
+                location: {
                   latitude: address.lat,
                   longitude: address.lon
                 }
               });
             }
-          };
+          }
+          ;
 
-          response( fetchedAddresses );
+          response(fetchedAddresses);
         }
       });
     },
     minLength: 3,
-    select: function( event, ui ) {
+    select: function (event, ui) {
       if (ui.item) {
         // get complete address JSON from selection
         var location = ui.item.location;
@@ -106,11 +111,11 @@ var provideAddressAutoComplete = function() {
         setLatitudeAndLongitudeInHiddenField(location);
       }
     },
-    open: function() {
-      $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+    open: function () {
+      $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
     },
-    close: function() {
-      $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+    close: function () {
+      $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
     }
   });
 
@@ -145,66 +150,35 @@ $(document).ready(function () {
    * ##################
    */
   if (!geolocationCheckbox.checked) {
-    document.getElementById("address").disabled=true;
+    document.getElementById("address").disabled = true;
     $('#address').addClass('disabled');
-    $('#address').attr("placeholder","");
+    $('#address').attr("placeholder", "");
   }
 
-  geolocationCheckbox.change(function() {
+  geolocationCheckbox.change(function () {
     toggleGeolocationAndAdressFields(geolocationCheckbox.prop('checked'));
   });
 
-  function split( val ) {
-    return val.split( /,\s*/ );
+  function split(val) {
+    return val.split(/,\s*/);
   }
 
   provideAddressAutoComplete();
-   offerForm.on('submit', setLocationIfChecked);
-   demandForm.on('submit', setLocationIfChecked);
-   /* ##################
+  offerForm.on('submit', setLocationIfChecked);
+  demandForm.on('submit', setLocationIfChecked);
+  /* ##################
    * #
    * # Tag completion
    * #
    * ##################*/
 
-   $("#mustTagsDemand").tagit({
-   autocomplete: {
-   source: function( request, response ) {
-   $.ajax({
-   url: neeedo.getApiHttpUrl() + "/completion/tag/" + request.term,
-   success: function( data ) {
-   response( $.map( data.completedTags, function( item ) {
-   return {
-   label: item,
-   value: item
-   }
-   }));
-   }
-   });
-   },
-   minLength: 2
-   },
-   afterTagAdded: function(event, ui) {
-   getSuggests();
-   }
-   });
-  $("#mustTagsDemand")
-    .bind( "keydown", function( event ) {
-      if (event.keyCode == $.ui.keyCode.ENTER) {
-        event.preventDefault();
-        event.stopPropagation();
-      } else if ( event.keyCode === $.ui.keyCode.TAB &&
-        $( this ).autocomplete( "instance" ).menu.active ) {
-        event.preventDefault();
-      }
-    })
-    .autocomplete({
-      minLength: 3,
-      source: function( request, response ) {
+  $("#mustTagsDemand").tagit({
+    autocomplete: {
+      source: function (request, response) {
         $.ajax({
           url: neeedo.getApiHttpUrl() + "/completion/tag/" + request.term,
-          success: function( data ) {
-            response( $.map( data.completedTags, function( item ) {
+          success: function (data) {
+            response($.map(data.completedTags, function (item) {
               return {
                 label: item,
                 value: item
@@ -213,22 +187,53 @@ $(document).ready(function () {
           }
         });
       },
-      focus: function() {
+      minLength: 2
+    },
+    afterTagAdded: function (event, ui) {
+      getSuggests();
+    }
+  });
+  $("#mustTagsDemand")
+    .bind("keydown", function (event) {
+      if (event.keyCode == $.ui.keyCode.ENTER) {
+        event.preventDefault();
+        event.stopPropagation();
+      } else if (event.keyCode === $.ui.keyCode.TAB &&
+        $(this).autocomplete("instance").menu.active) {
+        event.preventDefault();
+      }
+    })
+    .autocomplete({
+      minLength: 3,
+      source: function (request, response) {
+        $.ajax({
+          url: neeedo.getApiHttpUrl() + "/completion/tag/" + request.term,
+          success: function (data) {
+            response($.map(data.completedTags, function (item) {
+              return {
+                label: item,
+                value: item
+              }
+            }));
+          }
+        });
+      },
+      focus: function () {
         // prevent value inserted on focus
         return false;
       },
-      select: function( event, ui ) {
-        var terms = split( this.value );
+      select: function (event, ui) {
+        var terms = split(this.value);
         // remove the current input
         terms.pop();
         // add the selected item
-        terms.push( ui.item.value );
+        terms.push(ui.item.value);
         // add placeholder to get the comma-and-space at the end
-        terms.push( "" );
-        this.value = terms.join( ", " );
+        terms.push("");
+        this.value = terms.join(", ");
         return false;
       },
-      change: function( event, ui ) {
+      change: function (event, ui) {
         getSuggests();
       }
     });
@@ -236,7 +241,7 @@ $(document).ready(function () {
   function getSuggests() {
     $.ajax({
       url: neeedo.getApiHttpUrl() + "/completion/suggest/" + $("#mustTagsDemand").val().trim(),
-      success: function( data ) {
+      success: function (data) {
         console.log(data.suggestedTags.join(" "));
         $("#myTags").text(data.suggestedTags.join(" "));
       }
