@@ -10,6 +10,7 @@ $('#offerGallery').lightSlider({
   slideMargin:0,
   enableDrag: false,
   currentPagerPosition:'left',
+  controls: false,
   onSliderLoad: function(el) {
     el.lightGallery({
       selector: '#imageGallery .lslide'

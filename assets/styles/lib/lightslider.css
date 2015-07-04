@@ -170,10 +170,12 @@
 
 /* slider actions */
 .lSAction > a {
-  width: 32px;
-  height: 80%;
-  top: 10%;
-  background-color: darkgray;
+  width: 40px;
+  height: 40px;
+  top: 50%;
+  line-height: 40px;
+  border-radius: 50%;
+  background: darkslategray;
   display: block;
   /* background-image: url('/images/controls.png');*/
   cursor: pointer;
@@ -187,6 +189,9 @@
   font-size: 32px;
   box-shadow: 0 0 3px gray;
   text-decoration: none;
+  border: 2px solid white;
+  text-align: center;
+  text-decoration: none;
 
 }
 
@@ -194,25 +199,31 @@
   opacity: 1;
   color: slategray;
 }
-.lSAction > .lSPrev{
+
+.lSAction > .lSPrev {
   left: 0;
+
 }
+
 .lSAction > .lSPrev:before {
   /* background-position: 0 0;*/
   position: absolute;
-  top: 45%;
-  content: "\ea44";
+  left: 0;
+  padding-left: 2px;
+  content: "\ea40";
 }
-.lSAction > .lSNext{
+
+.lSAction > .lSNext {
 
   right: 0;
 }
+
 .lSAction > .lSNext:before {
   /*background-position: -32px 0;*/
   position: absolute;
-  top: 45%;
-  content: "\ea42";
-
+  right: 0;
+  padding-right: 2px;
+  content: "\ea3c";
 
 }
 
