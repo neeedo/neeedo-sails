@@ -68,8 +68,6 @@ module.exports = {
       var user = new User();
       user.offerListConstructor = OfferList;
 
-      sails.log.info(util.inspect(req.session.user));
-
       return user.loadFromSerialized(req.session.user);
     }
 
