@@ -5,11 +5,13 @@
       <li>
         <label for="tagsOffer"><%= i18n('must have') %></label>
         <input type="text" id="tagsOffer" name="tags" value="<%- tags %>" placeholder="<%= i18n('Bicycle, iPhone') %>" autofocus>
+        <small class="inputMissing" id="errorTag">Please enter at least one tag</small>
         <span><%= i18n('What are you offering?') %></span>
       </li>
       <li>
         <label for="priceOffer"><%= i18n('Price') %></label>
-        <input type="text" id="priceOffer" name="price" value="<%- price %>" placeholder="14">
+        <input type="number" id="priceOffer" name="price" value="<%- price %>" placeholder="14">
+        <small class="inputMissing" id="errorPrice">Please enter a price</small>
         <span><%= i18n('Price') %></span>
       </li>
       <li id="locationCol" class="leftCol">
@@ -26,6 +28,7 @@
       <li id="addressContainer" class="ui-widget rightCol">
         <label for="address" id="addressLabel"><%= i18n('Address') %></label>
         <input type="text" id="address" class="disabled" name="address">
+        <small class="inputMissing" id="errorLoc">Please enter a location</small>
         <span><%= i18n("Type in your address") %></span>
       </li>
       <li>
@@ -42,7 +45,7 @@
         <div class="fileupload-preview-images"><%- partial('./offer-fileupload-previewimages.ejs') %></div>
       </li>
       <li id="submitBtn" class="clear">
-        <input type="submit" value="Send This" >
+        <input type="button" id="sendBtn" value="Send This" >
       </li>
     </ul>
   </form>

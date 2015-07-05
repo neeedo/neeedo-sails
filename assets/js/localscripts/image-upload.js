@@ -233,13 +233,13 @@ var addToHiddenFields = function (file) {
 };
 
 var deactivateOfferSubmit = function() {
-  var submitBtn = offerForm.find("button[type='submit']");
-  submitBtn.attr('disabled','disabled');
+  var submitBtn = document.getElementById('sendBtn');
+  submitBtn.disabled = true;
 };
 
 var activateOfferSubmit = function() {
-  var submitBtn = offerForm.find("button[type='submit']");
-  submitBtn.removeAttr('disabled');
+  var submitBtn = document.getElementById('sendBtn');
+  submitBtn.disabled = false;
 };
 
 var deleteImage = function(event) {

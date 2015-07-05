@@ -60,6 +60,7 @@ var toggleGeolocationAndAdressFields = function (useGeolocation) {
     document.getElementById("address").disabled = true;
     $('#address').addClass('disabled');
     $('#address').attr("placeholder", "");
+    classie.removeClass(document.getElementById('errorLoc'), 'showError' );
   } else {
     document.getElementById("address").disabled = false;
     $('#address').removeClass('disabled');
@@ -136,12 +137,40 @@ var provideAddressAutoComplete = function () {
    });*/
 };
 
+var validateOfferForm = function(){
+  classie.removeClass(document.getElementById('errorTag'), 'showError' );
+  classie.removeClass(document.getElementById('errorPrice'), 'showError' );
+  classie.removeClass(document.getElementById('errorLoc'), 'showError' );
+  var bool = true;
+  var price = document.getElementById('priceOffer').value.toString();
+  if(document.getElementById('tagsOffer').value == ""){
+    classie.addClass(document.getElementById('errorTag'), 'showError' );
+    bool = false;
+  }
+  var regex = /^[0-9]+(\.[0-9]{1,2})?$/;
+  if(price == "" || !price.match(regex)){
+    classie.addClass(document.getElementById('errorPrice'), 'showError' );
+    bool = false;
+  }
+  if(!document.getElementById('useGeolocation').checked){
+    if(document.getElementById('address').value == ""){
+      classie.addClass(document.getElementById('errorLoc'), 'showError' );
+      bool = false;
+    }
+  }
+  return bool;
+};
+
 $(document).ready(function () {
   var offerForm = $('#createOffer');
   var demandForm = $('#createDemand');
   geolocationCheckbox = $('#useGeolocation');
   address = $('#address');
   addressContainer = $('#addressContainer');
+
+
+  offerForm.on('submit', setLocationIfChecked);
+  demandForm.on('submit', setLocationIfChecked);
 
   /* ##################
    * #
@@ -168,9 +197,13 @@ $(document).ready(function () {
     classie.toggle( imageUploadContainer, 'hideLi' );
   };
 
+  sendBtn.onclick = function() {
+    if(validateOfferForm()){
+      offerForm.submit();
+    }
+  };
+
   provideAddressAutoComplete();
-  offerForm.on('submit', setLocationIfChecked);
-  demandForm.on('submit', setLocationIfChecked);
   /* ##################
    * #
    * # Tag completion
