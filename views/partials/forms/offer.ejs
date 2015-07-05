@@ -1,57 +1,46 @@
 <div class="container elementWrapper">
-  <h1 class="modal-title"><%= i18n("I'm offering") %></h1>
-  <form id="createOffer" method="POST" class="simform">
-    <div class="simform-inner">
-      <ol class="questions">
-        <li>
-          <span><label for="tagsOffer"><%= i18n("Tags") %></label></span>
-          <input id="tagsOffer" type="text"
-                 name="tags" value="<%- tags %>"
-                 placeholder="<%= i18n('Offer Tags') %>"/>
-          <p id="myTags"></p>
-        </li>
-        <li>
-          <span><label for="priceOffer"><%= i18n("Price") %></label></span>
-          <input id="priceOffer" type="number"
-                 name="price" value="<%- price %>"
-                 placeholder="<%= i18n('Price') %>"/>
-        </li>
-        <li>
-          <span><label for="useGeolocation"><%= i18n("Location") %></label></span>
-          <span id="locationCheckbox">
-          <label for="useGeolocation" id="locLabel"><%= i18n("Use my current location") %></label>
+  <h1 class="text-center">Create Offer</h1>
+  <form id="createOffer" method="POST" class="form-style">
+    <ul>
+      <li>
+        <label for="tagsOffer"><%= i18n('must have') %></label>
+        <input type="text" id="tagsOffer" name="tags" value="<%- tags %>" placeholder="<%= i18n('Bicycle, iPhone') %>" autofocus>
+        <span><%= i18n('What are you offering?') %></span>
+        <p id="myTags"></p>
+      </li>
+      <li>
+        <label for="priceOffer"><%= i18n('Price') %></label>
+        <input type="text" id="priceOffer" name="price" value="<%- price %>" placeholder="14">
+        <span><%= i18n('Price') %></span>
+      </li>
+      <li id="locationCol" class="leftCol">
+        <label for="useGeolocation"><%= i18n("Location") %></label>
+        <div class="checkboxContainer">
           <input type="checkbox" id="useGeolocation" checked
                  data-translationNoGeolocation="<%= i18n("We couldn't determine your location. Please check your browser settings or type in your desired address directly.") %>"
                  data-translationNoAddress="<%= i18n("Please enter an valid address.") %>">
-          </span>
-          <div id="addressContainer" class="ui-widget">
-            <label for="address" id="addressLabel"><%= i18n('Address') %></label>
-            <input type="text" id="address">
-          </div>
-          <input type="hidden" name="lat" id="latDemand" value="<%- lat %>"/>
-          <input type="hidden" name="lng" id="lonDemand" value="<%- lng %>"/>
-        </li>
-        <li>
-          <span><label for="images[]"><%= i18n("Image upload") %></label></span>
-          <%- partial('./offer-fileupload.ejs', { renderMessages: false, renderPreviewImages: false }) %>
-          <% images.getImages().forEach(function(image) { %>
-          <input type="hidden" id="images[]" name="images[]" value="<%= image.getFileName() %>">
-          <% }) %>
-        </li>
-      </ol><!-- /questions -->
-      <button class="submit" type="submit" id="demandSubmitBtn"><%= i18n(btnLabel) %></button>
-      <div class="controls">
-        <button class="next"></button>
-        <div class="progress"></div>
-							<span class="number">
-								<span class="number-current"></span>
-								<span class="number-total"></span>
-							</span>
-        <span class="error-message"><%= i18n('Please fill the field before continuing') %></span>
-      </div><!-- / controls -->
-    </div><!-- /simform-inner -->
-    <span class="final-message"></span>
-  </form><!-- /simform -->
+        </div>
+        <span><%= i18n("Use current location") %></span>
+        <input type="hidden" name="lat" id="latDemand" value="<%- lat %>"/>
+        <input type="hidden" name="lng" id="lonDemand" value="<%- lng %>"/>
+      </li>
+      <li id="addressContainer" class="ui-widget rightCol">
+        <label for="address" id="addressLabel"><%= i18n('Address') %></label>
+        <input type="text" id="address" class="disabled" name="address">
+        <span><%= i18n("Type in your address") %></span>
+      </li>
+      <li class="clear">
+        <label for="images[]"><%= i18n("Image upload") %></label>
+        <%- partial('./offer-fileupload.ejs', { renderMessages: false, renderPreviewImages: false }) %>
+        <% images.getImages().forEach(function(image) { %>
+        <input type="hidden" id="images[]" name="images[]" value="<%= image.getFileName() %>">
+        <% }) %>
+      </li>
+      <li id="submitBtn">
+        <input type="submit" value="Send This" >
+      </li>
+    </ul>
+  </form>
 
   <% // Tag suggestion will be rendered here %>
   <div class="fileupload-validation-messages"><%- partial('./offer-fileupload-messages.ejs') %></div>
@@ -64,5 +53,4 @@
  */ %>
 <%- partial('./offer-previewImages.ejs') %>
 
-<% block('localScripts', '<script src="/js/localscripts/stepsForm.js"></script>') %>
 <% block('localScripts', '<script src="/js/localscripts/demands-offers.js"></script>') %>

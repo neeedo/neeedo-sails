@@ -54,7 +54,7 @@
   float: left;
   font-size: 1em;
 }
-.form-style #distCol{
+.form-style .clear{
   clear: both;
 }
 .leftCol{
@@ -142,7 +142,6 @@
   height: 2.5em;
   width: 100%;
   background-color: #e0e0e0;
-  margin-top: 4px;
   padding-top: 9px;
 }
 
@@ -162,10 +161,6 @@ input[type=number]::-webkit-inner-spin-button {
 
 input[type=number] {
   -moz-appearance:textfield;
-}
-
-#fileUploadDescription{
-  font-size: 0.3em;
 }
 
 #locationCheckbox{
@@ -218,16 +213,30 @@ ul.tagit{
 
 #fileUploadLabel{
   font-size: 0.7em;
+  margin-left: 5px;
+}
+
+label{
+  margin-bottom: 0 !important;
 }
 
 #fileupload-input{
-  height: 1em;
-  width: 50%;
-  font-size: 0.3em;
-  padding-bottom: 25px;
+  padding: 5px;
+  background-color: #d0d0d0;
+  color: @DarkerMetroGreen;
+}
+
+#fileupload{
+  background-color: #e0e0e0;
 }
 
 #fileupload-messages{
   height: 75px;
   text-align: center;
+}
+
+#fileUploadDescription{
+  font-size: 0.7em;
+  padding: 5px;
+  margin: 0;
 }
