@@ -6,7 +6,6 @@
         <label for="tagsOffer"><%= i18n('must have') %></label>
         <input type="text" id="tagsOffer" name="tags" value="<%- tags %>" placeholder="<%= i18n('Bicycle, iPhone') %>" autofocus>
         <span><%= i18n('What are you offering?') %></span>
-        <p id="myTags"></p>
       </li>
       <li>
         <label for="priceOffer"><%= i18n('Price') %></label>
@@ -29,22 +28,25 @@
         <input type="text" id="address" class="disabled" name="address">
         <span><%= i18n("Type in your address") %></span>
       </li>
-      <li class="clear">
+      <li>
+        <input id="showUpload" type="button" value="Add images">
+      </li>
+      <li id="imgUploadStep" class="clear hideLi">
         <label for="images[]"><%= i18n("Image upload") %></label>
         <%- partial('./offer-fileupload.ejs', { renderMessages: false, renderPreviewImages: false }) %>
         <% images.getImages().forEach(function(image) { %>
         <input type="hidden" id="images[]" name="images[]" value="<%= image.getFileName() %>">
         <% }) %>
+        <% // Tag suggestion will be rendered here %>
+        <div class="fileupload-validation-messages"><%- partial('./offer-fileupload-messages.ejs') %></div>
+        <div class="fileupload-preview-images"><%- partial('./offer-fileupload-previewimages.ejs') %></div>
       </li>
-      <li id="submitBtn">
+      <li id="submitBtn" class="clear">
         <input type="submit" value="Send This" >
       </li>
     </ul>
   </form>
 
-  <% // Tag suggestion will be rendered here %>
-  <div class="fileupload-validation-messages"><%- partial('./offer-fileupload-messages.ejs') %></div>
-  <div class="fileupload-preview-images"><%- partial('./offer-fileupload-previewimages.ejs') %></div>
 </div>
 
 <% /* the following partial will be dynamically rendered by the browser's javascript

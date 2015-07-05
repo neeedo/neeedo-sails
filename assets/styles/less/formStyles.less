@@ -231,12 +231,51 @@ label{
 }
 
 #fileupload-messages{
-  height: 75px;
   text-align: center;
+  background-color: #d0d0d0;
+}
+
+#fileupload-messages p{
+  margin: 0;
 }
 
 #fileUploadDescription{
   font-size: 0.7em;
   padding: 5px;
   margin: 0;
+}
+
+.hideLi{
+  display: none !important;
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+.fileupload-preview-images{
+  background-color: #e0e0e0;
+}
+
+#fileupload-files li{
+  width: 32%;
+  display: inline-block;
+}
+
+#fileupload-files li img{
+  max-width: 100%;
+  margin: 0 auto;
+  display: block;
+  margin-bottom: 5px;
+}
+
+#fileupload-files input{
+  background: #d0d0d0;
+  border: none;
+  padding: 10px 20px 10px 20px;
+  border-bottom: 3px solid #7a7a7a;
+  border-radius: 3px;
+  color: @DarkerMetroGreen;
+  height: 3em;
+  width: 66%;
+  margin: 0 auto;
 }

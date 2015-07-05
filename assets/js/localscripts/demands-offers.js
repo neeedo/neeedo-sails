@@ -163,6 +163,11 @@ $(document).ready(function () {
     return val.split(/,\s*/);
   }
 
+  showUpload.onclick = function() {
+    var imageUploadContainer = document.getElementById('imgUploadStep');
+    classie.toggle( imageUploadContainer, 'hideLi' );
+  };
+
   provideAddressAutoComplete();
   offerForm.on('submit', setLocationIfChecked);
   demandForm.on('submit', setLocationIfChecked);
