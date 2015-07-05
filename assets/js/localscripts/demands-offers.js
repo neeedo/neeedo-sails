@@ -161,6 +161,51 @@ var validateOfferForm = function(){
   return bool;
 };
 
+var validateDemandForm = function(){
+  classie.removeClass(document.getElementById('errorTag'), 'showError' );
+  classie.removeClass(document.getElementById('errorMinPrice'), 'showError' );
+  classie.removeClass(document.getElementById('errorMaxPrice'), 'showError' );
+  classie.removeClass(document.getElementById('errorDistance'), 'showError' );
+  classie.removeClass(document.getElementById('errorLoc'), 'showError' );
+  var bool = true;
+
+  var tagitList = document.getElementsByClassName('tagit');
+  console.log(tagitList);
+  if(typeof(tagitList) == 'undefined' || tagitList == null || $(".tagit li").length <= 1){
+    classie.addClass(document.getElementById('errorTag'), 'showError' );
+    bool = false;
+  }
+
+  var minPrice = document.getElementById('minPriceDemand').value.toString();
+  var maxPrice = document.getElementById('maxPriceDemand').value.toString();
+  var distance = document.getElementById('maxDistanceDemand').value.toString();
+  var regex = /^[0-9]+(\.[0-9]{1,2})?$/;
+  if(minPrice == "" || !minPrice.match(regex)){
+    classie.addClass(document.getElementById('errorMinPrice'), 'showError' );
+    bool = false;
+  }
+  if(maxPrice == "" || !maxPrice.match(regex)){
+    classie.addClass(document.getElementById('errorMaxPrice'), 'showError' );
+    bool = false;
+  }
+  if(minPrice > maxPrice){
+    classie.addClass(document.getElementById('errorMaxMin'), 'showError' );
+    bool = false;
+  }
+
+  if(distance == "" || !distance.match(regex)){
+    classie.addClass(document.getElementById('errorDistance'), 'showError' );
+    bool = false;
+  }
+  if(!document.getElementById('useGeolocation').checked){
+    if(document.getElementById('address').value == ""){
+      classie.addClass(document.getElementById('errorLoc'), 'showError' );
+      bool = false;
+    }
+  }
+  return bool;
+};
+
 $(document).ready(function () {
   var offerForm = $('#createOffer');
   var demandForm = $('#createDemand');
@@ -192,16 +237,29 @@ $(document).ready(function () {
     return val.split(/,\s*/);
   }
 
-  showUpload.onclick = function() {
+  var uploadBtn = document.getElementById("showUpload");
+  if(typeof(uploadBtn) != 'undefined' && uploadBtn != null){
     var imageUploadContainer = document.getElementById('imgUploadStep');
     classie.toggle( imageUploadContainer, 'hideLi' );
-  };
+  }
 
-  sendBtn.onclick = function() {
-    if(validateOfferForm()){
-      offerForm.submit();
-    }
-  };
+  var offerBtn = document.getElementById("createOfferBtn");
+  if(typeof(offerBtn) != 'undefined' && offerBtn != null){
+    offerBtn.onclick = function() {
+     if(validateOfferForm()){
+        offerForm.submit();
+      }
+    };
+  }
+
+  var demandBtn = document.getElementById("createDemandBtn");
+  if(typeof(demandBtn) != 'undefined' && demandBtn != null){
+    demandBtn.onclick = function() {
+      if(validateDemandForm()){
+        demandForm.submit();
+      }
+    };
+  }
 
   provideAddressAutoComplete();
   /* ##################

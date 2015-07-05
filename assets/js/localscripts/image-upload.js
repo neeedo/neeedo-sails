@@ -233,12 +233,12 @@ var addToHiddenFields = function (file) {
 };
 
 var deactivateOfferSubmit = function() {
-  var submitBtn = document.getElementById('sendBtn');
+  var submitBtn = document.getElementById('createOfferBtn');
   submitBtn.disabled = true;
 };
 
 var activateOfferSubmit = function() {
-  var submitBtn = document.getElementById('sendBtn');
+  var submitBtn = document.getElementById('createOfferBtn');
   submitBtn.disabled = false;
 };
 
