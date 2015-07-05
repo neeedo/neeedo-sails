@@ -294,7 +294,8 @@ module.exports = {
             {
               offer: offer,
               req: req,
-              i18n: res.i18n
+              i18n: res.i18n,
+              displayFavorite: false
             },
             function (html) {
               counter++;
