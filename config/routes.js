@@ -105,9 +105,16 @@ module.exports.routes = {
    *
    *************************************************************************/
   'post /files/upload-ajax' : 'FileController.uploadAjax',
-  '/files/upload' : 'FileController.upload'
+  '/files/upload' : 'FileController.upload',
 
-
+  /*************************************************************************
+   *
+   *                        Static
+   *
+   *************************************************************************/
+  '/static/agb' : 'StaticViewsController.agb',
+  '/static/faq' : 'StaticViewsController.faq',
+  '/static/impressum' : 'StaticViewsController.impressum'
     /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
