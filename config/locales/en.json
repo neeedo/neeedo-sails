@@ -130,5 +130,11 @@
   "Maximum distance in km" : "Maximum distance in km",
   "Location" : "Location",
   "You didn't add any favorite offer yet." : "You didn't add any favorite offer yet.",
-  "Favorite Offers" : "Favorite Offers"
+  "Favorite Offers" : "Favorite Offers",
+  "Create offers your customers will find" : "Create offers your customers will find",
+  "Create your first offer now" : "Create your first offer now",
+  "Create your first demand now" : "Create your first demand now",
+  "Landing page offer text" : "create offer marketing text",
+  "Landing page demand text" : "create demand marketing text",
+  "Landing page map text" : "location feature marketing text"
 }

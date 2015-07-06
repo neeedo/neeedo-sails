@@ -146,5 +146,11 @@
   "Location" : "Standort",
   "You didn't add any favorite offer yet." : "Du hast bisher noch keine Angebote favorisiert.",
   "Favorite Offers" : "Favoriten",
-  "In Your Vicinity": "In deiner Umgebung"
+  "In Your Vicinity": "In deiner Umgebung",
+  "Create offers your customers will find" : "Erstelle Angebote, die deine Kunden finden",
+  "Create your first offer now" : "Erstelle jetzt dein erstes Angbot",
+  "Create your first demand now" : "Starte jetzt deine erste Suche",
+  "Landing page offer text" : "angebot marketing text",
+  "Landing page demand text" : "suche marketing text",
+  "Landing page map text" : "standort/map marketing text"
 }

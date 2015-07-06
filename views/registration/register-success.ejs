@@ -1,3 +1,65 @@
-<div id="register">
-  <p><%= i18n('Welcome to Neeedo, %s!', username) %></p>
+<div id="register" class="container elementWrapper">
+  <h1 class="text-center"><%= i18n('Welcome to Neeedo, %s!', username) %></h1>
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="row">
+        <div class="col-lg-9">
+          <p><%= i18n('Create offers your customers will find') %></p>
+        </div>
+        <div class="col-lg-3">
+          <img src="/images/icons/offers_pin.png" alt="Offer" />
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="row">
+        <div class="col-lg-9">
+          <p><%= i18n('Find what you`re really looking for') %></p>
+        </div>
+        <div class="col-lg-3">
+          <img src="/images/icons/demands_pin.png" alt="Demand" />
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="row">
+        <div class="col-lg-9">
+          <p><%= i18n('Everything at your nearest') %></p>
+        </div>
+        <div class="col-lg-3">
+          <img src="/images/icons/user_pin.png" alt="User" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4">
+      <p><%= i18n('Landing page offer text') %></p>
+    </div>
+    <div class="col-lg-4">
+      <p><%= i18n('Landing page demand text') %></p>
+    </div>
+    <div class="col-lg-4">
+      <p><%= i18n('Landing page map text') %></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4">
+      <img src="/images/offer.png" alt="Offer Example" />
+    </div>
+    <div class="col-lg-4">
+      <img src="/images/demand.png" alt="Demand Example" />
+    </div>
+    <div class="col-lg-4">
+      <img src="/images/map.png" alt="Map Example" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4">
+      <a href="/demands/create"><%= i18n('Create your first offer now') %></a>
+    </div>
+    <div class="col-lg-4">
+      <a href="/offers/create"><%= i18n('Create your first demand now') %></a>
+    </div>
+  </div>
 </div>
