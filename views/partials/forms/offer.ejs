@@ -45,7 +45,7 @@
         <div class="fileupload-preview-images"><%- partial('./offer-fileupload-previewimages.ejs') %></div>
       </li>
       <li id="submitBtn" class="clear">
-        <input type="button" id="createOfferBtn" value="Send This" >
+        <button id="createOfferBtn" onclick="return validateOfferForm()" class="neeedoBtn neeedoBtn--nuka"><%= i18n('Send') %></button>
       </li>
     </ul>
   </form>

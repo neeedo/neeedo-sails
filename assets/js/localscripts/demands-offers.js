@@ -239,25 +239,9 @@ $(document).ready(function () {
 
   var uploadBtn = document.getElementById("showUpload");
   if(typeof(uploadBtn) != 'undefined' && uploadBtn != null){
-    var imageUploadContainer = document.getElementById('imgUploadStep');
-    classie.toggle( imageUploadContainer, 'hideLi' );
-  }
-
-  var offerBtn = document.getElementById("createOfferBtn");
-  if(typeof(offerBtn) != 'undefined' && offerBtn != null){
-    offerBtn.onclick = function() {
-     if(validateOfferForm()){
-        offerForm.submit();
-      }
-    };
-  }
-
-  var demandBtn = document.getElementById("createDemandBtn");
-  if(typeof(demandBtn) != 'undefined' && demandBtn != null){
-    demandBtn.onclick = function() {
-      if(validateDemandForm()){
-        demandForm.submit();
-      }
+    uploadBtn.onclick = function() {
+      var imageUploadContainer = document.getElementById('imgUploadStep');
+      classie.toggle( imageUploadContainer, 'hideLi' );
     };
   }
 

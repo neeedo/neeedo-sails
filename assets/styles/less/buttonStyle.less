@@ -107,6 +107,92 @@ button {
   }
 }
 
-.headerIconSmall {
+/* Common button styles */
+.neeedoBtn {
+  min-width: 150px;
+  max-width: 250px;
+  display: block;
+  margin: 1em;
+  padding: 1em 2em;
+  border: none;
+  background: none;
+  color: inherit;
+  vertical-align: middle;
+  position: relative;
+  z-index: 1;
+  -webkit-backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+}
+.neeedoBtn:focus {
+  outline: none;
+}
+.neeedoBtn > span {
+  vertical-align: middle;
+}
 
+/* Nuka */
+.neeedoBtn--nuka {
+  margin: 0 auto;
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+  -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+  transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+}
+.neeedoBtn--nuka.neeedoBtn--inverted {
+  color: #fff;
+}
+.neeedoBtn--nuka::before,
+.neeedoBtn--nuka::after {
+  content: '';
+  position: absolute;
+  border-radius: inherit;
+  background: @DarkerMetroGreen;
+  z-index: -1;
+}
+.neeedoBtn--nuka::before {
+  top: -4px;
+  bottom: -4px;
+  left: -4px;
+  right: -4px;
+  opacity: 0.2;
+  -webkit-transform: scale3d(0.7, 1, 1);
+  transform: scale3d(0.7, 1, 1);
+  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.neeedoBtn--nuka::after {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transform: scale3d(1.1, 1, 1);
+  transform: scale3d(1.1, 1, 1);
+  -webkit-transition: -webkit-transform 0.3s, background-color 0.3s;
+  transition: transform 0.3s, background-color 0.3s;
+}
+.neeedoBtn--nuka::before,
+.neeedoBtn--nuka::after {
+  -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+  transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+}
+.neeedoBtn--nuka.neeedoBtn--inverted::before,
+.neeedoBtn--nuka.neeedoBtn--inverted::after {
+  background: #fff;
+}
+.neeedoBtn--nuka:hover {
+  color: #fff;
+}
+.neeedoBtn--nuka:hover::before {
+  opacity: 1;
+}
+.neeedoBtn--nuka:hover::after {
+  background-color: #37474f;
+}
+.neeedoBtn--nuka.neeedoBtn--inverted:hover::after {
+  background-color: #7986cb;
+}
+.neeedoBtn--nuka:hover::after,
+.neeedoBtn--nuka:hover::before {
+  -webkit-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
 }
