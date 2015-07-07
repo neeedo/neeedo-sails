@@ -27,18 +27,18 @@ module.exports = {
       if (undefined !== readConversationsFromSession) {
         // loaded from session
         sails.log.info('attempt to load read conversations from session, user ID ' +
-          LoginService.userIsLoggedIn(req)
+        (LoginService.userIsLoggedIn(req)
           ? LoginService.getCurrentUser(req).getId()
-          : "not logged in"
+          : "not logged in")
         );
 
         onSuccessCallback(readConversationsFromSession);
       } else {
         // load from API
         sails.log.info('attempt to load read conversations from API, user ID ' +
-          LoginService.userIsLoggedIn(req)
+        (LoginService.userIsLoggedIn(req)
             ? LoginService.getCurrentUser(req).getId()
-            : "not logged in"
+            : "not logged in")
         );
 
         var onLoadedCallback = function (conversationList) {

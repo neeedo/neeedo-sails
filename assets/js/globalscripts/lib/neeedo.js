@@ -134,6 +134,10 @@ var Messages = function() {
       queryParameters.push("senderId=" + criteria["senderId"]);
     }
 
+    if ("isRead" in criteria) {
+      queryParameters.push("isRead=" + criteria["isRead"]);
+    }
+
     return "?" + queryParameters.join("&");
   };
 };
