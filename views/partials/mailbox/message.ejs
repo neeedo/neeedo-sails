@@ -1,5 +1,8 @@
 <div>
-  <p><%- LocaleService.formatTimestamp(message.getTimestamp()) %>
+  <p> <% if (!message.wasRead()) { %>
+    <span class="label label-default"><%- i18n('New') %>&nbsp;</span>
+    <% } %>
+    <%- LocaleService.formatTimestamp(message.getTimestamp()) %>
     - <i><%- message.getSender().getUsername()%></i></p>
 
   <p><%- message.getBody() %></p>

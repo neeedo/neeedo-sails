@@ -342,6 +342,10 @@ module.exports = {
     res.status(200);
 
     var _this = this;
+    var isRead = (req.param('isRead') == 'true' ? true : false);
+
+    this.filterForReadFlag(messageList, isRead);
+
     res.json({
       messageList: messageList,
       viewUrl: _this.getViewUrl(),
@@ -350,6 +354,18 @@ module.exports = {
     });
   },
 
+  filterForReadFlag: function(messageList, isReadFlag) {
+    var messages = [];
+    for (var i = 0; i < messageList.getMessages().length; i++) {
+      var message = messageList.getMessages()[i];
+
+      if (isReadFlag == message.wasRead()) {
+        messages.push(message);
+      }
+    }
+
+    messageList.messages = messages;
+  },
   /**
    * Iterate over each message in the given list and append the rendered HTML to the field 'html'.
    *
