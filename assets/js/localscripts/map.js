@@ -324,7 +324,6 @@ $(document).ready(function () {
     var initialZoom = mapElement.data('initialzoomstep');
 
     var mapLocationCenter = neeedo.getGeolocation(function (position) {
-      console.log('in callback');
       // default position as returned by backend
       userPosition = {
         longitude: mapElement.data('defaultlongitude'),
@@ -336,6 +335,9 @@ $(document).ready(function () {
         userPosition.longitude = position.coords.longitude;
         userPosition.latitude = position.coords.latitude;
       }
+
+      // remove info layer
+      mapElement.empty();
 
       initializeMap(mapElementId, {
         longitude: userPosition.longitude,
