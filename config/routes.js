@@ -114,7 +114,8 @@ module.exports.routes = {
    *************************************************************************/
   '/static/agb' : 'StaticViewsController.agb',
   '/static/faq' : 'StaticViewsController.faq',
-  '/static/impressum' : 'StaticViewsController.impressum'
+  '/static/impressum' : 'StaticViewsController.impressum',
+  '/static/help' : 'StaticViewsController.help'
     /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

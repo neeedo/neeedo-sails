@@ -1,15 +1,30 @@
+<% var width = 3,
+      oddWidth = 3;
+  if (LoginService.userIsLoggedIn(req)) {
+    width = 2;
+  }
+%>
+
 <footer class="footer">
   <div class="row">
     <div class="col-xs-6 col-xs-offset-3">
       <div class="row">
-        <div class="col-xs-4 text-center">
-          <a href="<%= UrlService.to('/static/agb') %>">AGB</a>
+        <div class="col-xs-<%- width %> text-center">
+          <a class="text-center" href="<%= UrlService.to('/static/agb') %>"><%- i18n('AGB') %></a>
         </div>
-        <div class="col-xs-4 text-center">
-          <a href="<%= UrlService.to('/static/faq') %>">FAQ</a>
+        <div class="col-xs-<%- width %> text-center">
+          <a class="text-center" href="<%= UrlService.to('/static/faq') %>"><%- i18n('FAQ') %></a>
         </div>
-        <div class="col-xs-4 text-center">
-          <a href="<%= UrlService.to('/static/impressum') %>">Impressum</a>
+        <% if (LoginService.userIsLoggedIn(req)) { %>
+        <div class="col-xs-<%- width %> text-center">
+          <a class="text-center" href="<%= UrlService.to('/static/help') %>"><%- i18n('Help') %></a>
+        </div>
+        <% } %>
+        <div class="col-xs-<%- oddWidth %> text-center">
+          <a class="text-center" href="<%= UrlService.to('/static/about') %>"><%- i18n('About') %></a>
+        </div>
+        <div class="col-xs-<%- oddWidth %> text-center">
+          <a class="text-center" href="<%= UrlService.to('/static/impressum') %>"><%- i18n('Impressum') %></a>
         </div>
       </div>
     </div>

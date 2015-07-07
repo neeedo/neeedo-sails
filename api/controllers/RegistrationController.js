@@ -2,20 +2,18 @@ var util = require('util');
 
 module.exports = {
   register: function (req, res) {
-    var onSuccessCallback = function(registeredUser) {
-      res.view('registration/register-success', {
-        locals: {
-          username: registeredUser.getUsername(),
-          email: registeredUser.getEMail()
-        }
-      });
-    };
-
     var onErrorCallback = function(errorModel) {
       ApiClientService.logMessages(errorModel);
       ApiClientService.addFlashMessages(req, res, errorModel);
 
       res.redirect('/register');
+    };
+
+    var onSuccessCallback = function(registeredUser) {
+      var onLoggedInSuccess = function(loggedInUser) {
+        res.redirect('/static/help');
+      };
+      LoginService.loginUser(req, onLoggedInSuccess, onErrorCallback);
     };
 
     if ("POST" == req.method) {
@@ -24,4 +22,4 @@ module.exports = {
       res.view('registration/register');
     }
   }
-}
+};
