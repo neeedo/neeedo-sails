@@ -135,74 +135,78 @@ var validateOfferForm = function(){
   classie.removeClass(document.getElementById('errorPrice'), 'showError' );
   classie.removeClass(document.getElementById('errorLoc'), 'showError' );
   classie.removeClass(document.getElementById('errorTitle'), 'showError' );
-
+  var bool = true;
   var price = document.getElementById('priceOffer').value.toString();
   if(document.getElementById('title').value == ""){
     classie.addClass(document.getElementById('errorTitle'), 'showError' );
-    return false;
+    bool = false;
   }
   if(document.getElementById('tagsOffer').value == ""){
     classie.addClass(document.getElementById('errorTag'), 'showError' );
-    return false;
+    bool = false;
   }
   var regex = /^[0-9]+(\.[0-9]{1,2})?$/;
   if(price == "" || !price.match(regex)){
     classie.addClass(document.getElementById('errorPrice'), 'showError' );
-    return false;
+    bool = false;
   }
   if(!document.getElementById('useGeolocation').checked){
     if(document.getElementById('address').value == ""){
       classie.addClass(document.getElementById('errorLoc'), 'showError' );
-      return false;
+      bool = false;
     }
   }
-  
-  return true;
+  return bool;
 };
 
 var validateDemandForm = function(){
   classie.removeClass(document.getElementById('errorTag'), 'showError' );
   classie.removeClass(document.getElementById('errorMinPrice'), 'showError' );
   classie.removeClass(document.getElementById('errorMaxPrice'), 'showError' );
+  classie.removeClass(document.getElementById('errorMaxMin'), 'showError' );
   classie.removeClass(document.getElementById('errorDistance'), 'showError' );
   classie.removeClass(document.getElementById('errorLoc'), 'showError' );
+  var bool = true;
 
   var tagitList = document.getElementsByClassName('tagit');
   console.log(tagitList);
   if(typeof(tagitList) == 'undefined' || tagitList == null || $(".tagit li").length <= 1){
     classie.addClass(document.getElementById('errorTag'), 'showError' );
-    return false;
+    bool = false;
   }
 
   var minPrice = document.getElementById('minPriceDemand').value.toString();
   var maxPrice = document.getElementById('maxPriceDemand').value.toString();
   var distance = document.getElementById('maxDistanceDemand').value.toString();
+
   var regex = /^[0-9]+(\.[0-9]{1,2})?$/;
+
   if(minPrice == "" || !minPrice.match(regex)){
     classie.addClass(document.getElementById('errorMinPrice'), 'showError' );
-    return false;
+    bool = false;
   }
   if(maxPrice == "" || !maxPrice.match(regex)){
     classie.addClass(document.getElementById('errorMaxPrice'), 'showError' );
-    return false;
+    bool = false;
   }
-  if(parseInt(minPrice) > parseInt(maxPrice)){
+  if(!isNaN(parseInt(minPrice))
+    && !isNaN(parseInt(minPrice))
+    && parseInt(minPrice) > parseInt(maxPrice)){
     classie.addClass(document.getElementById('errorMaxMin'), 'showError' );
-    return false;
+    bool = false;
   }
 
   if(distance == "" || !distance.match(regex)){
     classie.addClass(document.getElementById('errorDistance'), 'showError' );
-    return false;
+    bool = false;
   }
   if(!document.getElementById('useGeolocation').checked){
     if(document.getElementById('address').value == ""){
       classie.addClass(document.getElementById('errorLoc'), 'showError' );
-      return false;
+      bool = false;
     }
   }
-
-  return true;
+  return bool;
 };
 
 $(document).ready(function () {
