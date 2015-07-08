@@ -277,6 +277,16 @@ $(document).ready(function () {
     },
     afterTagAdded: function (event, ui) {
       getSuggests($(this));
+    },
+    afterTagRemoved: function (event, ui) {
+      var tagEl = $(this);
+      var tags = tagEl.tagit("assignedTags");
+
+      if (tags.length > 0) {
+        getSuggests(tagEl);
+      } else {
+        clearSuggests(tagEl);
+      }
     }
   });
 
@@ -306,6 +316,11 @@ $(document).ready(function () {
     });
   };
 
+  function clearSuggests(tagInputElement) {
+    var tagSuggestionElements = tagInputElement.parent().find(suggestedTagsClass);
+    tagSuggestionElements.empty();
+  };
+
   suggestedTagsEl.on('click', suggestedTagClass, function(event) {
     var _this = $(this);
     var tagInputElement = _this.parent().parent().find(tagInputsClassName);
@@ -313,5 +328,4 @@ $(document).ready(function () {
     // add as new tagit tag
     tagInputElement.tagit("createTag", _this.text());
   });
-
 });
