@@ -5,5 +5,5 @@
     <%- LocaleService.formatTimestamp(message.getTimestamp()) %>
     - <i><%- message.getSender().getUsername()%></i></p>
 
-  <p><%- message.getBody() %></p>
+  <p><%- MessageService.setHyperLinksInMessageBody(res, message.getBody()) %></p>
 </div>
