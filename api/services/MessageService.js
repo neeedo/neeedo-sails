@@ -288,7 +288,7 @@ module.exports = {
     var msg = res.i18n("Hello %s", offer.getUser().getUsername())
       + ", \n"
       + res.i18n("I'm interested in your offer %s.",
-        sails.getBaseurl() + OfferService.getViewUrl().replace("%%offerId%%", offer.getId()))
+        UrlService.getBaseUrl() + OfferService.getViewUrl().replace("%%offerId%%", offer.getId()))
       + "\n"
       + res.i18n("Can you tell me something about it?")
       + "\n";
@@ -309,7 +309,7 @@ module.exports = {
    * @returns {XML|string|void|*}
    */
   setHyperLinksInMessageBody: function(res, messageBody) {
-    var urlToOffer = sails.getBaseurl() + OfferService.getViewUrl().replace("%%offerId%%", "");
+    var urlToOffer = UrlService.getBaseUrl() + OfferService.getViewUrl().replace("%%offerId%%", "");
 
     var offerUrlRegex = new RegExp("(" + urlToOffer + "[a-zA-Z0-9-]*)");
     return messageBody.replace(offerUrlRegex, '<a href="$1">' + res.i18n("View Offer") + '</a>');
