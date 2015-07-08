@@ -1,4 +1,5 @@
 <% if (!LoginService.userIsLoggedIn(req)) { %>
+<div class="col-xs-2"></div>
 <div class="col-xs-1">
   <div class="headerIconBig">
     <a href="<%= UrlService.to('/register') %>">
@@ -10,14 +11,15 @@
 </div>
 <% } %>
 <% if (LoginService.userIsLoggedIn(req)) { %>
-<div class="col-xs-3">
-  <div class="col-xs-5">
+<div class="col-xs-1"></div>
+<div class="col-xs-2">
+  <div class="col-xs-6">
     <div class="headerIconBig">
       <a href="<%= FavoritesService.getFavoritesUrl() %>"><span
           class="icon-eye"></span><p class="hidden-xs"><%= i18n('Favorites') %></p></a>
     </div>
   </div>
-  <div class="col-xs-5">
+  <div class="col-xs-6">
     <div class="headerIconBig">
       <a href="<%= UrlService.to('/mailbox') %>"><span
           class="icon-envelop"></span>
