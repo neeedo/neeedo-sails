@@ -119,22 +119,6 @@ var provideAddressAutoComplete = function () {
       $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
     }
   });
-
-  /*
-   $.get(requestUrl)
-   .done(function( data ) {
-   // show autocomplete values
-   var fetchedAddresses = [];
-   for (var i = 0; i < data.length; i++) {
-   var address = data[i];
-   if ('display_name' in address) {
-   fetchedAddresses.push(address.display_name);
-   }
-   };
-   $('#address').autocomplete({
-   source: fetchedAddresses
-   });
-   });*/
 };
 
 var validateOfferForm = function(){
@@ -246,13 +230,15 @@ $(document).ready(function () {
   }
 
   provideAddressAutoComplete();
+
   /* ##################
    * #
    * # Tag completion
    * #
    * ##################*/
+  var tagInputs = $(".providesTagCompletion");
 
-  $("#mustTagsDemand").tagit({
+  tagInputs.tagit({
     autocomplete: {
       source: function (request, response) {
         $.ajax({
@@ -270,60 +256,17 @@ $(document).ready(function () {
       minLength: 2
     },
     afterTagAdded: function (event, ui) {
-      getSuggests();
+      getSuggests($(this));
     }
   });
-  $("#mustTagsDemand")
-    .bind("keydown", function (event) {
-      if (event.keyCode == $.ui.keyCode.ENTER) {
-        event.preventDefault();
-        event.stopPropagation();
-      } else if (event.keyCode === $.ui.keyCode.TAB &&
-        $(this).autocomplete("instance").menu.active) {
-        event.preventDefault();
-      }
-    })
-    .autocomplete({
-      minLength: 3,
-      source: function (request, response) {
-        $.ajax({
-          url: neeedo.getApiHttpUrl() + "/completion/tag/" + request.term,
-          success: function (data) {
-            response($.map(data.completedTags, function (item) {
-              return {
-                label: item,
-                value: item
-              }
-            }));
-          }
-        });
-      },
-      focus: function () {
-        // prevent value inserted on focus
-        return false;
-      },
-      select: function (event, ui) {
-        var terms = split(this.value);
-        // remove the current input
-        terms.pop();
-        // add the selected item
-        terms.push(ui.item.value);
-        // add placeholder to get the comma-and-space at the end
-        terms.push("");
-        this.value = terms.join(", ");
-        return false;
-      },
-      change: function (event, ui) {
-        getSuggests();
-      }
-    });
 
-  function getSuggests() {
+  function getSuggests(tagInputElement) {
+    var tagSuggestElement = tagInputElement.parent().find(".suggestedTags");
+
     $.ajax({
-      url: neeedo.getApiHttpUrl() + "/completion/suggest/" + $("#mustTagsDemand").val().trim(),
+      url: neeedo.getApiHttpUrl() + "/completion/suggest/" + tagInputElement.val().trim(),
       success: function (data) {
-        console.log(data.suggestedTags.join(" "));
-        $("#myTags").text(data.suggestedTags.join(" "));
+        tagSuggestElement.text(data.suggestedTags.join(" "));
       }
     });
 

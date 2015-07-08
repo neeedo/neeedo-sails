@@ -4,9 +4,11 @@
     <ul>
       <li>
         <label for="tagsOffer"><%= i18n('must have') %></label>
-        <input type="text" id="tagsOffer" name="tags" value="<%- tags %>" placeholder="<%= i18n('Bicycle, iPhone') %>" autofocus>
+        <input type="text"  class="providesTagCompletion" id="tagsOffer" name="tags" value="<%- tags %>" placeholder="<%= i18n('Bicycle, iPhone') %>" autofocus>
         <small class="inputMissing" id="errorTag">Please enter at least one tag</small>
         <span><%= i18n('What are you offering?') %></span>
+
+        <div><p class="suggestedTags"></p></div>
       </li>
       <li>
         <label for="priceOffer"><%= i18n('Price') %></label>
