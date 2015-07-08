@@ -147,7 +147,7 @@ button {
   content: '';
   position: absolute;
   border-radius: inherit;
-  background: @DarkerMetroGreen;
+  background: @NeeedoBtnColor;
   z-index: -1;
 }
 .neeedoBtn--nuka::before {
@@ -155,7 +155,7 @@ button {
   bottom: -4px;
   left: -4px;
   right: -4px;
-  opacity: 0.2;
+  opacity: 0.4;
   -webkit-transform: scale3d(0.7, 1, 1);
   transform: scale3d(0.7, 1, 1);
   -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
@@ -187,7 +187,7 @@ button {
   opacity: 1;
 }
 .neeedoBtn--nuka:hover::after {
-  background-color: #37474f;
+  background-color: @DarkerMetroGreen;
 }
 .neeedoBtn--nuka.neeedoBtn--inverted:hover::after {
   background-color: #7986cb;

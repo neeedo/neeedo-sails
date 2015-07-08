@@ -1,7 +1,7 @@
 <div class="container">
   <div class="elementWrapper" id="registrationForms">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-6" id="registrationContainer">
         <h1><%= i18n('Registration') %></h1>
 
         <form method="POST" id="register" class="form">
@@ -31,12 +31,12 @@
           </div>
           <div class="row">
             <div class="col-md-7 col-md-offset-3">
-              <input class="formBtn btn2" type="submit" value="<%= i18n('Register') %>" id="registerBtn"/>
+              <button id="registerBtn" class="neeedoBtn neeedoBtn--nuka"><%= i18n('Register') %></button>
             </div>
           </div>
         </form>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6" id="loginContainer">
         <h1><%= i18n('Login') %></h1>
 
         <form method="POST" id="loginForm" class="form" action="<%= UrlService.to('/login') %>">
@@ -58,7 +58,7 @@
           </div>
           <div class="row">
             <div class="col-md-7 col-md-offset-3">
-              <input class="formBtn btn2" type="submit" value="<%= i18n('Login') %>" id="loginBtn"/>
+              <button id="loginBtn" class="neeedoBtn neeedoBtn--nuka"><%= i18n('Login') %></button>
             </div>
           </div>
         </form>
