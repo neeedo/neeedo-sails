@@ -18,7 +18,7 @@
       </li>
       <li>
         <label for="priceOffer"><%= i18n('Price') %></label>
-        <input type="number" id="priceOffer" name="price" value="<%- price %>" placeholder="14">
+        <input type="number" id="priceOffer" name="price" step="0.01" value="<%- price %>" placeholder="14">
         <small class="inputMissing" id="errorPrice"><%= i18n('Please enter a price') %></small>
         <span><%= i18n('Price in €') %></span>
       </li>

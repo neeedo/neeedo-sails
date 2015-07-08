@@ -18,13 +18,13 @@
       </li>
       <li class="priceCol leftCol">
         <label for="minPriceDemand"><%= i18n("Price from") %></label>
-        <input type="number" id="minPriceDemand" name="minPrice" value="<%- minPrice %>"Placeholder="25"/>
+        <input type="number" id="minPriceDemand" step="0.01" name="minPrice" value="<%- minPrice %>"Placeholder="25"/>
         <small class="inputMissing" id="errorMinPrice">Please enter a min price</small>
         <span><%= i18n('Minimum price in €') %></span>
       </li>
       <li class="priceCol rightCol">
         <label for="maxPriceDemand"><%= i18n("Price to") %></label>
-        <input type="number" id="maxPriceDemand" name="maxPrice" value="<%- maxPrice %>" placeholder="110"/>
+        <input type="number" id="maxPriceDemand" step="0.01" name="maxPrice" value="<%- maxPrice %>" placeholder="110"/>
         <small class="inputMissing" id="errorMaxPrice">Please enter a max price</small>
         <small class="inputMissing" id="errorMaxMin">Min price must be smaller than max price</small>
         <span><%= i18n('Maximum price in €') %></span>

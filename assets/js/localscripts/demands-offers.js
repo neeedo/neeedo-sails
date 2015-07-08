@@ -157,7 +157,7 @@ var validateOfferForm = function(){
     classie.addClass(document.getElementById('errorTag'), 'showError' );
     bool = false;
   }
-  var regex = /^[0-9]+(\.[0-9]{1,2})?$/;
+  var regex = /^[0-9]+([\,|\.][0-9]+)?$/;
   if(price == "" || !price.match(regex)){
     classie.addClass(document.getElementById('errorPrice'), 'showError' );
     bool = false;
@@ -191,7 +191,7 @@ var validateDemandForm = function(){
   var maxPrice = document.getElementById('maxPriceDemand').value.toString();
   var distance = document.getElementById('maxDistanceDemand').value.toString();
 
-  var regex = /^[0-9]+(\.[0-9]{1,2})?$/;
+  var regex = /^[0-9]+([\,|\.][0-9]+)?/;
 
   if(minPrice == "" || !minPrice.match(regex)){
     classie.addClass(document.getElementById('errorMinPrice'), 'showError' );
@@ -201,9 +201,9 @@ var validateDemandForm = function(){
     classie.addClass(document.getElementById('errorMaxPrice'), 'showError' );
     bool = false;
   }
-  if(!isNaN(parseInt(minPrice))
-    && !isNaN(parseInt(minPrice))
-    && parseInt(minPrice) > parseInt(maxPrice)){
+  if(!isNaN(parseFloat(minPrice))
+    && !isNaN(parseFloat(minPrice))
+    && parseFloat(minPrice) > parseFloat(maxPrice)){
     classie.addClass(document.getElementById('errorMaxMin'), 'showError' );
     bool = false;
   }
