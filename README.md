@@ -14,7 +14,7 @@ a [Sails](http://sailsjs.org) application
 Live webapp
 ----------
 
-http://webapp.neeedo.com
+http://www.neeedo.com
 
 Installation
 ----------
