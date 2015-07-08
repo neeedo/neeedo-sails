@@ -49,8 +49,11 @@ var setLocationIfChecked = function (event) {
 };
 
 var addTitleToTags = function() {
-  var tags = document.getElementById('tagsOffer').value;
-  document.getElementById('tagsOffer').value = document.getElementById('title').value + ", " + tags;
+  if (null !== document.getElementById('tagsOffer')
+    && null !== document.getElementById('title')) {
+    var tags = document.getElementById('tagsOffer').value;
+    document.getElementById('tagsOffer').value = document.getElementById('title').value + ", " + tags;
+  }
 };
 
 var setLatitudeAndLongitudeInHiddenField = function (location) {
@@ -183,7 +186,7 @@ var validateDemandForm = function(){
     classie.addClass(document.getElementById('errorMaxPrice'), 'showError' );
     bool = false;
   }
-  if(minPrice > maxPrice){
+  if(parseInt(minPrice) > parseInt(maxPrice)){
     classie.addClass(document.getElementById('errorMaxMin'), 'showError' );
     bool = false;
   }
@@ -247,7 +250,8 @@ $(document).ready(function () {
    * # Tag completion
    * #
    * ##################*/
-  var tagInputs = $(".providesTagCompletion");
+  var tagInputsClassName = '.providesTagCompletion';
+  var tagInputs = $(tagInputsClassName);
 
   tagInputs.tagit({
     autocomplete: {
@@ -271,15 +275,38 @@ $(document).ready(function () {
     }
   });
 
+  /* ##################
+   * #
+   * # Tag suggestion
+   * #
+   * ##################*/
+  var suggestedTagsClass = ".suggestedTags";
+  var suggestedTagsEl = $(suggestedTagsClass);
+
+  var suggestedTagClass = ".suggestedTag";
+
   function getSuggests(tagInputElement) {
-    var tagSuggestElement = tagInputElement.parent().find(".suggestedTags");
+    var tagSuggestionElements = tagInputElement.parent().find(suggestedTagsClass);
 
     $.ajax({
       url: neeedo.getApiHttpUrl() + "/completion/suggest/" + tagInputElement.val().trim(),
       success: function (data) {
-        tagSuggestElement.text(data.suggestedTags.join(" "));
+        var html = "";
+        for (var i=0; i < data.suggestedTags.length; i++) {
+          html += '<span class="tagit-label suggestedTag">' + data.suggestedTags[i] + '</span><span>&nbsp;</span>'
+        }
+
+        tagSuggestionElements.html(html);
       }
     });
+  };
 
-  }
+  suggestedTagsEl.on('click', suggestedTagClass, function(event) {
+    var _this = $(this);
+    var tagInputElement = _this.parent().parent().find(tagInputsClassName);
+
+    // add as new tagit tag
+    tagInputElement.tagit("createTag", _this.text());
+  });
+
 });
