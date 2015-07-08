@@ -40,9 +40,26 @@
   </div>
   <% } %>
 
+  <% /* TODO this is not nice and should be refactored -> split homepage.ejs, offer dashboard.ejs for logged-in users and homepage.ejs for not-logged in ones */ %>
+  <% if (LoginService.userIsLoggedIn(req)) { %>
+  <div id="mapContainer">
+    <% if (false !== showMap)  { %>
+    <h1><%= i18n('Your map') %></h1>
+    <%- partial('./partials/map/map.ejs', {
+      mapType: showMap.mapType,
+      demandSourceUrl: showMap.demandSourceUrl,
+      offerSourceUrl: showMap.offerSourceUrl,
+      demandMatchingSourceUrl: undefined,
+      showDetailsLink: true
+    }) %>
+    <% } %>
+  </div>
+  <% } %>
+
   <div class="hidden-xs contentContainer " id="news">
     <div id="offerContainer">
       <% if (LoginService.userIsLoggedIn(req)) { %>
+      <div>
       <h1><%= i18n('Your Offers') %> <a class="createLink" href="<%= OfferService.getCreateUrl() %>"></a></h1>
       <% } else{ %>
       <h1><%= i18n('Recent Offers') %></h1>

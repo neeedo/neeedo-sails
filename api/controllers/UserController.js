@@ -55,7 +55,11 @@ module.exports = {
           locals: {
             demands: usersDemands.getDemands(),
             offers: usersOffers.getOffers(),
-            showMap: false,
+            showMap: {
+              mapType: "all",
+              demandSourceUrl: DemandService.getUsersDemandsGetUrl(),
+              offerSourceUrl: OfferService.getUsersOffersGetUrl()
+            },
             offerSourceUrl: OfferService.getUsersOffersGetUrl(),
             demandSourceUrl: DemandService.getUsersDemandsGetUrl(),
             pagination: PaginatorService.getSettings()
@@ -71,7 +75,11 @@ module.exports = {
           locals: {
             offers: usersOffers.getOffers(),
             demands: [],
-            showMap: false,
+            showMap: {
+              mapType: "all",
+              demandSourceUrl: DemandService.getUsersDemandsGetUrl(),
+              offerSourceUrl: OfferService.getUsersOffersGetUrl()
+            },
             offerSourceUrl: OfferService.getUsersOffersGetUrl(),
             demandSourceUrl: DemandService.getUsersDemandsGetUrl(),
             pagination: PaginatorService.getSettings()
