@@ -34,6 +34,7 @@ var setLocationIfChecked = function (event) {
         setLatitudeAndLongitudeInHiddenField(location);
       }
       addTitleToTags();
+      fadeOutForm();
       form.submit();
     };
     neeedo.getLocation(onLocationCallback);
@@ -43,6 +44,7 @@ var setLocationIfChecked = function (event) {
       alert(geolocationCheckbox.data('translationnoaddress'));
     } else {
       addTitleToTags();
+      fadeOutForm();
       form.submit();
     }
   }
@@ -55,6 +57,16 @@ var addTitleToTags = function() {
     document.getElementById('tagsOffer').value = document.getElementById('title').value + ", " + tags;
   }
 };
+
+var fadeOutForm = function(){
+  if(null != document.getElementById('createOffer')) {
+    classie.addClass(document.getElementById('createOffer'), 'fadeOutForm' );
+  } else{
+    classie.addClass(document.getElementById('createDemand'), 'fadeOutForm' );
+  }
+  classie.addClass(document.getElementById('formHeading'), 'fadeOutForm' );
+  classie.addClass(document.getElementById('loading'), 'fadeInLoadingMsg' );
+}
 
 var setLatitudeAndLongitudeInHiddenField = function (location) {
   var latInput = $("input[name='lat']");

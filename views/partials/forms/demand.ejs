@@ -1,5 +1,5 @@
 <div class="container elementWrapper">
-  <h1 class="text-center">Create Demand</h1>
+  <h1 class="text-center" id="formHeading"><%= i18n('Create Demand') %></h1>
   <form id="createDemand" method="POST" class="form-style">
     <ul>
       <li>
@@ -57,6 +57,10 @@
       </li>
     </ul>
   </form>
+  <div id="loading">
+    <h2 id="loadingMsg" class="text-center"><%= i18n("Please wait") %></h2>
+    <img src="/images/loading.gif" alt="Loading Image" />
+  </div>
 </div>
 
 <% block('localScripts', '<script src="/js/localscripts/demands-offers.js"></script>') %>

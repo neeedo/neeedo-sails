@@ -273,3 +273,46 @@ label{
 #loginForm div{
   margin-bottom: 10px;
 }
+
+.form-style, #formHeading{
+  opacity: 1;
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -ms-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+  height: auto;
+}
+
+.fadeOutForm{
+  -webkit-opacity: 0 !important;
+  -moz-opacity: 0 !important;
+  opacity: 0 !important;
+}
+
+.fadeInLoadingMsg{
+  -webkit-opacity: 1 !important;
+  -moz-opacity: 1 !important;
+  opacity: 1 !important;
+  z-index: 9999 !important;
+  height: 0 !important;
+}
+
+#loading{
+  opacity: 0;
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -ms-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+  position: fixed;
+  top: 20%;
+  left: 35%;
+  z-index: -9999;
+  width: 50%;
+  max-width: 450px;
+}
+
+#loading img{
+  max-width: 100%;
+}
