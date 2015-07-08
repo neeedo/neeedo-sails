@@ -157,7 +157,7 @@ var validateOfferForm = function(){
     classie.addClass(document.getElementById('errorTag'), 'showError' );
     bool = false;
   }
-  var regex = /^[0-9]+([\,|\.][0-9]+)?$/;
+  var regex = /^[0-9]+([\,|\.][0-9]{1,2})?$/;
   if(price == "" || !price.match(regex)){
     classie.addClass(document.getElementById('errorPrice'), 'showError' );
     bool = false;
@@ -191,7 +191,7 @@ var validateDemandForm = function(){
   var maxPrice = document.getElementById('maxPriceDemand').value.toString();
   var distance = document.getElementById('maxDistanceDemand').value.toString();
 
-  var regex = /^[0-9]+([\,|\.][0-9]+)?/;
+  var regex = /^[0-9]+([\,|\.][0-9]{1,2})?$/;
 
   if(minPrice == "" || !minPrice.match(regex)){
     classie.addClass(document.getElementById('errorMinPrice'), 'showError' );
