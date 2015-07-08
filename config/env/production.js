@@ -28,7 +28,7 @@ module.exports = {
   /***************************************************************************
    * Set host & port, so that sails.getBaseurl() will return the correct URL *
    ***************************************************************************/
-  proxyHost: "webapp.neeedo.com",
+  proxyHost: "www.neeedo.com",
   proxyPort: "80",
 
   /***************************************************************************
