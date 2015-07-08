@@ -182,5 +182,10 @@
   "Information about cookies" : "Informationen über Cookies",
   "Information about cookies Text" : "(1) Zur Optimierung unseres Internetauftritts setzen wir Cookies ein. Es handelt sich dabei um kleine Textdateien, die im Arbeitsspeicher Ihres Computers gespeichert werden. Diese Cookies werden nach dem Schließen des Browsers wieder gelöscht. Andere Cookies verbleiben auf Ihrem Rechner (Langzeit-Cookies) und erkennen ihn beim nächsten Besuch wieder. Dadurch können wir Ihnen einen besseren Zugang auf unsere Seite ermöglichen. (2) Das Speichern von Cookies können Sie verhindern, indem Sie in Ihren Browser-Einstellungen 'Cookies blockieren' wählen. Dies kann aber eine Funktionseinschränkung unserer Angebote zur Folge haben.",
   "Disclosure" : "Auskunft",
-  "Disclosure Text" : "Nach dem Bundesdatenschutzgesetz haben Sie ein Recht auf unentgeltliche Auskunft über Ihre gespeicherten Daten sowie ggf. ein Recht auf Berichtigung, Sperrung oder Löschung dieser Daten. Fragen können Sie z.B. über die folgende E-Mail-Adresse stellen: ( kontakt@neeedo.com )"
+  "Disclosure Text" : "Nach dem Bundesdatenschutzgesetz haben Sie ein Recht auf unentgeltliche Auskunft über Ihre gespeicherten Daten sowie ggf. ein Recht auf Berichtigung, Sperrung oder Löschung dieser Daten. Fragen können Sie z.B. über die folgende E-Mail-Adresse stellen: ( kontakt@neeedo.com )",
+  "Title" : "Titel",
+  "What features does your offer have?" : "Welche Eigenschaften hat Ihr Angebot?",
+  "Please enter a title" : "Bitte geben Sie einen Titel an",
+  "Please enter at least one tag" : "Bitte füllen Sie das Feld aus",
+  "Please enter a price" : "Bitte geben Sie einen Preis an"
 }

@@ -3,15 +3,21 @@
   <form id="createOffer" method="POST" class="form-style">
     <ul>
       <li>
-        <label for="tagsOffer"><%= i18n('must have') %></label>
-        <input type="text" id="tagsOffer" name="tags" value="<%- tags %>" placeholder="<%= i18n('Bicycle, iPhone') %>" autofocus>
-        <small class="inputMissing" id="errorTag">Please enter at least one tag</small>
+        <label for="title"><%= i18n('Title') %></label>
+        <input type="text" id="title" name="title" placeholder="<%= i18n('Bicycle, iPhone') %>" autofocus>
+        <small class="inputMissing" id="errorTitle"><%= i18n('Please enter a title') %></small>
         <span><%= i18n('What are you offering?') %></span>
+      </li>
+      <li>
+        <label for="tagsOffer"><%= i18n('must have') %></label>
+        <input type="text" id="tagsOffer" name="tags" value="<%- tags %>" placeholder="<%= i18n('blue, screen protector') %>">
+        <small class="inputMissing" id="errorTag"><%= i18n('Please enter at least one tag') %></small>
+        <span><%= i18n('What features does your offer have?') %></span>
       </li>
       <li>
         <label for="priceOffer"><%= i18n('Price') %></label>
         <input type="number" id="priceOffer" name="price" value="<%- price %>" placeholder="14">
-        <small class="inputMissing" id="errorPrice">Please enter a price</small>
+        <small class="inputMissing" id="errorPrice"><%= i18n('Please enter a price') %></small>
         <span><%= i18n('Price in €') %></span>
       </li>
       <li id="locationCol" class="leftCol">

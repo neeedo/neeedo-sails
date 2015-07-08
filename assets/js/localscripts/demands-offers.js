@@ -33,6 +33,7 @@ var setLocationIfChecked = function (event) {
       } else {
         setLatitudeAndLongitudeInHiddenField(location);
       }
+      addTitleToTags();
       form.submit();
     };
     neeedo.getLocation(onLocationCallback);
@@ -41,10 +42,15 @@ var setLocationIfChecked = function (event) {
     if (!locationIsValid(latInput, lngInput)) {
       alert(geolocationCheckbox.data('translationnoaddress'));
     } else {
+      addTitleToTags();
       form.submit();
     }
   }
+};
 
+var addTitleToTags = function() {
+  var tags = document.getElementById('tagsOffer').value;
+  document.getElementById('tagsOffer').value = document.getElementById('title').value + ", " + tags;
 };
 
 var setLatitudeAndLongitudeInHiddenField = function (location) {
@@ -141,8 +147,13 @@ var validateOfferForm = function(){
   classie.removeClass(document.getElementById('errorTag'), 'showError' );
   classie.removeClass(document.getElementById('errorPrice'), 'showError' );
   classie.removeClass(document.getElementById('errorLoc'), 'showError' );
+  classie.removeClass(document.getElementById('errorTitle'), 'showError' );
   var bool = true;
   var price = document.getElementById('priceOffer').value.toString();
+  if(document.getElementById('title').value == ""){
+    classie.addClass(document.getElementById('errorTitle'), 'showError' );
+    bool = false;
+  }
   if(document.getElementById('tagsOffer').value == ""){
     classie.addClass(document.getElementById('errorTag'), 'showError' );
     bool = false;
