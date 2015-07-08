@@ -1,5 +1,6 @@
 
 module.exports = {
+  baseUrl : undefined,
 
   to: function(destination) {
     // currently meaned to be wrapper
@@ -29,5 +30,14 @@ module.exports = {
   isValid: function(url) {
     // bugfix TODO find out where this request is coming from
     return (-1 == url.indexOf("image"));
+  },
+
+  getBaseUrl: function() {
+    if (undefined == this.baseUrl) {
+      // replace port 80 by the empty string so that the links look better to the user
+      this.baseUrl = sails.getBaseurl().replace(":80", "");
+    }
+
+    return this.baseUrl;
   }
 };

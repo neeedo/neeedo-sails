@@ -25,8 +25,11 @@ module.exports = {
    * Set the port in the production environment to 80                        *
    ***************************************************************************/
 
-  // port: 80,
+  /***************************************************************************
+   * Set host & port, so that sails.getBaseurl() will return the correct URL *
+   ***************************************************************************/
   proxyHost: "webapp.neeedo.com",
+  proxyPort: "80",
 
   /***************************************************************************
    * Set the log level in production environment                             *
@@ -40,7 +43,7 @@ module.exports = {
    *                                                                         *
    ***************************************************************************/
   neeedo: {
-    // URL to production neeedo-ap
+    // URL to production neeedo-api
     apiClient : {
       apiUrls: {
         // http fallback, used by GET images for example
