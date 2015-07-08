@@ -302,6 +302,19 @@ module.exports = {
     return msg;
   },
 
+  /**
+   * Replace URLs to offers in message body by hyperlinks.
+   * @param res
+   * @param messageBody
+   * @returns {XML|string|void|*}
+   */
+  setHyperLinksInMessageBody: function(res, messageBody) {
+    var urlToOffer = sails.getBaseurl() + OfferService.getViewUrl().replace("%%offerId%%", "");
+
+    var offerUrlRegex = new RegExp("(" + urlToOffer + "[a-zA-Z0-9-]*)");
+    return messageBody.replace(offerUrlRegex, '<a href="$1">' + res.i18n("View Offer") + '</a>');
+  },
+
   belongsToCurrentUser: function (req, message) {
     // currently logged in user needs to be either sender or  recipient of the message
     return LoginService.userIsLoggedIn(req)

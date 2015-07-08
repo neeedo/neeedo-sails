@@ -112,7 +112,7 @@
   "Edit and find matching offers" : "Ändern und passende Angebote finden",
   "Matched offers" : "Passende Angebote",
   "Your demand" : "Dein Gesuch",
-  "I'm interested in your offer %s." : "Ich bin an deinem Angebot unter %s interessiert.",
+  "I'm interested in your offer %s." : "Ich bin an deinem Angebot %s interessiert.",
   "Can you tell me something about it?" : "Kannst du mir ein paar Details nennen?",
   "Send message to offeror" : "Kontaktiere den Anbieter",
   "Send" : "Senden",
@@ -153,5 +153,7 @@
   "Landing page offer text" : "angebot marketing text",
   "Landing page demand text" : "suche marketing text",
   "Landing page map text" : "standort/map marketing text",
-  "Send" : "Absenden"
+  "Send" : "Absenden",
+  "View Offer" : "Angebot anzeigen",
+  "Your map" : "Deine Karte"
 }
