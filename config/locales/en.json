@@ -172,5 +172,10 @@
   "Please enter a title" : "Please enter a title",
   "Please enter at least one tag" : "Please enter at least one tag",
   "Please enter a price" : "Please enter a price",
-  "Please wait" : "Please wait, while we are processing your request"
+  "Please wait" : "Please wait, while we are processing your request",
+  "Please enter a min price" : "Please enter a minimum price",
+  "Please enter a max price" : "Please enter a maximum price",
+  "Min price must be smaller than max price" : "Minimum price must be lower than maximum price",
+  "Please enter a location" : "Please enter a location",
+  "Please enter a distance" : "Please enter a distance"
 }

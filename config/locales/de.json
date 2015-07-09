@@ -188,5 +188,10 @@
   "Please enter a title" : "Bitte geben Sie einen Titel an",
   "Please enter at least one tag" : "Bitte füllen Sie das Feld aus",
   "Please enter a price" : "Bitte geben Sie einen Preis an",
-  "Please wait" : "Bitte warten Sie, während wir Ihre Anfrage bearbeiten"
+  "Please wait" : "Bitte warten Sie, während wir Ihre Anfrage bearbeiten",
+  "Please enter a min price" : "Bitte geben Sie einen Minimalpreis an",
+  "Please enter a max price" : "Bitte geben Sie einen Maximalpreis an",
+  "Min price must be smaller than max price" : "Minimalpreis muss kleiner sein als Maximalpreis",
+  "Please enter a location" : "Bitte geben Sie einen Standort an",
+  "Please enter a distance" : "Bitte geben Sie eine Distanz an"
 }
