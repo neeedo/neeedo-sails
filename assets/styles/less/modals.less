@@ -1,4 +1,6 @@
 .login-inputs{
   margin-bottom: 0.2em;
-
 }
+
+/* Bugfix for content shifting from right to left when modal opens */
+body.modal-open { overflow:inherit; padding-right:inherit !important; }

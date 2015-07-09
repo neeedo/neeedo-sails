@@ -11,6 +11,10 @@ module.exports = {
     res.view('static/impressum');
   },
 
+  about: function(req, res) {
+    res.view('static/about');
+  },
+
   help: function(req, res) {
     var registeredUser = LoginService.getCurrentUser(req);
 
