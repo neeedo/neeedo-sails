@@ -34,7 +34,7 @@
       <div class="col-xs-8">
         <div class="detail">
           <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
-
+          <%- partial('../partials/favoriteButtonOffer.ejs', {offer: offer, display: true}) %>
           <label for="tags"><%= i18n('I offer: ') %></label>
           <ul id="tags">
             <% offer.getTags().forEach(function(tag){ %>
