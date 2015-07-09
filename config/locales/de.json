@@ -193,5 +193,15 @@
   "Please enter a max price" : "Bitte geben Sie einen Maximalpreis an",
   "Min price must be smaller than max price" : "Minimalpreis muss kleiner sein als Maximalpreis",
   "Please enter a location" : "Bitte geben Sie einen Standort an",
-  "Please enter a distance" : "Bitte geben Sie eine Distanz an"
+  "Please enter a distance" : "Bitte geben Sie eine Distanz an",
+  "Our Code - Open Source on GitHub" : "Unser Projekt - Open Source bei GitHub",
+  "Web App" : "Web App",
+  "Android App" : "Android App",
+  "API" : "API",
+  "Project Repository" : "Projekt Repository",
+  "Test our Web App" : "Testen Sie unsere Web App",
+  "The Team" : "Das Team",
+  "Architecture Poster" : "Architektur Poster",
+  "Next-Gen Poster" : "Next-Gen Poster",
+  "SPHERE.IO Poster" : "SPHERE.IO Poster"
 }
