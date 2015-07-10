@@ -51,7 +51,7 @@ module.exports = {
       var onLoadCompleteCallback = function(usersDemands) {
         DemandService.storeListInSession(req, usersDemands);
 
-        res.view('homepage', {
+        res.view('dashboard', {
           locals: {
             demands: usersDemands.getDemands(),
             offers: usersOffers.getOffers(),
@@ -71,7 +71,7 @@ module.exports = {
         ApiClientService.logMessages(errorModel);
         ApiClientService.addFlashMessages(req, res, errorModel);
 
-        res.view('homepage', {
+        res.view('dashboard', {
           locals: {
             offers: usersOffers.getOffers(),
             demands: [],
@@ -98,7 +98,7 @@ module.exports = {
       ApiClientService.logMessages(errorModel);
       ApiClientService.addFlashMessages(req, res, errorModel);
 
-      res.view('homepage', {
+      res.view('dashboard', {
         locals: {
           offers: [],
           demands: [],
