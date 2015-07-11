@@ -32,10 +32,11 @@ var setLocationIfChecked = function (event) {
         alert(geolocationCheckbox.data('translationnogeolocation'));
       } else {
         setLatitudeAndLongitudeInHiddenField(location);
+
+        addTitleToTags();
+        fadeOutForm();
+        form.submit();
       }
-      addTitleToTags();
-      fadeOutForm();
-      form.submit();
     };
     neeedo.getLocation(onLocationCallback);
   } else {

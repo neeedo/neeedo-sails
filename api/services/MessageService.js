@@ -27,16 +27,16 @@ module.exports = {
       if (undefined !== readConversationsFromSession) {
         // loaded from session
         sails.log.info('attempt to load read conversations from session, user ID ' +
-        (LoginService.userIsLoggedIn(req)
-          ? LoginService.getCurrentUser(req).getId()
-          : "not logged in")
+          (LoginService.userIsLoggedIn(req)
+            ? LoginService.getCurrentUser(req).getId()
+            : "not logged in")
         );
 
         onSuccessCallback(readConversationsFromSession);
       } else {
         // load from API
         sails.log.info('attempt to load read conversations from API, user ID ' +
-        (LoginService.userIsLoggedIn(req)
+          (LoginService.userIsLoggedIn(req)
             ? LoginService.getCurrentUser(req).getId()
             : "not logged in")
         );
@@ -171,9 +171,10 @@ module.exports = {
   loadMessagesFromConversationAndMarkAsRead: function (req, res, onSuccessCallback, onErrorCallback) {
     var _this = this;
 
-    var onConversationloadSuccess = function(messageList) {
+    var onConversationloadSuccess = function (messageList) {
       // let's mark the message as read asynchronously without waiting for the response
-      _this.loadMessageAndToggleRead(req, res, function(message) {}, function(error) {
+      _this.loadMessageAndToggleRead(req, res, function (message) {
+      }, function (error) {
         sails.log.error("Couldn't mark message as read: " + util.inspect(error));
       });
 
@@ -197,11 +198,9 @@ module.exports = {
     try {
       var _this = this;
       var onToggleSuccessCallback = function (toggledMessage) {
-        if (toggledMessage.wasRead()) {
-          var conversation = toggledMessage.getConversation();
+        var conversation = toggledMessage.getConversation();
 
-          _this.addToReadConversationsInSession(req, conversation);
-        }
+        _this.addToReadConversationsInSession(req, conversation);
       };
 
       var messageService = new MessageService();
@@ -212,36 +211,35 @@ module.exports = {
   },
 
   storeReadConversationsInSession: function (req, conversationList) {
-    if (!("conversations" in req.session)) {
-      req.session.conversations = {};
+    if ("conversations" in req.session) {
+      delete req.session.conversations;
     }
 
-    if (!("read" in req.session.conversations)) {
-      req.session.conversations.read = [];
-    }
-
-    req.session.conversations.read = conversationList;
+    req.session.conversations = conversationList;
   },
 
   loadReadConversationsFromSession: function (req) {
     if (this.areReadConversationsInSession(req)) {
-      return ApiClientService.newConversationList().loadFromSerialized(req.session.conversations.read.conversations);
+      return ApiClientService.newConversationList().loadFromSerialized(req.session.conversations.conversations);
     }
 
     return undefined;
   },
 
   areReadConversationsInSession: function (req) {
-    return "conversations" in req.session && "read" in req.session.conversations && "conversations" in req.session.conversations.read;
+    return "conversations" in req.session && "conversations" in req.session.conversations;
   },
 
   addToReadConversationsInSession: function (req, conversation) {
-    if (this.areReadConversationsInSession(req) && undefined !== this.loadReadConversationsFromSession(req)) {
-      // only add the conversation to the read ones in the session if there are already some existing. Otherwise, the conversations need to be loaded via API again.
-      var readConversationsList = this.loadReadConversationsFromSession(req);
-      readConversationsList.addConversation(conversation);
-      this.storeReadConversationsInSession(req, readConversationsList);
+    var readConversationsList;
+    if (this.areReadConversationsInSession(req)) {
+      readConversationsList = this.loadReadConversationsFromSession(req);
+    } else {
+      readConversationsList = ApiClientService.newConversationList();
     }
+
+    readConversationsList.addConversation(conversation);
+    this.storeReadConversationsInSession(req, readConversationsList);
   },
 
   storeMessageInSession: function (req, messageModel) {
@@ -280,7 +278,7 @@ module.exports = {
     return UrlService.to('/mailbox');
   },
 
-  getViewUrl: function() {
+  getViewUrl: function () {
     return UrlService.to('/messages/view/messageId/%%messageId%%/senderId/%%senderId%%');
   },
 
@@ -308,7 +306,7 @@ module.exports = {
    * @param messageBody
    * @returns {XML|string|void|*}
    */
-  setHyperLinksInMessageBody: function(res, messageBody) {
+  setHyperLinksInMessageBody: function (res, messageBody) {
     var urlToOffer = UrlService.getBaseUrl() + OfferService.getViewUrl().replace("%%offerId%%", "");
 
     var offerUrlRegex = new RegExp("(" + urlToOffer + "[a-zA-Z0-9-]*)");
@@ -367,7 +365,7 @@ module.exports = {
     });
   },
 
-  filterForReadFlag: function(messageList, isReadFlag) {
+  filterForReadFlag: function (messageList, isReadFlag) {
     var messages = [];
     for (var i = 0; i < messageList.getMessages().length; i++) {
       var message = messageList.getMessages()[i];
@@ -443,7 +441,7 @@ module.exports = {
    * @param messageList
    * @returns {*}
    */
-  getConversationPartner: function(req, messageList) {
+  getConversationPartner: function (req, messageList) {
     if (messageList.getMessages().length > 0) {
       var message = messageList.getMessages()[0];
 

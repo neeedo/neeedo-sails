@@ -27,7 +27,7 @@ module.exports.policies = {
   ***************************************************************************/
 
   IndexController: {
-    'index': ['resetUploadedFiles', 'setLocale', 'isNotLoggedIn']
+    'index': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isNotLoggedIn']
   },
   MessageController: {
     '*'     : false,
@@ -59,23 +59,23 @@ module.exports.policies = {
     'edit': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
     'delete': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn'],
     'matching': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn'],
-    'ajaxMatching': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn']
+    'ajaxMatching': ['resetUploadedFiles', 'setLocale', 'isLoggedIn']
   },
   UserController: {
     '*': ['resetUploadedFiles', 'setLocale', 'isLoggedIn'],
-    'ajaxGetOffers' : ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn'],
-    'ajaxGetDemands' : ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn'],
+    'ajaxGetOffers' : ['resetUploadedFiles', 'setLocale', 'isLoggedIn'],
+    'ajaxGetDemands' : ['resetUploadedFiles', 'setLocale', 'isLoggedIn'],
     // setLocale can be accessed public and logged-in
     'setLocale': ['resetUploadedFiles', 'setLocale']
   },
   LoginController: {
-    '*': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', false], // default policy for login controller actions
+    '*': ['resetUploadedFiles', 'setLocale', false], // default policy for login controller actions
 
     'login' : ['resetUploadedFiles', 'setLocale', 'isNotLoggedIn'],
     'logout' : ['resetUploadedFiles', 'setLocale', 'isLoggedIn']
   },
   RegistrationController: {
-    '*': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', false], // default policy for registration controller actions
+    '*': ['resetUploadedFiles', 'setLocale', false], // default policy for registration controller actions
 
     'register' : ['resetUploadedFiles', 'setLocale', 'isNotLoggedIn']
   },
