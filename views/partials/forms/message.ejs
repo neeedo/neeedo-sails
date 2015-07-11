@@ -1,35 +1,24 @@
-<% if (!LoginService.userIsLoggedIn(req) || recipientId != LoginService.getCurrentUser(req).getId()) { %>
-<div class="row">
-  <div class="col-md-5">
-    <button type="button" class="close" data-dismiss="modal"
-            aria-label="Close"><span aria-hidden="true">&times;</span>
-    </button>
-    <% if (LoginService.userIsLoggedIn(req)) { %>
-      <h4><%= i18n(title) %></h4>
-    <% } else { %>
-      <h4><a href="<%- LoginService.getLoginUrl() %>"><%= i18n(title) %></a></h4>
-    <% } %>
-
-  </div>
-</div>
-<% } %>
-<% if (LoginService.userIsLoggedIn(req) && recipientId != LoginService.getCurrentUser(req).getId()) { %>
-<form method="POST" id="createMessage" action="<%= MessageService.getCreateUrl() %>">
-  <div class="row">
-    <div class="col-md-5">
-      <label for="messageBody"><%= i18n("Message") %></label>
+<form method="POST" class="form-style" id="createMessage" action="<%= MessageService.getCreateUrl() %>">
+  <% if (!LoginService.userIsLoggedIn(req) || recipientId != LoginService.getCurrentUser(req).getId()) { %>
+  <% if (LoginService.userIsLoggedIn(req)) { %>
+  <h4 class="formHeading text-center"><%= i18n(title) %></h4>
+  <% } else { %>
+  <h4 class="formHeading text-center"><a href="<%- LoginService.getLoginUrl() %>"><%= i18n(title) %></a></h4>
+  <% } %>
+  <% } %>
+  <% if (LoginService.userIsLoggedIn(req) && recipientId != LoginService.getCurrentUser(req).getId()) { %>
+  <ul>
+    <li>
+      <label for="messageBody"><%= i18n('Message') %></label>
       <textarea id="messageBody" name="messageBody"><%- defaultMessage %></textarea>
-
+      <small class="inputMissing" id="errorTag"><%= i18n("Please enter a messages") %></small>
+      <span><%= i18n('Your message') %></span>
       <input type="hidden" name="recipientId" value="<%- recipientId %>"/>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-5">
-      <button type="submit" class="btn btn-default" data-dismiss="modal">
-        <%= i18n('Send') %>
-      </button>
-    </div>
-  </div>
+    </li>
+    <li id="submitBtn">
+      <button type="submit" data-dismiss="modal" class="neeedoBtn neeedoBtn--nuka"><%= i18n('Send') %></button>
+    </li>
+  </ul>
 </form>
 <% } else if (!LoginService.userIsLoggedIn(req)) { %>
 <p><%= i18n(notLoggedInMessage) %></p>
