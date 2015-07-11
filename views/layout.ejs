@@ -53,12 +53,20 @@
 
   <body data-target=".navbar-collapse" data-apiUrlHttp="<%= sails.config.neeedo.apiClient.apiUrls.http %>" data-apiUrlHttps="<%= sails.config.neeedo.apiClient.apiUrls.https %>" class="cbp-spmenu-push">
     <div class="wrapper">
+       <% // modal dialogs HTML will be rendered here %>
+      <div id="modalDialogs">
+      </div>
     <%- partial ('./partials/header.ejs') %>
     <%- partial ('./partials/messages.ejs') %>
 
     <%- body %>
       <div class="push"></div>
     </div>
+
+    <% /* Dialog modals */ %>
+    <% block('localScripts', '<script src="/js/localscripts/dialog.js"></script>') %>
+    <%- partial('./partials/dialogs/yesNo.ejs') %>
+
     <%- partial ('./partials/navigation.ejs') %>
     <%- partial ('./partials/footer.ejs') %>
        <!--TEMPLATES-->

@@ -203,5 +203,10 @@
   "The Team" : "Das Team",
   "Architecture Poster" : "Architektur Poster",
   "Next-Gen Poster" : "Next-Gen Poster",
-  "SPHERE.IO Poster" : "SPHERE.IO Poster"
+  "SPHERE.IO Poster" : "SPHERE.IO Poster",
+  "Delete offer?" : "Angebot löschen?",
+  "Are you sure to delete this offer? This cannot be undone." : "Soll das Angebot wirklich gelöscht werden? Dieser Vorgang kann nicht rückgängig gemacht werden!",
+  "Delete demand?" : "Gesuch löschen?",
+  "Are you sure to delete this demand? This cannot be undone." : "Soll das Gesuch wirklich gelöscht werden? Dieser Vorgang kann nicht rückgängig gemacht werden!",
+  "Cancel" : "Abbruch"
 }

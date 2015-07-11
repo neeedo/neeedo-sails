@@ -187,5 +187,10 @@
   "The Team" : "The Team",
   "Architecture Poster" : "Architecture Poster",
   "Next-Gen Poster" : "Next-Gen Poster",
-  "SPHERE.IO Poster" : "SPHERE.IO Poster"
+  "SPHERE.IO Poster" : "SPHERE.IO Poster",
+  "Delete offer?" : "Delete offer?",
+  "Are you sure to delete this offer? This cannot be undone." : "Are you sure to delete this offer? This cannot be undone.",
+  "Delete demand?" : "Delete demand?",
+  "Are you sure to delete this demand? This cannot be undone." : "Are you sure to delete this demand? This cannot be undone.",
+  "Cancel" : "Cancel"
 }
