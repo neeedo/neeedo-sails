@@ -4,7 +4,7 @@
 .cbp-spmenu {
   position: fixed;
   border-right: 1px solid;
-  background-color: @MainBackground;
+  background-color: @HeaderBG;
   h3 {
     font-size: 1.9em;
     font-weight: 300;
@@ -66,27 +66,19 @@
   transition: all 0.3s ease;
 }
 
-#showLeft{
-  font-size: 1.2em;
-  font-weight: bold;
+#menuMsgCount{
   position: absolute;
-  background-color: @MetroGreyBlue;
-  right: -@menuBtnWidth;
-  width: @menuBtnWidth;
-  top: 0;
-  height: 100%;
-  padding: 20px;
-  margin: 0;
-  border-left: none;
-  border-bottom: none;
-  border-top: none;
-  border-right: 1px solid @BorderColor;
-  &:hover{
-    color: @BasicFontInv;
-  }
-  &:focus{
-    outline: none;
-  }
+  left: 22%;
+  top: 19.5%;
+  color: white !important;
+  background-color: red !important;
+  width: 15px;
+  height: 12px;
+  line-height: 12px;
+  font-size: 10px;
+  border-radius: 50%;
+  text-align: center;
+  font-weight: bold;
 }
 
 #cbp-spmenu-s1{

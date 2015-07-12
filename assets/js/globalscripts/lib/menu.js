@@ -12,6 +12,11 @@ showLeft.onclick = function() {
   classie.toggle( menuLeft, 'cbp-spmenu-open' );
 };
 
+menuLeft.onclick=function(){
+  classie.toggle( this, 'active' );
+  classie.toggle( menuLeft, 'cbp-spmenu-open' );
+};
+
 function toggle_visibility(id) {
   var e = document.getElementById(id);
   if(e.style.display == 'none'){
@@ -21,3 +26,6 @@ function toggle_visibility(id) {
   else
     e.style.display = 'none';
 }
+
+
+

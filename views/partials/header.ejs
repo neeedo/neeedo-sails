@@ -1,41 +1,139 @@
 <header id="header">
-  <div class="col-xs-3">
+  <nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="<%- UrlService.to('/') %>">
+          <img alt="Brand" src="/images/neeedo_Logo.png">
+          <span id="brand" class="hidden-xs">Neeedo</span>
+        </a>
 
-    <a href="<%= UrlService.to('/') %>">
-      <img src="/images/neeedo_Logo.png" alt="Neeedo Logo" class="img"/>
-      <span id="brand">Neeedo</span>
-    </a>
+        <div class="visible-xs collapseheader">
+          <% if (LoginService.userIsLoggedIn(req)) { %>
+          <a id="headermsg" class="headerIconSmall " href="<%= UrlService.to('/mailbox') %>"><span
+              class="icon-envelop"></span>
+          </a>
+          <% } %>
 
-  </div>
-  <div class="col-xs-8">
-    <% if (!LoginService.userIsLoggedIn(req)) { %>
-    <div class="col-xs-3"></div>
-    <!--col-xs-2-->
-    <%- partial('./headerPartials/newCardPartial.ejs') %>
-    <%- partial('./headerPartials/registerPartial.ejs') %>
-    <%- partial('./headerPartials/login.ejs') %>
-    <!--col-xs-2-->
-    <% } %>
+          <div id="headermsgcount" class="newMsgCount"></div>
+          <a class=" headerIconSmall " id="showLeft">
+            <span class="icon-menu"></span>
+          </a>
+          <% // list all available locales / languages and provide link to set                                               %>
+          <% for (var localeI = 0; localeI < LocaleService.getAvailableLocales().length; localeI++) { %>
+          <% var locale = LocaleService.getAvailableLocales()[localeI] %>
+          <a
+            class="round-button-small <% if(locale == LocaleService.readUsersPreferedLocaleOrReturnDefault(req)){ %>lng-active<% } %> <%= locale %>"
+            href="<%= UrlService.to(LocaleService.getSetLocaleUrl(locale)) %>">
+            <%= locale %>
+          </a>
+          <% } %>
+        </div>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <div class="headerIconBig">
+              <a href="<%= UrlService.to('/offers/create') %>">
+                <span class="icon-offer"></span>
 
-    <% if (LoginService.userIsLoggedIn(req)) { %>
-    <!--2 x col-xs-2-->
-    <div class="col-xs-3"></div>
-    <%- partial('./headerPartials/newCardPartial.ejs') %>
-    <%- partial('./headerPartials/registerPartial.ejs') %>
-    <%- partial('./headerPartials/login.ejs') %>
-    <!--2 x col-xs-2-->
-    <% } %>
-  </div>
+                <p><%= i18n('Create offer') %></p>
+              </a>
+            </div>
+          </li>
+          <li>
+            <div class="headerIconBig">
+              <a href="<%= UrlService.to('/demands/create') %>"><span
+                  class="icon-search"></span>
 
-  <div class="col-xs-1">
-    <% // list all available locales / languages and provide link to set                    %>
-    <% for (var localeI = 0; localeI < LocaleService.getAvailableLocales().length; localeI++) { %>
-    <% var locale = LocaleService.getAvailableLocales()[localeI] %>
-    <a class="round-button-small" href="<%= UrlService.to(LocaleService.getSetLocaleUrl(locale)) %>">
-      <%= locale %>
-    </a>
-    <% } %>
-  </div>
+                <p><%= i18n('Create demand') %></p>
+              </a>
+            </div>
+          </li>
+          <% if (!LoginService.userIsLoggedIn(req)) { %>
+          <li>
+            <div class="headerIconBig">
+              <a href="<%= UrlService.to('/register') %>">
+                <span class="icon-user-plus"></span>
 
+                <p><%= i18n('Register') %></p></a>
+            </div>
+          </li>
+          <% } %>
+          <% if (LoginService.userIsLoggedIn(req)) { %>
+          <li>
+            <div class="headerIconBig">
+              <a href="<%= FavoritesService.getFavoritesUrl() %>"><span
+                  class="icon-star-full"></span>
+
+                <p><%= i18n('Favorites') %></p></a>
+            </div>
+          </li>
+          <li>
+            <div class="headerIconBig">
+              <a href="<%= UrlService.to('/mailbox') %>"><span
+                  class="icon-envelop"></span>
+
+                <p><%= i18n('Mailbox') %></p></a>
+
+              <div class="newMsgCount"></div>
+            </div>
+          </li>
+          <% } %>
+          <li>
+            <%- partial('./headerPartials/login.ejs') %>
+          </li>
+          <li>
+            <% // list all available locales / languages and provide link to set                                               %>
+            <% for (var localeI = 0; localeI < LocaleService.getAvailableLocales().length; localeI++) { %>
+            <% var locale = LocaleService.getAvailableLocales()[localeI] %>
+            <a
+              class="round-button-small <% if(locale == LocaleService.readUsersPreferedLocaleOrReturnDefault(req)){ %>lng-active<% } %>"
+              style="margin: 10px" href="<%= UrlService.to(LocaleService.getSetLocaleUrl(locale)) %>">
+              <span> <%= locale %> </span>
+            </a>
+            <% } %>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </nav>
 </header>
+
+
+<!-- LOGINMODAL-->
+<form class="trans" method="POST" action="<%= UrlService.to('/login') %>">
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title text-center" id="myModalLabel"><%= i18n('Please Login') %></h4>
+        </div>
+        <div class="modal-body">
+          <div class="input-group input-group-lg login-inputs">
+            <span class="input-group-addon" id="sizing-addon1"><%= i18n('E-Mail') %></span>
+            <input id="email" type="email" name="email" class="form-control glowing-border"
+                   placeholder="<%= i18n('E-Mail') %>" aria-describedby="sizing-addon1" required autofocus/>
+          </div>
+          <div class="input-group input-group-lg login-inputs">
+            <span class="input-group-addon" id="sizing-addon2"><%= i18n('Password') %></span>
+            <input id="password" type="password" name="password" class="form-control"
+                   placeholder="<%= i18n('Password') %>" aria-describedby="sizing-addon2" required/>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input class="btn" type="submit" id="sendbtn" value="<%= i18n('Login') %>"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+<% if (LoginService.userIsLoggedIn(req)) { %>
+<% block('localScripts', '<script src="/js/localscripts/messages.js"></script>') %>
+<% } %>
 

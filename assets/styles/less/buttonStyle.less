@@ -33,19 +33,58 @@ button {
 }
 
 .round-button-small {
+  position: absolute;
   width: @iconSize;
   height: @iconSize;
-  line-height: @iconSize;
+  line-height: @iconSize !important;
   border: 1px solid @BorderColor;
   border-radius: 50%;
-  color: #f5f5f5;
+  color: @MetroGreen !important;
   text-align: center;
   text-decoration: none;
-  background: #464646;
+  background: transparent;
   box-shadow: 0 0 3px gray;
-  font-size: @iconSizeSmall;
+  font-size: @iconSizeSmall !important;
+  padding: 0 !important;
   &:hover {
-    background: #262626;
+    background: transparent;
+    color: @MetroPinK !important;
+    border-color: @BorderColorInv;
+  }
+}
+
+.headerIconSmall {
+  position: relative;
+  height: 80px;
+  span {
+    position: absolute;
+    display: block;
+    width: @iconSize;
+    height: @iconSize;
+    line-height: @iconSize;
+    border: 2px solid white;
+    border-radius: 50%;
+    color: @HeaderBG;
+    text-align: center;
+    text-decoration: none;
+    background: @BLUEGREEN;
+    box-shadow: 0 0 3px @BEIGE;
+    font-size: @iconSize;
+  }
+  p {
+    position: absolute;
+    left: 30%;
+    top: 40%;
+
+    font-size: 1em;
+  }
+  &:hover {
+    span {
+      background: #262626;
+      border-color: @BorderColorInv;
+      color: @HeaderFontColorInv;
+
+    }
   }
 }
 
@@ -53,7 +92,8 @@ button {
   margin-top: 10px;
   position: relative;
   height: 100px;
-  width: 120px;
+  min-width: 110px;
+  max-width: 120px;
   a {
     span {
       position: absolute;
@@ -81,12 +121,11 @@ button {
       width: 100%;
 
     }
-    &:hover{
-      span{
+    &:hover {
+      span {
         background: #262626;
         border-color: @BorderColorInv;
         color: @HeaderFontColorInv;
-
 
       }
     }
@@ -96,14 +135,14 @@ button {
     top: 12%;
     left: 60%;
     color: white;
-    background-color: red;
+    background-color: red ;
     width: 15px;
     height: 12px;
     line-height: 12px;
     font-size: 10px;
     border-radius: 50%;
     text-align: center;
-    font-weight: bold ;
+    font-weight: bold;
     display: none;
   }
 }
@@ -124,9 +163,11 @@ button {
   -webkit-backface-visibility: hidden;
   -moz-osx-font-smoothing: grayscale;
 }
+
 .neeedoBtn:focus {
   outline: none;
 }
+
 .neeedoBtn > span {
   vertical-align: middle;
 }
@@ -139,9 +180,11 @@ button {
   -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
   transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
 }
+
 .neeedoBtn--nuka.neeedoBtn--inverted {
   color: #fff;
 }
+
 .neeedoBtn--nuka::before,
 .neeedoBtn--nuka::after {
   content: '';
@@ -150,6 +193,7 @@ button {
   background: @NeeedoBtnColor;
   z-index: -1;
 }
+
 .neeedoBtn--nuka::before {
   top: -4px;
   bottom: -4px;
@@ -161,6 +205,7 @@ button {
   -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
   transition: transform 0.3s, opacity 0.3s;
 }
+
 .neeedoBtn--nuka::after {
   top: 0;
   left: 0;
@@ -171,27 +216,34 @@ button {
   -webkit-transition: -webkit-transform 0.3s, background-color 0.3s;
   transition: transform 0.3s, background-color 0.3s;
 }
+
 .neeedoBtn--nuka::before,
 .neeedoBtn--nuka::after {
   -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
   transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
 }
+
 .neeedoBtn--nuka.neeedoBtn--inverted::before,
 .neeedoBtn--nuka.neeedoBtn--inverted::after {
   background: #fff;
 }
+
 .neeedoBtn--nuka:hover {
   color: #fff;
 }
+
 .neeedoBtn--nuka:hover::before {
   opacity: 1;
 }
+
 .neeedoBtn--nuka:hover::after {
   background-color: @DarkerMetroGreen;
 }
+
 .neeedoBtn--nuka.neeedoBtn--inverted:hover::after {
   background-color: #7986cb;
 }
+
 .neeedoBtn--nuka:hover::after,
 .neeedoBtn--nuka:hover::before {
   -webkit-transform: scale3d(1, 1, 1);

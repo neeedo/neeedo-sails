@@ -1,17 +1,44 @@
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left visible-xs" id="cbp-spmenu-s1">
-  <a class="icon-home" href="<%= UrlService.to('/') %>"><%= i18n('Home') %></a>
-  <% if (!LoginService.userIsLoggedIn(req)) { %>
-  <a href="<%= UrlService.to('/register') %>"><%= i18n('Register') %></a>
-  <a href="<%= UrlService.to('/register') %>"><%= i18n('Login') %></a>
-  <% } %>
-  <a class="icon-offer"href="<%= UrlService.to('/offers/create') %>"><%= i18n('Create offer') %><span ></span> </a>
-  <a class="icon-demand"href="<%= UrlService.to('/demands/create') %>"><%= i18n('Create demand') %> <span ></span> </a>
-  <% if (LoginService.userIsLoggedIn(req)) { %>
-  <a href="<%= UrlService.to('/logout') %>"><%= i18n('Logout') %></a>
-  <% } %>
-  <a class="icon-mail4" href="<%= UrlService.to('/mailbox') %>"><%= i18n('Mailbox')%> <span class="badge newMsgCount"></span></a>
 
-  <button id="showLeft"> M<br/>e<br/>n<br/><%= i18n('u') %></button>
+  <% if (!LoginService.userIsLoggedIn(req)) { %>
+  <a class="headerIconSmall" type="button" data-toggle="modal" data-target="#myModal"><span
+      class=" icon-enter"></span>
+
+    <p><%= i18n('Login') %></p>
+  </a>
+  <a class="headerIconSmall" href="<%= UrlService.to('/register') %>">
+    <span class="icon-user-plus"></span>
+
+    <p><%= i18n('Register') %></p></a>
+  <% } %>
+  <% if (LoginService.userIsLoggedIn(req)) { %>
+  <a class="headerIconSmall" href="<%= UrlService.to('/logout') %>">
+    <span class="icon-exit"></span>
+
+    <p><%= i18n('Logout') %></p>
+  </a>
+  <a class="headerIconSmall" href="<%= FavoritesService.getFavoritesUrl() %>"><span
+      class="icon-star-full"></span>
+
+    <p><%= i18n('Favorites') %></p></a>
+  <a class="headerIconSmall" href="<%= UrlService.to('/mailbox') %>"><span
+      class="icon-envelop"></span>
+
+    <p><%= i18n('Mailbox') %></p></a>
+
+  <div id="menuMsgCount" class="newMsgCount"></div>
+  <% } %>
+  <a class="headerIconSmall" href="<%= UrlService.to('/offers/create') %>">
+    <span class="icon-offer"></span>
+
+    <p> <%= i18n('Create offer') %></p>
+  </a>
+  <a class="headerIconSmall" href="<%= UrlService.to('/demands/create') %>"><span
+      class="icon-search"></span>
+
+    <p><%= i18n('Create demand') %></p>
+  </a>
+
 </nav>
 
 <% if (LoginService.userIsLoggedIn(req)) { %>
