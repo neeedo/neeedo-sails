@@ -209,5 +209,7 @@
   "Delete demand?" : "Gesuch löschen?",
   "Are you sure to delete this demand? This cannot be undone." : "Soll das Gesuch wirklich gelöscht werden? Dieser Vorgang kann nicht rückgängig gemacht werden!",
   "Cancel" : "Abbruch",
-  "Drop files here or click to upload." : "Ziehen Sie ein Bild in die untere Box oder klicken Sie zum Auswählen."
+  "Drop files here or click to upload." : "Ziehen Sie ein Bild in die untere Box oder klicken Sie zum Auswählen.",
+  "You didn't recieve any message yet." : "Du hast noch keine Nachricht bekommen.",
+  "Sorry, we couldn't find any matching offers for now. We will inform you if a new matching offer was created." : "Entschuldigung, wir konnten leider kein passendes Angebot für dich finden. Wir informieren dich, sobald es etwas Neues für dich gibt."
 }

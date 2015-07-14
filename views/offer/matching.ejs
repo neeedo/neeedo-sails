@@ -1,11 +1,17 @@
-<div id=main class="container">
-  <div class="container">
+<div id="main" class="container element-wrapper">
+  <div>
     <h1><%= i18n('Your demand') %></h1>
 
     <%- partial('../demand/view.ejs', {demand: demand}) %>
   </div>
 
-  <div class="container">
+  <div>
+    <% if (0 == offers.length) { %>
+    <p><%- i18n("Sorry, we couldn't find any matching offers for now. We will inform you if a new matching offer was created.") %></p>
+    <% } %>
+  </div>
+  <% if (0 < offers.length) {%>
+  <div>
     <h1><%= i18n('Matched offers') %></h1>
 
     <div class="container elementWrapper ">
@@ -22,8 +28,8 @@
       </ul>
     </div>
 
-    <div class="container elementWrapper  ">
-      <% if (false !== showMap)  { %>
+    <div>
+      <% if (false !== showMap) { %>
       <%- partial('../partials/map/map.ejs', {
         mapType: showMap.mapType,
         demandMatchingSourceUrl: showMap.demandMatchingSourceUrl,

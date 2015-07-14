@@ -1,4 +1,8 @@
 <div class="container">
+  <% if (0 == unreadConversationList.getConversations().length
+    &&  0 == readConversationList.getConversations().length) { %>
+    <p><%- i18n("You didn't recieve any message yet.") %></p>
+  <% } %>
   <div class="panel-group" id="mailbox-accordion" role="tablist" aria-multiselectable="true">
     <% var counter = 0;
       unreadConversationList.getConversations().forEach(function (conversation) { %>

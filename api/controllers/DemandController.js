@@ -141,11 +141,6 @@ module.exports = {
      * ---------- callbacks ----------
      */
     var onMatchCallback = function(matchedOfferList, currentDemand) {
-      if (0 == matchedOfferList.getOffers().length) {
-        FlashMessagesService.setErrorMessage("Sorry, we couldn't find any matching offers. Please try to specify your demand better.", req, res);
-        return res.redirect(DemandService.getEditUrl(currentDemand));
-      }
-
       res.view('offer/matching', {
         locals: {
           offers: matchedOfferList.getOffers(),

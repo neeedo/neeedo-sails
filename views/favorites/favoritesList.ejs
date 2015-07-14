@@ -8,9 +8,6 @@
       data-viewUrl="<%- OfferService.getViewUrl() %>"
       data-translationPrice="<%= i18n('Price') %>"
     >
-    <% if (0 == favoriteOffers.length) { %>
-      <%- i18n("You didn't add any favorite offer yet.") %>
-    <% } %>
 
     <% favoriteOffers.forEach(function(offer) { %>
     <%- partial('../partials/offersForList.ejs', {offer: offer, displayFavorite: true}) %>

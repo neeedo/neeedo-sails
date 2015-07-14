@@ -45,12 +45,18 @@ module.exports = {
 
   mailbox: function(req, res) {
     var onSuccessCallback = function(readConversationList, unreadConversationList) {
-      res.view('message/mailbox', {
-        locals: {
-          readConversationList : readConversationList,
-          unreadConversationList : unreadConversationList
-        }
-      });
+      if (0 == unreadConversationList.getConversations().length
+        &&  0 == readConversationList.getConversations().length) {
+        res.i18n("You didn't recieve any message yet.");
+        res.redirect('/dashboard');
+      } else {
+        res.view('message/mailbox', {
+          locals: {
+            readConversationList: readConversationList,
+            unreadConversationList: unreadConversationList
+          }
+        });
+      }
     };
     var onErrorCallback = function(errorModel) {
       ApiClientService.logMessages(errorModel);
