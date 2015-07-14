@@ -193,5 +193,7 @@
   "Delete demand?" : "Delete demand?",
   "Are you sure to delete this demand? This cannot be undone." : "Are you sure to delete this demand? This cannot be undone.",
   "Cancel" : "Cancel",
-  "Drop files here or click to upload." : "Drop files below or click to upload."
+  "Drop files here or click to upload." : "Drop files below or click to upload.",
+  "You didn't recieve any message yet." : "You didn't recieve any message yet.",
+  "Sorry, we couldn't find any matching offers for now. We will inform you if a new matching offer was created." : "Sorry, we couldn't find any matching offers for now. We will inform you if a new matching offer was created"
 }

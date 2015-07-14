@@ -7,16 +7,23 @@ module.exports = {
        res.json("OK");
       };
 
-
       FavoritesService.toggleFavorite(req, res, onSuccessCallback, FavoritesService.sendErrorResponse);
   },
 
   favoritesList: function(req, res) {
-    res.view('favorites/favoritesList', {
-      locals: {
-        favoriteOffers: FavoritesService.getFavoriteOffers(req),
-        pagination: PaginatorService.getSettings()
-      }
-    });
+    var favorites = FavoritesService.getFavoriteOffers(req);
+
+    if (0 == favorites.length) {
+      // redirect to homepage with most recent demands + offers
+      FlashMessagesService.setSuccessMessage("You didn't add any favorite offer yet.", req, res);
+      res.redirect('/');
+    } else {
+      res.view('favorites/favoritesList', {
+        locals: {
+          favoriteOffers: FavoritesService.getFavoriteOffers(req),
+          pagination: PaginatorService.getSettings()
+        }
+      });
+    }
   }
 };
