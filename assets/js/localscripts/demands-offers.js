@@ -147,13 +147,8 @@ var validateOfferForm = function(){
   classie.removeClass(document.getElementById('errorTag'), 'showError' );
   classie.removeClass(document.getElementById('errorPrice'), 'showError' );
   classie.removeClass(document.getElementById('errorLoc'), 'showError' );
-  classie.removeClass(document.getElementById('errorTitle'), 'showError' );
   var bool = true;
   var price = document.getElementById('priceOffer').value.toString();
-  if(document.getElementById('title').value == ""){
-    classie.addClass(document.getElementById('errorTitle'), 'showError' );
-    bool = false;
-  }
   if(document.getElementById('tagsOffer').value == ""){
     classie.addClass(document.getElementById('errorTag'), 'showError' );
     bool = false;
