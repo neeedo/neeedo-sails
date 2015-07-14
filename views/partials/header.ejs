@@ -12,9 +12,9 @@
           <a id="headermsg" class="headerIconSmall " href="<%= UrlService.to('/mailbox') %>"><span
               class="icon-envelop"></span>
           </a>
+          <div id="headermsgcount" class="newMsgCount"></div>
           <% } %>
 
-          <div id="headermsgcount" class="newMsgCount"></div>
           <a class=" headerIconSmall " id="showLeft">
             <span class="icon-menu"></span>
           </a>
@@ -131,7 +131,6 @@
     </div>
   </div>
 </form>
-
 
 <% if (LoginService.userIsLoggedIn(req)) { %>
 <% block('localScripts', '<script src="/js/localscripts/messages.js"></script>') %>
