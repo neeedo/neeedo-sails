@@ -4,26 +4,6 @@ var request = require('supertest'),
 
 describe('[INTEGRATION TEST] LoginController', function() {
 
-  describe('GET /login', function() {
-    it('should contain the login form', function (done) {
-      this.timeout(20000);
-
-      request(sails.hooks.http.app)
-        .get('/login')
-        .expect('Content-Type', /html/)
-        .expect(200)
-        .end(function(err, res) {
-          should.not.exist(err);
-
-          res.text.should.match(/<form/);
-          res.text.should.match(/type="email"/);
-          res.text.should.match(/type="password"/);
-
-          done();
-        });
-    });
-  });
-
   describe('POST /login', function() {
     var spy;
 
