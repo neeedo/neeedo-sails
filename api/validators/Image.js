@@ -31,7 +31,7 @@ function Image(allowedTypes, maxSizeInBytes, maxCount, typeDescriptions, transla
     },
     {
       key :  this.translator('maximal size'),
-      value: this.maxSizeInBytes + " bytes "
+      value: Math.round(this.maxSizeInBytes / 1024 / 1024) + " MB"
     },
     {
       key :  this.translator('maximum number of images'),

@@ -55,12 +55,7 @@ module.exports.webapp = {
       {
         fileType: 'image/bmp',
         description: 'BMP'
-      },
-
-      {
-        fileType: 'image/gif',
-        description: 'GIF'
-      },
+      }
     ]
   },
   geolocation: {
