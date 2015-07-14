@@ -82,7 +82,7 @@
             <div class="headerIconBig">
               <a href="<%=UrlService.to('/dashboard')%>">
                 <span class="icon-user"></span>
-                <p><%= i18n('Dashboard') %></p>
+                <p><%- LoginService.getCurrentUser(req).getUsername() %></p>
               </a>
 
             </div>
@@ -134,7 +134,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <input class="btn" type="submit" id="sendbtn" value="<%= i18n('Login') %>"/>
+          <button class="neeedoBtn neeedoBtn--nuka"><%= i18n('Login') %></button>
         </div>
       </div>
     </div>

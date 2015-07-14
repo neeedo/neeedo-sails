@@ -89,7 +89,7 @@ describe('[UNIT TEST] DemandController', function() {
             maxPrice: "",
             lat: "",
             lng: "",
-            distance: "",
+            distance: 10,
             btnLabel: 'Create and find matching offers'
           }
         }

@@ -2,9 +2,8 @@
   <div class="elementWrapper" id="registrationForms">
     <div class="row">
       <div class="col-md-6" id="registrationContainer">
-        <h1><%= i18n('Registration') %></h1>
-
-        <form method="POST" id="register" class="form">
+        <form method="POST" id="register" class="form form-style">
+          <h1><%= i18n('Registration') %></h1>
           <div class="row">
             <div class="col-md-3">
               <label for="username"><%= i18n('Username') %></label>
@@ -37,9 +36,8 @@
         </form>
       </div>
       <div class="col-md-6" id="loginContainer">
-        <h1><%= i18n('Login') %></h1>
-
-        <form method="POST" id="loginForm" class="form" action="<%= UrlService.to('/login') %>">
+        <form method="POST" id="loginForm" class="form form-style" action="<%= UrlService.to('/login') %>">
+          <h1><%= i18n('Login') %></h1>
           <div class="row">
             <div class="col-md-3">
               <label for="email"><%= i18n('E-Mail') %></label>
