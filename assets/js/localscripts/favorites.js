@@ -9,17 +9,17 @@ $(document).ready(function () {
     if (-1 != iconEl.attr('class').indexOf('isFavorite')) {
       // the offer was favorite before, now it is unfavorited
       iconEl.removeClass('isFavorite');
-      iconEl.removeClass('glyphicon-star');
+      iconEl.removeClass('icon-star-full');
 
       iconEl.addClass('isNotFavorite');
-      iconEl.addClass('glyphicon-star-empty');
+      iconEl.addClass('icon-star-empty');
     } else {
       // the offer was not a favorite before, now it is favorited
       iconEl.removeClass('isNotFavorite');
-      iconEl.removeClass('glyphicon-star-empty');
+      iconEl.removeClass('icon-star-empty');
 
       iconEl.addClass('isFavorite');
-      iconEl.addClass('glyphicon-star');
+      iconEl.addClass('icon-star-full');
     }
 
     triggeredOfferIds = [];

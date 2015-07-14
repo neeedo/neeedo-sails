@@ -46,12 +46,10 @@ module.exports.webapp = {
         fileType: 'image/jpeg',
         description: 'JPEG'
       },
-
       {
         fileType: 'image/png',
         description: 'PNG'
       },
-
       {
         fileType: 'image/bmp',
         description: 'BMP'
