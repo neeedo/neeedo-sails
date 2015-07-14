@@ -1,13 +1,7 @@
 <div class="container elementWrapper">
-  <h1 class="text-center" id="formHeading"><%= i18n('Create Offer') %></h1>
+  <h1 class="text-center" id="formHeading"><%= i18n('Create offer') %></h1>
   <form id="createOffer" method="POST" class="dropzone form-style">
     <ul>
-      <li>
-        <label for="title"><%= i18n('Title') %></label>
-        <input type="text" id="title" name="title" placeholder="<%= i18n('Bicycle, iPhone') %>" autofocus>
-        <small class="inputMissing" id="errorTitle"><%= i18n('Please enter a title') %></small>
-        <span><%= i18n('What are you offering?') %></span>
-      </li>
       <li>
         <label for="tagsOffer"><%= i18n('must have') %></label>
         <input type="text" class="providesTagCompletion" id="tagsOffer" name="tags" value="<%- tags %>" placeholder="<%= i18n('blue, screen protector') %>">

@@ -102,7 +102,7 @@
     top: 12%;
     left: 60%;
     color: white;
-    background-color: red ;
+    background-color: red;
     width: 15px;
     height: 12px;
     line-height: 12px;
@@ -220,4 +220,18 @@
 .neeedoBtn--nuka:hover::before {
   -webkit-transform: scale3d(1, 1, 1);
   transform: scale3d(1, 1, 1);
+}
+
+.crudBtn, .favoBtn {
+  span {
+    color: @MetroGreen !important;
+    .isFavorite {
+      color: yellow;
+    }
+    &:hover {
+      color: @MetroPinK;
+      text-decoration: none;
+    }
+  }
+
 }

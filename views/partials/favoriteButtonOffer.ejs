@@ -1,13 +1,7 @@
-<div class="crudbtn btn-group-vertical" role="group">
-  <% if (LoginService.userIsLoggedIn(req) && display) { %>
-  <div class="toggleFavorite" data-offerId="<%- offer.getId() %>">
-      <% if (LoginService.getCurrentUser(req).isFavoriteOffer(offer)) { %>
-        <span class="favoriteIcon isFavorite icon-star-full" aria-hidden="true"></span>
-      <% } else { %>
+<div class="favobtn" role="group">
+
         <span class="favoriteIcon isNotFavorite icon-star-empty" aria-hidden="true"></span>
-      <% }%>
-  </div>
-  <%}%>
+
 </div>
 
 <% block('localScripts', '<script src="/js/localscripts/favorites.js"></script>') %>

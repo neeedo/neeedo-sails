@@ -171,33 +171,31 @@
 /* slider actions */
 .lSAction > a {
   width: 40px;
-  height: 40px;
-  top: 50%;
+  height: 60px;
+  top: 40%;
   line-height: 40px;
-  border-radius: 50%;
-  background: darkslategray;
+  background: grey;
   display: block;
   /* background-image: url('/images/controls.png');*/
   cursor: pointer;
   position: absolute;
   z-index: 1001;
-  margin-top: -16px;
   -webkit-transition: opacity 0.35s linear 0s;
   transition: opacity 0.35s linear 0s;
   font-family: icomoon;
-  color: white;
+  color: lightgrey;
   font-size: 32px;
   box-shadow: 0 0 3px gray;
   text-decoration: none;
-  border: 2px solid white;
   text-align: center;
   text-decoration: none;
+  padding-top: 10px;
 
 }
 
 .lSAction > a:hover {
   opacity: 1;
-  color: slategray;
+  color: darkseagreen;
 }
 
 .lSAction > .lSPrev {

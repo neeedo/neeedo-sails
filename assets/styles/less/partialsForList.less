@@ -1,9 +1,5 @@
 .listItem {
-  margin-bottom: 1em;
-
-  h4 {
-    margin: 0;
-    margin-bottom: 0.5em;
+  h3 {
   }
   ul {
     padding: 0;
@@ -13,15 +9,37 @@
 .offers{
   &:extend(.listItem);
   height: 30em;
+  position: relative;
   .thumbnail {
-    background-color: @OfferColor;
+    padding: 2%;
     height: 29em;
-    padding: 1em;
-    margin-bottom: 0 !important;
+    -moz-border-radius:0;
+    border-radius: 0;
+    margin: 0;
+    h3{
+      margin-top: 0!important;
+    }
+    #tags{
+      height: 3em;
+    }
     img {
       height: 15em;
       width: auto;
+      padding: 5%;
     }
+    .crudbtn{
+      font-size: 1.5em;
+      position: absolute;
+      top: 2%;
+      right: 12%;
+    }
+    .favobtn{
+      font-size: 1.5em;
+      position: absolute;
+      top: 2%;
+      right: 3%;
+    }
+
   }
 }
 

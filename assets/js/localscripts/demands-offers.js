@@ -147,13 +147,8 @@ var validateOfferForm = function(){
   classie.removeClass(document.getElementById('errorTag'), 'showError' );
   classie.removeClass(document.getElementById('errorPrice'), 'showError' );
   classie.removeClass(document.getElementById('errorLoc'), 'showError' );
-  classie.removeClass(document.getElementById('errorTitle'), 'showError' );
   var bool = true;
   var price = document.getElementById('priceOffer').value.toString();
-  if(document.getElementById('title').value == ""){
-    classie.addClass(document.getElementById('errorTitle'), 'showError' );
-    bool = false;
-  }
   if(document.getElementById('tagsOffer').value == ""){
     classie.addClass(document.getElementById('errorTag'), 'showError' );
     bool = false;
@@ -181,9 +176,9 @@ var validateDemandForm = function(){
   classie.removeClass(document.getElementById('errorLoc'), 'showError' );
   var bool = true;
 
-  var tagitList = document.getElementsByClassName('tagit');
-  console.log(tagitList);
-  if(typeof(tagitList) == 'undefined' || tagitList == null || $(".tagit li").length <= 1){
+  var mustTagsContainer = document.getElementById('mustTagsContainer');
+  var tagitList = mustTagsContainer.getElementsByClassName('tagit');
+  if(typeof(tagitList) == 'undefined' || tagitList == null || tagitList[0].getElementsByTagName('li').length <= 1){
     classie.addClass(document.getElementById('errorTag'), 'showError' );
     bool = false;
   }

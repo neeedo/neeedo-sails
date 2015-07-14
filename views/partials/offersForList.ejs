@@ -1,48 +1,32 @@
 <li class="offers">
-  <% // I'm actually not sure why we need to unserialize again, but the following line is really important when this partial is used during an AJAX action, do not remove!                  %>
+  <% // I'm actually not sure why we need to unserialize again, but the following line is really important when this partial is used during an AJAX action, do not remove!                          %>
   <% offer = ApiClientService.newOffer().loadFromSerialized(offer) %>
 
   <div class="thumbnail">
+    <h3> <%= i18n('I offer') %> </h3>
+
+      <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
+      <%- partial('../partials/favoriteButtonOffer.ejs', {offer: offer, display: displayFavorite}) %>
+    <hr>
+
     <a href="<%- OfferService.getViewUrl().replace('%%offerId%%', offer.getId()) %>">
       <img class="offerImageSmall" src="<%- OfferService.getFirstImage(offer).path %>"
            alt="<%- OfferService.getFirstImage(offer).altText %>">
     </a>
 
     <div class="caption">
-      <div class="row">
-
-        <div class="col-xs-4">
-          <h4> <%= i18n('I offer: ') %> </h4>
-
-        </div>
-        <div class="col-xs-5">
-          <div class="read-more-wrap">
-            <% var count = 0;
-              offer.getTags().forEach(function(tag){
-            if(count < 5){ %>
-            <span><%= tag + ", " %></span>
-            <% } count++; })
-            if(count>5){%>
-            <span for="post-2">...</span>
-            <a href="<%- OfferService.getViewUrl().replace('%%offerId%%', offer.getId()) %>"><%= i18n('More Details') %></a>
-            <%}%>
-          </div>
-        </div>
-
-        <div class="col-xs-1">
-          <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
-          <%- partial('../partials/favoriteButtonOffer.ejs', {offer: offer, display: displayFavorite}) %>
-        </div>
+      <div id="tags">
+        <p><%= offer.getTags().join(", ") %></p>
       </div>
-      <div class="row">
-        <div class="col-xs-8">
-          <h4 for="price"><%= i18n('Price') %>:<span id="price"> <%= offer.getPrice() %><span
-                class="glyphicon glyphicon-euro" aria-hidden="true"></span></span>
-          </h4>
-        </div>
-      </div>
+      <h4 for="price"><%= i18n('Price') %>:<span id="price"> <%= offer.getPrice() %><span
+            class="glyphicon glyphicon-euro" aria-hidden="true"></span></span>
+      </h4>
+      <h4><%- offer.getUser().getUsername() %></h4>
+
     </div>
   </div>
+
+
 </li>
 
 
