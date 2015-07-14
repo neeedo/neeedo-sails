@@ -1,23 +1,26 @@
 $(document).ready(function () {
   var messagePreviewTemplateEl = $('#messagePreviewTemplate');
   var toggleMessagesEl = $('.messages-collapse');
+  var toggleClickEl = $('.onCollapseClick');
   var messagesPreviewEl = toggleMessagesEl.find('.messages-preview');
 
-  $(toggleMessagesEl).on('shown.bs.collapse', function () {
+  $(toggleClickEl).on('click', function () {
     var _this = $(this);
-    var senderId = _this.data('senderid');
+    var messagesEl = _this.parent().parent().parent().find('.messages-collapse');
+    var senderId = messagesEl.data('senderid');
 
-    removeMessages(_this);
+    removeMessages(messagesEl);
 
     var onMessagesCallback = function (returnedData) {
       if ("messageList" in returnedData) {
         var messageList = returnedData.messageList;
         if ("messages" in messageList) {
           for (var i = 0; i < messageList.messages.length; i++) {
-            displayMessage(_this, messageList.messages[i], returnedData);
+            displayMessage(messagesEl, messageList.messages[i], returnedData);
           }
         }
       }
+      messagesEl.collapse('toggle');
     };
 
     // load messages for given conversation
@@ -71,6 +74,7 @@ $(document).ready(function () {
 
   var removeMessages = function (element) {
     element.empty();
+    element.collapse('toggle');
   };
 
   var getViewUrl = function (viewUrl, message, currentUser) {
