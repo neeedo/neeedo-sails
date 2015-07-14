@@ -3,7 +3,7 @@
     <h3><%- i18n('Your conversation with %s', (conversationPartner ? conversationPartner.getUsername() : '')) %></h3>
   </div>
   <div>
-    <% messageList.getMessages().forEach(function (readMessage) { %>
+    <% messageList.getMessages().reverse().forEach(function (readMessage) { %>
       <%- partial('../partials/mailbox/message.ejs', {
         message: readMessage,
         isRead: true
