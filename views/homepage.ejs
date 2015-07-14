@@ -51,7 +51,7 @@
         <% if(offers.length == 0){ %>
         <% }
           offers.forEach(function(offer) { %>
-        <%- partial('./partials/offersForList.ejs', {offer: offer, displayFavorite: false}) %>
+        <%- partial('./partials/offersForList.ejs', {offer: offer, displayFavorite: true}) %>
         <% }); %>
       </ul>
     </div>
@@ -94,7 +94,7 @@
       <div class="content">
         <section id="section-1">
           <% offers.forEach(function(offer) { %>
-          <%- partial('./partials/offersForList.ejs', {offer: offer, displayFavorite: false}) %>
+          <%- partial('./partials/offersForList.ejs', {offer: offer, displayFavorite: true}) %>
           <% }); %>
         </section>
         <section id="section-2">

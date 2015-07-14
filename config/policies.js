@@ -27,7 +27,7 @@ module.exports.policies = {
   ***************************************************************************/
 
   IndexController: {
-    'index': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isNotLoggedIn']
+    'index': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl']
   },
   MessageController: {
     '*'     : false,
