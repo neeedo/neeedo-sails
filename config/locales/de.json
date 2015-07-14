@@ -208,5 +208,6 @@
   "Are you sure to delete this offer? This cannot be undone." : "Soll das Angebot wirklich gelöscht werden? Dieser Vorgang kann nicht rückgängig gemacht werden!",
   "Delete demand?" : "Gesuch löschen?",
   "Are you sure to delete this demand? This cannot be undone." : "Soll das Gesuch wirklich gelöscht werden? Dieser Vorgang kann nicht rückgängig gemacht werden!",
-  "Cancel" : "Abbruch"
+  "Cancel" : "Abbruch",
+  "Drop files here or click to upload." : "Ziehen Sie ein Bild in die untere Box oder klicken Sie zum Auswählen."
 }

@@ -15,8 +15,9 @@
       function (description) { %>
       <%= description['key'] %>: <%= description['value'] %> <br>
       <% }) %>
+      <%= i18n('Drop files here or click to upload.') %> <br>
     </p>
-      <input type="file" name="files" id="fileupload-input" multiple>
+    <input type="file" name="files" id="fileupload-input" />
 
       <!--<input type="button" id="fileupload-submit" value="<%= i18n('Upload images') %>">-->
   </div>
@@ -27,6 +28,7 @@
     <%- partial('./offer-fileupload-previewimages.ejs') %>
   <% } %>
 </div>
+
 
 <% block('localScripts', '<script src="/js/localscripts/image-upload.js"></script>') %>
 

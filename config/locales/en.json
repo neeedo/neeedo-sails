@@ -192,5 +192,6 @@
   "Are you sure to delete this offer? This cannot be undone." : "Are you sure to delete this offer? This cannot be undone.",
   "Delete demand?" : "Delete demand?",
   "Are you sure to delete this demand? This cannot be undone." : "Are you sure to delete this demand? This cannot be undone.",
-  "Cancel" : "Cancel"
+  "Cancel" : "Cancel",
+  "Drop files here or click to upload." : "Drop files below or click to upload."
 }
