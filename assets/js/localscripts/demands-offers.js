@@ -181,9 +181,9 @@ var validateDemandForm = function(){
   classie.removeClass(document.getElementById('errorLoc'), 'showError' );
   var bool = true;
 
-  var tagitList = document.getElementsByClassName('tagit');
-  console.log(tagitList);
-  if(typeof(tagitList) == 'undefined' || tagitList == null || $(".tagit li").length <= 1){
+  var mustTagsContainer = document.getElementById('mustTagsContainer');
+  var tagitList = mustTagsContainer.getElementsByClassName('tagit');
+  if(typeof(tagitList) == 'undefined' || tagitList == null || tagitList[0].getElementsByTagName('li').length <= 1){
     classie.addClass(document.getElementById('errorTag'), 'showError' );
     bool = false;
   }

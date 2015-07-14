@@ -2,7 +2,7 @@
   <h1 class="text-center" id="formHeading"><%= i18n('Create Demand') %></h1>
   <form id="createDemand" method="POST" class="form-style">
     <ul>
-      <li>
+      <li id="mustTagsContainer">
         <label for="mustTagsDemand"><%= i18n('must have') %></label>
         <input type="text" class="providesTagCompletion" id="mustTagsDemand" name="mustTags" value="<%- mustTags %>" placeholder="<%= i18n('Bicycle, iPhone') %>" autofocus>
         <small class="inputMissing" id="errorTag"><%= i18n("Please enter at least one tag") %></small>
