@@ -203,7 +203,7 @@ var validateDemandForm = function(){
     bool = false;
   }
   if(!isNaN(parseFloat(minPrice))
-    && !isNaN(parseFloat(minPrice))
+    && !isNaN(parseFloat(maxPrice))
     && parseFloat(minPrice) > parseFloat(maxPrice)){
     classie.addClass(document.getElementById('errorMaxMin'), 'showError' );
     bool = false;
@@ -229,6 +229,35 @@ $(document).ready(function () {
   address = $('#address');
   addressContainer = $('#addressContainer');
 
+  $( "#slider-range" ).slider({
+    range: true,
+    min: 0,
+    max: 500,
+    values: [ 25, 300 ],
+    slide: function( event, ui ) {
+      $( "#minPriceDemand").val(ui.values[ 0 ] + ".00");
+      $( "#maxPriceDemand").val(ui.values[ 1 ] + ".00");
+    }
+  });
+  $( "#minPriceDemand" ).val($( "#slider-range" ).slider( "values", 0 ) + ".00");
+  $( "#maxPriceDemand" ).val($( "#slider-range" ).slider( "values", 1 ) + ".00");
+
+
+  $( "#minPriceDemand" ).keyup(function() {
+    var minPrice = document.getElementById('minPriceDemand').value.toString();
+    if(!isNaN(parseFloat(minPrice))){
+      $("#slider-range").slider('values',0,minPrice);
+      console.log(minPrice);
+    }
+  });
+
+  $( "#maxPriceDemand" ).keyup(function() {
+    var maxPrice = document.getElementById('maxPriceDemand').value.toString();
+    if(!isNaN(parseFloat(maxPrice))){
+      $("#slider-range").slider('values',1,maxPrice);
+      console.log(maxPrice);
+    }
+  });
 
   offerForm.on('submit', setLocationIfChecked);
   demandForm.on('submit', setLocationIfChecked);

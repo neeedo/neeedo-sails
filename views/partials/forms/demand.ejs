@@ -17,16 +17,19 @@
       </li>
       <li class="priceCol leftCol">
         <label for="minPriceDemand"><%= i18n("Price from") %></label>
-        <input type="number" id="minPriceDemand" step="any" min="0" name="minPrice" value="<%- minPrice %>"Placeholder="25"/>
+        <input type="number" id="minPriceDemand" step="any" min="0" name="minPrice" />
         <small class="inputMissing" id="errorMinPrice"><%= i18n("Please enter a min price") %></small>
         <span><%= i18n('Minimum price in €') %></span>
       </li>
       <li class="priceCol rightCol">
         <label for="maxPriceDemand"><%= i18n("Price to") %></label>
-        <input type="number" id="maxPriceDemand" step="any" min="0" name="maxPrice" value="<%- maxPrice %>" placeholder="110"/>
+        <input type="number" id="maxPriceDemand" step="any" min="0" name="maxPrice" />
         <small class="inputMissing" id="errorMaxPrice"><%= i18n("Please enter a max price") %></small>
         <small class="inputMissing" id="errorMaxMin"><%= i18n("Min price must be smaller than max price") %></small>
         <span><%= i18n('Maximum price in €') %></span>
+      </li>
+      <li class="clear">
+        <div id="slider-range"></div>
       </li>
       <li id="locationCol" class="leftCol">
         <label for="useGeolocation"><%= i18n("Location") %></label>
