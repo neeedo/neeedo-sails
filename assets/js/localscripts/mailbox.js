@@ -7,31 +7,35 @@ $(document).ready(function () {
   $(toggleClickEl).on('click', function () {
     var _this = $(this);
     var messagesEl = _this.parent().parent().parent().find('.messages-collapse');
-    var senderId = messagesEl.data('senderid');
 
     removeMessages(messagesEl);
-
-    var onMessagesCallback = function (returnedData) {
-      if ("messageList" in returnedData) {
-        var messageList = returnedData.messageList;
-        if ("messages" in messageList) {
-          for (var i = 0; i < messageList.messages.length; i++) {
-            displayMessage(messagesEl, messageList.messages[i], returnedData);
+    if (messagesEl.hasClass('in')) {
+      messagesEl.collapse('toggle');
+    } else {
+      // load messages before collapsing
+      var senderId = messagesEl.data('senderid');
+      var onMessagesCallback = function (returnedData) {
+        if ("messageList" in returnedData) {
+          var messageList = returnedData.messageList;
+          if ("messages" in messageList) {
+            for (var i = 0; i < messageList.messages.length; i++) {
+              displayMessage(messagesEl, messageList.messages[i], returnedData);
+            }
           }
         }
-      }
-      messagesEl.collapse('toggle');
-    };
+        messagesEl.collapse('toggle');
+      };
 
-    // load messages for given conversation
-    var messageService = new Messages();
-    messageService.getMessagesFromSenderAndCurrentlyLoggedIn(
-      {
-        senderId: senderId,
-        isRead: !(_this.data('isunread'))
-      },
-      onMessagesCallback
-    );
+      // load messages for given conversation
+      var messageService = new Messages();
+      messageService.getMessagesFromSenderAndCurrentlyLoggedIn(
+        {
+          senderId: senderId,
+          isRead: !(_this.data('isunread'))
+        },
+        onMessagesCallback
+      );
+    }
   });
 
   var displayMessage = function (element, message, responseData) {
@@ -74,7 +78,6 @@ $(document).ready(function () {
 
   var removeMessages = function (element) {
     element.empty();
-    element.collapse('toggle');
   };
 
   var getViewUrl = function (viewUrl, message, currentUser) {
