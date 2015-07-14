@@ -1,6 +1,6 @@
-$(document).ready(function () {
-  var triggered = false;
+var triggered = false;
 
+$(document).ready(function () {
   var nMC = $(".newMsgCount");
 
   var setUnreadMsgCount = function () {
