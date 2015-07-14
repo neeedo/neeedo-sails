@@ -46,7 +46,7 @@ module.exports = {
           maxPrice: "",
           lat: "",
           lng: "",
-          distance: "",
+          distance: 10,
           btnLabel: 'Create and find matching offers'
         }
       });
