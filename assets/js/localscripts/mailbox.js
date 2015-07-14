@@ -4,7 +4,10 @@ $(document).ready(function () {
   var toggleClickEl = $('.onCollapseClick');
   var messagesPreviewEl = toggleMessagesEl.find('.messages-preview');
 
-  $(toggleClickEl).on('click', function () {
+  $(toggleClickEl).on('click', function (event) {
+    event.stopPropagation();
+    event.preventDefault();
+
     var _this = $(this);
     var messagesEl = _this.parent().parent().parent().find('.messages-collapse');
 
