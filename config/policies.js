@@ -45,7 +45,7 @@ module.exports.policies = {
   OfferController: {
     '*'     : false,
     'view': ['setLocale', 'setRedirectUrl'],
-    'ajaxGet': ['setLocale', 'isNotLoggedIn'],
+    'ajaxGet': ['setLocale'],
     'ajaxGetSingle': ['setLocale'],
     'create': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
     'edit': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
@@ -54,7 +54,7 @@ module.exports.policies = {
   DemandController: {
     '*'     : false,
     'view'  : ['setLocale', 'setRedirectUrl'],
-    'ajaxGet': ['setLocale', 'isNotLoggedIn'],
+    'ajaxGet': ['setLocale'],
     'create': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
     'edit': ['setLocale', 'setRedirectUrl', 'isLoggedIn'],
     'delete': ['resetUploadedFiles', 'setLocale', 'setRedirectUrl', 'isLoggedIn'],
