@@ -78,6 +78,15 @@
               <div class="newMsgCount"></div>
             </div>
           </li>
+          <li>
+            <div class="headerIconBig">
+              <a href="<%=UrlService.to('/dashboard')%>">
+                <span class="icon-user"></span>
+                <p><%= i18n('Dashboard') %></p>
+              </a>
+
+            </div>
+          </li>
           <% } %>
           <li>
             <%- partial('./headerPartials/login.ejs') %>
