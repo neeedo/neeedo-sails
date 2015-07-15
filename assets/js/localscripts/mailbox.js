@@ -34,7 +34,7 @@ $(document).ready(function () {
       messageService.getMessagesFromSenderAndCurrentlyLoggedIn(
         {
           senderId: senderId,
-          isRead: !(_this.data('isunread'))
+          isRead: !(messagesEl.data('isunread'))
         },
         onMessagesCallback
       );
