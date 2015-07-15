@@ -17,7 +17,7 @@ module.exports = {
       });
     };
 
-    DemandService.loadDemand(req, onLoadSuccessCallback, onErrorCallback);
+    DemandService.loadDemand(req, res, onLoadSuccessCallback, onErrorCallback);
   },
 
   /**
@@ -135,8 +135,6 @@ module.exports = {
   },
 
   matching: function(req, res) {
-    var actualDemand;
-
     /*
      * ---------- callbacks ----------
      */

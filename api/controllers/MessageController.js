@@ -80,7 +80,7 @@ module.exports = {
       MessageService.sendErrorJsonResponse(res, errorModel);
     };
 
-    MessageService.loadMessagesFromConversation(req, onSuccessCallback, onErrorCallback);
+    MessageService.loadMessagesFromConversation(req, res, onSuccessCallback, onErrorCallback);
   },
 
   viewMessage: function(req, res) {

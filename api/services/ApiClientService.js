@@ -1,5 +1,6 @@
 var apiClient = require('neeedo-api-nodejs-client')
     util = require('util'),
+    IdValidator = require('../validators/Id'),
     ImageValidator = require('../validators/Image');
 
 var Location = apiClient.models.Location,
@@ -147,16 +148,70 @@ module.exports = {
     return req.param("recipientId");
   },
 
-  newMessageIdFromRequest: function(req) {
-    return req.param("messageId");
+  validateAndCreateNewMessageIdFromRequest: function(req, res) {
+    var validationResult = this.validateMessageIdFromRequest(req, res);
+
+    if (!validationResult.success) {
+      onErrorCallback(ApiClientService.newError("validateAndCreateNewMessageIdFromRequest: ", validationResult.message));
+    }
+
+    return validationResult.messageId;
   },
 
-  newConversationFromRequest: function(req) {
-    var senderId = req.param("senderId");
+  validateMessageIdFromRequest: function(req, res) {
+    var messageId = req.param("messageId");
+
+    var idValidator = this.newIdValidator(res);
+
+    if (undefined === messageId
+      || !idValidator.isValid(messageId)) {
+
+      return {
+        success: false,
+        message: idValidator.getErrorMessages(),
+        messageId: messageId
+      };
+    }
+
+    return {
+      success: true,
+      message: '',
+      messageId: messageId
+    };
+  },
+
+  validateAndCreateNewConversationFromRequest: function(req, res) {
+    var validationResult = this.validateConversationFromRequest(req, res);
+
+    if (!validationResult.success) {
+      onErrorCallback(ApiClientService.newError("validateAndCreateNewConversationFromRequest: ", validationResult.message));
+    }
 
     return new Conversation()
-      .setSender(this.newUser().setId(senderId))
+      .setSender(this.newUser().setId(validationResult.senderId))
       .setRecipient(LoginService.getCurrentUser(req));
+  },
+
+  validateConversationFromRequest: function(req, res) {
+    var senderId = req.param("senderId");
+
+    var idValidator = this.newIdValidator(res);
+
+    if (undefined === senderId
+      || !idValidator.isValid(senderId)) {
+
+      return {
+        success: false,
+        message: idValidator.getErrorMessages(),
+        senderId: senderId
+      };
+    }
+
+    return {
+      success: true,
+      message: '',
+      senderId: senderId
+    };
   },
 
   toTagString : function(tagArray) {
@@ -435,23 +490,28 @@ module.exports = {
     return new OfferList();
   },
 
-  validateAndCreateNewOfferIdFromRequest: function(req, onErrorCallback) {
-    var validationResult = ApiClientService.validateOfferIdFromRequest(req);
+  validateAndCreateNewOfferIdFromRequest: function(req, res, onErrorCallback) {
+    var validationResult = ApiClientService.validateOfferIdFromRequest(req, res);
 
     if (!validationResult.success) {
       onErrorCallback(ApiClientService.newError("validateAndCreateNewOfferIdFromRequest: ", validationResult.message));
+      return undefined;
     } else {
       return validationResult.offerId;
     }
   },
 
-  validateOfferIdFromRequest: function(req) {
+  validateOfferIdFromRequest: function(req, res) {
     var offerId = req.param('offerId');
 
-    if (-1 !== offerId.indexOf("image")) {
+    var idValidator = this.newIdValidator(res);
+
+    if (undefined === offerId
+     || !idValidator.isValid(offerId)) {
+
       return {
         success: false,
-        message: '',
+        message: idValidator.getErrorMessages(),
         offerId: offerId
       };
     }
@@ -460,6 +520,39 @@ module.exports = {
       success: true,
       message: '',
       offerId: offerId
+    };
+  },
+
+  validateAndCreateNewDemandIdFromRequest: function(req, res, onErrorCallback) {
+    var validationResult = ApiClientService.validateDemandIdFromRequest(req, res);
+
+    if (!validationResult.success) {
+      onErrorCallback(ApiClientService.newError("validateAndCreateNewDemandIdFromRequest: ", validationResult.message));
+      return undefined;
+    } else {
+      return validationResult.demandId;
+    }
+  },
+
+  validateDemandIdFromRequest: function(req, res) {
+    var demandId = req.param('demandId');
+
+    var idValidator = this.newIdValidator(res);
+
+    if (undefined === demandId
+     || !idValidator.isValid(demandId)) {
+
+      return {
+        success: false,
+        message: idValidator.getErrorMessages(),
+        demandId: demandId
+      };
+    }
+
+    return {
+      success: true,
+      message: '',
+      demandId: demandId
     };
   },
 
@@ -491,5 +584,9 @@ module.exports = {
       message: '',
       offerId: offerId
     };
+  },
+
+  newIdValidator: function(res) {
+    return new IdValidator(res.i18n);
   }
 };

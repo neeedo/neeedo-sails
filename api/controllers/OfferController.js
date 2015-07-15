@@ -21,7 +21,7 @@ module.exports = {
       });
     };
 
-    OfferService.loadOffer(req, onLoadSuccessCallback, onErrorCallback);
+    OfferService.loadOffer(req, res, onLoadSuccessCallback, onErrorCallback);
   },
 
   /**
@@ -51,7 +51,7 @@ module.exports = {
       OfferService.sendErrorJsonResponse(res, errorModel);
     };
 
-    OfferService.loadOffer(req, onSuccessCallback, onErrorCallback);
+    OfferService.loadOffer(req, res, onSuccessCallback, onErrorCallback);
 
   },
 

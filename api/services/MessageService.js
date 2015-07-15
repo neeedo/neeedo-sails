@@ -95,7 +95,7 @@ module.exports = {
     }
   },
 
-  loadMessagesFromConversation: function (req, onSuccessCallback, onErrorCallBack) {
+  loadMessagesFromConversation: function (req, res, onSuccessCallback, onErrorCallBack) {
     try {
       var _this = this;
 
@@ -114,53 +114,57 @@ module.exports = {
         onSuccessCallback(messageList);
       };
 
-      var conversation = ApiClientService.newConversationFromRequest(req);
+      var conversation = ApiClientService.validateAndCreateNewConversationFromRequest(req, res);
 
-      var messageListService = new MessageListService();
-      messageListService.loadByConversation(conversation, onLoadedCallback, onErrorCallBack);
+      if (undefined !== conversation) {
+        var messageListService = new MessageListService();
+        messageListService.loadByConversation(conversation, onLoadedCallback, onErrorCallBack);
+      }
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("loadMessagesFromConversation:" + e.message, 'Your inputs were not valid.'));
     }
   },
 
   loadMessage: function (req, res, onLoadCallback, onErrorCallback) {
-    var messageId = ApiClientService.newMessageIdFromRequest(req);
+    var messageId = ApiClientService.validateAndCreateNewMessageIdFromRequest(req, res);
 
-    var messageFromSession = this.loadMessageFromSession(req, messageId);
+    if (undefined !== messageId) {
+      var messageFromSession = this.loadMessageFromSession(req, messageId);
 
-    if (undefined !== messageFromSession) {
-      // message was loaded from session
-      if (!this.setBelongsToCurrentUser(req, res, messageFromSession)) {
-        onErrorCallback(ApiClientService.newError("loadMessage: attempt to load message with ID " + messageId + " that doesn't belong to user",
-          "You cannot view messages of other users."));
-      } else {
-        // loaded from session
-        onLoadCallback(messageFromSession);
-      }
-    } else {
-      // message needs to be loaded via API
-      var _this = this;
-      var onApiLoadedCallback = function (messageList) {
-        _this.storeMessageListInSession(req, messageList);
-
-        var message = _this.findMessageInList(messageId, messageList);
-
-        if (undefined == message) {
-          onErrorCallback(ApiClientService.newError("loadMessage: message with ID " + messageId + " was not found", 'Your inputs were not valid.'))
-        }
-
-        if (!_this.setBelongsToCurrentUser(req, res, loadedMessage)) {
+      if (undefined !== messageFromSession) {
+        // message was loaded from session
+        if (!this.setBelongsToCurrentUser(req, res, messageFromSession)) {
           onErrorCallback(ApiClientService.newError("loadMessage: attempt to load message with ID " + messageId + " that doesn't belong to user",
             "You cannot view messages of other users."));
         } else {
-          // loaded via API
-          onLoadCallback(message);
+          // loaded from session
+          onLoadCallback(messageFromSession);
         }
-      };
+      } else {
+        // message needs to be loaded via API
+        var _this = this;
+        var onApiLoadedCallback = function (messageList) {
+          _this.storeMessageListInSession(req, messageList);
 
-      var conversation = ApiClientService.newConversationFromRequest(req);
-      var messageService = new MessageService();
-      messageService.loadBySender(conversation.getSender(), conversation, onApiLoadedCallback, onErrorCallback);
+          var message = _this.findMessageInList(messageId, messageList);
+
+          if (undefined == message) {
+            onErrorCallback(ApiClientService.newError("loadMessage: message with ID " + messageId + " was not found", 'Your inputs were not valid.'))
+          }
+
+          if (!_this.setBelongsToCurrentUser(req, res, loadedMessage)) {
+            onErrorCallback(ApiClientService.newError("loadMessage: attempt to load message with ID " + messageId + " that doesn't belong to user",
+              "You cannot view messages of other users."));
+          } else {
+            // loaded via API
+            onLoadCallback(message);
+          }
+        };
+
+        var conversation = ApiClientService.newConversationFromRequest(req);
+        var messageService = new MessageService();
+        messageService.loadBySender(conversation.getSender(), conversation, onApiLoadedCallback, onErrorCallback);
+      }
     }
   },
 
@@ -189,7 +193,7 @@ module.exports = {
       onSuccessCallback(messageList);
     };
 
-    this.loadMessagesFromConversation(req, onConversationloadSuccess, onErrorCallback);
+    this.loadMessagesFromConversation(req, res, onConversationloadSuccess, onErrorCallback);
   },
 
   loadMessageAndToggleRead: function (req, res, onSuccessCallback, onErrorCallback) {

@@ -107,7 +107,7 @@ module.exports = {
 
     };
 
-    this.loadDemand(req, onLoadSuccessCallback, onErrorCallback);
+    this.loadDemand(req, res, onLoadSuccessCallback, onErrorCallback);
   },
 
   updateDemand: function (demandModel, req, onSuccessCallback, onErrorCallBack) {
@@ -130,7 +130,7 @@ module.exports = {
       DemandService.deleteDemand(loadedDemand, onDeleteSuccessCallback, onErrorCallback);
     };
 
-    this.loadDemand(req, onLoadSuccessCallback, onErrorCallback);
+    this.loadDemand(req, res, onLoadSuccessCallback, onErrorCallback);
   },
 
   deleteDemand: function (demandModel, onSuccessCallback, onErrorCallBack) {
@@ -151,7 +151,7 @@ module.exports = {
       DemandService.matchOffers(loadedDemand, req, onMatchCallback, onErrorCallback);
     };
 
-    this.loadDemand(req, onLoadSuccessCallback, onErrorCallback);
+    this.loadDemand(req, res, onLoadSuccessCallback, onErrorCallback);
   },
 
   matchOffers: function (demandModel, req, onSuccessCallback, onErrorCallback) {
@@ -188,26 +188,28 @@ module.exports = {
     }
   },
 
-  loadDemand: function (req, onLoadCallback, onErrorCallback) {
-    var demandId = req.param("demandId");
+  loadDemand: function (req, res, onLoadCallback, onErrorCallback) {
+    var demandId = ApiClientService.validateAndCreateNewDemandIdFromRequest(req, res, onErrorCallback);
 
-    if (this.isInSession(req, demandId)) {
-      try {
-        sails.log.info('Attempt to restore demand with ID ' + demandId + " from session.");
+    if (undefined !== demandId) {
+      if (this.isInSession(req, demandId)) {
+        try {
+          sails.log.info('Attempt to restore demand with ID ' + demandId + " from session.");
 
-        var demand = new Demand();
-        demand.loadFromSerialized(req.session.demands[demandId]);
+          var demand = new Demand();
+          demand.loadFromSerialized(req.session.demands[demandId]);
 
-        onLoadCallback(demand);
-      } catch (e) {
-        onErrorCallBack(ApiClientService.newError("loadDemand:" + e.message, 'Could not restore demand from session.'));
+          onLoadCallback(demand);
+        } catch (e) {
+          onErrorCallBack(ApiClientService.newError("loadDemand:" + e.message, 'Could not restore demand from session.'));
+        }
+      } else {
+        // load via API
+        sails.log.info('Attempt to load demand with ID ' + demandId + " via API.");
+
+        var demandService = new ClientDemandService();
+        demandService.load(demandId, LoginService.getCurrentUser(req), onLoadCallback, onErrorCallback);
       }
-    } else {
-      // load via API
-      sails.log.info('Attempt to load demand with ID ' + demandId + " via API.");
-
-      var demandService = new ClientDemandService();
-      demandService.load(demandId, LoginService.getCurrentUser(req), onLoadCallback, onErrorCallback);
     }
   },
 

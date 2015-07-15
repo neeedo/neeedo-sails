@@ -91,7 +91,7 @@ module.exports = {
 
     };
 
-    this.loadOffer(req, onLoadSuccessCallback, onErrorCallback);
+    this.loadOffer(req, res, onLoadSuccessCallback, onErrorCallback);
   },
 
   updateOffer: function(offerModel, req, onSuccessCallback, onErrorCallBack) {
@@ -114,7 +114,7 @@ module.exports = {
       OfferService.deleteOffer(loadedOffer, onDeleteSuccessCallback, onErrorCallback);
     };
 
-    this.loadOffer(req, onLoadSuccessCallback, onErrorCallback);
+    this.loadOffer(req, res, onLoadSuccessCallback, onErrorCallback);
   },
 
   deleteOffer: function(offerModel, onSuccessCallback, onErrorCallBack) {
@@ -150,30 +150,32 @@ module.exports = {
      }
    },
 
-  loadOffer: function(req, onLoadCallback, onErrorCallback) {
-    var offerId = ApiClientService.validateAndCreateNewOfferIdFromRequest(req, onErrorCallback);
+  loadOffer: function(req, res, onLoadCallback, onErrorCallback) {
+    var offerId = ApiClientService.validateAndCreateNewOfferIdFromRequest(req, res, onErrorCallback);
 
-    if (this.isInSession(req, offerId)) {
-      try {
-        sails.log.info('Attempt to restore offer with ID ' + offerId + " from session: session content " +
-        util.inspect(req.session.offers[offerId], {
-          showHidden: false,
+    if (undefined !== offerId) {
+      if (this.isInSession(req, offerId)) {
+        try {
+          sails.log.info('Attempt to restore offer with ID ' + offerId + " from session: session content " +
+          util.inspect(req.session.offers[offerId], {
+            showHidden: false,
             depth: null
-        }));
+          }));
 
-        var offer = new Offer();
-        offer.loadFromSerialized(req.session.offers[offerId]);
+          var offer = new Offer();
+          offer.loadFromSerialized(req.session.offers[offerId]);
 
-        onLoadCallback(offer);
-      } catch (e) {
-        onErrorCallback(ApiClientService.newError("loadOffer:" + e.message, 'Could not restore offer from session.'));
+          onLoadCallback(offer);
+        } catch (e) {
+          onErrorCallback(ApiClientService.newError("loadOffer:" + e.message, 'Could not restore offer from session.'));
+        }
+      } else {
+        // load via API
+        sails.log.info('Attempt to load offer with ID ' + offerId + " via API.");
+
+        var offerService = new ClientOfferService();
+        offerService.load(offerId, LoginService.getCurrentUser(req), onLoadCallback, onErrorCallback);
       }
-    } else {
-      // load via API
-      sails.log.info('Attempt to load offer with ID ' + offerId + " via API.");
-
-      var offerService = new ClientOfferService();
-      offerService.load(offerId, LoginService.getCurrentUser(req), onLoadCallback, onErrorCallback);
     }
   },
 
