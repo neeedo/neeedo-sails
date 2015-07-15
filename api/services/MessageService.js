@@ -363,7 +363,9 @@ module.exports = {
     var _this = this;
     var isRead = (req.param('isRead') == 'true' ? true : false);
 
-    this.filterForReadFlag(messageList, isRead);
+    if (!isRead) {
+      this.filterForReadFlag(messageList, isRead);
+    }
 
     res.json({
       messageList: messageList,
