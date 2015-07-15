@@ -170,6 +170,8 @@ $(document).ready(function() {
         }
       }
     }
+
+    onOffersAdded();
   };
 
   var addOfferToSlider = function(offer) {
@@ -184,4 +186,10 @@ $(document).ready(function() {
  // $(".map").css("min-height",$(window).height()-50);
   $(".contentContainer").css("min-height",$(window).height()*0.8);
 
+  var onOffersAdded = function() {
+    // activate favorites event handler for favorite icon elements
+    favorites.activateEventHandler();
+    // activate delete dialog event handler
+    dialogs.activateEventHandler();
+  };
 });

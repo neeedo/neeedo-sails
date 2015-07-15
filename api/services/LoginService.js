@@ -28,6 +28,7 @@ module.exports = {
             onSuccessCallback(user);
           }, function(errorModel) {
             sails.log.error("Error while loading user's favorites: " + util.inspect(errorModel));
+            onSuccessCallback(user);
         });
       };
       var loginModel = ApiClientService.validateAndCreateNewLoginFromRequest(req, onErrorCallBack);
