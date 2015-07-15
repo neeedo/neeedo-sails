@@ -129,7 +129,7 @@
   "Type in your address" : "Type in your address",
   "Maximum distance in km" : "Maximum distance in km",
   "Location" : "Location",
-  "You didn't add any favorite offer yet." : "You didn't add any favorite offer yet.",
+  "You didn't add any favorite offer yet. Have a look at the most recent offers below or create a demand." : "You didn't add any favorite offer yet. Have a look at the most recent offers below or create a demand.",
   "Favorite Offers" : "Favorite Offers",
   "Create offers your customers will find" : "Create offers your customers will find",
   "Create your first offer now" : "Create your first offer now",
@@ -194,6 +194,6 @@
   "Are you sure to delete this demand? This cannot be undone." : "Are you sure to delete this demand? This cannot be undone.",
   "Cancel" : "Cancel",
   "Drop files here or click to upload." : "Drop files below or click to upload.",
-  "You didn't recieve any message yet." : "You didn't recieve any message yet.",
+  "You didn't recieve any message yet. Have a look at the most recent offers below or create a demand in order to contact the offerors." : "You didn't recieve any message yet. Have a look at the most recent offers below or create a demand in order to contact the offerors.",
   "Sorry, we couldn't find any matching offers for now. We will inform you if a new matching offer was created." : "Sorry, we couldn't find any matching offers for now. We will inform you if a new matching offer was created"
 }

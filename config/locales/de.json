@@ -144,7 +144,7 @@
   "Type in your address" : "Geben Sie Ihre Adresse ein",
   "Maximum distance in km" : "Maximale Distanz in km",
   "Location" : "Standort",
-  "You didn't add any favorite offer yet." : "Du hast bisher noch keine Angebote favorisiert.",
+  "You didn't add any favorite offer yet. Have a look at the most recent offers below or create a demand." : "Du hast bisher noch keine Angebote favorisiert. Sieh dir unten die aktuellsten Angebote an oder erstelle ein neues Gesuch.",
   "Favorite Offers" : "Favoriten",
   "In Your Vicinity": "In deiner Umgebung",
   "Create offers your customers will find" : "Erstelle Angebote, die deine Kunden finden",
@@ -210,6 +210,6 @@
   "Are you sure to delete this demand? This cannot be undone." : "Soll das Gesuch wirklich gelöscht werden? Dieser Vorgang kann nicht rückgängig gemacht werden!",
   "Cancel" : "Abbruch",
   "Drop files here or click to upload." : "Ziehen Sie ein Bild in die untere Box oder klicken Sie zum Auswählen.",
-  "You didn't recieve any message yet." : "Du hast noch keine Nachricht bekommen.",
+  "You didn't recieve any message yet. Have a look at the most recent offers below or create a demand in order to contact the offerors." : "Du hast noch keine Nachricht bekommen. Sieh dir unten die neuesten Angebote an oder erstelle ein neues Gesuch, um Kontakt mit Anbietern aufzunehmen.",
   "Sorry, we couldn't find any matching offers for now. We will inform you if a new matching offer was created." : "Entschuldigung, wir konnten leider kein passendes Angebot für dich finden. Wir informieren dich, sobald es etwas Neues für dich gibt."
 }

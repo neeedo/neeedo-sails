@@ -15,7 +15,9 @@ module.exports = {
 
     if (0 == favorites.length) {
       // redirect to homepage with most recent demands + offers
-      FlashMessagesService.setSuccessMessage("You didn't add any favorite offer yet.", req, res);
+      FlashMessagesService.setSuccessMessage(
+        "You didn't add any favorite offer yet. Have a look at the most recent offers below or create a demand.",
+        req, res);
       res.redirect('/');
     } else {
       res.view('favorites/favoritesList', {

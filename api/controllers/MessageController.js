@@ -47,7 +47,9 @@ module.exports = {
     var onSuccessCallback = function(readConversationList, unreadConversationList) {
       if (0 == unreadConversationList.getConversations().length
         &&  0 == readConversationList.getConversations().length) {
-        res.i18n("You didn't recieve any message yet.");
+        FlashMessagesService.setSuccessMessage(
+          "You didn't recieve any message yet. Have a look at the most recent offers below or create a demand in order to contact the offerors.",
+          req, res);
         res.redirect('/dashboard');
       } else {
         res.view('message/mailbox', {
