@@ -32,6 +32,10 @@ var Offers = function(ajaxEndpoint) {
          queryParameters.push("getHtml=1");
       }
 
+      if ("displayFavorite" in criteria) {
+         queryParameters.push("displayFavorite=" + criteria['displayFavorite']);
+      }
+
       return "?" + queryParameters.join("&");
   };
 };

@@ -284,6 +284,7 @@ module.exports = {
   appendHtmlIfDesired: function (offerList, req, res, callback) {
     // check if getHtml parameter is given in request
     var getHtml = req.param('getHtml', undefined);
+    var displayFavorite = ('true' == req.param('displayFavorite') ? true : false);
 
     if (getHtml && offerList.getOffers().length > 0) {
       var counter = 0;
@@ -295,7 +296,7 @@ module.exports = {
               offer: offer,
               req: req,
               i18n: res.i18n,
-              displayFavorite: false
+              displayFavorite: displayFavorite
             },
             function (html) {
               counter++;

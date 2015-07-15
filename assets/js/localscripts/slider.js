@@ -21,6 +21,7 @@ $(document).ready(function() {
   var offerFirstPageNumber = lightSliderOfferEl.data('currentpage');
   var offerLimit = lightSliderOfferEl.data('itemlimit');
   var offerSourceUrl = lightSliderOfferEl.data('sourceurl');
+  var offerDisplayFavorite = lightSliderOfferEl.data('displayfavorite');
   viewOfferUrl = lightSliderOfferEl.data('viewurl');
   offerTranslations = {
     'price' : lightSliderOfferEl.data('translationprice')
@@ -129,7 +130,8 @@ $(document).ready(function() {
     offerService.getOffersByCriteria({
         page : nextPageNumber,
         limit : limit,
-        getHtml : true
+        getHtml : true,
+        displayFavorite : offerDisplayFavorite
       }, onLoadedCallback
     );
   };

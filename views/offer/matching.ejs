@@ -21,6 +21,7 @@
           data-sourceUrl="<%- demandMatchingSourceUrl %>"
           data-viewUrl="<%- OfferService.getViewUrl() %>"
           data-translationPrice="<%= i18n('Price') %>"
+          data-displayFavorite="true"
         >
         <% offers.forEach(function(offer) { %>
         <%- partial('../partials/offersForList.ejs', {offer: offer, displayFavorite: true}) %>
@@ -40,6 +41,7 @@
       <% } %>
     </div>
   </div>
+  <% } %>
 </div>
 
 <% block('localScripts', '<script src="/js/localscripts/slider.js"></script>') %>
