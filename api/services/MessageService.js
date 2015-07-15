@@ -103,6 +103,14 @@ module.exports = {
         // first store the messages in the session, than continue
         _this.storeMessageListInSession(req, messageList);
 
+        var isRead = req.param("isRead", undefined);
+
+        // if a new / unread conversation was toggled, add it to the read conversations in session
+        if ("false" == isRead && 0 < messageList.messages.length) {
+          var conversation = messageList.messages[0];
+          _this.addToReadConversationsInSession(req, conversation);
+        }
+
         onSuccessCallback(messageList);
       };
 
@@ -200,7 +208,7 @@ module.exports = {
       var onToggleSuccessCallback = function (toggledMessage) {
         var conversation = toggledMessage.getConversation();
 
-        _this.addToReadConversationsInSession(req, conversation);
+        //_this.addToReadConversationsInSession(req, conversation);
       };
 
       var messageService = new MessageService();
