@@ -304,19 +304,19 @@ $(document).ready(function () {
       shadowSize: [61, 61], // size of the shadow
       iconAnchor: [31, 61], // point of the icon which will correspond to marker's location
       shadowAnchor: [31, 58], // point of the icon which will correspond to marker's location
-      popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+      popupAnchor: [15, -65] // point from which the popup should open relative to the iconAnchor
     }
   });
 
   userIcon = new NeeedoIcon({
-    iconUrl: '/images/icons/user_pin.png',
+    iconUrl: '/images/icons/user_pin.png'
 
   });
   demandIcon = new NeeedoIcon({
-    iconUrl: '/images/icons/demands_pin.png',
+    iconUrl: '/images/icons/demands_pin.png'
   });
   offerIcon = new NeeedoIcon({
-    iconUrl: '/images/icons/offers_pin.png',
+    iconUrl: '/images/icons/offers_pin.png'
   });
 
   if (mapElement.length) {
