@@ -76,7 +76,7 @@ describe('[UNIT TEST] LoginController', function() {
 
       // then the following view should be called
       stubbedRes.view.calledWith(
-        'login/login'
+        'registration/register'
       ).should.be.True;
 
       done();

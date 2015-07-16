@@ -24,7 +24,7 @@ module.exports = {
     if ("POST" == req.method) {
       LoginService.loginUser(req, onSuccessCallback, onErrorCallback);
     } else {
-      res.view('login/login');
+      res.view('registration/register');
     }
   },
 
