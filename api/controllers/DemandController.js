@@ -33,7 +33,7 @@ module.exports = {
          DemandService.sendErrorJsonResponse(res, errorModel);
      };
 
-     DemandService.loadMostRecentDemands(req, onSuccessCallback, onErrorCallback);
+     DemandService.loadMostRecentDemands(req, res, onSuccessCallback, onErrorCallback);
   },
 
   create: function (req, res) {

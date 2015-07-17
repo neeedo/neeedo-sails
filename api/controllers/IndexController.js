@@ -51,7 +51,7 @@ module.exports = {
       /*
        * ---------- functionality ----------
        */
-      DemandService.loadMostRecentDemands(req, onLoadCompleteCallback, onDemandLoadErrorCallback);
+      DemandService.loadMostRecentDemands(req, res, onLoadCompleteCallback, onDemandLoadErrorCallback);
     };
 
 
@@ -78,6 +78,6 @@ module.exports = {
     /*
      * ---------- functionality ----------
      */
-    OfferService.loadMostRecentOffers(req, onLoadOffersSuccessCallback, onErrorCallback);
+    OfferService.loadMostRecentOffers(req, res, onLoadOffersSuccessCallback, onErrorCallback);
   }
 }

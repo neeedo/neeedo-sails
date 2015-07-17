@@ -37,7 +37,7 @@ module.exports = {
       OfferService.sendErrorJsonResponse(res, errorModel);
     };
 
-    OfferService.loadMostRecentOffers(req, onSuccessCallback, onErrorCallback);
+    OfferService.loadMostRecentOffers(req, res, onSuccessCallback, onErrorCallback);
   },
 
   ajaxGetSingle: function(req, res) {

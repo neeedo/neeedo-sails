@@ -35,9 +35,9 @@ module.exports = {
    * @param onSuccessCallback
    * @param onErrorCallback
    */
-  loadMostRecentDemands: function (req, onSuccessCallback, onErrorCallback) {
+  loadMostRecentDemands: function (req, res, onSuccessCallback, onErrorCallback) {
     try {
-      var demandQuery = ApiClientService.newDemandQueryFromRequest(req);
+      var demandQuery = ApiClientService.newDemandQueryFromRequest(req, res);
       var demandListService = this.newDemandListService();
 
       demandListService.loadMostRecent(demandQuery, onSuccessCallback, onErrorCallback);

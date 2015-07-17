@@ -570,8 +570,8 @@ module.exports = {
       .setOffset(offset);
   },
 
-  setLocationParameterIfGiven: function (req, queryModel) {
-    var location = this.buildUsersCurrentLocationObject(req);
+  setLocationParameterIfGiven: function (req, res, queryModel) {
+    var location = this.buildUsersCurrentLocationObject(req, res);
 
     if (undefined !== location) {
       queryModel
@@ -588,11 +588,11 @@ module.exports = {
    *
    * @param req
    */
-  newDemandQueryFromRequest: function (req) {
+  newDemandQueryFromRequest: function (req, res) {
     var queryModel = new DemandQuery();
 
     this.setPaginationParameter(req, queryModel);
-    this.setLocationParameterIfGiven(req, queryModel);
+    this.setLocationParameterIfGiven(req, res, queryModel);
 
     return queryModel;
   },
@@ -604,35 +604,26 @@ module.exports = {
    *
    * @param req
    */
-  newOfferQueryFromRequest: function (req) {
+  newOfferQueryFromRequest: function (req, res) {
     var queryModel = new OfferQuery();
 
     this.setPaginationParameter(req, queryModel);
-    this.setLocationParameterIfGiven(req, queryModel);
+    this.setLocationParameterIfGiven(req, res, queryModel);
 
     return queryModel;
   },
 
-  buildUsersCurrentLocationObject: function (req) {
-    var requestLocation = this.newLocationFromRequest(req);
+  buildUsersCurrentLocationObject: function (req, res) {
+    var latitude = this.getLatitudeFromRequest(req);
+    var longitude = this.getLongitudeFromRequest(req);
 
-    if (undefined === requestLocation) {
-      // no parameter given, so do not build any location object
-      return undefined;
-    }
-
-    if (null === requestLocation) {
+    if (!ValidationService.newLocationValidator(res.i18n).isValid(latitude)
+      || !ValidationService.newLocationValidator(res.i18n).isValid(longitude)) {
       // parameter did not contain latLng values, e.g. because the client could not determine -> get default location
-      var defaultLocaleLocation = new Location();
-
-      defaultLocaleLocation
-        .setLatitude(LocaleService.getDefaultLatitude(req))
-        .setLongitude(LocaleService.getDefaultLongitude(req));
-
-      return defaultLocaleLocation;
+      return this.newLocationFromParam(LocaleService.getDefaultLatitude(req), LocaleService.getDefaultLongitude(req));
     }
 
-    return requestLocation;
+    return this.newLocationFromParam(latitude, longitude);
   },
 
   validateAndCreateNewOfferIdFromRequest: function (req, res, onErrorCallback) {
