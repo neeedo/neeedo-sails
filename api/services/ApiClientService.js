@@ -1,33 +1,34 @@
 var apiClient = require('neeedo-api-nodejs-client')
-    util = require('util'),
-    IdValidator = require('../validators/Id'),
-    TagsValidator = require('../validators/Tags'),
-    SimplePriceValidator = require('../validators/SimplePrice'),
-    DemandPriceValidator = require('../validators/DemandPrice'),
-    LocationValidator = require('../validators/Location'),
-    DistanceValidator = require('../validators/Distance'),
-    ImageValidator = require('../validators/Image'),
-    _ = require('underscore')
-    ;
+util = require('util'),
+  IdValidator = require('../validators/Id'),
+  TagsValidator = require('../validators/Tags'),
+  SimplePriceValidator = require('../validators/SimplePrice'),
+  DemandPriceValidator = require('../validators/DemandPrice'),
+  LocationValidator = require('../validators/Location'),
+  DistanceValidator = require('../validators/Distance'),
+  ImageValidator = require('../validators/Image'),
+  OfferValidator = require('../validators/chains/Offer'),
+  _ = require('underscore')
+;
 
 var Location = apiClient.models.Location,
-    Error = apiClient.models.Error,
-    Offer = apiClient.models.Offer,
-    OfferList = apiClient.models.OfferList,
-    OfferQuery = apiClient.models.OfferQuery,
-    Demand = apiClient.models.Demand,
-    Message = apiClient.models.Message,
-    Favorite = apiClient.models.Favorite,
-    User = apiClient.models.User,
-    DemandQuery = apiClient.models.DemandQuery,
-    Register = apiClient.models.Register,
-    Login = apiClient.models.Login,
-    ImageService = apiClient.services.Image,
-    MessageService = apiClient.services.Message,
-    DemandPrice = apiClient.models.DemandPrice,
-    Conversation= apiClient.models.Conversation,
-    ConversationQuery = apiClient.models.ConversationQuery,
-    ConversationList = apiClient.models.ConversationList
+  Error = apiClient.models.Error,
+  Offer = apiClient.models.Offer,
+  OfferList = apiClient.models.OfferList,
+  OfferQuery = apiClient.models.OfferQuery,
+  Demand = apiClient.models.Demand,
+  Message = apiClient.models.Message,
+  Favorite = apiClient.models.Favorite,
+  User = apiClient.models.User,
+  DemandQuery = apiClient.models.DemandQuery,
+  Register = apiClient.models.Register,
+  Login = apiClient.models.Login,
+  ImageService = apiClient.services.Image,
+  MessageService = apiClient.services.Message,
+  DemandPrice = apiClient.models.DemandPrice,
+  Conversation = apiClient.models.Conversation,
+  ConversationQuery = apiClient.models.ConversationQuery,
+  ConversationList = apiClient.models.ConversationList
   ;
 
 var imageService = new ImageService();
@@ -35,23 +36,72 @@ var imageService = new ImageService();
 module.exports = {
   client: apiClient,
 
-  logMessages : function(errorModel) {
+  /**
+   * ########################################
+   * #
+   * # Request parameter handling
+   * #
+   * ########################################
+   */
+  PARAM_TAGS_KEY: "tags",
+  PARAM_SIMPLE_PRICE_KEY: "price",
+  PARAM_LATITUDE_KEY: "lat",
+  PARAM_LONGITUDE_KEY: "lng",
+  PARAM_IMAGES_KEY: "images",
+
+  getTagsFromRequest: function (req) {
+    return req.param(this.PARAM_TAGS_KEY);
+  },
+
+  getSimplePriceFromRequest: function (req) {
+    return req.param(this.PARAM_SIMPLE_PRICE_KEY);
+  },
+
+  getLatitudeFromRequest: function (req) {
+    return req.param(this.PARAM_LATITUDE_KEY);
+  },
+
+  getLongitudeFromRequest: function (req) {
+    return req.param(this.PARAM_LONGITUDE_KEY);
+  },
+
+  getImagesFromRequest: function (req) {
+    return req.param(this.PARAM_IMAGES_KEY);
+  },
+
+  newTagListFromParam: function (tags) {
+    return this.toTagArray(tags);
+  },
+
+  newSimplePriceFromParam: function (simplePrice) {
+    return parseFloat(simplePrice);
+  },
+
+  newLocationFromParam: function (latitude, longitude) {
+    return this.newLocation(parseFloat(latitude), parseFloat(longitude));
+  },
+
+  newImageListFromParam: function (images) {
+    return this.newImageList(images);
+  },
+
+  logMessages: function (errorModel) {
     for (var i = 0; i < errorModel.getLogMessages().length; i++) {
       sails.log.error(errorModel.getLogMessages()[i]);
     }
   },
 
-  addFlashMessages : function(req, res, errorModel) {
+  addFlashMessages: function (req, res, errorModel) {
     for (var i = 0; i < errorModel.getErrorMessages().length; i++) {
       FlashMessagesService.setErrorMessage(errorModel.getErrorMessages()[i], req, res);
     }
   },
 
-  newLocation : function(lat, lng) {
+  newLocation: function (lat, lng) {
     return new Location().setLatitude(lat).setLongitude(lng);
   },
 
-  newLocationFromRequest : function(req) {
+  newLocationFromRequest: function (req) {
     var lat = req.param("lat", undefined);
     var lng = req.param("lng", undefined);
 
@@ -66,11 +116,11 @@ module.exports = {
     return this.newLocation(parseFloat(lat), parseFloat(lng));
   },
 
-  newDemandPrice : function(min, max) {
+  newDemandPrice: function (min, max) {
     return new DemandPrice().setMin(min).setMax(max);
   },
 
-  newDemandPriceFromRequest : function(req) {
+  newDemandPriceFromRequest: function (req) {
     // parseFloat will return NAN if no parameter is given (undefined) or the given ones are no parameters
     var minPrice = parseFloat(req.param("minPrice"));
     var maxPrice = parseFloat(req.param("maxPrice"));
@@ -78,88 +128,67 @@ module.exports = {
     return this.newDemandPrice(minPrice, maxPrice);
   },
 
-  newSimplePriceFromRequest : function(req) {
-    // parseFloat will return NAN if no parameter is given (undefined) or the given ones are no parameters
-    var price = parseFloat(req.param("price"));
-
-    return price;
-  },
-
-  getImagesFromRequest : function(req) {
-    var param = req.param("images", null);
-
-    return param;
-  },
-
-  newImageListFromRequest : function(req) {
+  newImageList: function (images) {
     var imageList = imageService.newImageList();
 
-    var images = this.getImagesFromRequest(req);
+    if (undefined !== images) {
+      for (var imageI = 0; imageI < images.length; imageI++) {
+          var fileName = images[imageI];
 
-    if (null !== images) {
-      for (var imageI=0; imageI < images.length; imageI++) {
-        var fileName = images[imageI];
-
-        var imageObj = imageService.newImage();
-        imageObj.setFileName(fileName);
-        imageList.addImage(imageObj);
+          var imageObj = imageService.newImage();
+          imageObj.setFileName(fileName);
+          imageList.addImage(imageObj);
       }
     }
 
     return imageList;
   },
 
-  toTagArray : function(tagStr) {
+  toTagArray: function (tagStr) {
     // split by being "whitespace-friendly" (e.g. allow 'value1 , value2')
     return tagStr.split(/\s*,\s*/);
   },
 
-  newTagsFromRequest : function(req) {
-    var tags = req.param("tags");
-
-    return this.toTagArray(tags);
-  },
-
-  newShouldTagsFromRequest : function(req) {
+  newShouldTagsFromRequest: function (req) {
     var shouldTags = req.param("shouldTags");
 
     return this.toTagArray(shouldTags);
   },
 
-  newMustTagsFromRequest : function(req) {
+  newMustTagsFromRequest: function (req) {
     var mustTags = req.param("mustTags");
 
     return this.toTagArray(mustTags);
   },
 
-  newDistanceFromRequest : function(req) {
+  newDistanceFromRequest: function (req) {
     // parseFloat will return NAN if no parameter is given (undefined) or the given ones are no parameters
     var distance = parseFloat(req.param("distance"));
 
     return distance;
   },
 
-  newUsernameFromRequest : function(req) {
+  newUsernameFromRequest: function (req) {
     return req.param("username");
   },
 
-  newEMailFromRequest : function(req) {
+  newEMailFromRequest: function (req) {
     return req.param("email");
   },
 
-  newPasswordFromRequest : function(req) {
+  newPasswordFromRequest: function (req) {
     return req.param("password");
   },
 
-  newMessageBodyFromRequest : function(req) {
+  newMessageBodyFromRequest: function (req) {
     return req.param("messageBody");
   },
 
-  newRecipientIdFromRequest : function(req) {
+  newRecipientIdFromRequest: function (req) {
     return req.param("recipientId");
   },
 
-  validateAndCreateNewMessageIdFromRequest: function(req, res) {
+  validateAndCreateNewMessageIdFromRequest: function (req, res) {
     var validationResult = this.validateMessageIdFromRequest(req, res);
 
     if (!validationResult.success) {
@@ -169,7 +198,7 @@ module.exports = {
     return validationResult.messageId;
   },
 
-  validateMessageIdFromRequest: function(req, res) {
+  validateMessageIdFromRequest: function (req, res) {
     var messageId = req.param("messageId");
 
     var idValidator = this.newIdValidator(res);
@@ -191,7 +220,7 @@ module.exports = {
     };
   },
 
-  validateAndCreateNewConversationFromRequest: function(req, res) {
+  validateAndCreateNewConversationFromRequest: function (req, res) {
     var validationResult = this.validateConversationFromRequest(req, res);
 
     if (!validationResult.success) {
@@ -203,7 +232,7 @@ module.exports = {
       .setRecipient(LoginService.getCurrentUser(req));
   },
 
-  validateConversationFromRequest: function(req, res) {
+  validateConversationFromRequest: function (req, res) {
     var senderId = req.param("senderId");
 
     var idValidator = this.newIdValidator(res);
@@ -225,15 +254,40 @@ module.exports = {
     };
   },
 
-  toTagString : function(tagArray) {
+  toTagString: function (tagArray) {
     return tagArray.join();
   },
 
-  newError: function(messageForLog, messageForUser) {
-   return new Error().addLogMessage(messageForLog).addErrorMessage(messageForUser);
+  /**
+   * Create a new api client error object.
+   * *
+   * @param messageForLog
+   * @param messageForUser string | array of string
+   * @returns {*}
+   */
+  newError: function (messageForLog, messageForUser) {
+    var error = new Error().addLogMessage(messageForLog);
+
+    if (_.isArray(messageForUser)) {
+      for (var i = 0; i < messageForUser.length; i++) {
+        error.addErrorMessage(messageForUser[i]);
+      }
+    } else {
+      error.addErrorMessage(messageForUser);
+    }
+
+    return error;
   },
 
-  validateAndCreateNewRegisterFromRequest: function(req, onErrorCallback) {
+  newValidationError: function (validationErrors, givenParams) {
+    var error = new Error()
+      .setValidationMessages(validationErrors)
+      .setOriginalParameters(givenParams)
+      ;
+    return error;
+  },
+
+  validateAndCreateNewRegisterFromRequest: function (req, onErrorCallback) {
     var registerModel = new Register();
 
     this.validateAndSetRegisterFromRequest(req, registerModel, onErrorCallback);
@@ -241,19 +295,19 @@ module.exports = {
     return registerModel;
   },
 
-  validateAndSetRegisterFromRequest: function(req, registerModel, onErrorCallback) {
+  validateAndSetRegisterFromRequest: function (req, registerModel, onErrorCallback) {
     var validationResult = this.validateRegisterFromRequest(req);
 
     if (!validationResult.success) {
       onErrorCallback(ApiClientService.newError("validateAndSetRegisterFromRequest: ", validationResult.message));
     }
 
-    registerModel.setEMail( this.newEMailFromRequest(req) )
-        .setUsername( this.newUsernameFromRequest(req) )
-        .setPassword( this.newPasswordFromRequest(req) );
+    registerModel.setEMail(this.newEMailFromRequest(req))
+      .setUsername(this.newUsernameFromRequest(req))
+      .setPassword(this.newPasswordFromRequest(req));
   },
 
-  validateRegisterFromRequest: function(req) {
+  validateRegisterFromRequest: function (req) {
     // TODO implement
     return {
       success: true,
@@ -261,7 +315,7 @@ module.exports = {
     };
   },
 
-  validateAndCreateNewLoginFromRequest: function(req, onErrorCallback) {
+  validateAndCreateNewLoginFromRequest: function (req, onErrorCallback) {
     var loginModel = new Login();
 
     this.validateAndSetLoginFromRequest(req, loginModel, onErrorCallback);
@@ -269,7 +323,7 @@ module.exports = {
     return loginModel;
   },
 
-  validateAndSetLoginFromRequest: function(req, loginModel, onErrorCallback) {
+  validateAndSetLoginFromRequest: function (req, loginModel, onErrorCallback) {
     var validationResult = this.validateLoginFromRequest(req);
 
     if (!validationResult.success) {
@@ -280,7 +334,7 @@ module.exports = {
     loginModel.setPassword(this.newPasswordFromRequest(req));
   },
 
-  validateLoginFromRequest: function(req) {
+  validateLoginFromRequest: function (req) {
     // TODO implement
     return {
       success: true,
@@ -288,96 +342,91 @@ module.exports = {
     };
   },
 
-  validateAndCreateNewOfferFromRequest: function(req, onErrorCallback) {
+  /**
+   * Create a new offer, validate the request parameter values, fill the model on success.
+   * Otherwise, call onErrorCallback with validation errors set in the given error model.
+   *
+   * @param req
+   * @param res
+   * @param onErrorCallback
+   * @returns {Offer} | undefined if validation was not successful
+   */
+  validateAndCreateNewOfferFromRequest: function (req, res, onErrorCallback) {
     var offerModel = new Offer();
 
-    this.validateAndSetOfferFromRequest(req, offerModel, LoginService.getCurrentUser(req), onErrorCallback);
+    offerModel = this.validateAndSetOfferFromRequest(req, res, offerModel, LoginService.getCurrentUser(req), onErrorCallback);
 
     return offerModel;
   },
 
-  validateAndSetOfferFromRequest: function(req, res, offerModel, user, onErrorCallback) {
+  /**
+   * Validate the request values. On success, fill the model.
+   * Otherwise, call onErrorCallback with validation errors set in the given error model.
+   * @param req
+   * @param res
+   * @param offerModel
+   * @param user
+   * @param onErrorCallback
+   * @returns {Offer} | undefined if validation was not successful
+   */
+  validateAndSetOfferFromRequest: function (req, res, offerModel, user, onErrorCallback) {
+    // step 1: validate request parameters
     var validationResult = this.validateOfferFromRequest(req, res);
 
     if (!validationResult.success) {
-      onErrorCallback(ApiClientService.newError("validateAndSetOfferFromRequest: ", validationResult.message));
+      onErrorCallback(this.newValidationError(validationResult.validationErrors, validationResult.params));
+      return undefined;
     } else {
-
-        offerModel.setTags(validationResult.tags)
-          .setLocation(validationResult.location)
-          .setPrice(validationResult.price)
-          .setUser(user)
-          .setImageList(validationResult.images);
+      // step 2: fill model from request parameters
+      return this.processOfferModelFromRequest(offerModel, user, validationResult.params);
     }
   },
 
-  validateImages : function(req) {
-      return null === this.getImagesFromRequest(req)
-            ||
-           (null !== this.getImagesFromRequest(req)
-           && 'length' in this.getImagesFromRequest(req)
-           && this.getImagesFromRequest(req).length <= sails.config.webapp.images.maxCountPerObject);
-  },
+  validateOfferFromRequest: function (req, res) {
+    var offerValidator = this.newOfferValidator(res.i18n);
 
-  validateOfferFromRequest: function(req, res) {
-    if (!this.validateImages(req)) {
+    var tags = this.getTagsFromRequest(req),
+      price = this.getSimplePriceFromRequest(req),
+      latitude = this.getLatitudeFromRequest(req),
+      longitude = this.getLongitudeFromRequest(req),
+      images = this.getImagesFromRequest(req);
+
+    if (!offerValidator.isValid(tags, price, latitude, longitude, images)) {
       return {
         success: false,
-        message: 'You uploaded too many images.'
-      }
-    }
-
-    // validate tags
-    var tags = this.newTagsFromRequest(req);
-    var tagsValidator = this.newTagsValidator(
-      res,
-      sails.config.webapp.validations.offer.tags.minCount,
-      sails.config.webapp.validations.offer.tags.maxCount
-    );
-
-    if (!tagsValidator.isValid(tags)) {
-      return {
-        success: false,
-        message: tagsValidator.getErrorMessages()
-      };
-    }
-
-    // validate price
-    var price = this.newSimplePriceFromRequest(req);
-    var priceValidator = this.newSimplePriceValidator(
-      res,
-      sails.config.webapp.validations.offer.price.minimum,
-      sails.config.webapp.validations.offer.price.maximumx
-    );
-
-    if (!priceValidator.isValid(price)) {
-      return {
-        success: false,
-        message: priceValidator.getErrorMessages()
-      };
-    }
-
-    // validate location
-    var location = this.newLocationFromRequest(req);
-    var locationValidator = this.newLocationValidator(res);
-    if (!locationValidator.isValid(location)) {
-      return {
-        success: false,
-        message: locationValidator.getErrorMessages()
+        validationErrors: offerValidator.getErrorMessages(),
+        params: {
+          tags: tags,
+          price: price,
+          lat: latitude,
+          lng: longitude,
+          images: images
+        }
       };
     }
 
     return {
       success: true,
-      message: '',
-      tags: tags,
-      price: price,
-      location: location,
-      images: this.newImageListFromRequest(req)
+      params: {
+        tags: tags,
+        price: price,
+        lat: latitude,
+        lng: longitude,
+        images: images
+      }
     };
   },
 
-  validateAndCreateNewDemandFromRequest: function(req, res, onErrorCallback) {
+  processOfferModelFromRequest: function(offerModel, user, params) {
+    return offerModel
+            .setTags(this.newTagListFromParam(params.tags))
+            .setPrice(this.newSimplePriceFromParam(params.price))
+            .setLocation(this.newLocationFromParam(params.lat, params.lng))
+            .setImageList(this.newImageListFromParam(params.images))
+            .setUser(user);
+  },
+
+  validateAndCreateNewDemandFromRequest: function (req, res, onErrorCallback) {
     var demandModel = new Demand();
 
     demandModel = this.validateAndSetDemandFromRequest(req, res, demandModel, LoginService.getCurrentUser(req), onErrorCallback);
@@ -385,7 +434,7 @@ module.exports = {
     return demandModel;
   },
 
-  validateAndSetDemandFromRequest: function(req, res, demandModel, user, onErrorCallback) {
+  validateAndSetDemandFromRequest: function (req, res, demandModel, user, onErrorCallback) {
     var validationResult = this.validateDemandFromRequest(req, res);
 
     if (!validationResult.success) {
@@ -402,7 +451,7 @@ module.exports = {
     }
   },
 
-  validateDemandFromRequest: function(req, res) {
+  validateDemandFromRequest: function (req, res) {
     // validate must tags
     var mustTags = this.newMustTagsFromRequest(req);
     var mustTagsValidator = this.newTagsValidator(
@@ -476,7 +525,7 @@ module.exports = {
     };
   },
 
-  validateAndCreateNewMessageFromRequest: function(req, onErrorCallback) {
+  validateAndCreateNewMessageFromRequest: function (req, onErrorCallback) {
     var messageModel = new Message();
 
     this.validateAndSetMessageFromRequest(req, messageModel, LoginService.getCurrentUser(req), onErrorCallback);
@@ -484,7 +533,7 @@ module.exports = {
     return messageModel;
   },
 
-  validateAndSetMessageFromRequest: function(req, messageModel, sender, onErrorCallback) {
+  validateAndSetMessageFromRequest: function (req, messageModel, sender, onErrorCallback) {
     var validationResult = this.validateMessageFromRequest(req);
 
     if (!validationResult.success) {
@@ -496,7 +545,7 @@ module.exports = {
     }
   },
 
-  validateMessageFromRequest: function(req) {
+  validateMessageFromRequest: function (req) {
     // TODO implement
     return {
       success: true,
@@ -504,7 +553,7 @@ module.exports = {
     };
   },
 
-  setPaginationParameter: function(req, queryModel) {
+  setPaginationParameter: function (req, queryModel) {
     // pagination
     var limit = parseInt(req.param("limit", PaginatorService.getDefaultLimit()));
     var pageNumber = parseInt(req.param("page", PaginatorService.getFirstPageNumber()));
@@ -515,13 +564,13 @@ module.exports = {
       .setOffset(offset);
   },
 
-  setLocationParameterIfGiven: function(req, queryModel) {
+  setLocationParameterIfGiven: function (req, queryModel) {
     var location = this.buildUsersCurrentLocationObject(req);
 
     if (undefined !== location) {
-       queryModel
-         .setLatitude(location.getLatitude())
-         .setLongitude(location.getLongitude());
+      queryModel
+        .setLatitude(location.getLatitude())
+        .setLongitude(location.getLongitude());
     }
   },
 
@@ -533,7 +582,7 @@ module.exports = {
    *
    * @param req
    */
-  newDemandQueryFromRequest: function(req) {
+  newDemandQueryFromRequest: function (req) {
     var queryModel = new DemandQuery();
 
     this.setPaginationParameter(req, queryModel);
@@ -549,7 +598,7 @@ module.exports = {
    *
    * @param req
    */
-  newOfferQueryFromRequest: function(req) {
+  newOfferQueryFromRequest: function (req) {
     var queryModel = new OfferQuery();
 
     this.setPaginationParameter(req, queryModel);
@@ -558,12 +607,12 @@ module.exports = {
     return queryModel;
   },
 
-  buildUsersCurrentLocationObject: function(req) {
+  buildUsersCurrentLocationObject: function (req) {
     var requestLocation = this.newLocationFromRequest(req);
 
     if (undefined === requestLocation) {
       // no parameter given, so do not build any location object
-       return undefined;
+      return undefined;
     }
 
     if (null === requestLocation) {
@@ -580,39 +629,39 @@ module.exports = {
     return requestLocation;
   },
 
-  newDemand: function() {
+  newDemand: function () {
     return new Demand();
   },
 
-  newOffer: function() {
+  newOffer: function () {
     return new Offer();
   },
 
-  newUser: function() {
+  newUser: function () {
     return new User();
   },
 
-  newConversationList: function() {
+  newConversationList: function () {
     return new ConversationList();
   },
 
-  newConversationQueryForReadConversations: function() {
+  newConversationQueryForReadConversations: function () {
     return new ConversationQuery().setReadFlag(true);
   },
 
-  newConversationQueryForUnreadConversations: function() {
+  newConversationQueryForUnreadConversations: function () {
     return new ConversationQuery().setReadFlag(false);
   },
 
-  newMessage: function() {
+  newMessage: function () {
     return new Message();
   },
 
-  newOfferList: function() {
+  newOfferList: function () {
     return new OfferList();
   },
 
-  validateAndCreateNewOfferIdFromRequest: function(req, res, onErrorCallback) {
+  validateAndCreateNewOfferIdFromRequest: function (req, res, onErrorCallback) {
     var validationResult = ApiClientService.validateOfferIdFromRequest(req, res);
 
     if (!validationResult.success) {
@@ -623,13 +672,13 @@ module.exports = {
     }
   },
 
-  validateOfferIdFromRequest: function(req, res) {
+  validateOfferIdFromRequest: function (req, res) {
     var offerId = req.param('offerId');
 
     var idValidator = this.newIdValidator(res);
 
     if (undefined === offerId
-     || !idValidator.isValid(offerId)) {
+      || !idValidator.isValid(offerId)) {
 
       return {
         success: false,
@@ -645,7 +694,7 @@ module.exports = {
     };
   },
 
-  validateAndCreateNewDemandIdFromRequest: function(req, res, onErrorCallback) {
+  validateAndCreateNewDemandIdFromRequest: function (req, res, onErrorCallback) {
     var validationResult = ApiClientService.validateDemandIdFromRequest(req, res);
 
     if (!validationResult.success) {
@@ -656,13 +705,13 @@ module.exports = {
     }
   },
 
-  validateDemandIdFromRequest: function(req, res) {
+  validateDemandIdFromRequest: function (req, res) {
     var demandId = req.param('demandId');
 
     var idValidator = this.newIdValidator(res);
 
     if (undefined === demandId
-     || !idValidator.isValid(demandId)) {
+      || !idValidator.isValid(demandId)) {
 
       return {
         success: false,
@@ -678,7 +727,7 @@ module.exports = {
     };
   },
 
-  validateAndCreateNewFavoriteFromRequest: function(req, onErrorCallback) {
+  validateAndCreateNewFavoriteFromRequest: function (req, onErrorCallback) {
     var validationResult = ApiClientService.validateFavoriteFromRequest(req);
 
     if (!validationResult.success) {
@@ -690,7 +739,7 @@ module.exports = {
     }
   },
 
-  validateFavoriteFromRequest: function(req) {
+  validateFavoriteFromRequest: function (req) {
     var offerId = req.param('offerId');
 
     if (-1 !== offerId.indexOf("image")) {
@@ -708,27 +757,32 @@ module.exports = {
     };
   },
 
-  newIdValidator: function(res) {
-    return new IdValidator(res.i18n);
+  newIdValidator: function (translator) {
+    return new IdValidator(translator);
   },
 
-  newTagsValidator: function(res, minTagCount, maxTagCount) {
-    return new TagsValidator(res.i18n, minTagCount, maxTagCount);
+  newTagsValidator: function (translator, minTagCount, maxTagCount) {
+    return new TagsValidator(translator, minTagCount, maxTagCount);
   },
 
-  newDemandPriceValidator: function(res, minAllowedPrice, maxAllowedPrice) {
-    return new DemandPriceValidator(res.i18n, minAllowedPrice, maxAllowedPrice);
+  newDemandPriceValidator: function (translator, minAllowedPrice, maxAllowedPrice) {
+    return new DemandPriceValidator(translator, minAllowedPrice, maxAllowedPrice);
   },
 
-  newSimplePriceValidator: function(res, minAllowedPrice, maxAllowedPrice) {
-    return new SimplePriceValidator(res.i18n, minAllowedPrice, maxAllowedPrice);
+  newSimplePriceValidator: function (translator, minAllowedPrice, maxAllowedPrice) {
+    return new SimplePriceValidator(translator, minAllowedPrice, maxAllowedPrice);
   },
 
-  newLocationValidator: function(res) {
-    return new LocationValidator(res.i18n);
+  newLocationValidator: function (translator) {
+    return new LocationValidator(translator);
   },
 
-  newDistanceValidator: function(res) {
-    return new DistanceValidator(res.i18n);
+  newDistanceValidator: function (translator) {
+    return new DistanceValidator(translator);
+  },
+
+  newOfferValidator: function (translator) {
+    return new OfferValidator(translator, sails.config.webapp.validations.offer);
   }
+
 };

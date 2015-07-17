@@ -5,29 +5,19 @@ function Location(translator) {
   this.translator = translator;
 }
 
-Location.prototype.validateType = function(givenLocation) {
-  if (!_.isObject(givenLocation)) {
-    this.errorMessages.push(this.translator('Invalid value for location.'));
-
+Location.prototype.validateType = function(givenCoordinate) {
+  if (!_.isNumber(givenCoordinate) || _.isNaN(givenCoordinate)) {
+    this.errorMessages.push(this.translator('Invalid value for coordinate.'));
     return false;
   }
-
-  if (!_.isNumber(givenLocation.getLatitude()) || _.isNaN(givenLocation.getLatitude())) {
-    this.errorMessages.push(this.translator('Invalid value for demand minimum price.'));
-    return false;
-  }
-
-  if (!_.isNumber(givenLocation.getLongitude()) || _.isNaN(givenLocation.getLongitude())) {
-    this.errorMessages.push(this.translator('Invalid value for demand maximum price.'));
-    return false;
-  }
-
   return true;
 };
 
-Location.prototype.isValid = function(givenLocation)
+Location.prototype.isValid = function(givenCoordinate)
 {
-  if (!this.validateType(givenLocation)) {
+  var convertedCoordinate = parseFloat(givenCoordinate);
+
+  if (!this.validateType(convertedCoordinate)) {
     return false;
   }
 

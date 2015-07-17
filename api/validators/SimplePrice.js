@@ -32,11 +32,13 @@ SimplePrice.prototype.validateMinAndMax = function(givenSimplePrice) {
 
 SimplePrice.prototype.isValid = function(givenSimplePrice)
 {
-  if (!this.validateType(givenSimplePrice)) {
+  var convertedPrice = parseFloat(givenSimplePrice);
+
+  if (!this.validateType(convertedPrice)) {
     return false;
   }
 
-  if (!this.validateMinAndMax(givenSimplePrice)) {
+  if (!this.validateMinAndMax(convertedPrice)) {
     return false;
   }
 

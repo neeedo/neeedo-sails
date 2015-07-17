@@ -48,14 +48,18 @@ module.exports = {
    * @param onSuccessCallback will be called by the registered user instance delivered from neeedo API
    * @param onErrorCallBack will be called with an HTTP response object on error
    */
-  createOffer: function(req, res, onSuccessCallback, onErrorCallBack) {
+  createOffer: function(req, res, onSuccessCallback, onErrorCallback) {
     try {
-      var offerModel = ApiClientService.validateAndCreateNewOfferFromRequest(req, res);
-      var offerService = new ClientOfferService();
+      var offerModel = ApiClientService.validateAndCreateNewOfferFromRequest(req, res, onErrorCallback);
 
-      offerService.createOffer(offerModel, onSuccessCallback, onErrorCallBack);
-    } catch (e) {
-      onErrorCallBack(ApiClientService.newError("createOffer:" + e.message, 'Your inputs were not valid.'));
+      if (undefined !== offerModel) {
+        var offerService = new ClientOfferService();
+
+        offerService.createOffer(offerModel, onSuccessCallback, onErrorCallback);
+      }
+    }
+    catch (e) {
+      onErrorCallback(ApiClientService.newError("createOffer:" + e.message, 'Your inputs were not valid.'));
     }
   },
 
@@ -68,7 +72,8 @@ module.exports = {
           lat: offerModel.getLocation().getLatitude(),
           lng: offerModel.getLocation().getLongitude(),
           images: FileService.getLeastUploadedFilesAndCurrentOnes(req, offerModel.getImageList()),
-          btnLabel: 'Edit'
+          btnLabel: 'Edit',
+          validationMessages: []
         }
       });
     };
@@ -96,10 +101,12 @@ module.exports = {
 
   updateOffer: function(offerModel, req, res, onSuccessCallback, onErrorCallBack) {
     try {
-      ApiClientService.validateAndSetOfferFromRequest(req, res, offerModel, offerModel.getUser(), onErrorCallBack);
+      var offerModel = ApiClientService.validateAndSetOfferFromRequest(req, res, offerModel, offerModel.getUser(), onErrorCallBack);
 
-      var offerService = new ClientOfferService();
-      offerService.updateOffer(offerModel, onSuccessCallback, onErrorCallBack);
+      if (undefined !== offerModel) {
+        var offerService = new ClientOfferService();
+        offerService.updateOffer(offerModel, onSuccessCallback, onErrorCallBack);
+      }
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("updateOffer:" + e.message, 'Your inputs were not valid.'));
     }
@@ -331,6 +338,24 @@ module.exports = {
 
     res.json({
       message : errorModel.getErrorMessages()[0]
+    });
+  },
+
+  displayValidationMessages: function(req, res, errorModel) {
+    var viewParameters = {
+      validationMessages: errorModel.getValidationMessages(),
+      btnLabel: 'Create'
+    };
+
+    for (var paramKey in errorModel.getOriginalParameters()) {
+      var paramValue = errorModel.getOriginalParameters()[paramKey];
+
+      viewParameters[paramKey] = paramValue;
+    };
+
+
+    res.view('offer/create', {
+      locals: viewParameters
     });
   }
 

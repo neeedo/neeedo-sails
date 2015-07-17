@@ -39,16 +39,13 @@ Tags.prototype.validateEachTag = function(tags)
 
 Tags.prototype.isValid = function(givenTags)
 {
-  if (!_.isArray(givenTags)) {
-    this.errorMessages.push(this.translator('Invalid value for tags.'));
+  var convertedTags = ApiClientService.toTagArray(givenTags);
+
+  if (!this.validateNumberOfTags(convertedTags)) {
     return false;
   }
 
-  if (!this.validateNumberOfTags(givenTags)) {
-    return false;
-  }
-
-  if (!this.validateEachTag(givenTags)) {
+  if (!this.validateEachTag(convertedTags)) {
     return false;
   }
 

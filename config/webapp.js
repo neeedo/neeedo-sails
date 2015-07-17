@@ -95,6 +95,10 @@ module.exports.webapp = {
       price: {
         minimum: 0,
         maximum: 500
+      },
+      images: {
+        minCount: 0,
+        maxCount: 5
       }
     },
     demand: {

@@ -64,7 +64,8 @@ module.exports = {
           lat: "",
           lng: "",
           images: FileService.getLeastUploadedFiles(req),
-          btnLabel: 'Create'
+          btnLabel: 'Create',
+          validationMessages: []
         }
       });
     };
@@ -83,7 +84,11 @@ module.exports = {
       ApiClientService.logMessages(errorModel);
       ApiClientService.addFlashMessages(req, res, errorModel);
 
-      res.redirect(OfferService.getOverviewUrl());
+      if (errorModel.getValidationMessages().length > 0) {
+        OfferService.displayValidationMessages(req, res, errorModel);
+      } else {
+        res.redirect(OfferService.getOverviewUrl());
+      }
     };
 
     /*
