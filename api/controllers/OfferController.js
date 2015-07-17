@@ -90,7 +90,7 @@ module.exports = {
      * ---------- functionality ----------
      */
     if ("POST" == req.method) {
-      OfferService.createOffer(req, onSuccessCallback, onErrorCallback);
+      OfferService.createOffer(req, res, onSuccessCallback, onErrorCallback);
     } else {
       showFormWithDefaultValues();
     }

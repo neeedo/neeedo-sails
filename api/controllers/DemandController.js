@@ -73,7 +73,7 @@ module.exports = {
      * ---------- functionality ----------
      */
     if ("POST" == req.method) {
-      DemandService.createDemand(req, onSuccessCallback, onErrorCallback);
+      DemandService.createDemand(req, res, onSuccessCallback, onErrorCallback);
     } else {
       showFormWithDefaultValues();
     }

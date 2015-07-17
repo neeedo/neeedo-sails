@@ -48,9 +48,9 @@ module.exports = {
    * @param onSuccessCallback will be called by the registered user instance delivered from neeedo API
    * @param onErrorCallBack will be called with an HTTP response object on error
    */
-  createOffer: function(req, onSuccessCallback, onErrorCallBack) {
+  createOffer: function(req, res, onSuccessCallback, onErrorCallBack) {
     try {
-      var offerModel = ApiClientService.validateAndCreateNewOfferFromRequest(req);
+      var offerModel = ApiClientService.validateAndCreateNewOfferFromRequest(req, res);
       var offerService = new ClientOfferService();
 
       offerService.createOffer(offerModel, onSuccessCallback, onErrorCallBack);
@@ -79,7 +79,7 @@ module.exports = {
       }
 
       if ("POST" == req.method) {
-        OfferService.updateOffer(loadedOffer, req, onUpdateSuccessCallback, onErrorCallback);
+        OfferService.updateOffer(loadedOffer, req, res, onUpdateSuccessCallback, onErrorCallback);
       } else {
         if (undefined == loadedOffer) {
           FlashMessagesService.setErrorMessage('The offer could not be loaded.', req, res);
@@ -94,9 +94,9 @@ module.exports = {
     this.loadOffer(req, res, onLoadSuccessCallback, onErrorCallback);
   },
 
-  updateOffer: function(offerModel, req, onSuccessCallback, onErrorCallBack) {
+  updateOffer: function(offerModel, req, res, onSuccessCallback, onErrorCallBack) {
     try {
-      ApiClientService.validateAndSetOfferFromRequest(req, offerModel, offerModel.getUser(), onErrorCallBack);
+      ApiClientService.validateAndSetOfferFromRequest(req, res, offerModel, offerModel.getUser(), onErrorCallBack);
 
       var offerService = new ClientOfferService();
       offerService.updateOffer(offerModel, onSuccessCallback, onErrorCallBack);

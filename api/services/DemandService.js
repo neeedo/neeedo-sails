@@ -54,12 +54,14 @@ module.exports = {
    * @param onSuccessCallback
    * @param onErrorCallBack
    */
-  createDemand: function (req, onSuccessCallback, onErrorCallBack) {
+  createDemand: function (req, res, onSuccessCallback, onErrorCallBack) {
     try {
-      var demandModel = ApiClientService.validateAndCreateNewDemandFromRequest(req, onErrorCallBack);
+      var demandModel = ApiClientService.validateAndCreateNewDemandFromRequest(req, res, onErrorCallBack);
 
-      var demandService = this.newClientDemandService();
-      demandService.createDemand(demandModel, onSuccessCallback, onErrorCallBack);
+      if (undefined !== demandModel) {
+        var demandService = this.newClientDemandService();
+        demandService.createDemand(demandModel, onSuccessCallback, onErrorCallBack);
+      }
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("createDemand:" + e.message, 'Your inputs were not valid.'));
     }
@@ -95,7 +97,7 @@ module.exports = {
       }
 
       if ("POST" == req.method) {
-        DemandService.updateDemand(loadedDemand, req, onUpdateSuccessCallback, onErrorCallback);
+        DemandService.updateDemand(loadedDemand, req, res, onUpdateSuccessCallback, onErrorCallback);
       } else {
         if (undefined == loadedDemand) {
           FlashMessagesService.setErrorMessage('The demand could not be loaded.', req, res);
@@ -110,12 +112,14 @@ module.exports = {
     this.loadDemand(req, res, onLoadSuccessCallback, onErrorCallback);
   },
 
-  updateDemand: function (demandModel, req, onSuccessCallback, onErrorCallBack) {
+  updateDemand: function (demandModel, req, res, onSuccessCallback, onErrorCallBack) {
     try {
-      ApiClientService.validateAndSetDemandFromRequest(req, demandModel, demandModel.getUser(), onErrorCallBack);
+      demandModel = ApiClientService.validateAndSetDemandFromRequest(req, res, demandModel, demandModel.getUser(), onErrorCallBack);
 
-      var demandService = this.newClientDemandService();
-      demandService.updateDemand(demandModel, onSuccessCallback, onErrorCallBack);
+      if (undefined !== demandModel) {
+        var demandService = this.newClientDemandService();
+        demandService.updateDemand(demandModel, onSuccessCallback, onErrorCallBack);
+      }
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("updateDemand:" + e.message, 'Your inputs were not valid.'));
     }

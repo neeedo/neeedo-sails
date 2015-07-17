@@ -84,5 +84,33 @@ module.exports.webapp = {
   mailbox: {
     // max number of characters shown in the mailbox action message prewiew
     previewMaxCharacters: 60
+  },
+  validations: {
+    offer: {
+      tags: {
+        minCount: 1,
+        maxCount: 20
+      },
+      // prices in €
+      price: {
+        minimum: 0,
+        maximum: 500
+      }
+    },
+    demand: {
+      mustTags: {
+        minCount: 1,
+        maxCount: 20
+      },
+      shouldTags: {
+        minCount: 1,
+        maxCount: 20
+      },
+      // prices in €
+      price: {
+        minimum: 0,
+        maximum: 500
+      }
+    }
   }
 };

@@ -1,6 +1,10 @@
 var apiClient = require('neeedo-api-nodejs-client')
     util = require('util'),
     IdValidator = require('../validators/Id'),
+    TagsValidator = require('../validators/Tags'),
+    DemandPriceValidator = require('../validators/DemandPrice'),
+    LocationValidator = require('../validators/Location'),
+    DistanceValidator = require('../validators/Distance'),
     ImageValidator = require('../validators/Image');
 
 var Location = apiClient.models.Location,
@@ -285,8 +289,8 @@ module.exports = {
     return offerModel;
   },
 
-  validateAndSetOfferFromRequest: function(req, offerModel, user, onErrorCallback) {
-    var validationResult = this.validateOfferFromRequest(req);
+  validateAndSetOfferFromRequest: function(req, res, offerModel, user, onErrorCallback) {
+    var validationResult = this.validateOfferFromRequest(req, res);
 
     if (!validationResult.success) {
       onErrorCallback(ApiClientService.newError("validateAndSetOfferFromRequest: ", validationResult.message));
@@ -308,7 +312,7 @@ module.exports = {
            && this.getImagesFromRequest(req).length <= sails.config.webapp.images.maxCountPerObject);
   },
 
-  validateOfferFromRequest: function(req) {
+  validateOfferFromRequest: function(req, res) {
     if (!this.validateImages(req)) {
       return {
         success: false,
@@ -317,7 +321,12 @@ module.exports = {
     }
 
     var tags = this.newTagsFromRequest(req);
-    var tagsValidator = this.newTagsValidator(res);
+    var tagsValidator = this.newTagsValidator(
+      res,
+      sails.config.webapp.validations.offer.tags.minCount,
+      sails.config.webapp.validations.offer.tags.maxCount
+    );
+
     if (!tagsValidator.isValid(tags)) {
       return {
         success: false,
@@ -353,19 +362,20 @@ module.exports = {
     };
   },
 
-  validateAndCreateNewDemandFromRequest: function(req, onErrorCallback) {
+  validateAndCreateNewDemandFromRequest: function(req, res, onErrorCallback) {
     var demandModel = new Demand();
 
-    this.validateAndSetDemandFromRequest(req, demandModel, LoginService.getCurrentUser(req), onErrorCallback);
+    demandModel = this.validateAndSetDemandFromRequest(req, res, demandModel, LoginService.getCurrentUser(req), onErrorCallback);
 
     return demandModel;
   },
 
-  validateAndSetDemandFromRequest: function(req, demandModel, user, onErrorCallback) {
-    var validationResult = this.validateDemandFromRequest(req);
+  validateAndSetDemandFromRequest: function(req, res, demandModel, user, onErrorCallback) {
+    var validationResult = this.validateDemandFromRequest(req, res);
 
     if (!validationResult.success) {
       onErrorCallback(ApiClientService.newError("validateAndSetDemandFromRequest: ", validationResult.message));
+      return undefined;
     } else {
       demandModel.setMustTags(validationResult.mustTags)
         .setShouldTags(validationResult.shouldTags)
@@ -373,12 +383,18 @@ module.exports = {
         .setUser(user)
         .setLocation(validationResult.location)
         .setDistance(validationResult.distance);
+      return demandModel;
     }
   },
 
-  validateDemandFromRequest: function(req) {
+  validateDemandFromRequest: function(req, res) {
+    // validate must tags
     var mustTags = this.newMustTagsFromRequest(req);
-    var mustTagsValidator = this.newTagsValidator(res);
+    var mustTagsValidator = this.newTagsValidator(
+      res,
+      sails.config.webapp.validations.demand.mustTags.minCount,
+      sails.config.webapp.validations.demand.mustTags.maxCount
+    );
     if (!mustTagsValidator.isValid(mustTags)) {
       return {
         success: false,
@@ -386,8 +402,13 @@ module.exports = {
       };
     }
 
+    // validate should tags
     var shouldTags = this.newShouldTagsFromRequest(req);
-    var shouldTagsValidator = this.newTagsValidator(res);
+    var shouldTagsValidator = this.newTagsValidator(
+      res,
+      sails.config.webapp.validations.demand.shouldTags.minCount,
+      sails.config.webapp.validations.demand.shouldTags.maxCount
+    );
     if (!shouldTagsValidator.isValid(shouldTags)) {
       return {
         success: false,
@@ -395,8 +416,13 @@ module.exports = {
       };
     }
 
+    // validate demand price
     var price = this.newDemandPriceFromRequest(req);
-    var demandPriceValidator = this.newDemandPriceValidator(res);
+    var demandPriceValidator = this.newDemandPriceValidator(
+      res,
+      sails.config.webapp.validations.demand.price.minimum,
+      sails.config.webapp.validations.demand.price.maximum
+    );
     if (!demandPriceValidator.isValid(price)) {
       return {
         success: false,
@@ -404,6 +430,7 @@ module.exports = {
       };
     }
 
+    // validate location
     var location = this.newLocationFromRequest(req);
     var locationValidator = this.newLocationValidator(res);
     if (!locationValidator.isValid(location)) {
@@ -413,6 +440,7 @@ module.exports = {
       };
     }
 
+    // validate distance
     var distance = this.newDistanceFromRequest(req);
     var distanceValidator = this.newDistanceValidator(res);
     if (!distanceValidator.isValid(distance)) {
@@ -668,5 +696,21 @@ module.exports = {
 
   newIdValidator: function(res) {
     return new IdValidator(res.i18n);
+  },
+
+  newTagsValidator: function(res, minTagCount, maxTagCount) {
+    return new TagsValidator(res.i18n, minTagCount, maxTagCount);
+  },
+
+  newDemandPriceValidator: function(res, minAllowedPrice, maxAllowedPrice) {
+    return new DemandPriceValidator(res.i18n, minAllowedPrice, maxAllowedPrice);
+  },
+
+  newLocationValidator: function(res) {
+    return new LocationValidator(res.i18n);
+  },
+
+  newDistanceValidator: function(res) {
+    return new DistanceValidator(res.i18n);
   }
 };
