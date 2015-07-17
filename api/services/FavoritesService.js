@@ -31,7 +31,7 @@ module.exports = {
     }
   },
 
-  loadUsersFavoriteOffers: function (req, onSuccessCallback, onErrorCallBack) {
+  loadUsersFavoriteOffers: function (req, res, onSuccessCallback, onErrorCallBack) {
     try {
       var _this = this;
       if (!this.favoritesWereAlreadyLoadedInSession(req)) {
@@ -45,7 +45,7 @@ module.exports = {
 
         favoritesListService.loadFavoritesOfUser(
          LoginService.getCurrentUser(req),
-         ApiClientService.newOfferQueryFromRequest(req),
+         ApiClientService.newOfferQueryFromRequest(req, res),
          onFavoritesLoadedCallback,
          onErrorCallBack);
       } else {

@@ -302,11 +302,10 @@ module.exports = {
   },
 
   newValidationError: function (validationErrors, givenParams) {
-    var error = new Error()
+    return new Error()
       .setValidationMessages(validationErrors)
       .setOriginalParameters(givenParams)
       ;
-    return error;
   },
 
   validateAndCreateNewRegisterFromRequest: function (req, onErrorCallback) {
@@ -404,6 +403,12 @@ module.exports = {
     }
   },
 
+  /**
+   * Validate given offer parameters from request.
+   * @param req
+   * @param res
+   * @returns {*}
+   */
   validateOfferFromRequest: function (req, res) {
     var offerValidator = ValidationService.newOfferValidator(res.i18n);
 
@@ -439,6 +444,14 @@ module.exports = {
     };
   },
 
+  /**
+   * Fill the offer model by the given params.
+   *
+   * @param offerModel
+   * @param user
+   * @param params
+   * @returns {*}
+   */
   processOfferModelFromRequest: function(offerModel, user, params) {
     return offerModel
             .setTags(this.newTagListFromParam(params.tags))
@@ -447,6 +460,7 @@ module.exports = {
             .setImageList(this.newImageListFromParam(params.images))
             .setUser(user);
   },
+
 
   validateAndCreateNewDemandFromRequest: function (req, res, onErrorCallback) {
     var demandModel = new Demand();
@@ -479,7 +493,12 @@ module.exports = {
     }
   },
 
-
+  /**
+   * Validate demand request data.
+   * @param req
+   * @param res
+   * @returns {*}
+   */
   validateDemandFromRequest: function (req, res) {
     var demandValidator = ValidationService.newDemandValidator(res.i18n);
 
@@ -521,6 +540,13 @@ module.exports = {
     };
   },
 
+  /**
+   * Fill the demand model by the given params.
+   * @param demandModel
+   * @param user
+   * @param params
+   * @returns {*}
+   */
   processDemandModelFromRequest: function(demandModel, user, params) {
     return demandModel
       .setMustTags(this.newTagListFromParam(params.mustTags))

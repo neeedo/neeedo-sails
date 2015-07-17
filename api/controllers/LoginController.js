@@ -22,7 +22,7 @@ module.exports = {
      * ---------- functionality ----------
      */
     if ("POST" == req.method) {
-      LoginService.loginUser(req, onSuccessCallback, onErrorCallback);
+      LoginService.loginUser(req, res, onSuccessCallback, onErrorCallback);
     } else {
       res.view('registration/register');
     }

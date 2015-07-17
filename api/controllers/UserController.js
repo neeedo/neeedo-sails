@@ -14,7 +14,7 @@ module.exports = {
       DemandService.sendErrorJsonResponse(res, errorModel);
     };
 
-    DemandService.loadUsersDemands(req, onSuccessCallback, onErrorCallback);
+    DemandService.loadUsersDemands(req, res, onSuccessCallback, onErrorCallback);
   },
 
   /**
@@ -30,7 +30,7 @@ module.exports = {
       OfferService.sendErrorJsonResponse(res, errorModel);
     };
 
-    OfferService.loadUsersOffers(req, onSuccessCallback, onErrorCallback);
+    OfferService.loadUsersOffers(req, res, onSuccessCallback, onErrorCallback);
   },
 
   /**
@@ -90,7 +90,7 @@ module.exports = {
       /*
        * ---------- functionality ----------
        */
-      DemandService.loadUsersDemands(req, onLoadCompleteCallback, onDemandLoadErrorCallback);
+      DemandService.loadUsersDemands(req, res, onLoadCompleteCallback, onDemandLoadErrorCallback);
     };
 
 
@@ -113,7 +113,7 @@ module.exports = {
     /*
      * ---------- functionality ----------
      */
-    OfferService.loadUsersOffers(req, onLoadOffersSuccessCallback, onErrorCallback);
+    OfferService.loadUsersOffers(req, res, onLoadOffersSuccessCallback, onErrorCallback);
   },
 
   setLocale: function(req, res) {

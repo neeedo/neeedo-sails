@@ -32,11 +32,13 @@ Distance.prototype.validateMinAndMax = function(givenDistance) {
 
 Distance.prototype.isValid = function(givenDistance)
 {
-  if (!this.validateType(givenDistance)) {
+  var convertedDistance = parseInt(givenDistance);
+
+  if (!this.validateType(convertedDistance)) {
     return false;
   }
 
-  if (!this.validateMinAndMax(givenDistance)) {
+  if (!this.validateMinAndMax(convertedDistance)) {
     return false;
   }
 

@@ -106,11 +106,6 @@ module.exports = {
      * ---------- callbacks ----------
      */
     var onUpdateSuccessCallback = function(updatedOffer) {
-      sails.log.info("Offer " + util.inspect(updatedOffer, {
-        showHidden: false,
-        depth: null
-      }) + " was updated successfully.");
-
       FlashMessagesService.setSuccessMessage('Your offer was updated successfully.', req, res);
       OfferService.storeInSession(req, updatedOffer);
 
@@ -133,11 +128,6 @@ module.exports = {
      * ---------- callbacks ----------
      */
     var onDeleteSuccessCallback = function(deletedOffer) {
-      sails.log.info("Offer " + util.inspect(deletedOffer, {
-        showHidden: false,
-        depth: null
-      }) + " was deleted successfully.");
-
       FlashMessagesService.setSuccessMessage('Your offer was deleted successfully.', req, res);
       OfferService.removeFromSession(req, deletedOffer);
 

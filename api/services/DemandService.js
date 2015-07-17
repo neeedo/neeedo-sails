@@ -18,10 +18,10 @@ module.exports = {
    * @param onSuccessCallback
    * @param onErrorCallback
    */
-  loadUsersDemands: function (req, onSuccessCallback, onErrorCallback) {
+  loadUsersDemands: function (req, res, onSuccessCallback, onErrorCallback) {
     try {
       var demandListService = this.newDemandListService();
-      var demandQuery = ApiClientService.newDemandQueryFromRequest(req);
+      var demandQuery = ApiClientService.newDemandQueryFromRequest(req, res);
 
       demandListService.loadByUser(LoginService.getCurrentUser(req), demandQuery, onSuccessCallback, onErrorCallback);
     } catch (e) {
@@ -86,7 +86,8 @@ module.exports = {
           lat: loadedDemand.getLocation().getLatitude(),
           lng: loadedDemand.getLocation().getLongitude(),
           distance: loadedDemand.getDistance(),
-          btnLabel: 'Edit and find matching offers'
+          btnLabel: 'Edit and find matching offers',
+          validationMessages: []
         }
       });
     };
@@ -152,15 +153,15 @@ module.exports = {
         return res.redirect(DemandService.getOverviewUrl());
       }
 
-      DemandService.matchOffers(loadedDemand, req, onMatchCallback, onErrorCallback);
+      DemandService.matchOffers(loadedDemand, req, res, onMatchCallback, onErrorCallback);
     };
 
     this.loadDemand(req, res, onLoadSuccessCallback, onErrorCallback);
   },
 
-  matchOffers: function (demandModel, req, onSuccessCallback, onErrorCallback) {
+  matchOffers: function (demandModel, req, res, onSuccessCallback, onErrorCallback) {
     try {
-      var demandQuery = ApiClientService.newDemandQueryFromRequest(req);
+      var demandQuery = ApiClientService.newDemandQueryFromRequest(req, res);
 
       var matchingService = new MatchingService();
       matchingService.matchDemand(demandModel, demandQuery, onSuccessCallback, onErrorCallback);
@@ -360,7 +361,6 @@ module.exports = {
   },
 
   displayValidationMessages: function(req, res, errorModel) {
-    sails.log.info('in displayValidationMessages...');
     var viewParameters = {
       validationMessages: errorModel.getValidationMessages(),
       btnLabel: 'Create'

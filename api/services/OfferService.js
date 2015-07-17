@@ -13,9 +13,9 @@ module.exports = {
    * @param onSuccessCallback
    * @param onErrorCallback
    */
-  loadUsersOffers: function(req, onSuccessCallback, onErrorCallback) {
+  loadUsersOffers: function(req, res, onSuccessCallback, onErrorCallback) {
     try {
-      var offerQuery = ApiClientService.newOfferQueryFromRequest(req);
+      var offerQuery = ApiClientService.newOfferQueryFromRequest(req, res);
       var offerListService = new OfferListService();
 
       offerListService.loadByUser(LoginService.getCurrentUser(req), offerQuery, onSuccessCallback, onErrorCallback);

@@ -14,7 +14,7 @@ module.exports = {
    * @param onSuccessCallback will be called by the registered user instance delivered from neeedo API
    * @param onErrorCallBack will be called with an error object
    */
-  loginUser: function(req, onSuccessCallback, onErrorCallBack) {
+  loginUser: function(req, res, onSuccessCallback, onErrorCallBack) {
     try {
       var _this = this;
       var onUserLoadedSuccess = function(user) {
@@ -24,6 +24,7 @@ module.exports = {
         // load users favorites
         FavoritesService.loadUsersFavoriteOffers(
           req,
+          res,
           function(favoriteOfferList) {
             onSuccessCallback(user);
           }, function(errorModel) {
