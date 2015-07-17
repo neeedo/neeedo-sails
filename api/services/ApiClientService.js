@@ -292,11 +292,11 @@ module.exports = {
       onErrorCallback(ApiClientService.newError("validateAndSetOfferFromRequest: ", validationResult.message));
     } else {
 
-        offerModel.setTags(this.newTagsFromRequest(req))
-          .setLocation(this.newLocationFromRequest(req))
-          .setPrice(this.newSimplePriceFromRequest(req))
+        offerModel.setTags(validationResult.tags)
+          .setLocation(validationResult.location)
+          .setPrice(validationResult.price)
           .setUser(user)
-          .setImageList(this.newImageListFromRequest(req));
+          .setImageList(validationResult.images);
     }
   },
 
@@ -316,9 +316,40 @@ module.exports = {
       }
     }
 
+    var tags = this.newTagsFromRequest(req);
+    var tagsValidator = this.newTagsValidator(res);
+    if (!tagsValidator.isValid(tags)) {
+      return {
+        success: false,
+        message: tagsValidator.getErrorMessages()
+      };
+    }
+
+    var price = this.newSimplePriceFromRequest(req);
+    var priceValidator = this.newSimplePriceValidator(res);
+    if (!priceValidator.isValid(price)) {
+      return {
+        success: false,
+        message: priceValidator.getErrorMessages()
+      };
+    }
+
+    var location = this.newLocationFromRequest(req);
+    var locationValidator = this.newLocationValidator(res);
+    if (!locationValidator.isValid(location)) {
+      return {
+        success: false,
+        message: locationValidator.getErrorMessages()
+      };
+    }
+
     return {
       success: true,
-      message: ''
+      message: '',
+      tags: tags,
+      price: price,
+      location: location,
+      images: this.newImageListFromRequest(req)
     };
   },
 
@@ -336,20 +367,69 @@ module.exports = {
     if (!validationResult.success) {
       onErrorCallback(ApiClientService.newError("validateAndSetDemandFromRequest: ", validationResult.message));
     } else {
-      demandModel.setMustTags(this.newMustTagsFromRequest(req))
-        .setShouldTags(this.newShouldTagsFromRequest(req))
-        .setPrice(this.newDemandPriceFromRequest(req))
+      demandModel.setMustTags(validationResult.mustTags)
+        .setShouldTags(validationResult.shouldTags)
+        .setPrice(validationResult.price)
         .setUser(user)
-        .setLocation(this.newLocationFromRequest(req))
-        .setDistance(this.newDistanceFromRequest(req));
+        .setLocation(validationResult.location)
+        .setDistance(validationResult.distance);
     }
   },
 
   validateDemandFromRequest: function(req) {
-    // TODO implement
+    var mustTags = this.newMustTagsFromRequest(req);
+    var mustTagsValidator = this.newTagsValidator(res);
+    if (!mustTagsValidator.isValid(mustTags)) {
+      return {
+        success: false,
+        message: mustTagsValidator.getErrorMessages()
+      };
+    }
+
+    var shouldTags = this.newShouldTagsFromRequest(req);
+    var shouldTagsValidator = this.newTagsValidator(res);
+    if (!shouldTagsValidator.isValid(shouldTags)) {
+      return {
+        success: false,
+        message: shouldTagsValidator.getErrorMessages()
+      };
+    }
+
+    var price = this.newDemandPriceFromRequest(req);
+    var demandPriceValidator = this.newDemandPriceValidator(res);
+    if (!demandPriceValidator.isValid(price)) {
+      return {
+        success: false,
+        message: demandPriceValidator.getErrorMessages()
+      };
+    }
+
+    var location = this.newLocationFromRequest(req);
+    var locationValidator = this.newLocationValidator(res);
+    if (!locationValidator.isValid(location)) {
+      return {
+        success: false,
+        message: locationValidator.getErrorMessages()
+      };
+    }
+
+    var distance = this.newDistanceFromRequest(req);
+    var distanceValidator = this.newDistanceValidator(res);
+    if (!distanceValidator.isValid(distance)) {
+      return {
+        success: false,
+        message: distanceValidator.getErrorMessages()
+      };
+    }
+
     return {
       success: true,
-      message: ''
+      message: '',
+      mustTags: mustTags,
+      shouldTags: shouldTags,
+      price: price,
+      location: location,
+      distance: distance
     };
   },
 
