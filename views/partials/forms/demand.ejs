@@ -4,28 +4,48 @@
     <ul>
       <li id="mustTagsContainer">
         <label for="mustTagsDemand"><%= i18n('must have') %></label>
-        <input type="text" class="providesTagCompletion" id="mustTagsDemand" name="mustTags" value="<%- mustTags %>" placeholder="<%= i18n('Bicycle, iPhone') %>" autofocus>
+        <input type="text" class="providesTagCompletion" id="mustTagsDemand" name="mustTags" value="<%- (undefined !== typeof mustTags ? mustTags : "") %>" placeholder="<%= i18n('Bicycle, iPhone') %>" autofocus>
         <small class="inputMissing" id="errorTag"><%= i18n("Please enter at least one tag") %></small>
+
+        <% if ('mustTags' in validationMessages) { %>
+        <span class="inputError"><%= validationMessages.mustTags %></span>
+        <% } %>
+
         <span><%= i18n('What are you looking for?') %></span>
         <div class="suggestedTags"></div>
       </li>
       <li>
         <label for="shouldTagsDemand"><%= i18n('should have') %></label>
-        <input type="text" class="providesTagCompletion" id="shouldTagsDemand" name="shouldTags" value="<%- shouldTags %>" placeholder="<%= i18n('blue, screen protector') %>">
+        <input type="text" class="providesTagCompletion" id="shouldTagsDemand" name="shouldTags" value="<%- (undefined !== typeof shouldTags ? shouldTags : "") %>" placeholder="<%= i18n('blue, screen protector') %>">
+
+        <% if ('shouldTags' in validationMessages) { %>
+        <span class="inputError"><%= validationMessages.shouldTags %></span>
+        <% } %>
+
         <span><%= i18n('Feature list') %></span>
         <div class="suggestedTags"></div>
       </li>
       <li class="priceCol leftCol">
         <label for="minPriceDemand"><%= i18n("Price from") %></label>
-        <input type="number" id="minPriceDemand" step="any" min="0" name="minPrice" />
+        <input type="number" id="minPriceDemand" step="any" min="0" name="minPrice" value="<%- (undefined !== typeof minPrice ? minPrice : "") %>"/>
         <small class="inputMissing" id="errorMinPrice"><%= i18n("Please enter a min price") %></small>
+
+        <% if ('minPrice' in validationMessages) { %>
+        <span class="inputError"><%= validationMessages.minPrice %></span>
+        <% } %>
+
         <span><%= i18n('Minimum price in €') %></span>
       </li>
       <li class="priceCol rightCol">
         <label for="maxPriceDemand"><%= i18n("Price to") %></label>
-        <input type="number" id="maxPriceDemand" step="any" min="0" name="maxPrice" />
+        <input type="number" id="maxPriceDemand" step="any" min="0" name="maxPrice" value="<%- (undefined !== typeof maxPrice ? maxPrice : "") %>" />
         <small class="inputMissing" id="errorMaxPrice"><%= i18n("Please enter a max price") %></small>
         <small class="inputMissing" id="errorMaxMin"><%= i18n("Min price must be smaller than max price") %></small>
+
+        <% if ('maxPrice' in validationMessages) { %>
+        <span class="inputError"><%= validationMessages.maxPrice %></span>
+        <% } %>
+
         <span><%= i18n('Maximum price in €') %></span>
       </li>
       <li class="clear">
@@ -39,19 +59,33 @@
                  data-translationNoAddress="<%= i18n("Please enter an valid address.") %>">
         </div>
         <span><%= i18n("Use current location") %></span>
-        <input type="hidden" name="lat" id="latDemand" value="<%- lat %>"/>
-        <input type="hidden" name="lng" id="lonDemand" value="<%- lng %>"/>
+        <input type="hidden" name="lat" id="latDemand" value="<%- (undefined !== typeof lat ? lat : "") %>"/>
+        <input type="hidden" name="lng" id="lonDemand" value="<%- (undefined !== typeof lng ? lng : "") %>"/>
       </li>
       <li id="addressContainer" class="ui-widget rightCol">
         <label for="address" id="addressLabel"><%= i18n('Address') %></label>
         <input type="text" id="address" class="disabled" name="address">
         <small class="inputMissing" id="errorLoc"><%= i18n('Please enter a location') %></small>
+
+        <% if ('lat' in validationMessages) { %>
+        <span class="inputError"><%= validationMessages.lat %></span>
+        <% } %>
+
+        <% if ('lng' in validationMessages) { %>
+        <span class="inputError"><%= validationMessages.lng %></span>
+        <% } %>
+
         <span><%= i18n("Type in your address") %></span>
       </li>
       <li id="distCol" class="clear">
         <label for="maxDistanceDemand"><%= i18n("Maximum distance") %></label>
-        <input type="number" id="maxDistanceDemand" name="distance" min="0" value="<%- distance %>" placeholder="15"/>
+        <input type="number" id="maxDistanceDemand" name="distance" min="0" value="<%- (undefined !== typeof distance ? distance : "") %>" placeholder="15"/>
         <small class="inputMissing" id="errorDistance">Please enter a distance</small>
+
+        <% if ('distance' in validationMessages) { %>
+        <span class="inputError"><%= validationMessages.distance %></span>
+        <% } %>
+
         <span><%= i18n('Maximum distance in km') %></span>
       </li>
       <li id="submitBtn">

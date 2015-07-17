@@ -112,8 +112,20 @@ module.exports.webapp = {
       },
       // prices in €
       price: {
-        minimum: 0,
-        maximum: 500
+        // mininum and maximum price for minimum demand price
+        min: {
+          minimum: 0,
+          maximum: 500
+        },
+        // minimum and maximum price for maximum demand price
+        max: {
+          minimum: 0,
+          maximum: 500
+        }
+      },
+      distance: {
+        // maximum distance in KM
+        maximum: 50000
       }
     }
   }

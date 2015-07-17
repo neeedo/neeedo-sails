@@ -12,21 +12,21 @@ function Offer(translator, offerValidationOptions) {
 
   this.initializeValidationChain = function() {
     // new tags validator
-    this.tagsValidator = ApiClientService.newTagsValidator(
+    this.tagsValidator = ValidationService.newTagsValidator(
       translator,
       offerValidationOptions.tags.minCount,
       offerValidationOptions.tags.maxCount
     );
 
     // new price validator
-    this.simplePriceValidator = ApiClientService.newSimplePriceValidator(
+    this.simplePriceValidator = ValidationService.newSimplePriceValidator(
       translator,
       offerValidationOptions.price.minimum,
       offerValidationOptions.price.maximum
     );
 
     // new location validator
-    this.locationValidator = ApiClientService.newLocationValidator(translator);
+    this.locationValidator = ValidationService.newLocationValidator(translator);
   };
 
   this.initializeValidationChain();

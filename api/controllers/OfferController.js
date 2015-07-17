@@ -87,7 +87,7 @@ module.exports = {
       if (errorModel.getValidationMessages().length > 0) {
         OfferService.displayValidationMessages(req, res, errorModel);
       } else {
-        res.redirect(OfferService.getOverviewUrl());
+        res.redirect(OfferService.getCreateUrl());
       }
     };
 
@@ -120,6 +120,7 @@ module.exports = {
     var onErrorCallback = function(errorModel) {
       ApiClientService.logMessages(errorModel);
       ApiClientService.addFlashMessages(req, res, errorModel);
+
 
       res.redirect(OfferService.getOverviewUrl());
     };

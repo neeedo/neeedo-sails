@@ -47,7 +47,8 @@ module.exports = {
           lat: "",
           lng: "",
           distance: 10,
-          btnLabel: 'Create and find matching offers'
+          btnLabel: 'Create and find matching offers',
+          validationMessages: []
         }
       });
     };
@@ -66,7 +67,11 @@ module.exports = {
       ApiClientService.logMessages(errorModel);
       ApiClientService.addFlashMessages(req, res, errorModel);
 
-      res.redirect('/demand/create');
+      if (errorModel.getValidationMessages().length > 0) {
+        DemandService.displayValidationMessages(req, res, errorModel);
+      } else {
+        res.redirect(DemandService.getCreateUrl());
+      }
     };
 
     /*

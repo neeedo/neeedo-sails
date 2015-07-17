@@ -357,7 +357,24 @@ module.exports = {
     res.json({
       message: errorModel.getErrorMessages()[0]
     });
+  },
+
+  displayValidationMessages: function(req, res, errorModel) {
+    sails.log.info('in displayValidationMessages...');
+    var viewParameters = {
+      validationMessages: errorModel.getValidationMessages(),
+      btnLabel: 'Create'
+    };
+
+    for (var paramKey in errorModel.getOriginalParameters()) {
+      var paramValue = errorModel.getOriginalParameters()[paramKey];
+
+      viewParameters[paramKey] = paramValue;
+    };
+
+
+    res.view('demand/create', {
+      locals: viewParameters
+    });
   }
-
-
 };

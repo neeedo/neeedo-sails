@@ -1,7 +1,8 @@
 var _ = require('underscore');
 
-function Distance(translator) {
+function Distance(translator, maxDistance) {
   this.errorMessages = [];
+  this.maxDistance = maxDistance;
   this.translator = translator;
 }
 
@@ -15,9 +16,27 @@ Distance.prototype.validateType = function(givenDistance) {
   return true;
 };
 
+Distance.prototype.validateMinAndMax = function(givenDistance) {
+  if (givenDistance < 0 ) {
+    this.errorMessages.push(this.translator("The minimum distance must be %s", 0));
+    return false;
+  }
+
+  if (givenDistance > this.maxDistance) {
+    this.errorMessages.push(this.translator("The maximum allowed distance is %s", this.maxDistance));
+    return false;
+  }
+
+  return true;
+};
+
 Distance.prototype.isValid = function(givenDistance)
 {
   if (!this.validateType(givenDistance)) {
+    return false;
+  }
+
+  if (!this.validateMinAndMax(givenDistance)) {
     return false;
   }
 

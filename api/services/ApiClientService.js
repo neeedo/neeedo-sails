@@ -1,14 +1,6 @@
 var apiClient = require('neeedo-api-nodejs-client')
-util = require('util'),
-  IdValidator = require('../validators/Id'),
-  TagsValidator = require('../validators/Tags'),
-  SimplePriceValidator = require('../validators/SimplePrice'),
-  DemandPriceValidator = require('../validators/DemandPrice'),
-  LocationValidator = require('../validators/Location'),
-  DistanceValidator = require('../validators/Distance'),
-  ImageValidator = require('../validators/Image'),
-  OfferValidator = require('../validators/chains/Offer'),
-  _ = require('underscore')
+    util = require('util'),
+    _ = require('underscore')
 ;
 
 var Location = apiClient.models.Location,
@@ -48,6 +40,11 @@ module.exports = {
   PARAM_LATITUDE_KEY: "lat",
   PARAM_LONGITUDE_KEY: "lng",
   PARAM_IMAGES_KEY: "images",
+  PARAM_MUST_TAGS_KEY: "mustTags",
+  PARAM_SHOULD_TAGS_KEY: "shouldTags",
+  PARAM_MIN_PRICE_KEY: "minPrice",
+  PARAM_MAX_PRICE_KEY: "maxPrice",
+  PARAM_DISTANCE_KEY: "distance",
 
   getTagsFromRequest: function (req) {
     return req.param(this.PARAM_TAGS_KEY);
@@ -63,6 +60,26 @@ module.exports = {
 
   getLongitudeFromRequest: function (req) {
     return req.param(this.PARAM_LONGITUDE_KEY);
+  },
+
+  getMustTagsFromRequest: function (req) {
+    return req.param(this.PARAM_MUST_TAGS_KEY);
+  },
+
+  getShouldTagsFromRequest: function (req) {
+    return req.param(this.PARAM_SHOULD_TAGS_KEY);
+  },
+
+  getMinPriceFromRequest: function (req) {
+    return req.param(this.PARAM_MIN_PRICE_KEY);
+  },
+
+  getMaxPriceFromRequest: function (req) {
+    return req.param(this.PARAM_MAX_PRICE_KEY);
+  },
+
+  getDistanceFromRequest: function (req) {
+    return req.param(this.PARAM_DISTANCE_KEY);
   },
 
   getImagesFromRequest: function (req) {
@@ -85,6 +102,14 @@ module.exports = {
     return this.newImageList(images);
   },
 
+  newDemandPriceFromParam: function (minPrice, maxPrice) {
+    return this.newDemandPrice(parseFloat(minPrice), parseFloat(maxPrice));
+  },
+
+  newDistanceFromParam: function (distance) {
+    return parseFloat(distance);
+  },
+
   logMessages: function (errorModel) {
     for (var i = 0; i < errorModel.getLogMessages().length; i++) {
       sails.log.error(errorModel.getLogMessages()[i]);
@@ -97,35 +122,19 @@ module.exports = {
     }
   },
 
+  /**
+   * ########################################
+   * #
+   * # API Client object factory methods
+   * #
+   * ########################################
+   */
   newLocation: function (lat, lng) {
     return new Location().setLatitude(lat).setLongitude(lng);
   },
 
-  newLocationFromRequest: function (req) {
-    var lat = req.param("lat", undefined);
-    var lng = req.param("lng", undefined);
-
-    if (undefined === lat || undefined === lng) {
-      return undefined;
-    } else if ('null' === lat || 'null' === lng) {
-      // has to be sent by browser if no geolocation info is available
-      return null;
-    }
-
-    // parseFloat will return NAN if no parameter is given (undefined) or the given ones are no parameters
-    return this.newLocation(parseFloat(lat), parseFloat(lng));
-  },
-
   newDemandPrice: function (min, max) {
     return new DemandPrice().setMin(min).setMax(max);
-  },
-
-  newDemandPriceFromRequest: function (req) {
-    // parseFloat will return NAN if no parameter is given (undefined) or the given ones are no parameters
-    var minPrice = parseFloat(req.param("minPrice"));
-    var maxPrice = parseFloat(req.param("maxPrice"));
-
-    return this.newDemandPrice(minPrice, maxPrice);
   },
 
   newImageList: function (images) {
@@ -149,25 +158,6 @@ module.exports = {
     return tagStr.split(/\s*,\s*/);
   },
 
-  newShouldTagsFromRequest: function (req) {
-    var shouldTags = req.param("shouldTags");
-
-    return this.toTagArray(shouldTags);
-  },
-
-  newMustTagsFromRequest: function (req) {
-    var mustTags = req.param("mustTags");
-
-    return this.toTagArray(mustTags);
-  },
-
-  newDistanceFromRequest: function (req) {
-    // parseFloat will return NAN if no parameter is given (undefined) or the given ones are no parameters
-    var distance = parseFloat(req.param("distance"));
-
-    return distance;
-  },
-
   newUsernameFromRequest: function (req) {
     return req.param("username");
   },
@@ -188,6 +178,38 @@ module.exports = {
     return req.param("recipientId");
   },
 
+  newDemand: function () {
+    return new Demand();
+  },
+
+  newOffer: function () {
+    return new Offer();
+  },
+
+  newUser: function () {
+    return new User();
+  },
+
+  newConversationList: function () {
+    return new ConversationList();
+  },
+
+  newConversationQueryForReadConversations: function () {
+    return new ConversationQuery().setReadFlag(true);
+  },
+
+  newConversationQueryForUnreadConversations: function () {
+    return new ConversationQuery().setReadFlag(false);
+  },
+
+  newMessage: function () {
+    return new Message();
+  },
+
+  newOfferList: function () {
+    return new OfferList();
+  },
+
   validateAndCreateNewMessageIdFromRequest: function (req, res) {
     var validationResult = this.validateMessageIdFromRequest(req, res);
 
@@ -201,7 +223,7 @@ module.exports = {
   validateMessageIdFromRequest: function (req, res) {
     var messageId = req.param("messageId");
 
-    var idValidator = this.newIdValidator(res);
+    var idValidator = ValidationService.newIdValidator(res.i18n);
 
     if (undefined === messageId
       || !idValidator.isValid(messageId)) {
@@ -235,7 +257,7 @@ module.exports = {
   validateConversationFromRequest: function (req, res) {
     var senderId = req.param("senderId");
 
-    var idValidator = this.newIdValidator(res);
+    var idValidator = ValidationService.newIdValidator(res.i18n);
 
     if (undefined === senderId
       || !idValidator.isValid(senderId)) {
@@ -383,7 +405,7 @@ module.exports = {
   },
 
   validateOfferFromRequest: function (req, res) {
-    var offerValidator = this.newOfferValidator(res.i18n);
+    var offerValidator = ValidationService.newOfferValidator(res.i18n);
 
     var tags = this.getTagsFromRequest(req),
       price = this.getSimplePriceFromRequest(req),
@@ -434,95 +456,79 @@ module.exports = {
     return demandModel;
   },
 
+  /**
+   * Validate the request values. On success, fill the model.
+   * Otherwise, call onErrorCallback with validation errors set in the given error model.
+   * @param req
+   * @param res
+   * @param demandModel
+   * @param user
+   * @param onErrorCallback
+   * @returns {Demand} | undefined if validation was not successful
+   */
   validateAndSetDemandFromRequest: function (req, res, demandModel, user, onErrorCallback) {
+    // step 1: validate request parameters
     var validationResult = this.validateDemandFromRequest(req, res);
 
     if (!validationResult.success) {
-      onErrorCallback(ApiClientService.newError("validateAndSetDemandFromRequest: ", validationResult.message));
+      onErrorCallback(this.newValidationError(validationResult.validationErrors, validationResult.params));
       return undefined;
     } else {
-      demandModel.setMustTags(validationResult.mustTags)
-        .setShouldTags(validationResult.shouldTags)
-        .setPrice(validationResult.price)
-        .setUser(user)
-        .setLocation(validationResult.location)
-        .setDistance(validationResult.distance);
-      return demandModel;
+      // step 2: fill model from request parameters
+      return this.processDemandModelFromRequest(demandModel, user, validationResult.params);
     }
   },
 
+
   validateDemandFromRequest: function (req, res) {
-    // validate must tags
-    var mustTags = this.newMustTagsFromRequest(req);
-    var mustTagsValidator = this.newTagsValidator(
-      res,
-      sails.config.webapp.validations.demand.mustTags.minCount,
-      sails.config.webapp.validations.demand.mustTags.maxCount
-    );
-    if (!mustTagsValidator.isValid(mustTags)) {
-      return {
-        success: false,
-        message: mustTagsValidator.getErrorMessages()
-      };
-    }
+    var demandValidator = ValidationService.newDemandValidator(res.i18n);
 
-    // validate should tags
-    var shouldTags = this.newShouldTagsFromRequest(req);
-    var shouldTagsValidator = this.newTagsValidator(
-      res,
-      sails.config.webapp.validations.demand.shouldTags.minCount,
-      sails.config.webapp.validations.demand.shouldTags.maxCount
-    );
-    if (!shouldTagsValidator.isValid(shouldTags)) {
-      return {
-        success: false,
-        message: shouldTagsValidator.getErrorMessages()
-      };
-    }
+    var mustTags = this.getMustTagsFromRequest(req),
+      shouldTags = this.getShouldTagsFromRequest(req),
+      minPrice = this.getMinPriceFromRequest(req),
+      maxPrice = this.getMaxPriceFromRequest(req),
+      latitude = this.getLatitudeFromRequest(req),
+      longitude = this.getLongitudeFromRequest(req),
+      distance = this.getDistanceFromRequest(req);
 
-    // validate demand price
-    var price = this.newDemandPriceFromRequest(req);
-    var demandPriceValidator = this.newDemandPriceValidator(
-      res,
-      sails.config.webapp.validations.demand.price.minimum,
-      sails.config.webapp.validations.demand.price.maximum
-    );
-    if (!demandPriceValidator.isValid(price)) {
+    if (!demandValidator.isValid(mustTags, shouldTags, minPrice, maxPrice, latitude, longitude, distance)) {
       return {
         success: false,
-        message: demandPriceValidator.getErrorMessages()
-      };
-    }
-
-    // validate location
-    var location = this.newLocationFromRequest(req);
-    var locationValidator = this.newLocationValidator(res);
-    if (!locationValidator.isValid(location)) {
-      return {
-        success: false,
-        message: locationValidator.getErrorMessages()
-      };
-    }
-
-    // validate distance
-    var distance = this.newDistanceFromRequest(req);
-    var distanceValidator = this.newDistanceValidator(res);
-    if (!distanceValidator.isValid(distance)) {
-      return {
-        success: false,
-        message: distanceValidator.getErrorMessages()
+        validationErrors: demandValidator.getErrorMessages(),
+        params: {
+          mustTags: mustTags,
+          shouldTags: shouldTags,
+          minPrice: minPrice,
+          maxPrice: maxPrice,
+          lat: latitude,
+          lng: longitude,
+          distance: distance
+        }
       };
     }
 
     return {
       success: true,
-      message: '',
-      mustTags: mustTags,
-      shouldTags: shouldTags,
-      price: price,
-      location: location,
-      distance: distance
+      params: {
+        mustTags: mustTags,
+        shouldTags: shouldTags,
+        minPrice: minPrice,
+        maxPrice: maxPrice,
+        lat: latitude,
+        lng: longitude,
+        distance: distance
+      }
     };
+  },
+
+  processDemandModelFromRequest: function(demandModel, user, params) {
+    return demandModel
+      .setMustTags(this.newTagListFromParam(params.mustTags))
+      .setShouldTags(this.newTagListFromParam(params.shouldTags))
+      .setPrice(this.newDemandPriceFromParam(params.minPrice, params.maxPrice))
+      .setLocation(this.newLocationFromParam(params.lat, params.lng))
+      .setDistance(this.newDistanceFromParam(params.distance))
+      .setUser(user);
   },
 
   validateAndCreateNewMessageFromRequest: function (req, onErrorCallback) {
@@ -629,38 +635,6 @@ module.exports = {
     return requestLocation;
   },
 
-  newDemand: function () {
-    return new Demand();
-  },
-
-  newOffer: function () {
-    return new Offer();
-  },
-
-  newUser: function () {
-    return new User();
-  },
-
-  newConversationList: function () {
-    return new ConversationList();
-  },
-
-  newConversationQueryForReadConversations: function () {
-    return new ConversationQuery().setReadFlag(true);
-  },
-
-  newConversationQueryForUnreadConversations: function () {
-    return new ConversationQuery().setReadFlag(false);
-  },
-
-  newMessage: function () {
-    return new Message();
-  },
-
-  newOfferList: function () {
-    return new OfferList();
-  },
-
   validateAndCreateNewOfferIdFromRequest: function (req, res, onErrorCallback) {
     var validationResult = ApiClientService.validateOfferIdFromRequest(req, res);
 
@@ -675,7 +649,7 @@ module.exports = {
   validateOfferIdFromRequest: function (req, res) {
     var offerId = req.param('offerId');
 
-    var idValidator = this.newIdValidator(res);
+    var idValidator = ValidationService.newIdValidator(res.i18n);
 
     if (undefined === offerId
       || !idValidator.isValid(offerId)) {
@@ -708,7 +682,7 @@ module.exports = {
   validateDemandIdFromRequest: function (req, res) {
     var demandId = req.param('demandId');
 
-    var idValidator = this.newIdValidator(res);
+    var idValidator = ValidationService.newIdValidator(res.i18n);
 
     if (undefined === demandId
       || !idValidator.isValid(demandId)) {
@@ -755,34 +729,5 @@ module.exports = {
       message: '',
       offerId: offerId
     };
-  },
-
-  newIdValidator: function (translator) {
-    return new IdValidator(translator);
-  },
-
-  newTagsValidator: function (translator, minTagCount, maxTagCount) {
-    return new TagsValidator(translator, minTagCount, maxTagCount);
-  },
-
-  newDemandPriceValidator: function (translator, minAllowedPrice, maxAllowedPrice) {
-    return new DemandPriceValidator(translator, minAllowedPrice, maxAllowedPrice);
-  },
-
-  newSimplePriceValidator: function (translator, minAllowedPrice, maxAllowedPrice) {
-    return new SimplePriceValidator(translator, minAllowedPrice, maxAllowedPrice);
-  },
-
-  newLocationValidator: function (translator) {
-    return new LocationValidator(translator);
-  },
-
-  newDistanceValidator: function (translator) {
-    return new DistanceValidator(translator);
-  },
-
-  newOfferValidator: function (translator) {
-    return new OfferValidator(translator, sails.config.webapp.validations.offer);
   }
-
 };
