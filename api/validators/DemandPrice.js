@@ -3,7 +3,6 @@ var _ = require('underscore');
 function DemandPrice(translator, minAllowedPrice, maxAllowedPrice) {
   this.errorMessages = [];
   this.translator = translator;
-  this.regex = /^[a-zA-Z0-9-_]+$/;
   this.minAllowedPrice = minAllowedPrice;
   this.maxAllowedPrice = maxAllowedPrice;
 }
@@ -11,6 +10,16 @@ function DemandPrice(translator, minAllowedPrice, maxAllowedPrice) {
 DemandPrice.prototype.validateType = function(givenDemandPrice) {
   if (!_.isObject(givenDemandPrice)) {
     this.errorMessages.push(this.translator('Invalid value for demand price.'));
+    return false;
+  }
+
+  if (!_.isNumber(givenDemandPrice.getMin()) || _.isNaN(givenDemandPrice.getMin())) {
+    this.errorMessages.push(this.translator('Invalid value for demand minimum price.'));
+    return false;
+  }
+
+  if (!_.isNumber(givenDemandPrice.getMax()) || _.isNaN(givenDemandPrice.getMax())) {
+    this.errorMessages.push(this.translator('Invalid value for demand maximum price.'));
     return false;
   }
 

@@ -2,10 +2,13 @@ var apiClient = require('neeedo-api-nodejs-client')
     util = require('util'),
     IdValidator = require('../validators/Id'),
     TagsValidator = require('../validators/Tags'),
+    SimplePriceValidator = require('../validators/SimplePrice'),
     DemandPriceValidator = require('../validators/DemandPrice'),
     LocationValidator = require('../validators/Location'),
     DistanceValidator = require('../validators/Distance'),
-    ImageValidator = require('../validators/Image');
+    ImageValidator = require('../validators/Image'),
+    _ = require('underscore')
+    ;
 
 var Location = apiClient.models.Location,
     Error = apiClient.models.Error,
@@ -59,6 +62,7 @@ module.exports = {
       return null;
     }
 
+    // parseFloat will return NAN if no parameter is given (undefined) or the given ones are no parameters
     return this.newLocation(parseFloat(lat), parseFloat(lng));
   },
 
@@ -67,16 +71,18 @@ module.exports = {
   },
 
   newDemandPriceFromRequest : function(req) {
-    var minPrice = req.param("minPrice");
-    var maxPrice = req.param("maxPrice");
+    // parseFloat will return NAN if no parameter is given (undefined) or the given ones are no parameters
+    var minPrice = parseFloat(req.param("minPrice"));
+    var maxPrice = parseFloat(req.param("maxPrice"));
 
-    return this.newDemandPrice(parseFloat(minPrice), parseFloat(maxPrice));
+    return this.newDemandPrice(minPrice, maxPrice);
   },
 
   newSimplePriceFromRequest : function(req) {
-    var price = req.param("price");
+    // parseFloat will return NAN if no parameter is given (undefined) or the given ones are no parameters
+    var price = parseFloat(req.param("price"));
 
-    return parseFloat(price);
+    return price;
   },
 
   getImagesFromRequest : function(req) {
@@ -127,9 +133,10 @@ module.exports = {
   },
 
   newDistanceFromRequest : function(req) {
-    var distance = req.param("distance");
+    // parseFloat will return NAN if no parameter is given (undefined) or the given ones are no parameters
+    var distance = parseFloat(req.param("distance"));
 
-    return parseFloat(distance);
+    return distance;
   },
 
   newUsernameFromRequest : function(req) {
@@ -320,6 +327,7 @@ module.exports = {
       }
     }
 
+    // validate tags
     var tags = this.newTagsFromRequest(req);
     var tagsValidator = this.newTagsValidator(
       res,
@@ -334,8 +342,14 @@ module.exports = {
       };
     }
 
+    // validate price
     var price = this.newSimplePriceFromRequest(req);
-    var priceValidator = this.newSimplePriceValidator(res);
+    var priceValidator = this.newSimplePriceValidator(
+      res,
+      sails.config.webapp.validations.offer.price.minimum,
+      sails.config.webapp.validations.offer.price.maximumx
+    );
+
     if (!priceValidator.isValid(price)) {
       return {
         success: false,
@@ -343,6 +357,7 @@ module.exports = {
       };
     }
 
+    // validate location
     var location = this.newLocationFromRequest(req);
     var locationValidator = this.newLocationValidator(res);
     if (!locationValidator.isValid(location)) {
@@ -567,7 +582,6 @@ module.exports = {
 
   newDemand: function() {
     return new Demand();
-
   },
 
   newOffer: function() {
@@ -704,6 +718,10 @@ module.exports = {
 
   newDemandPriceValidator: function(res, minAllowedPrice, maxAllowedPrice) {
     return new DemandPriceValidator(res.i18n, minAllowedPrice, maxAllowedPrice);
+  },
+
+  newSimplePriceValidator: function(res, minAllowedPrice, maxAllowedPrice) {
+    return new SimplePriceValidator(res.i18n, minAllowedPrice, maxAllowedPrice);
   },
 
   newLocationValidator: function(res) {

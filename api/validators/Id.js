@@ -10,7 +10,7 @@ Id.prototype.isValid = function(givenId)
 {
   if (!_.isString(givenId)
     || !givenId.match(this.regex)) {
-    this.errorMessages.push('Invalid ID given.');
+    this.errorMessages.push(this.translator("Invalid ID given."));
 
     return false;
   }

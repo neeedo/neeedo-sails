@@ -8,7 +8,17 @@ function Location(translator) {
 Location.prototype.validateType = function(givenLocation) {
   if (!_.isObject(givenLocation)) {
     this.errorMessages.push(this.translator('Invalid value for location.'));
-    
+
+    return false;
+  }
+
+  if (!_.isNumber(givenLocation.getLatitude()) || _.isNaN(givenLocation.getLatitude())) {
+    this.errorMessages.push(this.translator('Invalid value for demand minimum price.'));
+    return false;
+  }
+
+  if (!_.isNumber(givenLocation.getLongitude()) || _.isNaN(givenLocation.getLongitude())) {
+    this.errorMessages.push(this.translator('Invalid value for demand maximum price.'));
     return false;
   }
 
