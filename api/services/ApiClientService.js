@@ -52,6 +52,8 @@ module.exports = {
   PARAM_PASSWORD_KEY: "password",
   PARAM_MESSAGE_BODY_KEY: "messageBody",
   PARAM_RECIPIENT_ID_KEY: "recipientId",
+  PARAM_OFFER_ID_KEY: "offerId",
+  PARAM_DEMAND_ID_KEY: "demandId",
 
   getTagsFromRequest: function (req) {
     return req.param(this.PARAM_TAGS_KEY);
@@ -111,6 +113,14 @@ module.exports = {
 
   getRecipientIdFromRequest: function (req) {
     return req.param(this.PARAM_RECIPIENT_ID_KEY);
+  },
+
+  getOfferIdFromRequest: function (req) {
+    return req.param(this.PARAM_OFFER_ID_KEY);
+  },
+
+  getDemandIdFromRequest: function (req) {
+    return req.param(this.PARAM_DEMAND_ID_KEY);
   },
 
   newTagListFromParam: function (tags) {
@@ -789,7 +799,7 @@ module.exports = {
   },
 
   validateOfferIdFromRequest: function (req, res) {
-    var offerId = req.param('offerId');
+    var offerId = this.getOfferIdFromRequest(req);
 
     var idValidator = ValidationService.newIdValidator(res.i18n);
 
@@ -822,7 +832,7 @@ module.exports = {
   },
 
   validateDemandIdFromRequest: function (req, res) {
-    var demandId = req.param('demandId');
+    var demandId = this.getDemandIdFromRequest(req);
 
     var idValidator = ValidationService.newIdValidator(res.i18n);
 
@@ -843,33 +853,50 @@ module.exports = {
     };
   },
 
-  validateAndCreateNewFavoriteFromRequest: function (req, onErrorCallback) {
-    var validationResult = ApiClientService.validateFavoriteFromRequest(req);
+  validateAndCreateNewFavoriteFromRequest: function (req, res, onErrorCallback) {
+    var validationResult = ApiClientService.validateFavoriteFromRequest(req, res);
 
     if (!validationResult.success) {
       onErrorCallback(ApiClientService.newError("validateAndCreateNewFavoriteFromRequest: ", validationResult.message));
+      return undefined;
     } else {
-      return new Favorite()
-        .setOffer(new Offer().setId(validationResult.offerId))
-        .setUser(LoginService.getCurrentUser(req));
+     return this.processFavoriteModelFromRequest(LoginService.getCurrentUser(req), validationResult.params);
     }
   },
 
-  validateFavoriteFromRequest: function (req) {
-    var offerId = req.param('offerId');
+  validateFavoriteFromRequest: function (req, res) {
+    var offerId = this.getOfferIdFromRequest(req);
 
-    if (-1 !== offerId.indexOf("image")) {
+    var idValidator = ValidationService.newIdValidator(res.i18n);
+
+    if (!idValidator.isValid(offerId)) {
       return {
         success: false,
-        message: '',
-        offerId: offerId
+        message: offerId.getErrorMessages(),
+        params: {
+          offerId: offerId
+        }
       };
     }
 
     return {
       success: true,
       message: '',
-      offerId: offerId
+      params: {
+        offerId: offerId
+      }
     };
+  },
+
+  /**
+   * Fill the favorite model by the given params.
+   * @param user
+   * @param params
+   * @returns {*}
+   */
+  processFavoriteModelFromRequest: function(user, params) {
+    return new Favorite()
+      .setOffer(new Offer().setId(params.offerId))
+      .setUser(user);
   }
 };

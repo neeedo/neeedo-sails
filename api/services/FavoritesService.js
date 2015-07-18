@@ -10,22 +10,24 @@ module.exports = {
   toggleFavorite: function (req, res, onSuccessCallback, onErrorCallBack) {
     try {
       var favoritesService = new FavoritesService();
-      var favoriteModel = ApiClientService.validateAndCreateNewFavoriteFromRequest(req, onErrorCallBack);
+      var favoriteModel = ApiClientService.validateAndCreateNewFavoriteFromRequest(req, res, onErrorCallBack);
 
-      var _this = this;
-      var onToggleSuccessCallback = function (favoritesModel) {
-        if (favoritesService.wasAdded) {
-          _this.addFavoriteOfferToSession(req, res, favoriteModel, onSuccessCallback, onErrorCallBack);
-        } else if (favoritesService.wasRemoved) {
-          _this.removeFavoriteOfferFromSession(req, res, favoriteModel, onSuccessCallback, onErrorCallBack);
-        }
-      };
+      if (undefined !== favoriteModel) {
+        var _this = this;
+        var onToggleSuccessCallback = function (favoritesModel) {
+          if (favoritesService.wasAdded) {
+            _this.addFavoriteOfferToSession(req, res, favoriteModel, onSuccessCallback, onErrorCallBack);
+          } else if (favoritesService.wasRemoved) {
+            _this.removeFavoriteOfferFromSession(req, res, favoriteModel, onSuccessCallback, onErrorCallBack);
+          }
+        };
 
-      var onToggleErrorCallback = function(errorModel) {
-        onErrorCallBack(req, res, errorModel);
-      };
+        var onToggleErrorCallback = function (errorModel) {
+          onErrorCallBack(req, res, errorModel);
+        };
 
-      favoritesService.toggleOfferFavorite(favoriteModel, onToggleSuccessCallback, onToggleErrorCallback);
+        favoritesService.toggleOfferFavorite(favoriteModel, onToggleSuccessCallback, onToggleErrorCallback);
+      }
     } catch (e) {
       onErrorCallBack(req, res, ApiClientService.newError("toggleFavorite:" + e.message, 'Your inputs were not valid.'));
     }

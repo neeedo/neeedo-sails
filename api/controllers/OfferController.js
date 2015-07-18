@@ -84,7 +84,7 @@ module.exports = {
       ApiClientService.logMessages(errorModel);
       ApiClientService.addFlashMessages(req, res, errorModel);
 
-      if (errorModel.getValidationMessages().length > 0) {
+      if (errorModel.hasValidationMessages()) {
         OfferService.displayValidationMessages(req, res, errorModel);
       } else {
         res.redirect(OfferService.getCreateUrl());
