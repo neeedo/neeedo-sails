@@ -184,7 +184,7 @@ $(document).ready(function() {
     lightSliderDemand.refresh();
   };
  // $(".map").css("min-height",$(window).height()-50);
-  $(".contentContainer").css("min-height",$(window).height()*0.8);
+//  $(".contentContainer").css("min-height",$(window).height()*0.8);
 
   var onOffersAdded = function() {
     // activate favorites event handler for favorite icon elements

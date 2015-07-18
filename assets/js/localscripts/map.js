@@ -300,16 +300,19 @@ $(document).ready(function () {
   var NeeedoIcon = L.Icon.extend({
     options:{
       shadowUrl: 'images/icons/markerShadow.png',
-      iconSize: [61, 61], // size of the icon
+      iconSize: [31, 61], // size of the icon
       shadowSize: [61, 61], // size of the shadow
-      iconAnchor: [31, 61], // point of the icon which will correspond to marker's location
+      iconAnchor: [0, 61], // point of the icon which will correspond to marker's location
       shadowAnchor: [31, 58], // point of the icon which will correspond to marker's location
       popupAnchor: [15, -65] // point from which the popup should open relative to the iconAnchor
     }
   });
 
   userIcon = new NeeedoIcon({
-    iconUrl: '/images/icons/user_pin.png'
+    iconUrl: '/images/icons/user_pin.png',
+    iconSize: [61, 61], // size of the icon
+    iconAnchor: [31, 61] // point of the icon which will correspond to marker's location
+
 
   });
   demandIcon = new NeeedoIcon({

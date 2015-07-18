@@ -4,12 +4,12 @@
   width: @iconSize;
   height: @iconSize;
   line-height: @iconSize !important;
-  border: 1px solid @BorderColor;
+  border: 1px solid white;
   border-radius: 50%;
-  color: @MetroGreen !important;
+  color: @HeaderBG !important;
   text-align: center;
   text-decoration: none;
-  background: transparent;
+  background: @MetroGreen;
   box-shadow: 0 0 3px gray;
   font-size: @iconSizeSmall !important;
   padding: 0 !important;
@@ -18,6 +18,12 @@
     color: @MetroPinK !important;
     border-color: @BorderColorInv;
   }
+}
+
+.lng-active{
+  background-color: transparent ;
+  color:@MetroGreen !important;
+  border-color: @MetroGreen !important;
 }
 
 .headerIconSmall {
@@ -222,12 +228,14 @@
   transform: scale3d(1, 1, 1);
 }
 
-.btnIcon {
+
+a .btnIcon {
+  text-decoration: none !important;
   &:before {
     color: @MetroGreen;
+
   }
   &:hover{
     color: @MetroPinK;
-    text-decoration: none !important;
   }
 }

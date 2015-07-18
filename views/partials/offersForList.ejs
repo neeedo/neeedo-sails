@@ -1,32 +1,33 @@
 <li class="offers">
-  <% // I'm actually not sure why we need to unserialize again, but the following line is really important when this partial is used during an AJAX action, do not remove!                          %>
+  <% // I'm actually not sure why we need to unserialize again, but the following line is really important when this partial is used during an AJAX action, do not remove!                           %>
   <% offer = ApiClientService.newOffer().loadFromSerialized(offer) %>
 
   <div class="thumbnail">
-    <h3> <%= i18n('I offer') %> </h3>
+    <div class="innerBorder">
+      <h3> <%= i18n('I offer') %> </h3>
 
       <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
       <%- partial('../partials/favoriteButtonOffer.ejs', {offer: offer, display: displayFavorite}) %>
-    <hr>
+      <hr>
 
-    <a href="<%- OfferService.getViewUrl().replace('%%offerId%%', offer.getId()) %>">
-      <img class="offerImageSmall" src="<%- OfferService.getFirstImage(offer).path %>"
-           alt="<%- OfferService.getFirstImage(offer).altText %>">
-    </a>
+      <a href="<%- OfferService.getViewUrl().replace('%%offerId%%', offer.getId()) %>">
+        <img class="offerImageSmall" src="<%- OfferService.getFirstImage(offer).path %>"
+             alt="<%- OfferService.getFirstImage(offer).altText %>">
+      </a>
 
-    <div class="caption">
-      <div id="tags">
-        <p><%= offer.getTags().join(", ") %></p>
+      <div class="caption">
+        <div id="tags">
+          <p><%= offer.getTags().join(", ") %></p>
+        </div>
+        <h4 for="price"><%= i18n('Price') %>:<span id="price"> <%= offer.getPrice() %><span
+              class="glyphicon glyphicon-euro" aria-hidden="true"></span></span>
+        </h4>
+        <h4><%- offer.getUser().getUsername() %></h4>
+
       </div>
-      <h4 for="price"><%= i18n('Price') %>:<span id="price"> <%= offer.getPrice() %><span
-            class="glyphicon glyphicon-euro" aria-hidden="true"></span></span>
-      </h4>
-      <h4><%- offer.getUser().getUsername() %></h4>
-
     </div>
+
   </div>
-
-
 </li>
 
 

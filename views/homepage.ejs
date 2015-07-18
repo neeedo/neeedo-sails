@@ -19,14 +19,12 @@
           <h3> <a href="#mapContainer"><%= i18n('Everything at your nearest') %></a></h3>
         </div>
       </div>
-      <div>
-        <a class="btn" href="#news"><%= i18n('New Stuff') %></a>
-      </div>
     </div>
     <div id="mapContainer">
 
       <% if (false !== showMap)  { %>
       <h1><%= i18n('In Your Vicinity') %></h1>
+      <hr class="mainHr">
       <%- partial('./partials/map/map.ejs', {
         mapType: showMap.mapType,
         demandSourceUrl: showMap.demandSourceUrl,
@@ -38,9 +36,10 @@
     </div>
   </div>
 
-  <div class="hidden-xs contentContainer " id="news">
-    <div id="offerContainer">
+  <div class="hidden-xs">
+    <div class="contentContainer" id="offerContainer">
       <h1><%= i18n('Recent Offers') %></h1>
+      <hr class="mainHr">
       <ul id="lightSliderOffer"
           data-itemLimit="<%- pagination.limit %>"
           data-currentPage="<%- pagination.firstPageNumber %>"
@@ -57,8 +56,9 @@
       </ul>
     </div>
 
-    <div id="demandContainer">
+    <div class="contentContainer" id="demandContainer">
       <h1><%= i18n('Recent Demands') %></h1>
+      <hr class="mainHr">
 
       <div class="elementWrapper ">
         <ul id="lightSliderDemand" data-itemLimit="<%- pagination.limit %>"
