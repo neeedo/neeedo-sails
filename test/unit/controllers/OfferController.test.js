@@ -94,7 +94,8 @@ describe('[UNIT TEST] OfferController', function() {
             lat: "",
             lng: "",
             images: "",
-            btnLabel: 'Create'
+            btnLabel: 'Create',
+            validationMessages: []
           }
         }
       ).should.be.True;

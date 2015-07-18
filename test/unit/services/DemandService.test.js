@@ -19,7 +19,17 @@ var clientDemandModel = new ClientDemandModel();
 var demandMock = sinon.mock(clientDemandModel);
 
 var givenStubReq = function() {
-  return req;
+  var _req = req
+  // stub cookies
+  _req.cookies = {};
+  return _req ;
+};
+
+var givenStubRes = function() {
+  var _res = res;
+  // stub i18n translation function
+  _res.i18n = function(string) { return string; };
+  return _res;
 };
 
 var givenSomeDemandParameters = function() {
@@ -115,7 +125,7 @@ var givenResponseMock = function() {
 describe('[UNIT TEST] DemandService', function() {
 
   describe('loadUsersDemands():', function() {
-    var stubbedReq, paginatorMock, stubbedDemandListService, stubbedUser;
+    var stubbedReq, stubbedRes, paginatorMock, stubbedDemandListService, stubbedUser;
 
     before(function(done){
       paginatorMock = givenAPaginatorServiceMock();
@@ -123,6 +133,7 @@ describe('[UNIT TEST] DemandService', function() {
 
       stubbedDemandListService = givenAClientDemandListLoadByUserService();
       stubbedReq = givenStubReq();
+      stubbedRes = givenStubRes();
       stubbedUser = givenAUserService();
 
       done();
@@ -145,7 +156,7 @@ describe('[UNIT TEST] DemandService', function() {
       paginatorMock.expects('calculateOffset').once().calledWith(10, 1);
 
       // when loadUsersDemandIsCalled
-      demandService.loadUsersDemands(stubbedReq, function() {}, function() {});
+      demandService.loadUsersDemands(stubbedReq, stubbedRes, function() {}, function() {});
 
       paginatorMock.verify();
 
@@ -159,7 +170,7 @@ describe('[UNIT TEST] DemandService', function() {
       var onSuccessCallback, onErrorCallback = sinon.spy();
 
       // when loadUsersDemandIsCalled
-      demandService.loadUsersDemands(req, onSuccessCallback, onErrorCallback);
+      demandService.loadUsersDemands(req, stubbedRes, onSuccessCallback, onErrorCallback);
 
       // paginator service should be called
       stubbedDemandListService.called.should.be.True;
@@ -169,7 +180,7 @@ describe('[UNIT TEST] DemandService', function() {
   });
 
   describe('loadMostRecentDemands():', function() {
-    var stubbedReq, paginatorMock, stubbedDemandListService, stubbedUser;
+    var stubbedReq, stubbedRes, paginatorMock, stubbedDemandListService, stubbedUser;
 
     before(function(done){
       paginatorMock = givenAPaginatorServiceMock();
@@ -177,6 +188,7 @@ describe('[UNIT TEST] DemandService', function() {
 
       stubbedDemandListService = givenAClientDemandListLoadMostRecentService();
       stubbedReq = givenStubReq();
+      stubbedRes = givenStubRes();
       stubbedUser = givenAUserService();
 
       done();
@@ -199,7 +211,7 @@ describe('[UNIT TEST] DemandService', function() {
       paginatorMock.expects('calculateOffset').once().calledWith(10, 1);
 
       // when loadUsersDemandIsCalled
-      demandService.loadMostRecentDemands(stubbedReq, function() {}, function() {});
+      demandService.loadMostRecentDemands(stubbedReq, stubbedRes, function() {}, function() {});
 
       paginatorMock.verify();
 
@@ -213,7 +225,7 @@ describe('[UNIT TEST] DemandService', function() {
       var onSuccessCallback, onErrorCallback = sinon.spy();
 
       // when loadUsersDemandIsCalled
-      demandService.loadMostRecentDemands(req, onSuccessCallback, onErrorCallback);
+      demandService.loadMostRecentDemands(req, stubbedRes, onSuccessCallback, onErrorCallback);
 
       // paginator service should be called
       stubbedDemandListService.called.should.be.True;
