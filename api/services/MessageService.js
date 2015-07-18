@@ -7,12 +7,14 @@ var MessageService = apiClient.services.Message,
   ;
 
 module.exports = {
-  create: function (req, onSuccessCallback, onErrorCallBack) {
+  create: function (req, res, onSuccessCallback, onErrorCallBack) {
     try {
-      var messageModel = ApiClientService.validateAndCreateNewMessageFromRequest(req, onErrorCallBack);
+      var messageModel = ApiClientService.validateAndCreateNewMessageFromRequest(req, res,onErrorCallBack);
 
-      var messageService = new MessageService();
-      messageService.create(messageModel, onSuccessCallback, onErrorCallBack);
+      if (undefined !== messageModel) {
+        var messageService = new MessageService();
+        messageService.create(messageModel, onSuccessCallback, onErrorCallBack);
+      }
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("createMessage:" + e.message, 'Your inputs were not valid.'));
     }

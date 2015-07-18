@@ -50,6 +50,8 @@ module.exports = {
   PARAM_PASSWORD_KEY: "password",
   PARAM_EMAIL_KEY: "email",
   PARAM_PASSWORD_KEY: "password",
+  PARAM_MESSAGE_BODY_KEY: "messageBody",
+  PARAM_RECIPIENT_ID_KEY: "recipientId",
 
   getTagsFromRequest: function (req) {
     return req.param(this.PARAM_TAGS_KEY);
@@ -103,6 +105,14 @@ module.exports = {
     return req.param(this.PARAM_PASSWORD_KEY);
   },
 
+  getMessageBodyFromRequest: function (req) {
+    return req.param(this.PARAM_MESSAGE_BODY_KEY);
+  },
+
+  getRecipientIdFromRequest: function (req) {
+    return req.param(this.PARAM_RECIPIENT_ID_KEY);
+  },
+
   newTagListFromParam: function (tags) {
     return this.toTagArray(tags);
   },
@@ -136,6 +146,14 @@ module.exports = {
   addFlashMessages: function (req, res, errorModel) {
     for (var i = 0; i < errorModel.getErrorMessages().length; i++) {
       FlashMessagesService.setErrorMessage(errorModel.getErrorMessages()[i], req, res);
+    }
+  },
+
+  addFlashMessagesForValidationMessages: function (req, res, errorModel) {
+    if (errorModel.hasValidationMessages()) {
+      for (var validationKey in errorModel.getValidationMessages()) {
+        FlashMessagesService.setErrorMessage(validationKey + ": " + errorModel.getValidationMessages()[validationKey], req, res);
+      }
     }
   },
 
@@ -632,32 +650,64 @@ module.exports = {
       .setUser(user);
   },
 
-  validateAndCreateNewMessageFromRequest: function (req, onErrorCallback) {
+  validateAndCreateNewMessageFromRequest: function (req, res, onErrorCallback) {
     var messageModel = new Message();
 
-    this.validateAndSetMessageFromRequest(req, messageModel, LoginService.getCurrentUser(req), onErrorCallback);
+    messageModel = this.validateAndSetMessageFromRequest(req, res, messageModel, LoginService.getCurrentUser(req), onErrorCallback);
 
     return messageModel;
   },
 
-  validateAndSetMessageFromRequest: function (req, messageModel, sender, onErrorCallback) {
-    var validationResult = this.validateMessageFromRequest(req);
+  validateAndSetMessageFromRequest: function (req, res, messageModel, sender, onErrorCallback) {
+    var validationResult = this.validateMessageFromRequest(req, res);
 
     if (!validationResult.success) {
-      onErrorCallback(ApiClientService.newError("validateAndSetMessageFromRequest: ", validationResult.message));
+      onErrorCallback(this.newValidationError(validationResult.validationErrors, validationResult.params));
+      return undefined;
     } else {
-      messageModel.setBody(this.newMessageBodyFromRequest(req))
-        .setSender(sender);
-      messageModel.getRecipient().setId(this.newRecipientIdFromRequest(req));
+      return this.processMessageModelFromRequest(messageModel, sender, validationResult.params);
     }
   },
 
-  validateMessageFromRequest: function (req) {
-    // TODO implement
+  validateMessageFromRequest: function (req, res) {
+    var messageValidator = ValidationService.newMessageValidator(res.i18n);
+
+    var messageBody = this.getMessageBodyFromRequest(req),
+      recipientId = this.getRecipientIdFromRequest(req);
+
+    if (!messageValidator.isValid(messageBody, recipientId)) {
+      return {
+        success: false,
+        validationErrors: messageValidator.getErrorMessages(),
+        params: {
+          messageBody: messageBody,
+          recipientId: recipientId
+        }
+      };
+    }
+
     return {
       success: true,
-      message: ''
+      params: {
+        messageBody: messageBody,
+        recipientId: recipientId
+      }
     };
+  },
+
+  /**
+   * Fill the message model by the given params.
+   * @param messageModel
+   * @param user
+   * @param params
+   * @returns {*}
+   */
+  processMessageModelFromRequest: function(messageModel, user, params) {
+    messageModel.setBody(params.messageBody)
+          .setSender(user);
+    messageModel.getRecipient().setId(params.recipientId);
+
+    return messageModel;
   },
 
   setPaginationParameter: function (req, queryModel) {

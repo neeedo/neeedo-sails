@@ -11,8 +11,10 @@ var util = require('util'),
   UsernameValidator = require('../validators/Username'),
   EmailValidator = require('../validators/Email'),
   PasswordValidator = require('../validators/Password'),
+  MessageBodyValidator = require('../validators/MessageBody'),
   UserValidator = require('../validators/chains/User'),
   LoginValidator = require('../validators/chains/Login'),
+  MessageValidator = require('../validators/chains/Message'),
   _ = require('underscore')
 ;
 
@@ -57,12 +59,20 @@ module.exports = {
     return new LoginValidator(translator, sails.config.webapp.validations.user);
   },
 
+  newMessageValidator: function (translator) {
+    return new MessageValidator(translator, sails.config.webapp.validations.message);
+  },
+
   newUsernameValidator: function (translator, minCount, maxCount) {
-    return new DistanceValidator(translator, minCount, maxCount);
+    return new UsernameValidator(translator, minCount, maxCount);
   },
 
   newEMailValidator: function (translator) {
     return new EmailValidator(translator);
+  },
+
+  newMessageBodyValidator: function (translator, maxLength) {
+    return new MessageBodyValidator(translator, maxLength);
   },
 
   newPasswordValidator: function (translator, minCount, maxCount) {

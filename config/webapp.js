@@ -137,6 +137,12 @@ module.exports.webapp = {
         // maximum distance in KM
         maximum: 50000
       }
+    },
+    message: {
+      messageBody: {
+        // max length in characters
+        maxLength: 1000
+      }
     }
   }
 };

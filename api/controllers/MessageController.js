@@ -16,6 +16,7 @@ module.exports = {
     var onErrorCallback = function(errorModel) {
       ApiClientService.logMessages(errorModel);
       ApiClientService.addFlashMessages(req, res, errorModel);
+      ApiClientService.addFlashMessagesForValidationMessages(req, res, errorModel);
 
       if (!UrlService.redirectToLastRedirectUrl(req, res)) {
         res.redirect('/dashboard');
@@ -26,7 +27,7 @@ module.exports = {
      * ---------- functionality ----------
      */
     if ("POST" == req.method) {
-      MessageService.create(req, onSuccessCallback, onErrorCallback);
+      MessageService.create(req, res, onSuccessCallback, onErrorCallback);
     } else {
       onErrorCallback(ApiClientService.newError("Attempt to do GET on Message::create action", "Your message couldn't be sent."));
     }
