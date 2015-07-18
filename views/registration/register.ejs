@@ -9,7 +9,11 @@
               <label for="username"><%= i18n('Username') %></label>
             </div>
             <div class="col-md-7">
-              <input class="glowing-border" type="text" name="username" autofocus required/>
+              <input class="glowing-border" type="text" name="username" value="<%- (undefined !== typeof username ? username : "") %>" autofocus required/>
+
+              <% if ('username' in validationMessages) { %>
+              <span class="inputError"><%= validationMessages.username %></span>
+              <% } %>
             </div>
           </div>
           <div class="row">
@@ -17,7 +21,11 @@
               <label for="email"><%= i18n('E-Mail') %></label>
             </div>
             <div class="col-md-7">
-              <input class="glowing-border" type="email" name="email" required/>
+              <input class="glowing-border" type="email" name="email"  value="<%- (undefined !== typeof email ? email : "") %>" required/>
+
+              <% if ('email' in validationMessages) { %>
+              <span class="inputError"><%= validationMessages.email %></span>
+              <% } %>
             </div>
           </div>
           <div class="row">
@@ -26,6 +34,10 @@
             </div>
             <div class="col-md-7">
               <input class="glowing-border" type="password" name="password" required/>
+
+              <% if ('password' in validationMessages) { %>
+              <span class="inputError"><%= validationMessages.password %></span>
+              <% } %>
             </div>
           </div>
           <div class="row">

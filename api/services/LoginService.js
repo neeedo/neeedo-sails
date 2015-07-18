@@ -32,10 +32,12 @@ module.exports = {
             onSuccessCallback(user);
         });
       };
-      var loginModel = ApiClientService.validateAndCreateNewLoginFromRequest(req, onErrorCallBack);
+      var loginModel = ApiClientService.validateAndCreateNewLoginFromRequest(req, res, onErrorCallBack);
 
-      var loginService = new LoginService();
-      loginService.loginUser(loginModel, onUserLoadedSuccess, onErrorCallBack);
+      if (undefined !== loginModel) {
+        var loginService = new LoginService();
+        loginService.loginUser(loginModel, onUserLoadedSuccess, onErrorCallBack);
+      }
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("queryUser:" + e.message, "login_internal_error"));
     }

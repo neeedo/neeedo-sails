@@ -45,6 +45,11 @@ module.exports = {
   PARAM_MIN_PRICE_KEY: "minPrice",
   PARAM_MAX_PRICE_KEY: "maxPrice",
   PARAM_DISTANCE_KEY: "distance",
+  PARAM_USERNAME_KEY: "username",
+  PARAM_EMAIL_KEY: "email",
+  PARAM_PASSWORD_KEY: "password",
+  PARAM_EMAIL_KEY: "email",
+  PARAM_PASSWORD_KEY: "password",
 
   getTagsFromRequest: function (req) {
     return req.param(this.PARAM_TAGS_KEY);
@@ -84,6 +89,18 @@ module.exports = {
 
   getImagesFromRequest: function (req) {
     return req.param(this.PARAM_IMAGES_KEY);
+  },
+
+  getUsernameRequest: function (req) {
+    return req.param(this.PARAM_USERNAME_KEY);
+  },
+
+  getEMailFromRequest: function (req) {
+    return req.param(this.PARAM_EMAIL_KEY);
+  },
+
+  getPasswordFromRequest: function (req) {
+    return req.param(this.PARAM_PASSWORD_KEY);
   },
 
   newTagListFromParam: function (tags) {
@@ -302,65 +319,123 @@ module.exports = {
   },
 
   newValidationError: function (validationErrors, givenParams) {
-    return new Error()
-      .setValidationMessages(validationErrors)
+    return new Error().setValidationMessages(validationErrors)
       .setOriginalParameters(givenParams)
       ;
   },
 
-  validateAndCreateNewRegisterFromRequest: function (req, onErrorCallback) {
+  validateAndCreateNewRegisterFromRequest: function (req, res, onErrorCallback) {
     var registerModel = new Register();
 
-    this.validateAndSetRegisterFromRequest(req, registerModel, onErrorCallback);
+    registerModel = this.validateAndSetRegisterFromRequest(req, res, registerModel, onErrorCallback);
 
     return registerModel;
   },
 
-  validateAndSetRegisterFromRequest: function (req, registerModel, onErrorCallback) {
-    var validationResult = this.validateRegisterFromRequest(req);
+  validateAndSetRegisterFromRequest: function (req, res, registerModel, onErrorCallback) {
+    var validationResult = this.validateRegisterFromRequest(req, res);
 
     if (!validationResult.success) {
-      onErrorCallback(ApiClientService.newError("validateAndSetRegisterFromRequest: ", validationResult.message));
+      onErrorCallback(ApiClientService.newValidationError(validationResult.validationErrors, validationResult.params));
+      return undefined;
+    } else {
+      return this.processRegisterModelFromRequest(registerModel, validationResult.params);
     }
-
-    registerModel.setEMail(this.newEMailFromRequest(req))
-      .setUsername(this.newUsernameFromRequest(req))
-      .setPassword(this.newPasswordFromRequest(req));
   },
 
-  validateRegisterFromRequest: function (req) {
-    // TODO implement
+  validateRegisterFromRequest: function (req, res) {
+    var userValidator = ValidationService.newUserValidator(res.i18n);
+
+    var username = this.getUsernameRequest(req),
+      eMail = this.getEMailFromRequest(req),
+      password = this.getPasswordFromRequest(req);
+
+    if (!userValidator.isValid(username, eMail, password)) {
+      return {
+        success: false,
+        validationErrors: userValidator.getErrorMessages(),
+        params: {
+          username: username,
+          email: eMail,
+          password: password
+        }
+      };
+    }
+
     return {
       success: true,
-      message: ''
+      params: {
+        username: username,
+        email: eMail,
+        password: password
+      }
     };
   },
 
-  validateAndCreateNewLoginFromRequest: function (req, onErrorCallback) {
+  /**
+   * Fill the offer model by the given params.
+   *
+   * @param registerModel
+   * @param user
+   * @param params
+   * @returns {*}
+   */
+  processRegisterModelFromRequest: function(registerModel, params) {
+    return registerModel.setEMail(params.email)
+      .setUsername(params.username)
+      .setPassword(params.password);
+  },
+
+  validateAndCreateNewLoginFromRequest: function (req, res, onErrorCallback) {
     var loginModel = new Login();
 
-    this.validateAndSetLoginFromRequest(req, loginModel, onErrorCallback);
+    loginModel = this.validateAndSetLoginFromRequest(req, res, loginModel, onErrorCallback);
 
     return loginModel;
   },
 
-  validateAndSetLoginFromRequest: function (req, loginModel, onErrorCallback) {
-    var validationResult = this.validateLoginFromRequest(req);
+  validateAndSetLoginFromRequest: function (req, res, loginModel, onErrorCallback) {
+    var validationResult = this.validateLoginFromRequest(req, res);
 
     if (!validationResult.success) {
-      onErrorCallback(ApiClientService.newError("validateAndSetLoginFromRequest: ", validationResult.message));
+      onErrorCallback(ApiClientService.newValidationError(validationResult.validationErrors, validationResult.params));
+      return undefined;
+    } else {
+      return this.processLoginModelFromRequest(loginModel, validationResult.params);
     }
-
-    loginModel.setEMail(this.newEMailFromRequest(req));
-    loginModel.setPassword(this.newPasswordFromRequest(req));
   },
 
-  validateLoginFromRequest: function (req) {
-    // TODO implement
+  validateLoginFromRequest: function (req, res) {
+    var loginValidator = ValidationService.newLoginValidator(res.i18n);
+
+    var eMail = this.getEMailFromRequest(req),
+      password = this.getPasswordFromRequest(req);
+
+    if (!loginValidator.isValid(eMail, password)) {
+      return {
+        success: false,
+        validationErrors: loginValidator.getErrorMessages(),
+        params: {
+          email: eMail,
+          password: password
+        }
+      };
+    }
+
     return {
       success: true,
-      message: ''
+      params: {
+        email: eMail,
+        password: password
+      }
     };
+  },
+
+  processLoginModelFromRequest: function(loginModel, params) {
+    loginModel.setEMail(params.email);
+    loginModel.setPassword(params.password);
+
+    return loginModel;
   },
 
   /**

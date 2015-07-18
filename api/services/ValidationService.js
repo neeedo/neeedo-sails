@@ -8,6 +8,11 @@ var util = require('util'),
   ImageValidator = require('../validators/Image'),
   OfferValidator = require('../validators/chains/Offer'),
   DemandValidator = require('../validators/chains/Demand'),
+  UsernameValidator = require('../validators/Username'),
+  EmailValidator = require('../validators/Email'),
+  PasswordValidator = require('../validators/Password'),
+  UserValidator = require('../validators/chains/User'),
+  LoginValidator = require('../validators/chains/Login'),
   _ = require('underscore')
 ;
 
@@ -42,5 +47,25 @@ module.exports = {
 
   newDemandValidator: function (translator) {
     return new DemandValidator(translator, sails.config.webapp.validations.demand);
+  },
+
+  newUserValidator: function (translator) {
+    return new UserValidator(translator, sails.config.webapp.validations.user);
+  },
+
+  newLoginValidator: function (translator) {
+    return new LoginValidator(translator, sails.config.webapp.validations.user);
+  },
+
+  newUsernameValidator: function (translator, minCount, maxCount) {
+    return new DistanceValidator(translator, minCount, maxCount);
+  },
+
+  newEMailValidator: function (translator) {
+    return new EmailValidator(translator);
+  },
+
+  newPasswordValidator: function (translator, minCount, maxCount) {
+    return new PasswordValidator(translator, minCount, maxCount);
   }
 };

@@ -86,6 +86,16 @@ module.exports.webapp = {
     previewMaxCharacters: 60
   },
   validations: {
+    user: {
+      username: {
+        minCount: 5,
+        maxCount: 50
+      },
+      password: {
+        minCount: 5,
+        maxCount: 50
+      }
+    },
     offer: {
       tags: {
         minCount: 1,
