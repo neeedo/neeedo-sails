@@ -8,7 +8,7 @@ function Distance(translator, maxDistance) {
 
 Distance.prototype.validateType = function(givenDistance) {
   if (!_.isNumber(givenDistance) || _.isNaN(givenDistance)) {
-    this.errorMessages.push(this.translator('Invalid value for distance.'));
+    this.errorMessages.push(this.translator("Invalid value for distance."));
 
     return false;
   }

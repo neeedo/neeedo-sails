@@ -7,7 +7,7 @@ function Location(translator) {
 
 Location.prototype.validateType = function(givenCoordinate) {
   if (!_.isNumber(givenCoordinate) || _.isNaN(givenCoordinate)) {
-    this.errorMessages.push(this.translator('Invalid value for coordinate.'));
+    this.errorMessages.push(this.translator("Invalid value for coordinate."));
     return false;
   }
   return true;

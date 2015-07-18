@@ -15,7 +15,7 @@ Password.prototype.validateMinAndMax = function(givenPw) {
     return false;
   }
 
-  if (givenPw.length > this.maxDistance) {
+  if (givenPw.length > this.maxCount) {
     this.errorMessages.push(this.translator("The password must not have more than %s characters", this.maxCount));
     return false;
   }
