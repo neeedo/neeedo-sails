@@ -17,16 +17,16 @@ function Message(translator, messageValidationOptions) {
   this.initializeValidationChain();
 };
 
-Message.prototype.isValid = function(eMail, password)
+Message.prototype.isValid = function(recipientId, messageBody)
 {
   var validationResult = true;
 
-  if (!this.recipientIdValidator.isValid(eMail)) {
+  if (!this.recipientIdValidator.isValid(recipientId)) {
     this.errorMessages[ApiClientService.PARAM_RECIPIENT_ID_KEY] = this.recipientIdValidator.getErrorMessages();
     validationResult = false;
   }
 
-  if (!this.messageBodyValidator.isValid(eMail)) {
+  if (!this.messageBodyValidator.isValid(messageBody)) {
     this.errorMessages[ApiClientService.PARAM_MESSAGE_BODY_KEY] = this.messageBodyValidator.getErrorMessages();
     validationResult = false;
   }
