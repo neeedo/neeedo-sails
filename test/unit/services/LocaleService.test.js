@@ -182,7 +182,11 @@ describe('[UNIT TEST] LocaleService', function () {
 
   describe('formatTimestamp', function() {
     it("returns expected date string", function (done) {
-      sails.services.localeservice.formatTimestamp(1437336976000).should.be.equal("19.7.2015 - 22:16");
+      var date = new Date(1437336976000);
+
+      // let's prepend the first date parts here to be independent of server time (e.g. UTC)
+      sails.services.localeservice.formatTimestamp(1437336976000).should.be.equal(
+        date.getDate() + "." + (date.getMonth() + 1)  + "." + date.getFullYear() + " - 22:16");
 
       done();
     });
