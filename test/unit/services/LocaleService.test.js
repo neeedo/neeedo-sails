@@ -184,9 +184,9 @@ describe('[UNIT TEST] LocaleService', function () {
     it("returns expected date string", function (done) {
       var date = new Date(1437336976000);
 
-      // let's prepend the first date parts here to be independent of server time (e.g. UTC)
+      // I know this doesn'T make much sense to test the logic, but we have to be indepedent of server timezone here...
       sails.services.localeservice.formatTimestamp(1437336976000).should.be.equal(
-        date.getDate() + "." + (date.getMonth() + 1)  + "." + date.getFullYear() + " - 22:16");
+        date.getDate() + "." + (date.getMonth() + 1)  + "." + date.getFullYear() + " - " + date.getHours() + ":" + date.getMinutes());
 
       done();
     });
