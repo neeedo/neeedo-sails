@@ -8,23 +8,25 @@
 html, body {
   height: 100%;
 }
+
 .wrapper {
   min-height: 100%;
   height: auto !important;
   height: 100%;
   margin: 0 auto -4em;
-  background-color: @LighterMetroDark;
+  background-image: url("/images/BG1.jpg");
 }
 
-.container{
+.container {
+  font-family: sen;
 }
-.contentContainer{
+
+.contentContainer {
   margin: 3em 0;
-  background-color: whitesmoke;
-
-}
-
-.mainHr{
-  margin: 5px 0;
-  height: 2px;
+  padding: 1em;
+  background-color: fadeout(@MetroDark, 40%);
+  color: @MetroGreen;
+  h1{
+    margin: 10px 0;
+  }
 }

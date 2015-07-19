@@ -1,32 +1,38 @@
-<li class="offers">
-  <% // I'm actually not sure why we need to unserialize again, but the following line is really important when this partial is used during an AJAX action, do not remove!                           %>
+<li class="offers listItem">
+  <% // I'm actually not sure why we need to unserialize again, but the following line is really important when this partial is used during an AJAX action, do not remove!                                                %>
   <% offer = ApiClientService.newOffer().loadFromSerialized(offer) %>
+  <div class="cardHeader">
+    <p class="cardTitle text-center"><span class="icon-offer"></span> <%= i18n('Offer') %> </p>
+  </div>
+  <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
+  <%- partial('../partials/favoriteButtonOffer.ejs', {offer: offer, display: displayFavorite}) %>
+  <div class="price"> <%= offer.getPrice() %><span
+      class="glyphicon glyphicon-euro" aria-hidden="true"></span>
+  </div>
+  <div class="cardImage">
+    <a href="<%- OfferService.getViewUrl().replace('%%offerId%%', offer.getId()) %>">
+      <img class="offerImageSmall" src="<%- OfferService.getFirstImage(offer).path %>"
+           alt="<%- OfferService.getFirstImage(offer).altText %>">
+    </a>
+  </div>
+  <div class="caption">
 
-  <div class="thumbnail">
-    <div class="innerBorder">
-      <h3> <%= i18n('I offer') %> </h3>
-
-      <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
-      <%- partial('../partials/favoriteButtonOffer.ejs', {offer: offer, display: displayFavorite}) %>
-      <hr>
-
-      <a href="<%- OfferService.getViewUrl().replace('%%offerId%%', offer.getId()) %>">
-        <img class="offerImageSmall" src="<%- OfferService.getFirstImage(offer).path %>"
-             alt="<%- OfferService.getFirstImage(offer).altText %>">
-      </a>
-
-      <div class="caption">
-        <div id="tags">
-          <p><%= offer.getTags().join(", ") %></p>
-        </div>
-        <h4 for="price"><%= i18n('Price') %>:<span id="price"> <%= offer.getPrice() %><span
-              class="glyphicon glyphicon-euro" aria-hidden="true"></span></span>
-        </h4>
-        <h4><%- offer.getUser().getUsername() %></h4>
-
-      </div>
-    </div>
-
+    <table class="table-striped">
+      <tr>
+        <td><h3><%= i18n('Description') %></h3></td>
+      </tr>
+      <tr>
+        <td class="tags">
+          <%= offer.getTags().join(", ") %>
+        </td>
+      </tr>
+    </table>
+    <table class="table-striped">
+      <tr>
+        <td><%= i18n('Creator') %>:</td>
+        <td><%= offer.getUser().getUsername() %></td>
+      </tr>
+    </table>
   </div>
 </li>
 

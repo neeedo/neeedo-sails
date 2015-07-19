@@ -2,9 +2,9 @@
   <% if (LoginService.userIsLoggedIn(req) && display) { %>
   <div class="toggleFavorite" data-offerId="<%- offer.getId() %>">
     <% if (LoginService.getCurrentUser(req).isFavoriteOffer(offer)) { %>
-    <span class="favoriteIcon isFavorite icon-star-full btnIcon" aria-hidden="true"></span></a>
+    <span class="favoriteIcon isFavorite icon-star-full " aria-hidden="true"></span></a>
     <% } else { %>
-    <span class="favoriteIcon isNotFavorite icon-star-empty btnIcon" aria-hidden="true"></span></a>
+    <span class="favoriteIcon isNotFavorite icon-star-empty" aria-hidden="true"></span></a>
     <% } %>
   </div>
   <% } %>

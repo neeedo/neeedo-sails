@@ -1,6 +1,6 @@
 <div class="crudbtn media-right btn-group-vertical" role="group">
-  <% if (!DemandService.belongsToCurrentUser(req, demand)) { %>
-    <a href="<%= DemandService.getEditUrl(demand) %>"><span class="icon-pencil btnIcon" aria-hidden="true"></span></a>
+  <% if (DemandService.belongsToCurrentUser(req, demand)) { %>
+    <a href="<%= DemandService.getEditUrl(demand) %>"><span class="icon-pencil" aria-hidden="true"></span></a>
 
   <a class="showYesNoDialog"
      data-yesActionUrl="<%= DemandService.getDeleteUrl(demand) %>"
@@ -10,6 +10,6 @@
      data-noActionLabel="<%- i18n('Cancel') %>">
     <span class="icon-bin btnIcon" aria-hidden="true"/></a>
 
-  <a href="<%= DemandService.getMatchingUrl(demand) %>"><span class="glyphicon glyphicon-check btnIcon" aria-hidden="true"></span></a>
+  <a href="<%= DemandService.getMatchingUrl(demand) %>"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
   <% } %>
 </div>

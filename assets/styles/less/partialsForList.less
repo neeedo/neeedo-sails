@@ -1,76 +1,142 @@
 .listItem {
   height: 30em;
   position: relative;
-  h3 {
+  box-shadow: 0 1px 2px sandybrown;
+  border-radius: 10px;
+  background-color: transparent;
+  background-image: url("/images/cardBG.png");
+  background-size: 100% 30em;
+  background-repeat: no-repeat;
+  h3{
+    margin: 0 !important;
   }
-  ul {
-    padding: 0;
+  .cardHeader {
+    position: absolute;
+    width: 100%;
+    height: 3em;
+    top: 0;
+    left: 0;
+    border-top-right-radius: 10px !important;
+    border-top-left-radius: 10px !important;
+    .cardTitle {
+      margin-top: 0 !important;
+      font-size: 2em;
+      color: white;
+      span{
+        font-size: 0.8em;
+      }
+    }
+  }
+  .cardImage {
+    margin: 0 20px;
+    margin-top: 3.5em;
+    height: 15em;
+    border: solid 1px grey;
+    background-color: white;
+   .tagTable{
+     height: 50%;
+     width: 100%;
+     padding: 2%;
+     .title{
+       height: 2em;
+       h4{
+         margin: 0;
+       }
+     }
+   }
+  }
+  .tags{
+    font-size: 1.1em;
+  }
+  .crudbtn, .favobtn {
+    position: absolute;
+    font-size: 1.3em;
+    top: 1%;
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+  .caption {
+    position: relative;
+    margin: 5px 20px;
+    height: 10em;
+    width: auto;
+    .tags{
+      margin: 0 1%;
+    }
+    table{
+      border: solid 1px grey;
+      width: 100%;
+      margin: 2% 0 ;
+      tr{
+        height: 2.5em;
+      }
+      td{
+        width: 50% !important;
+      }
+    }
   }
 }
 
 .offers {
   &:extend(.listItem);
-  .thumbnail {
-    padding: 2%;
-    height: 29em;
-    -moz-border-radius: 0;
-    border: none;
-    border-radius: 0;
-    margin: 0;
+  .cardHeader {
+    background-color: @MetroGreen;
 
-    h3 {
-      margin-top: 0 !important;
-    }
-    hr {
-      margin-top: 0;
-    }
-    #tags {
-      height: 3em;
-    }
+  }
+  .cardImage {
     img {
-      height: 15em;
-      width: auto;
+      max-height: 100%;
+      max-width: 100%;
       padding: 5%;
     }
-    .crudbtn {
-      font-size: 1.5em;
-      position: absolute;
-      top: 2%;
-      right: 12%;
-      color: @MetroGreen !important;
-    }
-    .favobtn {
-      font-size: 1.5em;
-      position: absolute;
-      top: 2%;
-      right: 3%;
-    }
-
   }
-}
-.innerBorder{
-  border: solid 1px grey;
-  border-radius: 4px;
-  height: 100%;
-}
-.demands {
-  &:extend(.listItem);
-  background-color: white;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .075);
-  padding: 3%;
-
-  h3 {
-    margin-top: 0 !important;
-  }
-  hr {
-    margin-top: 0;
+  .price {
+    position: absolute;
+    padding: 3% 4%;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    background-image: linear-gradient(to right, @MetroGreen 10%, @MetroLightBlue 100%) !important;
+    color: white;
+    font-size: 1.2em;
+    top: 13%;
+    right: 1%;
   }
   .crudbtn {
-    font-size: 1.5em;
-    position: absolute;
-    top: 3%;
-    right: 5%;
-    color: @MetroGreen !important;
+    right: 12%;
+    a {
+      color: @MetroPinK;
+      &:hover {
+        color: @MetroGreen;
+      }
+    }
+  }
+  .favobtn {
+    right: 3%;
+    a {
+      color: @MetroPinK;
+      &:hover {
+        color: @MetroGreen;
+      }
+    }
+  }
+}
+
+.demands {
+  &:extend(.listItem);
+  .cardHeader {
+    background-color: @MetroPinK;
+  }
+  .crudbtn {
+    right: 3%;
+    a {
+      color: @MetroGreen;
+      &:hover {
+        color: @MetroPinK;
+      }
+    }
   }
 }
 
@@ -82,11 +148,7 @@
 }
 
 .hidden-xs .listItem {
-  width: 33%;
-  img {
-    width: auto;
-  }
-
+  width: 30%;
 }
 
 #demandHandlebarsListItem, #offerHandlebarsListItem {

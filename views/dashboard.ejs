@@ -26,6 +26,9 @@
         data-displayFavorite="false"
       >
       <% if(offers.length == 0){ %>
+      <div class="noitemSlider">
+        <%= i18n('You did not create any offers,yet. Click the "+"-button above to create your first offer') %>
+      </div>
       <% }
         offers.forEach(function(offer) { %>
       <%- partial('./partials/offersForList.ejs', {offer: offer, displayFavorite: false}) %>
@@ -40,7 +43,10 @@
         data-translationPrice="<%= i18n('Price') %>"
         data-translationDistance="<%= i18n('Distance') %>"
       >
-      <% if(offers.length == 0){ %>
+      <% if(demands.length == 0){ %>
+      <div class="noitemSlider">
+        <%= i18n('You did not create any demands,yet. Click the "+"-button above to create your first demand') %>
+      </div>
       <% }
         demands.forEach(function(demand) { %>
       <%- partial('./partials/demandsForList.ejs', {demand: demand}) %>

@@ -1,38 +1,53 @@
-<li class="demands ">
-  <% // I'm actually not sure why we need to unserialize again, but the following line is really important when this partial is used during an AJAX action, do not remove!                       %>
+<li class="demands listItem">
+  <% // I'm actually not sure why we need to unserialize again, but the following line is really important when this partial is used during an AJAX action, do not remove!                                        %>
   <% demand = ApiClientService.newDemand().loadFromSerialized(demand) %>
-  <div class="innerBorder">
-    <h3><%= i18n('I am looking for:') %></h3>
-    <%- partial('../partials/crudButtonsDemands.ejs', {demand: demand}) %>
-    <hr>
-    <h4><%= i18n('Must have`s') %></h4>
+  <div class="cardHeader">
+    <p class="cardTitle text-center"><span class="icon-search"></span>
+      <%= i18n('Demand') %> </p>
+  </div>
+  <%- partial('../partials/crudButtonsDemands.ejs', {demand: demand}) %>
+  <div class="cardImage">
+    <table class="tagTable table-striped">
+      <tr class="title">
+        <td>
+          <h4><%= i18n('I am looking for:') %></h4>
+        </td>
+      </tr>
+      <tr>
+        <td class="tags">
+          <%= demand.getMustTags().join(", ") %>
+        </td>
+      </tr>
+    </table>
 
-
-    <ul>
-      <% demand.getMustTags().forEach(function(mustTags){ %>
-      <li>
-        <%= mustTags %>
-      </li>
-      <% }) %>
-    </ul>
-
-    <h4><%= i18n('Should have`s') %></h4>
-
-    <ul>
-      <% demand.getShouldTags().forEach(function(shouldTags){ %>
-      <li>
-        <%= shouldTags %>
-      </li>
-      <% }) %>
-    </ul>
-
-    <h4><%= i18n('Distance') %>:
-    </h4>
-    <span><%= demand.getDistance() %> km</span>
-
-
-    <h4><%= i18n('Price') %>:</h4>
-      <span><%= demand.getPrice().getMin() %> - <%= demand.getPrice().getMax() %><span
-          class="glyphicon glyphicon-euro " aria-hidden="true"></span></span>
+    <table class="tagTable table-striped">
+      <tr class="title">
+        <td>
+          <h4><%= i18n('It should have:') %></h4>
+        </td>
+      </tr>
+      <tr>
+        <td class="tags">
+          <%= demand.getShouldTags().join(", ") %>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="caption">
+    <table class="table-striped">
+      <tr>
+        <td><%= i18n('Distance') %>:</td>
+        <td><%= demand.getDistance() %> km</td>
+      </tr>
+      <tr>
+        <td><%= i18n('Price') %>:</td>
+        <td><%= demand.getPrice().getMin() %> - <%= demand.getPrice().getMax() %><span
+            class="glyphicon glyphicon-euro" aria-hidden="true"></span></td>
+      </tr>
+      <tr>
+        <td><%= i18n('Creator') %>:</td>
+        <td><%= demand.getUser().getUsername() %></td>
+      </tr>
+    </table>
   </div>
 </li>
