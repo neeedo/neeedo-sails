@@ -11,7 +11,10 @@ module.exports = function(req, res, next) {
   if (undefined === type
     || ! (type in FileService.getFileTypeAdapter())) {
     FlashMessagesService.setErrorMessage('This operation is not allowed.', req, res);
-    UrlService.redirectToLastRedirectUrl(req, res);
+
+    if (UrlService.redirectToLastRedirectUrl(req, res)) {
+      return;
+    }
   }
 
   return next();
