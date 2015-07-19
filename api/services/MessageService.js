@@ -116,7 +116,7 @@ module.exports = {
         onSuccessCallback(messageList);
       };
 
-      var conversation = ApiClientService.validateAndCreateNewConversationFromRequest(req, res);
+      var conversation = ApiClientService.validateAndCreateNewConversationFromRequest(req, res, onErrorCallBack);
 
       if (undefined !== conversation) {
         var messageListService = new MessageListService();

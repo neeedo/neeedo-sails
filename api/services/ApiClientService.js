@@ -287,11 +287,12 @@ module.exports = {
     };
   },
 
-  validateAndCreateNewConversationFromRequest: function (req, res) {
+  validateAndCreateNewConversationFromRequest: function (req, res, onErrorCallback) {
     var validationResult = this.validateConversationFromRequest(req, res);
 
     if (!validationResult.success) {
       onErrorCallback(ApiClientService.newError("validateAndCreateNewConversationFromRequest: ", validationResult.message));
+      return undefined;
     }
 
     return new Conversation()
@@ -872,7 +873,7 @@ module.exports = {
     if (!idValidator.isValid(offerId)) {
       return {
         success: false,
-        message: offerId.getErrorMessages(),
+        message: idValidator.getErrorMessages(),
         params: {
           offerId: offerId
         }
