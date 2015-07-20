@@ -80,8 +80,8 @@
 
 .form-style li > label{
   display: block;
-  background: #E0E0E0;
-  color: @DarkerMetroGreen;
+  background: @MetroGreen;
+  color: #f0f0f0;
   overflow: hidden;
   padding-left: 5px;
 }
@@ -96,9 +96,9 @@
   display: block;
   outline: none;
   border: none;
-  color: @DarkerMetroGreen;
+  color: #f0f0f0;
   height: 2.5em;
-  background: #E0E0E0;
+  background: @MetroGreen;
   padding-left: 5px;
 }
 
@@ -107,13 +107,31 @@
 .form-style input:focus::-moz-placeholder { color:transparent; } /* Firefox 19+ */
 .form-style input:focus:-ms-input-placeholder { color:transparent; } /* oldIE ;) */
 .form-style li > span{
-  background: #d0d0d0;
+  background: @DarkerMetroGreen;
   display: block;
   padding: 3px;
   text-align: center;
-  color: @DarkerMetroGreen;
+  color: #f0f0f0;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 11px;
+}
+
+.form-style{
+  *::-webkit-input-placeholder {
+    color: #f0f0f0;
+  }
+  *:-moz-placeholder {
+    /* FF 4-18 */
+    color: #f0f0f0;
+  }
+  *::-moz-placeholder {
+    /* FF 19+ */
+    color: #f0f0f0;
+  }
+  *:-ms-input-placeholder {
+    /* IE 10+ */
+    color: #f0f0f0;
+  }
 }
 
 #submitBtn{
@@ -121,7 +139,7 @@
   padding: 10px 0 15px;
 }
 .disabled{
-  background-color: #d0d0d0 !important;
+  background-color: @DarkerMetroGreen !important;
 }
 .ui-menu .ui-menu-item{
   line-height: 1.5em;
@@ -137,7 +155,7 @@
 .checkboxContainer{
   height: 2.5em;
   width: 100%;
-  background-color: #e0e0e0;
+  background-color: @MetroGreen;
   padding-top: 9px;
 }
 
@@ -176,7 +194,8 @@ ul.tagit li.tagit-new{
 }
 
 ul.tagit input[type="text"]{
-  background-color: #e0e0e0 !important;
+  background-color: @MetroGreen !important;
+  padding-left: 5px !important;
 }
 
 ul.tagit{
@@ -184,6 +203,12 @@ ul.tagit{
   padding: 0 !important;
   border: none !important;
   border-radius: 0 !important;
+  background-color: @MetroGreen !important;
+}
+
+ul.tagit li.tagit-choice-editable{
+  background-color: @DarkerMetroGreen !important;
+  color: #fff !important;
 }
 
 .ui-widget-content{
@@ -196,19 +221,24 @@ ul.tagit{
 }
 
 .ui-corner-all{
-  background-color: #d0d0d0 !important;
+  border-radius: 0 !important;
 }
 
 .tagit-label{
-  background-color: #e0e0e0 !important;
+  background-color: @DarkerMetroGreen !important;
   padding: 5px;
   border-radius: 2px;
-  color: @DarkerMetroGreen;
+  color: #fff !important;
+}
+
+.ui-state-default .ui-icon {
+  background-image: url("/images/jqueryUI/ui-icons_2e83ff_256x240.png") !important;
 }
 
 #fileUploadLabel{
   font-size: 0.7em;
   margin-left: 5px;
+  color: #f0f0f0;
 }
 
 label{
@@ -217,21 +247,22 @@ label{
 
 #fileupload-input{
   padding: 5px;
-  background-color: #d0d0d0;
-  color: @DarkerMetroGreen;
+  background-color: @DarkerMetroGreen;
+  color: #fff;
   width: 100%;
   height: 100px;
-  border: 1px dashed @DarkerMetroGreen;
+  border: 1px dashed #fff;
   cursor: pointer;
 }
 
 #fileupload{
-  background-color: #e0e0e0;
+  background-color: @MetroGreen;
 }
 
 #fileupload-messages{
   text-align: center;
-  background-color: #d0d0d0;
+  background-color: @MetroGreen;
+  color: #f0f0f0;
 }
 
 #fileupload-messages p{
@@ -242,6 +273,7 @@ label{
   font-size: 0.7em;
   padding: 5px;
   margin: 0;
+  color: #f0f0f0;
 }
 
 .hideLi{
@@ -252,7 +284,7 @@ label{
 }
 
 .fileupload-preview-images{
-  background-color: #e0e0e0;
+  background-color: @MetroGreen;
 }
 
 #fileupload-files li{
@@ -281,7 +313,7 @@ label{
 .inputMissing{
   color: #ff0000;
   display: none;
-  background: #e0e0e0;
+  background: #F0F0F0;
   text-align: center;
 }
 
@@ -358,13 +390,14 @@ label{
 }
 
 .ui-slider-range{
-  background: #d0d0d0 !important;
+  background: @DarkerMetroGreen !important;
 }
 
 #slider-range{
-  background: #e3e3e3 !important;
+  background: @MetroGreen !important;
 }
 
 .suggestedTags{
-  margin-top: 8px;
+  padding: 10px 3px;
+  background-color: @MetroGreen;
 }
