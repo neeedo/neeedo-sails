@@ -312,6 +312,7 @@ $(document).ready(function () {
       },
       minLength: 2
     },
+    placeholderText : "iPhone, Smart-TV",
     afterTagAdded: function (event, ui) {
       getSuggests($(this));
     },
