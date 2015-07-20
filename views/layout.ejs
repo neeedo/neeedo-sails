@@ -56,10 +56,11 @@
        <% // modal dialogs HTML will be rendered here %>
       <div id="modalDialogs">
       </div>
-    <%- partial ('./partials/header.ejs') %>
-    <%- partial ('./partials/messages.ejs') %>
+      <%- partial ('./partials/header.ejs') %>
+      <%- partial ('./partials/messages.ejs') %>
 
-    <%- body %>
+      <%- body %>
+      <a class="back-to-top" href="#"></a>
       <div class="push"></div>
     </div>
 
@@ -129,6 +130,7 @@
 
     <!--SCRIPTS-->
     <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/js/globalscripts/lib/backToTop.js"></script>
     <script src="/js/globalscripts/lib/bootstrap.min.js"></script>
     <script src="/js/globalscripts/lib/cbpFWTabs.js"></script>
     <script src="/js/globalscripts/lib/classie.js"></script>
