@@ -1,46 +1,81 @@
 <div id="main" class="container">
-
   <!-- Description of our Site for unregistered Users-->
   <!--LINKS or TUTORIALS?-->
   <div class="contentContainer">
     <div class="text-center description" id="descriptionContainer">
       <h1 id="welcome"><%= i18n('Welcome to Neeedo.com') %></h1>
-
-      <div class="row">
-        <div class="col-xs-4 descriptionText">
-          <p>Für uns als Einkäufer gibt es nichts nervigeres als sich erst durch Seiten von Angeboten zu klicken bevor
-            man das findet was man sucht.
-            Wir haben daher unsere Suche so aufgebaut, dass der Kunde exakt das eingeben kann was für ihn wichtig ist,
-            und das auch findet. </p>
+      <div class="mediumDescription">
+        <div class="row">
+          <div class="col-xs-4 descriptionText">
+            <p>
+              Für uns als Einkäufer gibt es nichts nervigeres als sich erst durch Seiten von Angeboten zu klicken bevor
+              man das findet was man sucht.
+              Wir haben daher unsere Suche so aufgebaut, dass der Kunde exakt das eingeben kann was für ihn wichtig ist,
+              und das auch findet.
+            </p>
+          </div>
+          <div class="col-xs-4 descriptionText">
+            <p>
+              Wir nutzen verschiedene Methoden um das Einkaufen für unsere Nutzer zu vereinfachen.
+              Das bedeutet für uns auch, dass ihm in erster Linie die Sachen angeboten werden die er auch finden
+              möchte.
+            </p>
+          </div>
+          <div class="col-xs-4 descriptionText">
+            <p>
+              Es lag uns von Beginn an am Herzen den regionalen Markt zu unsterstützen.
+              Daher legen wir besonderen Wert darauf, dass die angebotenen Waren so gut erreichbar wie möglich sind.
+            </p>
+          </div>
         </div>
-        <div class="col-xs-4 descriptionText">
-          <p>Wir nutzen verschiedene Methoden um das Einkaufen für unsere Nutzer zu vereinfachen.
-            Das bedeutet für uns auch, dass ihm in erster Linie die Sachen angeboten werden die er auch finden
-            möchte.</p>
-        </div>
-        <div class="col-xs-4 descriptionText">
-          <p>Es lag uns von Beginn an am Herzen den regionalen Markt zu unsterstützen.
-            Daher legen wir besonderen Wert darauf, dass die angebotenen Waren so gut erreichbar wie möglich sind</p>
+        <div class="row">
+          <div class="col-xs-4">
+            <button onclick="window.location.href='/#demandContainer'"
+                    class="neeedoBtn neeedoBtn--nuka "><%= i18n('Search for what you really need') %></button>
+          </div>
+          <div class="col-xs-4">
+            <button onclick="window.location.href='/#offerContainer'"
+              class="neeedoBtn neeedoBtn--nuka "><%= i18n('Find what you`re really looking for') %></button>
+          </div>
+          <div class="col-xs-4">
+            <button onclick="window.location.href='/#mapContainer'"
+                    class="neeedoBtn neeedoBtn--nuka "><%= i18n('Everything at your nearest') %></button>
+          </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-xs-4">
-          <button onclick="window.location.href='/#demandContainer'"
-                  class="neeedoBtn neeedoBtn--nuka "><%= i18n('Search for what you really need') %></button>
-        </div>
-        <div class="col-xs-4">
-          <button
-            onclick="window.location.href='/#offerContainer'"
-            class="neeedoBtn neeedoBtn--nuka "><%= i18n('Find what you`re really looking for') %></button>
-        </div>
-        <div class="col-xs-4">
-          <button onclick="window.location.href='/#mapContainer'"
-                  class="neeedoBtn neeedoBtn--nuka "><%= i18n('Everything at your nearest') %></button>
+      <div class="smallDescription">
+        <div class="row">
+          <div class="col-xs-12 smallDescriptionBox">
+            <p class="descriptionText">
+              Für uns als Einkäufer gibt es nichts nervigeres als sich erst durch Seiten von Angeboten zu klicken bevor
+              man das findet was man sucht.
+              Wir haben daher unsere Suche so aufgebaut, dass der Kunde exakt das eingeben kann was für ihn wichtig ist,
+              und das auch findet.
+            </p>
+            <button onclick="window.location.href='/#tabs'"
+                    class="neeedoBtn neeedoBtn--nuka "><%= i18n('Search for what you really need') %></button>
+          </div>
+          <div class="col-xs-12 smallDescriptionBox">
+            <p class="descriptionText">
+              Wir nutzen verschiedene Methoden um das Einkaufen für unsere Nutzer zu vereinfachen.
+              Das bedeutet für uns auch, dass ihm in erster Linie die Sachen angeboten werden die er auch finden
+              möchte.
+            </p>
+            <button onclick="window.location.href='/#tabs'"
+              class="neeedoBtn neeedoBtn--nuka "><%= i18n('Find what you`re really looking for') %></button>
+          </div>
+          <div class="col-xs-12 smallDescriptionBox">
+            <p class="descriptionText">
+              Es lag uns von Beginn an am Herzen den regionalen Markt zu unsterstützen.
+              Daher legen wir besonderen Wert darauf, dass die angebotenen Waren so gut erreichbar wie möglich sind.
+            </p>
+            <button onclick="window.location.href='/#mapContainer'"
+                    class="neeedoBtn neeedoBtn--nuka "><%= i18n('Everything at your nearest') %></button>
+          </div>
         </div>
       </div>
     </div>
     <div id="mapContainer">
-
       <% if (false !== showMap)  { %>
       <h1><%= i18n('In Your Vicinity') %></h1>
       <%- partial('./partials/map/map.ejs', {
@@ -101,13 +136,10 @@
     <div id="tabs" class="tabs">
       <nav>
         <ul>
-          <li><a href="#section-1" class="icon-offer"><span>
-                <%= i18n('Recent Offers') %>
-              </span></a>
+          <li>
+            <a href="#section-1" class="icon-offer text-center"></a>
           </li>
-          <li><a href="#section-2" class="icon-newspaper"><span>
-                <%= i18n('Recent Demands') %>
-              </span></a>
+          <li><a href="#section-2" class="icon-search text-center"></a>
           </li>
         </ul>
       </nav>
