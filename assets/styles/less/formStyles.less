@@ -22,58 +22,70 @@
   margin: 20px auto;
   background: #f0f0f0;
   border-radius:2px;
-  padding:20px;
 }
+
 .form-style h1{
   display: block;
   text-align: center;
   padding: 0;
   margin: 0px 0px 20px 0px;
 }
+
 .form-style ul{
   list-style:none;
   padding:0;
   margin:0;
 }
+
 .form-style li{
   display: block;
-  padding: 9px;
   margin-bottom: 15px;
-  border-radius: 3px;
 }
+
 .form-style .priceCol{
-  width: 49%;
+  width: 50%;
   float: left;
 }
+
 .form-style #locationCol{
-  width: 24%;
+  width: 25%;
   float: left;
 }
+
 .form-style #addressContainer{
-  width: 74%;
+  width: 75%;
   float: left;
   font-size: 1em;
 }
+
 .form-style .clear{
   clear: both;
 }
+
 .leftCol{
-  margin-right: 1%;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
+
 .rightCol{
-  margin-left: 1%;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
+
 .setBorder{
   border: 3px solid @MetroGreen;
 }
+
 .form-style li > label{
   display: block;
-  float: left;
-  margin-top: -21px;
-  background: #f0f0f0;
+  background: #E0E0E0;
   color: @DarkerMetroGreen;
   overflow: hidden;
+  padding-left: 5px;
 }
+
 .form-style input,
 .form-style select
 {
@@ -86,8 +98,10 @@
   border: none;
   color: @DarkerMetroGreen;
   height: 2.5em;
-  background: #e3e3e3;
+  background: #E0E0E0;
+  padding-left: 5px;
 }
+
 .form-style input:focus::-webkit-input-placeholder { color:transparent; }
 .form-style input:focus:-moz-placeholder { color:transparent; } /* Firefox 18- */
 .form-style input:focus::-moz-placeholder { color:transparent; } /* Firefox 19+ */
@@ -100,12 +114,11 @@
   color: @DarkerMetroGreen;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 11px;
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
 }
 
 #submitBtn{
   border: none;
+  padding: 10px 0 15px;
 }
 .disabled{
   background-color: #d0d0d0 !important;
@@ -159,7 +172,7 @@ input[type=number] {
 ul.tagit li.tagit-new{
   padding: 0 !important;
   width: 100% !important;
-  margin-bottom: 0 !important;
+  margin: 0 !important;
 }
 
 ul.tagit input[type="text"]{
@@ -188,6 +201,9 @@ ul.tagit{
 
 .tagit-label{
   background-color: #e0e0e0 !important;
+  padding: 5px;
+  border-radius: 2px;
+  color: @DarkerMetroGreen;
 }
 
 #fileUploadLabel{
@@ -256,7 +272,6 @@ label{
   border: none;
   padding: 10px 20px 10px 20px;
   border-bottom: 3px solid #7a7a7a;
-  border-radius: 3px;
   color: @DarkerMetroGreen;
   height: 3em;
   width: 66%;
@@ -348,4 +363,8 @@ label{
 
 #slider-range{
   background: #e3e3e3 !important;
+}
+
+.suggestedTags{
+  margin-top: 8px;
 }

@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container contentContainer">
   <h1 class="text-center" id="formHeading"><%= i18n('Create offer') %></h1>
   <form id="createOffer" method="POST" class="form-style">
     <ul>
-      <li>
+      <li class="odd">
         <label for="tagsOffer"><%= i18n('must have') %></label>
         <input type="text" class="providesTagCompletion" id="tagsOffer" name="tags" value="<%- (undefined !== typeof tags ? tags : "") %>" placeholder="<%= i18n('blue, screen protector') %>">
         <small class="inputMissing" id="errorTag"><%= i18n('Please enter at least one tag') %></small>
@@ -15,7 +15,7 @@
 
         <div class="suggestedTags"></div>
       </li>
-      <li>
+      <li class="even">
         <label for="priceOffer"><%= i18n('Price') %></label>
         <input type="number" id="priceOffer" name="price" step="any" min="0" value="<%- (undefined !== typeof price ? price : "") %>" placeholder="14">
         <small class="inputMissing" id="errorPrice"><%= i18n('Please enter a price') %></small>
@@ -26,7 +26,7 @@
 
         <span><%= i18n('Price in €') %></span>
       </li>
-      <li id="locationCol" class="leftCol">
+      <li id="locationCol" class="leftCol odd">
         <label for="useGeolocation"><%= i18n("Location") %></label>
         <div class="checkboxContainer">
           <input type="checkbox" id="useGeolocation" checked
@@ -37,7 +37,7 @@
         <input type="hidden" name="lat" id="latDemand" value="<%- (undefined !== typeof lat ? lat : "") %>"/>
         <input type="hidden" name="lng" id="lonDemand" value="<%- (undefined !== typeof lng ? lng : "") %>"/>
       </li>
-      <li id="addressContainer" class="ui-widget rightCol">
+      <li id="addressContainer" class="ui-widget rightCol odd">
         <label for="address" id="addressLabel"><%= i18n('Address') %></label>
         <input type="text" id="address" class="disabled" name="address">
         <small class="inputMissing" id="errorLoc"><%= i18n('Please enter a location') %></small>
@@ -52,10 +52,10 @@
 
         <span><%= i18n("Type in your address") %></span>
       </li>
-      <li>
+      <li class="even">
         <input id="showUpload" type="button" value="<%= i18n("Add images") %>">
       </li>
-      <li id="imgUploadStep" class="clear hideLi">
+      <li id="imgUploadStep" class="clear hideLi odd">
         <label for="images[]"><%= i18n("Image upload") %></label>
         <%- partial('./offer-fileupload.ejs', { renderMessages: false, renderPreviewImages: false }) %>
         <% if (undefined !== images) { images.getImages().forEach(function(image) { %>
@@ -68,7 +68,7 @@
         <span class="inputError"><%= validationMessages.images %></span>
         <% } %>
       </li>
-      <li id="submitBtn" class="clear">
+      <li id="submitBtn" class="clear even">
         <button id="createOfferBtn" onclick="return validateOfferForm()" class="neeedoBtn neeedoBtn--nuka"><%= i18n('Send') %></button>
       </li>
     </ul>
