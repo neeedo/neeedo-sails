@@ -70,7 +70,7 @@
     <%- partial ('./partials/navigation.ejs') %>
     <%- partial ('./partials/footer.ejs') %>
        <!--TEMPLATES-->
-       
+
        <!--TEMPLATES END-->
 
 
@@ -124,9 +124,20 @@
 
     <!-- jQuery ui -->
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+      if (typeof jQuery == 'undefined') {
+        document.write(unescape("%3Cscript src='/js/static/jquery-1.11.3.js' type='text/javascript'%3E%3C/script%3E"));
+        document.write(unescape("%3Cscript src='/js/static/jquery-ui.js' type='text/javascript'%3E%3C/script%3E"));
+      }
+    </script>
 
     <!-- LeafLet -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+    <script>
+      if (typeof L == 'undefined') {
+        document.write(unescape("%3Cscript src='/js/static/leaflet.js' type='text/javascript'%3E%3C/script%3E"));
+      }
+    </script>
 
     <!--SCRIPTS-->
     <script src="/js/dependencies/sails.io.js"></script>
