@@ -148,21 +148,27 @@ module.exports = {
   },
 
   logMessages: function (errorModel) {
-    for (var i = 0; i < errorModel.getLogMessages().length; i++) {
-      sails.log.error(errorModel.getLogMessages()[i]);
+    if (_.isFunction(errorModel.getLogMessages)) {
+      for (var i = 0; i < errorModel.getLogMessages().length; i++) {
+        sails.log.error(errorModel.getLogMessages()[i]);
+      }
     }
   },
 
   addFlashMessages: function (req, res, errorModel) {
-    for (var i = 0; i < errorModel.getErrorMessages().length; i++) {
-      FlashMessagesService.setErrorMessage(errorModel.getErrorMessages()[i], req, res);
+    if (_.isFunction(errorModel.getErrorMessages)) {
+      for (var i = 0; i < errorModel.getErrorMessages().length; i++) {
+        FlashMessagesService.setErrorMessage(errorModel.getErrorMessages()[i], req, res);
+      }
     }
   },
 
   addFlashMessagesForValidationMessages: function (req, res, errorModel) {
-    if (errorModel.hasValidationMessages()) {
-      for (var validationKey in errorModel.getValidationMessages()) {
-        FlashMessagesService.setErrorMessage(validationKey + ": " + errorModel.getValidationMessages()[validationKey], req, res);
+    if (_.isFunction(errorModel.hasValidationMessages)) {
+      if (errorModel.hasValidationMessages()) {
+        for (var validationKey in errorModel.getValidationMessages()) {
+          FlashMessagesService.setErrorMessage(validationKey + ": " + errorModel.getValidationMessages()[validationKey], req, res);
+        }
       }
     }
   },
