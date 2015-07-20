@@ -1,4 +1,6 @@
-var ApiClientService = require('../../api/services/ApiClientService');
+var ApiClientService = require('../../api/services/ApiClientService'),
+   apiNodeJsClient = require('neeedo-api-nodejs-client')
+  ;
 
 module.exports  = {
   /**
@@ -56,5 +58,51 @@ module.exports  = {
         }
       }
     }
+  },
+
+  newLocationStub: function(lat, lng) {
+    var location = new apiNodeJsClient.models.Location;
+
+    return location.setLatitude(lat).setLongitude(lng);
+  },
+
+  newOfferStub: function() {
+    var offer = new apiNodeJsClient.models.Offer();
+
+    return offer.setId("offer1")
+      .setTags(["tag1", "tag2"])
+      .setPrice(10)
+      .setLocation(this.newLocationStub(55.321, 41.23));
+
+    return offer;
+  },
+
+  newOfferListStub: function(withOffers) {
+    var offerList = new apiNodeJsClient.models.OfferList();
+
+    if (withOffers) {
+      offerList.addOffer(this.newOfferStub());
+    }
+
+    return offerList;
+  },
+
+  newFavoriteListSub: function() {
+    var favList = new apiNodeJsClient.models.OfferList();
+    var favOffer = this.newOfferStub();
+
+    return favList.addOffer(favOffer);
+  },
+
+  newUserStub: function() {
+    var user = new apiNodeJsClient.models.User();
+
+    return user.setUsername("max").setEMail("max@muster.de");
+  },
+
+  newFavoriteStub: function() {
+    var fav = new apiNodeJsClient.models.Favorite();
+
+    return fav.setOffer(this.newOfferStub()).setUser(this.newUserStub());
   }
 };
