@@ -1,47 +1,49 @@
 <div id="main" class="container">
-  <div>
-    <h1><%= i18n('Your demand') %></h1>
+  <div class="contentContainer">
+    <div>
+      <h1><%= i18n('Your demand') %></h1>
 
-    <%- partial('../demand/view.ejs', {demand: demand}) %>
-  </div>
-
-  <div>
-    <% if (0 == offers.length) { %>
-    <p><%- i18n("Sorry, we couldn't find any matching offers for now. We will inform you if a new matching offer was created.") %></p>
-    <% } %>
-  </div>
-  <% if (0 < offers.length) {%>
-  <div>
-    <h1><%= i18n('Matched offers') %></h1>
-
-    <div class="container elementWrapper ">
-      <ul id="lightSliderOffer"
-          data-itemLimit="<%- pagination.limit %>"
-          data-currentPage="<%- pagination.firstPageNumber %>"
-          data-sourceUrl="<%- demandMatchingSourceUrl %>"
-          data-viewUrl="<%- OfferService.getViewUrl() %>"
-          data-translationPrice="<%= i18n('Price') %>"
-          data-displayFavorite="true"
-        >
-        <% offers.forEach(function(offer) { %>
-        <%- partial('../partials/offersForList.ejs', {offer: offer, displayFavorite: true}) %>
-        <% }); %>
-      </ul>
+      <%- partial('../demand/view.ejs', {demand: demand}) %>
     </div>
 
     <div>
-      <% if (false !== showMap) { %>
-      <%- partial('../partials/map/map.ejs', {
-        mapType: showMap.mapType,
-        demandMatchingSourceUrl: showMap.demandMatchingSourceUrl,
-        demandSourceUrl: undefined,
-        offerSourceUrl: undefined,
-        showDetailsLink : true
-      }) %>
+      <% if (0 == offers.length) { %>
+      <p><%- i18n("Sorry, we couldn't find any matching offers for now. We will inform you if a new matching offer was created.") %></p>
       <% } %>
     </div>
+    <% if (0 < offers.length) { %>
+    <div>
+      <h1><%= i18n('Matched offers') %></h1>
+
+      <div class="container elementWrapper ">
+        <ul id="lightSliderOffer"
+            data-itemLimit="<%- pagination.limit %>"
+            data-currentPage="<%- pagination.firstPageNumber %>"
+            data-sourceUrl="<%- demandMatchingSourceUrl %>"
+            data-viewUrl="<%- OfferService.getViewUrl() %>"
+            data-translationPrice="<%= i18n('Price') %>"
+            data-displayFavorite="true"
+          >
+          <% offers.forEach(function(offer) { %>
+          <%- partial('../partials/offersForList.ejs', {offer: offer, displayFavorite: true}) %>
+          <% }); %>
+        </ul>
+      </div>
+
+      <div>
+        <% if (false !== showMap) { %>
+        <%- partial('../partials/map/map.ejs', {
+          mapType: showMap.mapType,
+          demandMatchingSourceUrl: showMap.demandMatchingSourceUrl,
+          demandSourceUrl: undefined,
+          offerSourceUrl: undefined,
+          showDetailsLink: true
+        }) %>
+        <% } %>
+      </div>
+    </div>
+    <% } %>
   </div>
-  <% } %>
 </div>
 
 <% block('localScripts', '<script src="/js/localscripts/slider.js"></script>') %>

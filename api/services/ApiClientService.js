@@ -48,8 +48,6 @@ module.exports = {
   PARAM_USERNAME_KEY: "username",
   PARAM_EMAIL_KEY: "email",
   PARAM_PASSWORD_KEY: "password",
-  PARAM_EMAIL_KEY: "email",
-  PARAM_PASSWORD_KEY: "password",
   PARAM_MESSAGE_BODY_KEY: "messageBody",
   PARAM_RECIPIENT_ID_KEY: "recipientId",
   PARAM_OFFER_ID_KEY: "offerId",
@@ -812,7 +810,7 @@ module.exports = {
 
     if (undefined === offerId
       || !idValidator.isValid(offerId)) {
-
+      sails.log.error('is not valid : offer Id ' + offerId);
       return {
         success: false,
         message: idValidator.getErrorMessages(),
@@ -820,6 +818,7 @@ module.exports = {
       };
     }
 
+    sails.log.error('is valid : offer Id ' + offerId);
     return {
       success: true,
       message: '',
@@ -828,7 +827,7 @@ module.exports = {
   },
 
   validateAndCreateNewDemandIdFromRequest: function (req, res, onErrorCallback) {
-    var validationResult = ApiClientService.validateDemandIdFromRequest(req, res);
+    var validationResult = this.validateDemandIdFromRequest(req, res);
 
     if (!validationResult.success) {
       onErrorCallback(ApiClientService.newError("validateAndCreateNewDemandIdFromRequest: ", validationResult.message));
@@ -845,7 +844,6 @@ module.exports = {
 
     if (undefined === demandId
       || !idValidator.isValid(demandId)) {
-
       return {
         success: false,
         message: idValidator.getErrorMessages(),

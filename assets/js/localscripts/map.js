@@ -221,12 +221,15 @@ var renderOfferInTemplate = function (offer) {
     imageTitle = firstImage.fileName;
   }
 
+  var imageHtml = '<img src="'+ image + '" alt="' + imageTitle + '" class="offerMarkerImage"/>';
+
   var context = {
     viewUrl: viewUrl,
     tags: offer.tags,
     price: offer.price,
     image: image,
     imageTitle: imageTitle,
+    imageHtml: imageHtml,
     translations: mapTypeOptions.translations,
     user: offer.user,
     showDetailsLink: mapTypeOptions.showDetailsLink
