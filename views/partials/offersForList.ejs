@@ -4,8 +4,10 @@
   <div class="cardHeader">
     <p class="cardTitle text-center"><span class="icon-offer"></span> <%= i18n('Offer') %> </p>
   </div>
+
   <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
   <%- partial('../partials/favoriteButtonOffer.ejs', {offer: offer, display: displayFavorite}) %>
+
   <div class="price"> <%= offer.getPrice() %><span
       class="glyphicon glyphicon-euro" aria-hidden="true"></span>
   </div>

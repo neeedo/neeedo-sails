@@ -1,6 +1,10 @@
 <div id=main class="container">
   <!--LINKS or TUTORIALS?-->
   <div class="contentContainer">
+
+    <div class="description">
+        <h1 id="welcome"class="text-center"><%= i18n('Hello, %s!', LoginService.getCurrentUser(req).getUsername()) %></h1>
+    </div>
     <% /* TODO this is not nice and should be refactored -> split homepage.ejs, offer dashboard.ejs for logged-in users and homepage.ejs for not-logged in ones */ %>
     <div id="mapContainer">
       <% if (false !== showMap)  { %>
