@@ -1,5 +1,14 @@
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left visible-xs" id="cbp-spmenu-s1">
+  <a class="headerIconSmall" href="<%= UrlService.to('/offers/create') %>">
+    <span class="icon-offer"></span>
 
+    <p> <%= i18n('Create offer') %></p>
+  </a>
+  <a class="headerIconSmall" href="<%= UrlService.to('/demands/create') %>"><span
+      class="icon-search"></span>
+
+    <p><%= i18n('Create demand') %></p>
+  </a>
   <% if (!LoginService.userIsLoggedIn(req)) { %>
   <a class="headerIconSmall" type="button" data-toggle="modal" data-target="#myModal"><span
       class=" icon-enter"></span>
@@ -12,11 +21,6 @@
     <p><%= i18n('Register') %></p></a>
   <% } %>
   <% if (LoginService.userIsLoggedIn(req)) { %>
-  <a class="headerIconSmall" href="<%= UrlService.to('/logout') %>">
-    <span class="icon-exit"></span>
-
-    <p><%= i18n('Logout') %></p>
-  </a>
   <a class="headerIconSmall" href="<%= FavoritesService.getFavoritesUrl() %>"><span
       class="icon-star-full"></span>
 
@@ -27,18 +31,16 @@
     <p><%= i18n('Mailbox') %></p></a>
 
   <div id="menuMsgCount" class="newMsgCount"></div>
+    <a class="headerIconSmall" href="<%=UrlService.to('/dashboard')%>">
+      <span class="icon-user"></span>
+      <p><%- LoginService.getCurrentUser(req).getUsername() %></p>
+    </a>
+  <a class="headerIconSmall" href="<%= UrlService.to('/logout') %>">
+    <span class="icon-exit"></span>
+
+    <p><%= i18n('Logout') %></p>
+  </a>
   <% } %>
-  <a class="headerIconSmall" href="<%= UrlService.to('/offers/create') %>">
-    <span class="icon-offer"></span>
-
-    <p> <%= i18n('Create offer') %></p>
-  </a>
-  <a class="headerIconSmall" href="<%= UrlService.to('/demands/create') %>"><span
-      class="icon-search"></span>
-
-    <p><%= i18n('Create demand') %></p>
-  </a>
-
 </nav>
 
 <% if (LoginService.userIsLoggedIn(req)) { %>
