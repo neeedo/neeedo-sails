@@ -4,8 +4,8 @@ function Username(translator, minCount, maxCount) {
   this.errorMessages = [];
   this.minCount = minCount;
   this.maxCount = maxCount;
-  // name must consist of at least one number, only alphanumerical + _ and - are allowed
-  this.regex = /^[a-zA-Z-_0-9]*$/;
+  // name musn't contain a whitespace
+  this.regex = /[^\s]$/;
   this.translator = translator;
 }
 
@@ -25,7 +25,7 @@ Username.prototype.validateMinAndMax = function(givenUsername) {
 
 Username.prototype.validatePattern = function(givenUsername) {
   if (!givenUsername.match(this.regex) ) {
-    this.errorMessages.push(this.translator("Only alphanumerical characters and '_', '-' are allowed."));
+    this.errorMessages.push(this.translator("Your username mustn't have a whitespace."));
     return false;
   }
 
