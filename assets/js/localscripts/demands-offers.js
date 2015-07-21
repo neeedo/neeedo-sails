@@ -339,14 +339,19 @@ $(document).ready(function () {
   var suggestedTagClass = ".suggestedTag";
 
   function getSuggests(tagInputElement) {
-    var tagInputElements = $(tagInputsClassName);
-
-    // find all tag input elements and concat all the input fields
     var currentTags = [];
 
-    tagInputElements.each(function (index) {
-      currentTags.push($(this).val());
-    });
+    if (tagInputElement.attr('id') != 'mustTagsDemand') {
+      // find all tag input elements and concat all the input fields
+      var tagInputElements = $(tagInputsClassName);
+
+      tagInputElements.each(function (index) {
+        currentTags.push($(this).val());
+      });
+    } else {
+      currentTags = [tagInputElement.val()]; // only take values from must-tag field
+    }
+
     var tagSuggestionElements = tagInputElement.parent().find(suggestedTagsClass);
 
     $.ajax({
