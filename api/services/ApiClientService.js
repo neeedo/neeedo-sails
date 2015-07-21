@@ -690,7 +690,7 @@ module.exports = {
     var messageBody = this.getMessageBodyFromRequest(req),
       recipientId = this.getRecipientIdFromRequest(req);
 
-    if (!messageValidator.isValid(messageBody, recipientId)) {
+    if (!messageValidator.isValid(recipientId, messageBody)) {
       return {
         success: false,
         validationErrors: messageValidator.getErrorMessages(),
