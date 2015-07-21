@@ -5,7 +5,7 @@ function Password(translator, minCount, maxCount) {
   this.minCount = minCount;
   this.maxCount = maxCount;
   // password must consist of at least one number, only alphanumerical + $*"';. are allowed
-  this.regex = /^[a-zA-Z-_0-9$*"';.]*[0-9]{1,}[a-zA-Z-_0-9$*"';.]$/;
+  this.regex = /^[a-zA-Z-_0-9$*"';.]*[0-9]{1,}[a-zA-Z-_0-9$*"';.]*$/;
   this.translator = translator;
 }
 
