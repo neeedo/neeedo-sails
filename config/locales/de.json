@@ -118,7 +118,7 @@
   "I'm interested in your offer %s." : "Ich bin an deinem Angebot unter %s interessiert.",
   "Can you tell me something about it?" : "Kannst du mir ein paar Details nennen?",
   "Send message to offeror" : "Kontaktiere den Anbieter",
-  "Send" : "Senden",
+  "Senden" : "Senden",
   "Please Login": "Bitte melde dich an.",
   "Please login in order to send message to the offeror" : "Melde dich an, um eine Nachricht zu schreiben.",
   "Greetings, %s" : "Gruß, %s",
@@ -160,7 +160,7 @@
   "Landing page map text" : "standort/map marketing text",
   "Send" : "Anlegen",
   "Price in €" : "Preis in €",
-  "What are you offering?" : "Was bietest du an?",
+  "What are you offering?" : "Was bietest du an?", // du?
   "Add images" : "Bilder hinzufügen",
   "Impressum" : "Impressum",
   "Legal Disclosure" : "Angaben gemäß § 5 TMG",
