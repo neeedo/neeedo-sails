@@ -211,9 +211,14 @@ var renderImageInPreviewList = function(image) {
   var source = $("#offerPreviewImage").html();
   var template = Handlebars.compile(source);
 
+  var imageUrl = neeedo.filterImageUrl(image.baseUrl + '/' + image.fileName);
+  var imageFileName = image.fileName;
+
+  var imageHtml = '<img src="'+ imageUrl + '" alt="' + imageFileName + '"/>';
   var context = {
     imageUrl: neeedo.filterImageUrl(image.baseUrl + '/' + image.fileName),
     imageFileName: image.fileName,
+    imageHtml: imageHtml,
     translations: {
       delete: errorMessageTarget.data('messagedelete')
     },
