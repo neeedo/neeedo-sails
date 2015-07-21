@@ -88,12 +88,12 @@ module.exports.webapp = {
   validations: {
     user: {
       username: {
-        minCount: 5,
-        maxCount: 50
+        minCount: 3,
+        maxCount: 24
       },
       password: {
-        minCount: 5,
-        maxCount: 50
+        minCount: 8,
+        maxCount: 64
       }
     },
     offer: {
@@ -117,7 +117,7 @@ module.exports.webapp = {
         maxCount: 20
       },
       shouldTags: {
-        minCount: 1,
+        minCount: 0,
         maxCount: 20
       },
       // prices in €
