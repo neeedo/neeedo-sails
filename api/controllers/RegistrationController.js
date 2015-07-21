@@ -13,7 +13,7 @@ module.exports = {
       var onLoggedInSuccess = function (loggedInUser) {
         res.redirect('/static/help');
       };
-      LoginService.loginUser(req, onLoggedInSuccess, onErrorCallback);
+      LoginService.loginUser(req, res, onLoggedInSuccess, onErrorCallback);
     };
 
     if ("POST" == req.method) {
