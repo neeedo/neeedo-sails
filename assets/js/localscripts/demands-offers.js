@@ -339,10 +339,18 @@ $(document).ready(function () {
   var suggestedTagClass = ".suggestedTag";
 
   function getSuggests(tagInputElement) {
+    var tagInputElements = $(tagInputsClassName);
+
+    // find all tag input elements and concat all the input fields
+    var currentTags = [];
+
+    tagInputElements.each(function (index) {
+      currentTags.push($(this).val());
+    });
     var tagSuggestionElements = tagInputElement.parent().find(suggestedTagsClass);
 
     $.ajax({
-      url: neeedo.getApiHttpUrl() + "/completion/suggest/" + tagInputElement.val().trim(),
+      url: neeedo.getApiHttpUrl() + "/completion/suggest/" + currentTags.join(',').trim(),
       success: function (data) {
         var html = "";
         for (var i=0; i < data.suggestedTags.length; i++) {
