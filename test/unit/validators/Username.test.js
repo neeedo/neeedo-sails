@@ -31,7 +31,7 @@ describe('[UNIT TEST] Username validator', function () {
     var validator = new UsernameValidator(translatorMock, 5, 20);
 
     validator.isValid("max muster").should.be.false;
-    validator.getErrorMessages().indexOf("Your username mustn't have a whitespace.").should.not.be.equal(-1);
+    validator.getErrorMessages().should.be.String;
 
     done();
   });
