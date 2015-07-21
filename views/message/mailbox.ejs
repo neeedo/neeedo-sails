@@ -1,28 +1,45 @@
 <div class="container">
-  <% if (0 == unreadConversationList.getConversations().length
-    &&  0 == readConversationList.getConversations().length) { %>
+  <div class="contentContainer">
+    <% if (0 == unreadConversationList.getConversations().length
+      && 0 == readConversationList.getConversations().length) { %>
     <p><%- i18n("You didn't recieve any message yet.") %></p>
-  <% } %>
-  <div class="panel-group" id="mailbox-accordion" role="tablist" aria-multiselectable="true">
-    <% var counter = 0;
-      unreadConversationList.getConversations().forEach(function (conversation) { %>
-    <%- partial('../partials/mailbox/conversation.ejs', {
-      conversation: conversation,
-      isUnread: true,
-      collapseId: 'collapse' + counter
-    }) %>
-    <% counter++;
-      }); %>
-    <% readConversationList.getConversations().forEach(function (conversation) { %>
-    <%- partial('../partials/mailbox/conversation.ejs', {
-      conversation: conversation,
-      isUnread: false,
-      collapseId: 'collapse' + counter
-    }) %>
-    <% counter++;
-      }); %>
+    <% } %>
+    <div>
+      <h2><%- i18n("Unread messages") %></h2>
+
+      <% if (0 == unreadConversationList.getConversations().length) { %>
+      <p><%- i18n("There aren't any unread messages.") %></p>
+      <% } %>
+      <div class="panel-group" role="tablist" aria-multiselectable="true">
+        <% var counter = 0;
+          unreadConversationList.getConversations().forEach(function (conversation) { %>
+        <%- partial('../partials/mailbox/conversation.ejs', {
+          conversation: conversation,
+          isUnread: true,
+          collapseId: 'collapse' + counter
+        }) %>
+        <% counter++;
+        }); %>
+      </div>
+    </div>
+    <div>
+      <h2><%- i18n("Read messages") %></h2>
+      <% if (0 == readConversationList.getConversations().length) { %>
+      <p><%- i18n("There aren't any read messages.") %></p>
+      <% } %>
+      <div class="panel-group" role="tablist" aria-multiselectable="true">
+        <% readConversationList.getConversations().forEach(function (conversation) { %>
+        <%- partial('../partials/mailbox/conversation.ejs', {
+          conversation: conversation,
+          isUnread: false,
+          collapseId: 'collapse' + counter
+        }) %>
+        <% counter++;
+        }); %>
+      </div>
+    </div>
   </div>
 </div>
 
 <% block('localScripts', '<script src="/js/localscripts/mailbox.js"></script>') %>
-<%- partial ('../partials/mailbox/handlebars/preview-message.ejs') %>
+<%- partial('../partials/mailbox/handlebars/preview-message.ejs') %>

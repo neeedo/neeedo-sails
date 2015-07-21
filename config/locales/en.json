@@ -233,5 +233,9 @@
   "I am looking for:" : "I am looking for:",
   "It should have:" : "It should have:",
   "Description" : "Description:",
-  "Creator" : "Creator"
+  "Creator" : "Creator",
+  "There aren't any unread messages." : "There aren't any unread messages.",
+  "There aren't any read messages." : "There aren't any read messages.",
+  "Unread messages" : "Unread messages",
+  "Read messages" : "Read messages"
 }

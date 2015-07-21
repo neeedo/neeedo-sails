@@ -247,5 +247,9 @@
   "I am looking for:" : "Ich suche unbedingt:",
   "It should have:" : "schön wäre:",
   "Description" : "Beschreibung:",
-  "Creator" : "Benutzer"
+  "Creator" : "Benutzer",
+  "There aren't any unread messages." : "Du hast keine ungelesenen Nachrichten.",
+  "There aren't any read messages." : "Du hast keine gelesenen Nachrichten.",
+  "Unread messages" : "Ungelesene Nachrichten",
+  "Read messages" : "Gelesene Nachrichten"
 }
