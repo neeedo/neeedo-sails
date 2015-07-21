@@ -27,17 +27,6 @@ describe('[UNIT TEST] Password validator', function () {
     done();
   });
 
-  it("fails if password does contain forbidden characters", function (done) {
-    var validator = new PasswordValidator(translatorMock, 5, 20);
-
-    validator.isValid("abc@ddasd").should.be.false;
-    validator.isValid("eval()").should.be.false;
-    validator.isValid("***").should.be.false;
-    validator.getErrorMessages().indexOf("The password must consist of at least one number. Only alphanumerical characters and '_', '-', '$', '*', ''', ';', '.' are allowed.").should.not.be.equal(-1);
-
-    done();
-  });
-
   it("validates correct", function (done) {
     var validator = new PasswordValidator(translatorMock, 5, 20);
 

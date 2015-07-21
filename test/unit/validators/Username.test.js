@@ -30,10 +30,8 @@ describe('[UNIT TEST] Username validator', function () {
   it("fails if username does contain forbidden characters", function (done) {
     var validator = new UsernameValidator(translatorMock, 5, 20);
 
-    validator.isValid("abc@ddasd").should.be.false;
-    validator.isValid("eval()").should.be.false;
-    validator.isValid("***").should.be.false;
-    validator.getErrorMessages().indexOf("Only alphanumerical characters and '_', '-' are allowed.").should.not.be.equal(-1);
+    validator.isValid("max muster").should.be.false;
+    validator.getErrorMessages().indexOf("Your username mustn't have a whitespace.").should.not.be.equal(-1);
 
     done();
   });

@@ -5,7 +5,7 @@ function Username(translator, minCount, maxCount) {
   this.minCount = minCount;
   this.maxCount = maxCount;
   // name musn't contain a whitespace
-  this.regex = /[^\s]$/;
+  this.regex = /[\s]+/;
   this.translator = translator;
 }
 
@@ -24,8 +24,8 @@ Username.prototype.validateMinAndMax = function(givenUsername) {
 };
 
 Username.prototype.validatePattern = function(givenUsername) {
-  if (!givenUsername.match(this.regex) ) {
-    this.errorMessages.push(this.translator("Your username mustn't have a whitespace."));
+  if (givenUsername.match(this.regex) ) {
+    this.errorMessages.push(this.translator("The username must not contain a whitespace."));
     return false;
   }
 
