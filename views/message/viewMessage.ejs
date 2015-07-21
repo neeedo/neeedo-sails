@@ -1,23 +1,25 @@
 <div class="container">
-  <div><a href="<%- MessageService.getMailboxUrl() %>"><%- i18n("Back to Mailbox")%></a><br />
-    <h3><%- i18n('Your conversation with %s', (conversationPartner ? conversationPartner.getUsername() : '')) %></h3>
+  <div class="contentContainer">
+    <div><a href="<%- MessageService.getMailboxUrl() %>"><%- i18n("Back to Mailbox")%></a><br />
+      <h3><%- i18n('Your conversation with %s', (conversationPartner ? conversationPartner.getUsername() : '')) %></h3>
+    </div>
+    <div>
+      <% messageList.getMessages().reverse().forEach(function (readMessage) { %>
+        <%- partial('../partials/mailbox/message.ejs', {
+          message: readMessage,
+          isRead: true
+        }) %>
+      <% }); %>
+    </div>
+    <div>
+      <%- partial('../partials/forms/message.ejs', {
+          offer: undefined,
+          title: "Reply",
+          notLoggedInMessage: "Please login in order to reply",
+          defaultMessage: "",
+          recipientId: (conversationPartner ? conversationPartner.getId() : '')
+        }
+    ) %>
+   </div>
   </div>
-  <div>
-    <% messageList.getMessages().reverse().forEach(function (readMessage) { %>
-      <%- partial('../partials/mailbox/message.ejs', {
-        message: readMessage,
-        isRead: true
-      }) %>
-    <% }); %>
-  </div>
-  <div>
-    <%- partial('../partials/forms/message.ejs', {
-        offer: undefined,
-        title: "Reply",
-        notLoggedInMessage: "Please login in order to reply",
-        defaultMessage: "",
-        recipientId: (conversationPartner ? conversationPartner.getId() : '')
-      }
-  ) %>
- </div>
 </div>

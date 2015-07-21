@@ -241,5 +241,9 @@
   "Invalid tag %s": "Ungültiger Tag %s",
   "The username must have at least %s characters": "Der Benutzername muss aus mind. %s Zeichen bestehen.",
   "The username must not have more than %s characters": "Der Benutzername darf nicht mehr als %s Zeichen enthalten.",
-  "The username must not contain a whitespace.": "Der Benutzername darf kein Leerzeichen enthalten."
+  "The username must not contain a whitespace.": "Der Benutzername darf kein Leerzeichen enthalten.",
+  "Demand" : "Gesuch",
+  "Offer" : "Angebot",
+  "I am looking for:" : "Ich suche unbedingt:",
+  "It should have:" : "schön wäre:"
 }

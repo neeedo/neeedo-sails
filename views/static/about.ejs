@@ -1,112 +1,127 @@
-<div class="container" id="about">
-  <div class="row">
-    <div class="col-lg-1 col-lg-offset-3">
-      <img src="/images/neeedo_Logo.png" alt="Neeedo Logo" />
-    </div>
-    <div class="col-lg-5">
-      <h1>neeedo</h1>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-5 col-lg-offset-4 text-center">
-      <h2>next generation e-commerce</h2>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-4">
-      <img src="/images/about/github_logo.png" id="gitlogo" alt="Github Logo" />
-      <p><%= i18n('Our Code - Open Source on GitHub') %></p>
-    </div>
-    <div class="col-lg-8">
-      <div class="row">
-        <div class="col-lg-6">
-          <button class="neeedoBtn neeedoBtn--nuka aboutBtn" onclick="window.open('https://github.com/neeedo/neeedo-webapp','_blank');";><%= i18n('Web App') %></button>
-        </div>
-        <div class="col-lg-6">
-          <button class="neeedoBtn neeedoBtn--nuka aboutBtn" onclick="window.open('https://github.com/neeedo/neeedo-android','_blank');";><%= i18n('Android App') %></button>
-        </div>
+<div class="container">
+  <div class="contentContainer" id="about">
+    <div class="row">
+      <div class="col-lg-1 col-lg-offset-3">
+        <img src="/images/neeedo_Logo.png" alt="Neeedo Logo"/>
       </div>
-      <div class="row">
-        <div class="col-lg-6">
-          <button class="neeedoBtn neeedoBtn--nuka aboutBtn" onclick="window.open('https://github.com/neeedo/neeedo-api','_blank');";><%= i18n('API') %></button>
-        </div>
-        <div class="col-lg-6">
-          <button class="neeedoBtn neeedoBtn--nuka aboutBtn" onclick="window.open('https://github.com/neeedo','_blank');";><%= i18n('Project Repository') %></button>
-        </div>
+      <div class="col-lg-5">
+        <h1>neeedo</h1>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-6 col-lg-offset-3">
-      <button class="neeedoBtn neeedoBtn--nuka aboutBtn" onclick="window.open('http://www.neeedo.com/','_blank');";><%= i18n('Test our Web App') %></button>
+    <div class="row">
+      <div class="col-lg-5 col-lg-offset-4 text-center">
+        <h2>next generation e-commerce</h2>
+      </div>
     </div>
-  </div>
-  <div class="row" id="thmbs">
-    <div class="col-lg-3 col-lg-offset-2">
-      <button type="button" class="hvr-float-shadow thmbBtn" data-toggle="modal" data-target="#arch">
-        <img src="/images/about/archThmb.jpg"
-      </button>
-    </div>
-    <div class="col-lg-3">
-      <button type="button" class="hvr-float-shadow thmbBtn" data-toggle="modal" data-target="#next">
-        <img src="/images/about/nextThmb.jpg"
-      </button>
-    </div>
-    <div class="col-lg-3">
-      <button type="button" class="hvr-float-shadow thmbBtn" data-toggle="modal" data-target="#sphere">
-        <img src="/images/about/sphereThmb.jpg"
-      </button>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-12" id="teamContainer">
-      <h2 class="text-center"><%= i18n('The Team') %></h2>
-      <img src="/images/about/team.png" alt="Team picture" />
-    </div>
-  </div>
+    <div class="row">
+      <div class="col-lg-4">
+        <img src="/images/about/github_logo.png" id="gitlogo" alt="Github Logo"/>
 
-  <!-- Modal -->
-  <div class="modal fade" id="arch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel"><%= i18n('Architecture Poster') %></h4>
+        <p><%= i18n('Our Code - Open Source on GitHub') %></p>
+      </div>
+      <div class="col-lg-8">
+        <div class="row">
+          <div class="col-lg-6">
+            <button class="neeedoBtn neeedoBtn--nuka aboutBtn"
+                    onclick="window.open('https://github.com/neeedo/neeedo-webapp','_blank');"
+                    ;><%= i18n('Web App') %></button>
+          </div>
+          <div class="col-lg-6">
+            <button class="neeedoBtn neeedoBtn--nuka aboutBtn"
+                    onclick="window.open('https://github.com/neeedo/neeedo-android','_blank');"
+                    ;><%= i18n('Android App') %></button>
+          </div>
         </div>
-        <div class="modal-body">
-          <img src="/images/about/PosterArchitektur.jpg" alt="Architektur Poster" />
-        </div>
-        <div class="modal-footer">
+        <div class="row">
+          <div class="col-lg-6">
+            <button class="neeedoBtn neeedoBtn--nuka aboutBtn"
+                    onclick="window.open('https://github.com/neeedo/neeedo-api','_blank');"
+                    ;><%= i18n('API') %></button>
+          </div>
+          <div class="col-lg-6">
+            <button class="neeedoBtn neeedoBtn--nuka aboutBtn"
+                    onclick="window.open('https://github.com/neeedo','_blank');"
+                    ;><%= i18n('Project Repository') %></button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="modal fade" id="next" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel"><%= i18n('Next-Gen Poster') %></h4>
-        </div>
-        <div class="modal-body">
-          <img src="/images/about/PosterNextGen.jpg" alt="NextGen Poster" />
-        </div>
-        <div class="modal-footer">
+    <div class="row">
+      <div class="col-lg-6 col-lg-offset-3">
+        <button class="neeedoBtn neeedoBtn--nuka aboutBtn" onclick="window.open('http://www.neeedo.com/','_blank');"
+                ;><%= i18n('Test our Web App') %></button>
+      </div>
+    </div>
+    <div class="row" id="thmbs">
+      <div class="col-lg-3 col-lg-offset-2">
+        <button type="button" class="hvr-float-shadow thmbBtn" data-toggle="modal" data-target="#arch">
+          <img src="/images/about/archThmb.jpg"
+        </button>
+      </div>
+      <div class="col-lg-3">
+        <button type="button" class="hvr-float-shadow thmbBtn" data-toggle="modal" data-target="#next">
+          <img src="/images/about/nextThmb.jpg"
+        </button>
+      </div>
+      <div class="col-lg-3">
+        <button type="button" class="hvr-float-shadow thmbBtn" data-toggle="modal" data-target="#sphere">
+          <img src="/images/about/sphereThmb.jpg"
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12" id="teamContainer">
+        <h2 class="text-center"><%= i18n('The Team') %></h2>
+        <img src="/images/about/team.png" alt="Team picture"/>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="arch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel"><%= i18n('Architecture Poster') %></h4>
+          </div>
+          <div class="modal-body">
+            <img src="/images/about/PosterArchitektur.jpg" alt="Architektur Poster"/>
+          </div>
+          <div class="modal-footer">
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="modal fade" id="sphere" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel"><%= i18n('SPHERE.IO Poster') %></h4>
+    <div class="modal fade" id="next" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel"><%= i18n('Next-Gen Poster') %></h4>
+          </div>
+          <div class="modal-body">
+            <img src="/images/about/PosterNextGen.jpg" alt="NextGen Poster"/>
+          </div>
+          <div class="modal-footer">
+          </div>
         </div>
-        <div class="modal-body">
-          <img src="/images/about/PosterSphere.jpg" alt="SPHERE.IO Poster" />
-        </div>
-        <div class="modal-footer">
+      </div>
+    </div>
+    <div class="modal fade" id="sphere" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel"><%= i18n('SPHERE.IO Poster') %></h4>
+          </div>
+          <div class="modal-body">
+            <img src="/images/about/PosterSphere.jpg" alt="SPHERE.IO Poster"/>
+          </div>
+          <div class="modal-footer">
+          </div>
         </div>
       </div>
     </div>

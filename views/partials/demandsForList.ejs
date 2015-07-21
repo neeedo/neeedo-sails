@@ -20,6 +20,7 @@
       </tr>
     </table>
 
+    <% if (demand.getShouldTags().length > 0) {%>
     <table class="tagTable table-striped">
       <tr class="title">
         <td>
@@ -32,6 +33,7 @@
         </td>
       </tr>
     </table>
+    <% } %>
   </div>
   <div class="caption">
     <table class="table-striped">
@@ -41,8 +43,7 @@
       </tr>
       <tr>
         <td><%= i18n('Price') %>:</td>
-        <td><%= demand.getPrice().getMin() %> - <%= demand.getPrice().getMax() %><span
-            class="glyphicon glyphicon-euro" aria-hidden="true"></span></td>
+        <td><%= demand.getPrice().getMin() %> - <%= demand.getPrice().getMax() %></td>
       </tr>
       <tr>
         <td><%= i18n('Creator') %>:</td>

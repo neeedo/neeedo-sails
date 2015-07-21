@@ -1,18 +1,20 @@
-<div class="contentContainer" id="offerContainer">
-  <h1><%= i18n('Favorite Offers') %></h1>
+<div class="container">
+  <div class="contentContainer" id="offerContainer">
+    <h1><%= i18n('Favorite Offers') %></h1>
 
-  <ul id="lightSliderOffer"
-      data-itemLimit="<%- pagination.limit %>"
-      data-currentPage="<%- pagination.firstPageNumber %>"
-      data-sourceUrl="<%- undefined %>"
-      data-viewUrl="<%- OfferService.getViewUrl() %>"
-      data-translationPrice="<%= i18n('Price') %>"
-    >
+    <ul id="lightSliderOffer"
+        data-itemLimit="<%- pagination.limit %>"
+        data-currentPage="<%- pagination.firstPageNumber %>"
+        data-sourceUrl="<%- undefined %>"
+        data-viewUrl="<%- OfferService.getViewUrl() %>"
+        data-translationPrice="<%= i18n('Price') %>"
+      >
 
-    <% favoriteOffers.forEach(function(offer) { %>
-    <%- partial('../partials/offersForList.ejs', {offer: offer, displayFavorite: true}) %>
-    <% }); %>
-  </ul>
+      <% favoriteOffers.forEach(function(offer) { %>
+      <%- partial('../partials/offersForList.ejs', {offer: offer, displayFavorite: true}) %>
+      <% }); %>
+    </ul>
+  </div>
 </div>
 
 <% block('localScripts', '<script src="/js/localscripts/slider.js"></script>') %>

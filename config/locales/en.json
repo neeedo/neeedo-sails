@@ -40,6 +40,8 @@
   "Price" : "Price (€)",
   "Details" : "Details",
   "Submit" : "Submit",
+  "Demand" : "Demand",
+  "Offer" : "Offer",
   "Your inputs were not valid." : "Your inputs were not valid.",
   "Your offer was created successfully." : "Your offer was created successfully.",
   "Create offer" : "Create Offer",
@@ -227,5 +229,7 @@
   "Invalid tag %s": "Invalid tag %s",
   "The username must have at least %s characters": "The username must have at least %s characters",
   "The username must not have more than %s characters": "The username must not have more than %s characters",
-  "The username must not contain a whitespace.": "The username must not contain a whitespace."
+  "The username must not contain a whitespace.": "The username must not contain a whitespace.",
+  "I am looking for:" : "I am looking for:",
+  "It should have:" : "It should have:"
 }
