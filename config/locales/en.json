@@ -231,5 +231,7 @@
   "The username must not have more than %s characters": "The username must not have more than %s characters",
   "The username must not contain a whitespace.": "The username must not contain a whitespace.",
   "I am looking for:" : "I am looking for:",
-  "It should have:" : "It should have:"
+  "It should have:" : "It should have:",
+  "Description" : "Description:",
+  "Creator" : "Creator"
 }

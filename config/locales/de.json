@@ -245,5 +245,7 @@
   "Demand" : "Gesuch",
   "Offer" : "Angebot",
   "I am looking for:" : "Ich suche unbedingt:",
-  "It should have:" : "schön wäre:"
+  "It should have:" : "schön wäre:",
+  "Description" : "Beschreibung:",
+  "Creator" : "Benutzer"
 }

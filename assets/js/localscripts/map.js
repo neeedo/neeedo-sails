@@ -225,7 +225,7 @@ var renderOfferInTemplate = function (offer) {
 
   var context = {
     viewUrl: viewUrl,
-    tags: offer.tags,
+    tags: offer.tags.join(', '),
     price: offer.price,
     image: image,
     imageTitle: imageTitle,
@@ -246,8 +246,8 @@ var renderDemandInTemplate = function (demand) {
 
   var context = {
     viewUrl: viewUrl,
-    mustTags: demand.mustTags,
-    shouldTags: demand.shouldTags,
+    mustTags: demand.mustTags.join(', '),
+    shouldTags: demand.shouldTags.join(', '),
     priceFrom: demand.price.min,
     priceTo: demand.price.max,
     translations: mapTypeOptions.translations,
