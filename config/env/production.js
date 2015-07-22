@@ -60,10 +60,10 @@ module.exports = {
       }
     }
   },
-  // session invalidation time
+  // session invalidation time in milliseconds
   session: {
     cookie: {
-      maxAge: 10 * 60 * 1000
+      maxAge: 60 * 60 * 1000 // 30 minutes
     }
   }
 };
