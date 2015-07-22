@@ -363,8 +363,7 @@ module.exports = {
   getDefaultViewAndEditViewParameters: function () {
     return {
       tagOptions: sails.config.webapp.tags,
-      validationMessages: [],
-      images: ApiClientService.newImageList(undefined)
+      validationMessages: []
     }
   }
 };

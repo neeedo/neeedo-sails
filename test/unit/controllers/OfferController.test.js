@@ -89,6 +89,8 @@ describe('[UNIT TEST] OfferController', function() {
       stubbedRes.view.calledWith(
         'offer/create', {
           locals: {
+            tagOptions: sails.config.webapp.tags,
+            validationMessages: [],
             tags: "",
             price: "",
             lat: "",

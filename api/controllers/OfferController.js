@@ -67,6 +67,8 @@ module.exports = {
             btnLabel: 'Create'
         });
 
+      sails.log.info(util.inspect(viewOptions, {depth: 5}));
+
       res.view('offer/create', {
         locals: viewOptions
       });

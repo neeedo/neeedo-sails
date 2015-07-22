@@ -83,6 +83,8 @@ describe('[UNIT TEST] DemandController', function() {
       stubbedRes.view.calledWith(
         'demand/create', {
           locals: {
+            tagOptions: sails.config.webapp.tags,
+            validationMessages: [],
             mustTags: "",
             shouldTags: "",
             minPrice: "",
@@ -90,8 +92,7 @@ describe('[UNIT TEST] DemandController', function() {
             lat: "",
             lng: "",
             distance: 10,
-            btnLabel: 'Create and find matching offers',
-            validationMessages: []
+            btnLabel: 'Create and find matching offers'
           }
         }
       ).should.be.True;
