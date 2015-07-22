@@ -38,8 +38,8 @@ module.exports = {
 
   create: function (req, res) {
     var showFormWithDefaultValues = function() {
-      res.view('demand/create', {
-        locals: {
+      var viewOptions = ViewService.mergeViewOptions(
+        DemandService.getDefaultViewAndEditViewParameters(), {
           mustTags: "",
           shouldTags: "",
           minPrice: "",
@@ -47,10 +47,11 @@ module.exports = {
           lat: "",
           lng: "",
           distance: 10,
-          tagOptions: sails.config.webapp.tags,
-          btnLabel: 'Create and find matching offers',
-          validationMessages: []
-        }
+          btnLabel: 'Create and find matching offers'
+        });
+
+      res.view('demand/create', {
+        locals: viewOptions
       });
     };
 
@@ -69,7 +70,10 @@ module.exports = {
       ApiClientService.addFlashMessages(req, res, errorModel);
 
       if (errorModel.hasValidationMessages()) {
-        DemandService.displayValidationMessages(req, res, errorModel);
+        DemandService.displayValidationMessages(req, res, errorModel, {
+          viewPath: "demand/create",
+            btnLabel: "Create and find matching offers"
+        });
       } else {
         res.redirect(DemandService.getCreateUrl());
       }
@@ -100,7 +104,14 @@ module.exports = {
       ApiClientService.logMessages(errorModel);
       ApiClientService.addFlashMessages(req, res, errorModel);
 
-      res.redirect(DemandService.getOverviewUrl());
+      if (errorModel.hasValidationMessages()) {
+        DemandService.displayValidationMessages(req, res, errorModel, {
+          viewPath: "demand/edit",
+          btnLabel: "Edit and find matching offers"
+        });
+      } else {
+        res.redirect(DemandService.getCreateUrl());
+      }
     };
 
     DemandService.loadAndUpdateDemand(req, res, onUpdateSuccessCallback, onErrorCallback);

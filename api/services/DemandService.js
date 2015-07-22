@@ -77,8 +77,8 @@ module.exports = {
 
   loadAndUpdateDemand: function (req, res, onUpdateSuccessCallback, onErrorCallback) {
     var showFormWithDemandValues = function (loadedDemand) {
-      res.view('demand/edit', {
-        locals: {
+      var viewOptions = ViewService.mergeViewOptions(
+        DemandService.getDefaultViewAndEditViewParameters(), {
           mustTags: ApiClientService.toTagString(loadedDemand.getMustTags()),
           shouldTags: ApiClientService.toTagString(loadedDemand.getShouldTags()),
           minPrice: loadedDemand.getPrice().getMin(),
@@ -86,10 +86,12 @@ module.exports = {
           lat: loadedDemand.getLocation().getLatitude(),
           lng: loadedDemand.getLocation().getLongitude(),
           distance: loadedDemand.getDistance(),
-          btnLabel: 'Edit and find matching offers',
-          tagOptions: sails.config.webapp.tags,
-          validationMessages: []
-        }
+          btnLabel: 'Edit and find matching offers'
+         }
+      );
+
+      res.view('demand/edit', {
+        locals: viewOptions
       });
     };
 
@@ -361,11 +363,9 @@ module.exports = {
     });
   },
 
-  displayValidationMessages: function(req, res, errorModel) {
-    var viewParameters = {
-      validationMessages: errorModel.getValidationMessages(),
-      btnLabel: 'Create'
-    };
+  displayValidationMessages: function(req, res, errorModel, viewOptions) {
+    var viewParameters = this.getDefaultViewAndEditViewParameters();
+    viewParameters["validationMessages"] = errorModel.getValidationMessages();
 
     for (var paramKey in errorModel.getOriginalParameters()) {
       var paramValue = errorModel.getOriginalParameters()[paramKey];
@@ -373,9 +373,21 @@ module.exports = {
       viewParameters[paramKey] = paramValue;
     };
 
+    for (var viewKey in viewOptions) {
+      var viewValue = viewOptions[paramKey];
 
-    res.view('demand/create', {
+      viewParameters[viewKey] = viewValue;
+    };
+
+    res.view(viewOptions.viewPath, {
       locals: viewParameters
     });
+  },
+
+  getDefaultViewAndEditViewParameters: function() {
+    return {
+      tagOptions: sails.config.webapp.tags,
+      validationMessages: []
+    }
   }
 };

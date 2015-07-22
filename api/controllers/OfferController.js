@@ -57,17 +57,18 @@ module.exports = {
 
   create: function (req, res) {
     var showFormWithDefaultValues = function() {
+      var viewOptions = ViewService.mergeViewOptions(
+        OfferService.getDefaultViewAndEditViewParameters(), {
+            tags: "",
+            price: "",
+            lat: "",
+            lng: "",
+            images: FileService.getLeastUploadedFiles(req),
+            btnLabel: 'Create'
+        });
+
       res.view('offer/create', {
-        locals: {
-          tags: "",
-          price: "",
-          lat: "",
-          lng: "",
-          images: FileService.getLeastUploadedFiles(req),
-          tagOptions: sails.config.webapp.tags,
-          btnLabel: 'Create',
-          validationMessages: []
-        }
+        locals: viewOptions
       });
     };
 
@@ -86,7 +87,10 @@ module.exports = {
       ApiClientService.addFlashMessages(req, res, errorModel);
 
       if (errorModel.hasValidationMessages()) {
-        OfferService.displayValidationMessages(req, res, errorModel);
+        OfferService.displayValidationMessages(req, res, errorModel, {
+          viewPath: "offer/create",
+          btnLabel: "Create"
+        });
       } else {
         res.redirect(OfferService.getCreateUrl());
       }
@@ -117,8 +121,14 @@ module.exports = {
       ApiClientService.logMessages(errorModel);
       ApiClientService.addFlashMessages(req, res, errorModel);
 
-
-      res.redirect(OfferService.getOverviewUrl());
+      if (errorModel.hasValidationMessages()) {
+        OfferService.displayValidationMessages(req, res, errorModel, {
+          viewPath: "offer/edit",
+          btnLabel: "Edit"
+        });
+      } else {
+        res.redirect(OfferService.getCreateUrl());
+      }
     };
 
     OfferService.loadAndUpdateOffer(req, res, onUpdateSuccessCallback, onErrorCallback);

@@ -1,6 +1,6 @@
 <div id="fileupload-files">
   <ul>
-    <% if (undefined !== images) { images.getImages().forEach(function(image) { %>
+    <% if (undefined !== images && typeof images.getImages === 'function') { images.getImages().forEach(function(image) { %>
     <li class="previewImages"><img src="<%= FileService.filterGetImageUrl(image.getUrl()) %>"
                                    alt="<%= image.getFileName() %>">
       <input type="button" class="fileupload-deleteImage"

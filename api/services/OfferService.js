@@ -1,5 +1,5 @@
 var apiClient = require('neeedo-api-nodejs-client'),
-    util = require('util');
+  util = require('util');
 
 var Offer = apiClient.models.Offer;
 var OfferList = apiClient.models.OfferList;
@@ -13,7 +13,7 @@ module.exports = {
    * @param onSuccessCallback
    * @param onErrorCallback
    */
-  loadUsersOffers: function(req, res, onSuccessCallback, onErrorCallback) {
+  loadUsersOffers: function (req, res, onSuccessCallback, onErrorCallback) {
     try {
       var offerQuery = ApiClientService.newOfferQueryFromRequest(req, res);
       var offerListService = new OfferListService();
@@ -30,7 +30,7 @@ module.exports = {
    * @param onSuccessCallback
    * @param onErrorCallback
    */
-  loadMostRecentOffers: function(req, res, onSuccessCallback, onErrorCallback) {
+  loadMostRecentOffers: function (req, res, onSuccessCallback, onErrorCallback) {
     try {
       var offerQuery = ApiClientService.newOfferQueryFromRequest(req, res);
       var offerListService = new OfferListService();
@@ -48,7 +48,7 @@ module.exports = {
    * @param onSuccessCallback will be called by the registered user instance delivered from neeedo API
    * @param onErrorCallBack will be called with an HTTP response object on error
    */
-  createOffer: function(req, res, onSuccessCallback, onErrorCallback) {
+  createOffer: function (req, res, onSuccessCallback, onErrorCallback) {
     try {
       var offerModel = ApiClientService.validateAndCreateNewOfferFromRequest(req, res, onErrorCallback);
 
@@ -63,23 +63,24 @@ module.exports = {
     }
   },
 
-  loadAndUpdateOffer: function(req, res, onUpdateSuccessCallback, onErrorCallback) {
-    var showFormWithOfferValues = function(offerModel) {
-      res.view('offer/edit', {
-        locals: {
+  loadAndUpdateOffer: function (req, res, onUpdateSuccessCallback, onErrorCallback) {
+    var showFormWithOfferValues = function (offerModel) {
+      var viewOptions = ViewService.mergeViewOptions(
+        OfferService.getDefaultViewAndEditViewParameters(), {
           tags: ApiClientService.toTagString(offerModel.getTags()),
           price: offerModel.getPrice(),
           lat: offerModel.getLocation().getLatitude(),
           lng: offerModel.getLocation().getLongitude(),
           images: FileService.getLeastUploadedFilesAndCurrentOnes(req, offerModel.getImageList()),
-          tagOptions: sails.config.webapp.tags,
-          btnLabel: 'Edit',
-          validationMessages: []
-        }
+          btnLabel: 'Edit'
+        });
+
+      res.view('offer/edit', {
+        locals: viewOptions
       });
     };
 
-    var onLoadSuccessCallback = function(loadedOffer) {
+    var onLoadSuccessCallback = function (loadedOffer) {
       if (!OfferService.setBelongsToCurrentUser(req, res, loadedOffer)) {
         return res.redirect(OfferService.getOverviewUrl());
       }
@@ -100,7 +101,7 @@ module.exports = {
     this.loadOffer(req, res, onLoadSuccessCallback, onErrorCallback);
   },
 
-  updateOffer: function(offerModel, req, res, onSuccessCallback, onErrorCallBack) {
+  updateOffer: function (offerModel, req, res, onSuccessCallback, onErrorCallBack) {
     try {
       var offerModel = ApiClientService.validateAndSetOfferFromRequest(req, res, offerModel, offerModel.getUser(), onErrorCallBack);
 
@@ -113,8 +114,8 @@ module.exports = {
     }
   },
 
-  loadAndDeleteOffer: function(req, res, onDeleteSuccessCallback, onErrorCallback) {
-    var onLoadSuccessCallback = function(loadedOffer) {
+  loadAndDeleteOffer: function (req, res, onDeleteSuccessCallback, onErrorCallback) {
+    var onLoadSuccessCallback = function (loadedOffer) {
       if (!OfferService.setBelongsToCurrentUser(req, res, loadedOffer)) {
         return res.redirect(OfferService.getOverviewUrl());
       }
@@ -125,7 +126,7 @@ module.exports = {
     this.loadOffer(req, res, onLoadSuccessCallback, onErrorCallback);
   },
 
-  deleteOffer: function(offerModel, onSuccessCallback, onErrorCallBack) {
+  deleteOffer: function (offerModel, onSuccessCallback, onErrorCallBack) {
     try {
       var offerService = new ClientOfferService();
       offerService.deleteOffer(offerModel, onSuccessCallback, onErrorCallBack);
@@ -135,30 +136,30 @@ module.exports = {
 
   },
 
-  storeInSession: function(req, offerModel) {
+  storeInSession: function (req, offerModel) {
     var offerId = offerModel.getId();
 
-    if (! ("offers" in req.session)) {
+    if (!("offers" in req.session)) {
       req.session.offers = {};
     }
 
     req.session.offers[offerId] = offerModel;
   },
 
-  storeListInSession: function(req, offersListModel) {
-    for (var i=0; i < offersListModel.getOffers().length; i++) {
+  storeListInSession: function (req, offersListModel) {
+    for (var i = 0; i < offersListModel.getOffers().length; i++) {
       OfferService.storeInSession(req, offersListModel.getOffers()[i]);
     }
   },
 
-   removeFromSession: function(req, offerModel) {
-     var offerId = offerModel.getId();
-     if (this.isInSession(req, offerModel.getId())) {
-       req.session.offers[offerId] = undefined;
-     }
-   },
+  removeFromSession: function (req, offerModel) {
+    var offerId = offerModel.getId();
+    if (this.isInSession(req, offerModel.getId())) {
+      req.session.offers[offerId] = undefined;
+    }
+  },
 
-  loadOffer: function(req, res, onLoadCallback, onErrorCallback) {
+  loadOffer: function (req, res, onLoadCallback, onErrorCallback) {
     var offerId = ApiClientService.validateAndCreateNewOfferIdFromRequest(req, res, onErrorCallback);
 
     if (undefined !== offerId) {
@@ -187,15 +188,15 @@ module.exports = {
     }
   },
 
-  isInSession: function(req, offerId) {
+  isInSession: function (req, offerId) {
     return "offers" in req.session && offerId in req.session.offers && undefined != req.session.offers[offerId];
   },
 
-  getCreateUrl: function() {
+  getCreateUrl: function () {
     return UrlService.to('/offers/create');
   },
 
-  getEditUrl: function(offerModel) {
+  getEditUrl: function (offerModel) {
     if (undefined == offerModel.getId()) {
       return '/';
     }
@@ -203,15 +204,15 @@ module.exports = {
     return UrlService.to('/offers/edit/offerId/' + offerModel.getId());
   },
 
-  getViewUrl: function() {
+  getViewUrl: function () {
     return UrlService.to('/offers/view/offerId/%%offerId%%');
   },
 
-  getViewUrlForOffer: function(offer) {
+  getViewUrlForOffer: function (offer) {
     return this.getViewUrl().replace("%%offerId%%", offer.getId());
   },
 
-  getDeleteUrl: function(offerModel) {
+  getDeleteUrl: function (offerModel) {
     if (undefined == offerModel.getId()) {
       return '/';
     }
@@ -219,30 +220,29 @@ module.exports = {
     return UrlService.to('/offers/delete/offerId/' + offerModel.getId());
   },
 
-  getOverviewUrl: function(demandModel) {
+  getOverviewUrl: function (demandModel) {
     return UrlService.to('/dashboard');
   },
 
-  getOffersGetUrl: function() {
+  getOffersGetUrl: function () {
     return UrlService.to('/offers/ajax-get');
   },
 
-  getUsersOffersGetUrl: function() {
+  getUsersOffersGetUrl: function () {
     return UrlService.to('/user/ajax-get-offers');
   },
 
-  getSingleGetUrl: function(loadedOffer) {
+  getSingleGetUrl: function (loadedOffer) {
     return UrlService.to('/offers/ajax-get-single?offerId=' + loadedOffer.getId());
   },
 
-  belongsToCurrentUser: function(req, offer) {
+  belongsToCurrentUser: function (req, offer) {
     return (LoginService.userIsLoggedIn(req)
-      && undefined != offer.getUser()
-      && LoginService.getCurrentUser(req).getId() == offer.getUser().getId());
+    && undefined != offer.getUser()
+    && LoginService.getCurrentUser(req).getId() == offer.getUser().getId());
   },
 
-  setBelongsToCurrentUser: function(req, res, offer)
-  {
+  setBelongsToCurrentUser: function (req, res, offer) {
     if (this.belongsToCurrentUser(req, offer)) {
       offer.setUser(LoginService.getCurrentUser(req));
       return true;
@@ -252,31 +252,29 @@ module.exports = {
     }
   },
 
-  getFirstImage : function(offer)
-  {
-    if(offer.getImages().length > 0 ) {
+  getFirstImage: function (offer) {
+    if (offer.getImages().length > 0) {
       var firstImage = offer.getImages()[0];
 
       return {
-        path : FileService.filterGetImageUrl(firstImage.getUrl()),
-        altText : firstImage.getFileName()
+        path: FileService.filterGetImageUrl(firstImage.getUrl()),
+        altText: firstImage.getFileName()
       };
     } else {
       return {
-        path : "/images/Offer_Dummy.png",
-        altText : 'Dummy'
+        path: "/images/Offer_Dummy.png",
+        altText: 'Dummy'
       };
     }
   },
 
-  sendOfferListJsonResponse: function(req, res, offerList, additionalJson)
-  {
+  sendOfferListJsonResponse: function (req, res, offerList, additionalJson) {
     res.status(200);
 
     this.appendHtmlIfDesired(offerList, req, res, function () {
       res.json({
         offerList: offerList,
-        additionalJson : additionalJson
+        additionalJson: additionalJson
       });
     });
   },
@@ -332,21 +330,18 @@ module.exports = {
    * @param res
    * @param errorModel , see neeedo-api-nodejs-client
    */
-  sendErrorJsonResponse: function(res, errorModel)
-  {
+  sendErrorJsonResponse: function (res, errorModel) {
     sails.log.error('OfferService:sendErrorJsonResponse(): ' + errorModel.getLogMessages()[0]);
     res.status(400);
 
     res.json({
-      message : errorModel.getErrorMessages()[0]
+      message: errorModel.getErrorMessages()[0]
     });
   },
 
-  displayValidationMessages: function(req, res, errorModel) {
-    var viewParameters = {
-      validationMessages: errorModel.getValidationMessages(),
-      btnLabel: 'Create'
-    };
+  displayValidationMessages: function (req, res, errorModel, viewOptions) {
+    var viewParameters = this.getDefaultViewAndEditViewParameters();
+    viewParameters["validationMessages"] = errorModel.getValidationMessages();
 
     for (var paramKey in errorModel.getOriginalParameters()) {
       var paramValue = errorModel.getOriginalParameters()[paramKey];
@@ -354,11 +349,23 @@ module.exports = {
       viewParameters[paramKey] = paramValue;
     };
 
+    for (var viewKey in viewOptions) {
+      var viewValue = viewOptions[paramKey];
 
-    res.view('offer/create', {
+      viewParameters[viewKey] = viewValue;
+    };
+
+    res.view(viewOptions.viewPath, {
       locals: viewParameters
     });
-  }
+  },
 
+  getDefaultViewAndEditViewParameters: function () {
+    return {
+      tagOptions: sails.config.webapp.tags,
+      validationMessages: [],
+      images: ApiClientService.newImageList(undefined)
+    }
+  }
 };
 

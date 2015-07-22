@@ -57,7 +57,7 @@
       <li id="imgUploadStep" class="clear hideLi odd">
         <label for="images[]"><%= i18n("Image upload") %></label>
         <%- partial('./offer-fileupload.ejs', { renderMessages: false, renderPreviewImages: false }) %>
-        <% if (undefined !== images) { images.getImages().forEach(function(image) { %>
+        <% if (undefined !== images && typeof images.getImages === 'function') { images.getImages().forEach(function(image) { %>
         <input type="hidden" id="images[]" name="images[]" value="<%= image.getFileName() %>">
         <% })} %>
         <% // Tag suggestion will be rendered here %>
