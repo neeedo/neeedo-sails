@@ -3,7 +3,7 @@
     <ul>
       <li class="odd">
         <label for="tagsOffer"><%= i18n('must have') %></label>
-        <input type="text" class="providesTagCompletion" id="tagsOffer" name="tags" value="<%- (undefined !== typeof tags ? tags : "") %>" placeholder="<%= i18n('blue, screen protector') %>">
+        <input type="text" class="providesTagCompletion" id="tagsOffer" name="tags" value="<%- (undefined !== typeof tags ? tags : "") %>" placeholder="<%= i18n('blue, screen protector') %>" autocomplete="off">
         <small class="inputMissing" id="errorTag"><%= i18n('Please enter at least one tag') %></small>
 
         <% if ('tags' in validationMessages) { %>
@@ -38,7 +38,7 @@
       </li>
       <li id="addressContainer" class="ui-widget rightCol odd">
         <label for="address" id="addressLabel"><%= i18n('Address') %></label>
-        <input type="text" id="address" class="disabled" name="address">
+        <input type="text" id="address" class="disabled" name="address" autocomplete="off">
         <small class="inputMissing" id="errorLoc"><%= i18n('Please enter a location') %></small>
 
         <% if ('lat' in validationMessages) { %>
