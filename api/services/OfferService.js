@@ -118,7 +118,6 @@ module.exports = {
         offerService.updateOffer(offerModel, onSuccessCallback, onErrorCallBack);
       }
     } catch (e) {
-      sails.log.error(e);
       onErrorCallBack(ApiClientService.newError("updateOffer:" + e.message, 'Your inputs were not valid.'));
     }
   },

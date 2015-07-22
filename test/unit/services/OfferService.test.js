@@ -631,4 +631,20 @@ describe('[UNIT TEST] OfferService', function () {
     });
   });
 
+  describe('isInSession', function () {
+    it("should return true if an offer with id is in session", function (done) {
+      var
+        offer = Factory.newOfferStub(),
+        req = {
+          session: {
+            offers: {
+              "offer1": offer
+            }
+          }};
+
+      OfferService.isInSession(req, "offer1").should.be.true;
+
+      done();
+    });
+  });
 });
