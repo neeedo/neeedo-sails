@@ -77,7 +77,7 @@ var triggerSpecificMapTypeOperations = function (currentPosition) {
     switch (mapTypeOptions.mapType) {
       case 'all': // nearest demands + offers
         showUsersPosition(userPosition);
-        loadAndShowNearestDemandsAndOffers(currentPosition, map);
+        loadAndShowNearestDemandsAndOffers(currentPosition);
         break;
       case 'demandMatching': // matched offers for a single demand
         loadAndShowMatchingDemands(map);
@@ -95,9 +95,9 @@ var triggerSpecificMapTypeOperations = function (currentPosition) {
   }
 };
 
-var loadAndShowNearestDemandsAndOffers = function (userPosition, map) {
-  loadAndShowNearestOffers(userPosition, map);
-  loadAndShowNearestDemands(userPosition, map);
+var loadAndShowNearestDemandsAndOffers = function (userPosition) {
+  loadAndShowNearestOffers(userPosition);
+  loadAndShowNearestDemands(userPosition);
 };
 
 
@@ -134,7 +134,7 @@ var loadAndShowMatchingDemands = function (map) {
 };
 
 
-var loadAndShowNearestOffers = function (userPosition, map) {
+var loadAndShowNearestOffers = function (userPosition) {
   var ajaxEndpointUrl = mapTypeOptions.offersEndpointUrl;
 
   var offerService = new Offers(ajaxEndpointUrl);
@@ -146,7 +146,7 @@ var loadAndShowNearestOffers = function (userPosition, map) {
   );
 };
 
-var loadAndShowNearestDemands = function (userPosition, map) {
+var loadAndShowNearestDemands = function (userPosition) {
   var ajaxEndpointUrl = mapTypeOptions.demandsEndpointUrl;
 
   var onLoadSuccess = function (returnedData) {
@@ -302,7 +302,7 @@ $(document).ready(function () {
 
   var NeeedoIcon = L.Icon.extend({
     options:{
-      shadowUrl: 'images/icons/markerShadow.png',
+      shadowUrl: '/images/icons/markerShadow.png',
       iconSize: [31, 61], // size of the icon
       shadowSize: [61, 61], // size of the shadow
       iconAnchor: [0, 61], // point of the icon which will correspond to marker's location
