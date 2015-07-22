@@ -204,7 +204,17 @@ module.exports = {
 
   toTagArray: function (tagStr) {
     // split by being "whitespace-friendly" (e.g. allow 'value1 , value2')
-    return tagStr.split(/\s*,\s*/);
+    var tagArray = tagStr.split(/\s*,\s*/);
+
+    // filter tags
+    var cleanTagArray = [];
+    for (var i=0; i < tagArray.length; i++) {
+      if (0 < tagArray[i].trim().length) {
+        cleanTagArray.push(tagArray[i]);
+      }
+    }
+
+    return cleanTagArray;
   },
 
   newUsernameFromRequest: function (req) {
@@ -527,6 +537,8 @@ module.exports = {
       images = this.getImagesFromRequest(req);
 
     if (!offerValidator.isValid(tags, price, latitude, longitude, images)) {
+      var _this = this;
+
       return {
         success: false,
         validationErrors: offerValidator.getErrorMessages(),
@@ -535,7 +547,7 @@ module.exports = {
           price: price,
           lat: latitude,
           lng: longitude,
-          images: images
+          images: _this.newImageListFromParam(images)
         }
       };
     }
