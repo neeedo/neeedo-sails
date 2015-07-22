@@ -4,8 +4,8 @@ function Username(translator, minCount, maxCount) {
   this.errorMessages = [];
   this.minCount = minCount;
   this.maxCount = maxCount;
-  // name musn't contain a whitespace
-  this.regex = /[\s]+/;
+  // username must consist of at least one alphanum character and may contain numbers, "_" and "-"
+  this.regex = /^[a-zA-Z]+[a-zA-Z0-9-_]*$/;
   this.translator = translator;
 }
 
@@ -24,8 +24,8 @@ Username.prototype.validateMinAndMax = function(givenUsername) {
 };
 
 Username.prototype.validatePattern = function(givenUsername) {
-  if (givenUsername.match(this.regex) ) {
-    this.errorMessages.push(this.translator("The username must not contain a whitespace."));
+  if (!givenUsername.match(this.regex) ) {
+    this.errorMessages.push(this.translator("The username must consist of alphanumerical characters, '-' or '_' and must contain at least one alpha character."));
     return false;
   }
 

@@ -31,6 +31,9 @@ describe('[UNIT TEST] Username validator', function () {
     var validator = new UsernameValidator(translatorMock, 5, 20);
 
     validator.isValid("max muster").should.be.false;
+    validator.isValid("1235").should.be.false;
+    validator.isValid("1user").should.be.false;
+    validator.isValid("-_user").should.be.false;
     validator.getErrorMessages().should.be.String;
 
     done();
@@ -42,7 +45,6 @@ describe('[UNIT TEST] Username validator', function () {
     validator.isValid("newuser1").should.be.true;
     validator.isValid("maxmuster").should.be.true;
     validator.isValid("MaxMuster").should.be.true;
-    validator.isValid("1user").should.be.true;
 
     done();
   });
