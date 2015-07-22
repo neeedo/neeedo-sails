@@ -72,7 +72,9 @@ module.exports  = {
     return offer.setId("offer1")
       .setTags(["tag1", "tag2"])
       .setPrice(10)
-      .setLocation(this.newLocationStub(55.321, 41.23));
+      .setLocation(this.newLocationStub(55.321, 41.23))
+      .setVersion(1)
+      .setUser({});
 
     return offer;
   },

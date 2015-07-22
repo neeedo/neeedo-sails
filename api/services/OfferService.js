@@ -118,7 +118,6 @@ module.exports = {
         offerService.updateOffer(offerModel, onSuccessCallback, onErrorCallBack);
       }
     } catch (e) {
-      sails.log.error(e);
       onErrorCallBack(ApiClientService.newError("updateOffer:" + e.message, 'Your inputs were not valid.'));
     }
   },
@@ -137,7 +136,7 @@ module.exports = {
 
   deleteOffer: function (offerModel, onSuccessCallback, onErrorCallBack) {
     try {
-      var offerService = new ClientOfferService();
+      var offerService = this.newClientOfferService();
       offerService.deleteOffer(offerModel, onSuccessCallback, onErrorCallBack);
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("deleteOffer:" + e.message, 'Your inputs were not valid.'));
@@ -157,7 +156,7 @@ module.exports = {
 
   storeListInSession: function (req, offersListModel) {
     for (var i = 0; i < offersListModel.getOffers().length; i++) {
-      OfferService.storeInSession(req, offersListModel.getOffers()[i]);
+       this.storeInSession(req, offersListModel.getOffers()[i]);
     }
   },
 
@@ -191,7 +190,7 @@ module.exports = {
         // load via API
         sails.log.info('Attempt to load offer with ID ' + offerId + " via API.");
 
-        var offerService = new ClientOfferService();
+        var offerService = new this.newClientOfferService();
         offerService.load(offerId, LoginService.getCurrentUser(req), onLoadCallback, onErrorCallback);
       }
     }

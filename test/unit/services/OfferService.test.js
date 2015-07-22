@@ -81,12 +81,30 @@ var restoreApiClientValidateAndSetOfferFromRequestStub = function () {
   sails.services.apiclientservice.validateAndSetOfferFromRequest.restore();
 };
 
+var givenApiClientValidateAndCreateNewOfferIdFromRequestStub = function () {
+  return sinon.stub(sails.services.apiclientservice, "validateAndCreateNewOfferIdFromRequest",
+    function(req, res, onErrorCallback) {
+      return "offer1"; });
+};
+
+var restoreApiClientValidateAndCreateNewOfferIdFromRequestStub = function () {
+  sails.services.apiclientservice.validateAndCreateNewOfferIdFromRequest.restore();
+};
+
 var givenAUserServiceGetCurrentUser = function() {
   return sinon.stub(sails.services.loginservice, 'getCurrentUser', function() { return {};});
 };
 
 var restoreUserServiceGetCurrentUser = function() {
   sails.services.loginservice.getCurrentUser.restore();
+};
+
+var givenClientOfferLoadStub = function() {
+  return sinon.stub(newOfferServiceStub, 'load');
+};
+
+var restoreClientOfferLoadStub = function() {
+  newOfferServiceStub.load.restore();
 };
 
 var givenClientOfferCreateStub = function() {
@@ -103,6 +121,22 @@ var givenAnUpdateOfferStubCall = function() {
 
 var restoreClientOfferUpdateStub = function() {
   newOfferServiceStub.updateOffer.restore();
+};
+
+var givenADeleteOfferStubCall = function() {
+  return sinon.stub(newOfferServiceStub, 'deleteOffer');
+};
+
+var restoreClientOfferDeleteStub = function() {
+  newOfferServiceStub.deleteOffer.restore();
+};
+
+var givenAnIsInSessionStub = function(isInSession) {
+  return sinon.stub(OfferService, 'isInSession', function(req, offerId) { return isInSession});
+};
+
+var restoreIsInSessionStub = function() {
+  OfferService.isInSession.restore();
 };
 
 describe('[UNIT TEST] OfferService', function () {
@@ -392,6 +426,223 @@ describe('[UNIT TEST] OfferService', function () {
 
       newErrorStub.called.should.be.true;
       onErrorCallback.called.should.be.true;
+
+      done();
+    });
+  });
+
+  /* ###########################################
+   * #
+   * # deleteOffer
+   * #
+   * ###########################################
+   */
+  describe('deleteOffer on success', function () {
+    var deleteOfferStub, offerModel;
+    before(function (done) {
+      givenANewOfferStubCall();
+      deleteOfferStub = givenADeleteOfferStubCall();
+      offerModel = Factory.newOfferStub();
+
+      done();
+    });
+
+    after(function (done) {
+      restoreNewOfferStubCall();
+      restoreClientOfferDeleteStub();
+
+      done();
+    });
+
+    it("it should delegate to offerlist service", function (done) {
+      var req, res = {},
+        onSuccessCallback, onErrorCallback = sinon.spy();
+
+      OfferService.deleteOffer(offerModel, onSuccessCallback, onErrorCallback);
+
+      deleteOfferStub.called.should.be.true;
+
+      done();
+    });
+  });
+
+  describe('deleteOffer on exception', function () {
+    var deleteOfferStub, newErrorStub, offerModel;
+    before(function (done) {
+      givenANewOfferStubCall();
+      deleteOfferStub = givenADeleteOfferStubCall();
+      offerModel = Factory.newOfferStub();
+      newErrorStub = givenApiClientNewErrorStub();
+
+      done();
+    });
+
+    after(function (done) {
+      restoreNewOfferStubCall();
+      restoreClientOfferDeleteStub();
+
+      restoreApiClientNewErrorStub();
+
+      done();
+    });
+
+    it("it should create a new error model and call onErrorCallback", function (done) {
+      deleteOfferStub.throws(); // will lead to an exception
+      var req, res = {},
+        onSuccessCallback, onErrorCallback = sinon.spy();
+
+      OfferService.deleteOffer(offerModel, onSuccessCallback, onErrorCallback);
+
+      newErrorStub.called.should.be.true;
+      onErrorCallback.called.should.be.true;
+
+      done();
+    });
+  });
+
+  describe('storeInSession', function () {
+    it("it should store the offer as expected in session object", function (done) {
+      var req = { session: {}},
+        offer = Factory.newOfferStub();
+
+      OfferService.storeInSession(req, offer);
+
+      ("offers" in req.session).should.be.true;
+      ("offer1" in req.session.offers).should.be.true;
+      req.session.offers["offer1"].should.be.Object;
+
+      done();
+    });
+  });
+
+  describe('storeListInSession', function () {
+    it("it should store the offer as expected in session object", function (done) {
+      var req = { session: {}},
+        offerList = Factory.newOfferListStub(true);
+
+      OfferService.storeListInSession(req, offerList);
+
+      ("offers" in req.session).should.be.true;
+      ("offer1" in req.session.offers).should.be.true;
+      req.session.offers["offer1"].should.be.Object;
+
+      done();
+    });
+  });
+
+  describe('removeFromSession', function () {
+    it("it should have been set to undefined", function (done) {
+      var
+        offer = Factory.newOfferStub(),
+        req = {
+          session: {
+          offers: {
+            "offer1": offer
+          }
+        }};
+
+      OfferService.removeFromSession(req, offer);
+
+      (undefined === req.session.offers.offer1).should.be.true;
+
+      done();
+    });
+  });
+
+  /* ###########################################
+   * #
+   * # loadOffer
+   * #
+   * ###########################################
+   */
+  describe('loadOffer if offer is in session', function () {
+    var loadMostRecentStub;
+    before(function (done) {
+      givenAnIsInSessionStub(true);
+      givenApiClientValidateAndCreateNewOfferIdFromRequestStub();
+
+      done();
+    });
+
+    after(function (done) {
+      restoreIsInSessionStub();
+      restoreApiClientValidateAndCreateNewOfferIdFromRequestStub();
+
+      done();
+    });
+
+    it("it should call onSuccessCallback with serialized offerMOdel", function (done) {
+      var offerStub = Factory.newOfferStub(),
+        req = {
+          session: {
+            offers: {
+              "offer1" : offerStub
+            }
+          }
+        }, res = {},
+        onSuccessCallback = sinon.spy(),
+        onErrorCallback = sinon.spy();
+
+      OfferService.loadOffer(req, res, onSuccessCallback, onErrorCallback);
+
+      onSuccessCallback.called.should.be.true;
+
+      done();
+    });
+  });
+
+  describe('loadOffer if offer is not in session', function () {
+    var loadOfferStub;
+    before(function (done) {
+      givenANewOfferStubCall();
+      givenAnIsInSessionStub(false);
+      givenApiClientValidateAndCreateNewOfferIdFromRequestStub();
+      loadOfferStub = givenClientOfferLoadStub();
+
+      done();
+    });
+
+    after(function (done) {
+      restoreIsInSessionStub();
+      restoreApiClientValidateAndCreateNewOfferIdFromRequestStub();
+      restoreNewOfferStubCall();
+      restoreClientOfferLoadStub();
+
+      done();
+    });
+
+    it("it should call onSuccessCallback with serialized offerMOdel", function (done) {
+      var offerStub = Factory.newOfferStub(),
+        req = {
+          session: {
+            offers: {
+              "offer1" : offerStub
+            }
+          }
+        }, res = {},
+        onSuccessCallback = sinon.spy(),
+        onErrorCallback = sinon.spy();
+
+      OfferService.loadOffer(req, res, onSuccessCallback, onErrorCallback);
+
+      loadOfferStub.called.should.be.true;
+
+      done();
+    });
+  });
+
+  describe('isInSession', function () {
+    it("should return true if an offer with id is in session", function (done) {
+      var
+        offer = Factory.newOfferStub(),
+        req = {
+          session: {
+            offers: {
+              "offer1": offer
+            }
+          }};
+
+      OfferService.isInSession(req, "offer1").should.be.true;
 
       done();
     });
