@@ -80,13 +80,13 @@ var setLatitudeAndLongitudeInHiddenField = function (location) {
 var toggleGeolocationAndAdressFields = function (useGeolocation) {
   if (useGeolocation) {
     document.getElementById("address").disabled = true;
-    $('#address').addClass('disabled');
-    $('#address').attr("placeholder", "");
+    $('#address').addClass('hide');
     $('#addressLabel').addClass('hide');
+    $('#address').removeClass('errorGlow');
     classie.removeClass(document.getElementById('errorLoc'), 'showError' );
   } else {
     document.getElementById("address").disabled = false;
-    $('#address').removeClass('disabled');
+    $('#address').removeClass('hide');
     $('#address').attr("placeholder", "Landsberger Allee, Berlin");
     $('#addressLabel').removeClass('hide');
   }
@@ -270,9 +270,7 @@ $(document).ready(function () {
    * ##################
    */
   if (!geolocationCheckbox.checked) {
-    document.getElementById("address").disabled = true;
-    $('#address').addClass('disabled');
-    $('#address').attr("placeholder", "");
+    $('#address').addClass('hide');
     $('#addressLabel').addClass('hide');
   }
 
