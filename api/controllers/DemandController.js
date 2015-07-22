@@ -47,6 +47,7 @@ module.exports = {
           lat: "",
           lng: "",
           distance: 10,
+          tagOptions: sails.config.webapp.tags,
           btnLabel: 'Create and find matching offers',
           validationMessages: []
         }

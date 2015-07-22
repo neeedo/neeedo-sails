@@ -64,6 +64,7 @@ module.exports = {
           lat: "",
           lng: "",
           images: FileService.getLeastUploadedFiles(req),
+          tagOptions: sails.config.webapp.tags,
           btnLabel: 'Create',
           validationMessages: []
         }

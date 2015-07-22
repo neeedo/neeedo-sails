@@ -75,6 +75,11 @@ module.exports.webapp = {
       }
     }
   },
+  tags: {
+    suggestions: {
+      limit: 6 // limit of displayed suggested tags
+    }
+  },
   map: {
     // initial zoom step that will be set on open layers view
     defaultZoomStep: 12,

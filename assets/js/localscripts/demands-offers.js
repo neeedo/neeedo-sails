@@ -353,11 +353,29 @@ $(document).ready(function () {
     }
 
     var tagSuggestionElements = tagInputElement.parent().find(suggestedTagsClass);
+    var queryParams = [];
+    var limit = undefined;
+
+    if (tagSuggestionElements.attr("data-limit")) {
+      limit = tagSuggestionElements.data("limit");
+      /*TODO uncomment the following line if limit is supported by API
+      queryParams.push("limit=" + limit);*/
+    }
 
     $.ajax({
-      url: neeedo.getApiHttpUrl() + "/completion/suggest/" + currentTags.join(',').trim(),
+      url: neeedo.getApiHttpUrl() + "/completion/suggest/"
+        + currentTags.join(',').trim()
+        + (currentTags.length > 0 && queryParams.length > 0 ? "&" : "?")
+        + queryParams.join('&')
+      ,
       success: function (data) {
         var html = "";
+
+        // limit number of suggested tags
+        if (undefined !== limit) {
+          data.suggestedTags = data.suggestedTags.splice(0, limit);
+        }
+
         for (var i=0; i < data.suggestedTags.length; i++) {
           html += '<span class="tagit-label suggestedTag">' + data.suggestedTags[i] + '</span><span>&nbsp;</span>'
         }

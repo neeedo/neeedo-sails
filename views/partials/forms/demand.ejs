@@ -10,7 +10,7 @@
         <% } %>
 
         <span><%= i18n('What are you looking for?') %></span>
-        <div class="suggestedTags"></div>
+        <div class="suggestedTags" data-limit="<%= tagOptions.suggestions.limit %>"></div>
       </li>
       <li>
         <label for="shouldTagsDemand"><%= i18n('should have') %></label>
@@ -21,7 +21,7 @@
         <% } %>
 
         <span><%= i18n('Feature list') %></span>
-        <div class="suggestedTags"></div>
+        <div class="suggestedTags" data-limit="<%= tagOptions.suggestions.limit %>"></div>
       </li>
       <li class="priceCol leftCol">
         <label for="minPriceDemand"><%= i18n("Price from") %></label>

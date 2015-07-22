@@ -87,6 +87,7 @@ module.exports = {
           lng: loadedDemand.getLocation().getLongitude(),
           distance: loadedDemand.getDistance(),
           btnLabel: 'Edit and find matching offers',
+          tagOptions: sails.config.webapp.tags,
           validationMessages: []
         }
       });

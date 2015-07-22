@@ -72,6 +72,7 @@ module.exports = {
           lat: offerModel.getLocation().getLatitude(),
           lng: offerModel.getLocation().getLongitude(),
           images: FileService.getLeastUploadedFilesAndCurrentOnes(req, offerModel.getImageList()),
+          tagOptions: sails.config.webapp.tags,
           btnLabel: 'Edit',
           validationMessages: []
         }
