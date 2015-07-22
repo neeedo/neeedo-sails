@@ -82,11 +82,13 @@ var toggleGeolocationAndAdressFields = function (useGeolocation) {
     document.getElementById("address").disabled = true;
     $('#address').addClass('disabled');
     $('#address').attr("placeholder", "");
+    $('#addressLabel').addClass('hide');
     classie.removeClass(document.getElementById('errorLoc'), 'showError' );
   } else {
     document.getElementById("address").disabled = false;
     $('#address').removeClass('disabled');
-    $('#address').attr("placeholder", "Landsberger Allee, Berlin")
+    $('#address').attr("placeholder", "Landsberger Allee, Berlin");
+    $('#addressLabel').removeClass('hide');
   }
 };
 
@@ -147,6 +149,8 @@ var validateOfferForm = function(){
   classie.removeClass(document.getElementById('errorTag'), 'showError' );
   classie.removeClass(document.getElementById('errorPrice'), 'showError' );
   classie.removeClass(document.getElementById('errorLoc'), 'showError' );
+  classie.removeClass(document.getElementById('priceOffer'), 'errorGlow' );
+  classie.removeClass(document.getElementById('address'), 'errorGlow' );
   var bool = true;
   var price = document.getElementById('priceOffer').value.toString();
   if(document.getElementById('tagsOffer').value == ""){
@@ -156,11 +160,13 @@ var validateOfferForm = function(){
   var regex = /^[0-9]+([\,|\.][0-9]{1,2})?$/;
   if(price == "" || !price.match(regex)){
     classie.addClass(document.getElementById('errorPrice'), 'showError' );
+    classie.addClass(document.getElementById('priceOffer'), 'errorGlow' );
     bool = false;
   }
   if(!document.getElementById('useGeolocation').checked){
     if(document.getElementById('address').value == ""){
       classie.addClass(document.getElementById('errorLoc'), 'showError' );
+      classie.addClass(document.getElementById('address'), 'errorGlow' );
       bool = false;
     }
   }
@@ -267,6 +273,7 @@ $(document).ready(function () {
     document.getElementById("address").disabled = true;
     $('#address').addClass('disabled');
     $('#address').attr("placeholder", "");
+    $('#addressLabel').addClass('hide');
   }
 
   geolocationCheckbox.change(function () {
