@@ -252,5 +252,6 @@
   "There aren't any read messages." : "Du hast keine gelesenen Nachrichten.",
   "Unread messages" : "Ungelesene Nachrichten",
   "Read messages" : "Gelesene Nachrichten",
-  "The username must consist of alphanumerical characters, '-' or '_' and must contain at least one alpha character." : "Der Benutzername muss aus mind. einem Buchstaben bestehen und darf nur Ziffern sowie '-', '_' enthalten."
+  "The username must consist of alphanumerical characters, '-' or '_' and must contain at least one alpha character." : "Der Benutzername muss aus mind. einem Buchstaben bestehen und darf nur Ziffern sowie '-', '_' enthalten.",
+  "I offer": "Ich biete"
 }
