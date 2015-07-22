@@ -7,6 +7,14 @@ var ClientOfferService = apiClient.services.Offer;
 var OfferListService = apiClient.services.OfferList;
 
 module.exports = {
+  newClientOfferListService: function() {
+    return new OfferListService();
+  },
+
+  newClientOfferService: function() {
+    return new ClientOfferService();
+  },
+
   /**
    * Load the currently logged in user's offers.
    * @param req
@@ -16,7 +24,7 @@ module.exports = {
   loadUsersOffers: function (req, res, onSuccessCallback, onErrorCallback) {
     try {
       var offerQuery = ApiClientService.newOfferQueryFromRequest(req, res);
-      var offerListService = new OfferListService();
+      var offerListService = this.newClientOfferListService();
 
       offerListService.loadByUser(LoginService.getCurrentUser(req), offerQuery, onSuccessCallback, onErrorCallback);
     } catch (e) {
@@ -32,8 +40,8 @@ module.exports = {
    */
   loadMostRecentOffers: function (req, res, onSuccessCallback, onErrorCallback) {
     try {
+      var offerListService = this.newClientOfferListService();
       var offerQuery = ApiClientService.newOfferQueryFromRequest(req, res);
-      var offerListService = new OfferListService();
 
       offerListService.loadMostRecent(offerQuery, onSuccessCallback, onErrorCallback);
     } catch (e) {
@@ -46,14 +54,14 @@ module.exports = {
    *
    * @param req
    * @param onSuccessCallback will be called by the registered user instance delivered from neeedo API
-   * @param onErrorCallBack will be called with an HTTP response object on error
+   * @param onErrorCallback will be called with an HTTP response object on error
    */
   createOffer: function (req, res, onSuccessCallback, onErrorCallback) {
     try {
       var offerModel = ApiClientService.validateAndCreateNewOfferFromRequest(req, res, onErrorCallback);
 
       if (undefined !== offerModel) {
-        var offerService = new ClientOfferService();
+        var offerService = this.newClientOfferService();
 
         offerService.createOffer(offerModel, onSuccessCallback, onErrorCallback);
       }
@@ -106,10 +114,11 @@ module.exports = {
       var offerModel = ApiClientService.validateAndSetOfferFromRequest(req, res, offerModel, offerModel.getUser(), onErrorCallBack);
 
       if (undefined !== offerModel) {
-        var offerService = new ClientOfferService();
+        var offerService = this.newClientOfferService();
         offerService.updateOffer(offerModel, onSuccessCallback, onErrorCallBack);
       }
     } catch (e) {
+      sails.log.error(e);
       onErrorCallBack(ApiClientService.newError("updateOffer:" + e.message, 'Your inputs were not valid.'));
     }
   },
