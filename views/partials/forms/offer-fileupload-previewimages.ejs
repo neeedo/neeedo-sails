@@ -6,6 +6,9 @@
       <input type="button" class="fileupload-deleteImage"
              value="<%= i18n('Delete') %>"
              data-imageName="<%= image.getFileName() %>">
+      <div class="fileupload-delImg icon-cancel-circle" data-imageName="<%= image.getFileName() %>">
+
+      </div>
     </li>
     <% }) } %>
   </ul>

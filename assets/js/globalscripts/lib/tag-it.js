@@ -481,7 +481,7 @@
                 tag.addClass('tagit-choice-editable');
                 // Button for removing the tag.
                 var removeTagIcon = $('<span></span>')
-                    .addClass('ui-icon ui-icon-close');
+                    .addClass('icon-cancel-circle');
                 var removeTag = $('<a><span class="text-icon">\xd7</span></a>') // \xd7 is an X
                     .addClass('tagit-close')
                     .append(removeTagIcon)
