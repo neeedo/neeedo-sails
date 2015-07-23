@@ -149,5 +149,8 @@ module.exports.webapp = {
         maxLength: 1000
       }
     }
+  },
+  android: {
+    playStore: "https://play.google.com/store/apps/details?id=neeedo.imimaprx.htw.de.neeedo"
   }
 };
