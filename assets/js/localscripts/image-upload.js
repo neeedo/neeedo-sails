@@ -194,7 +194,6 @@ var showUploadedFiles = function(allUploadedFiles) {
   }
 
   // bind events
-  $('.fileupload-deleteImage').on('click', deleteImage);
   $('.fileupload-delImg').on('click', deleteImage);
 };
 
