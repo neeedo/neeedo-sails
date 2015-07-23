@@ -1,7 +1,7 @@
   <form id="createOffer" method="POST" class="form-style">
     <ul>
-      <li class="odd">
-        <label for="tagsOffer"><%= i18n('must have') %></label>
+      <li>
+        <label for="tagsOffer"><%= i18n('I offer') %></label>
         <input type="text" class="providesTagCompletion" id="tagsOffer" name="tags" value="<%- (undefined !== typeof tags ? tags : "") %>" autocomplete="off">
         <small class="inputMissing" id="errorTag"><%= i18n('Please enter at least one tag') %></small>
 
@@ -12,16 +12,16 @@
         </small>
         <div class="suggestedTags" data-limit="<%= tagOptions.suggestions.limit %>"></div>
       </li>
-      <li class="even">
+      <li>
         <label for="priceOffer"><%= i18n('Price') %></label>
-        <input type="number" id="priceOffer" name="price" step="any" min="0" value="<%- (undefined !== typeof price ? price : "") %>" placeholder="14">
+        <input type="number" id="priceOffer" name="price" step="any" min="0" value="<%- (undefined !== typeof price ? price : "") %>" placeholder="<%= i18n('Price Placeholder') %>">
         <small class="inputMissing" id="errorPrice"><%= i18n('Please enter a price') %></small>
 
         <% if ('price' in validationMessages) { %>
         <span class="inputError"><%= validationMessages.price %></span>
         <% } %>
       </li>
-      <li id="locationCol" class="leftCol odd">
+      <li id="locationCol" class="leftCol">
         <label for="useGeolocation" id="useGeoLocLabel"><%= i18n("Location") %></label>
         <div class="checkboxContainer">
           <input type="checkbox" id="useGeolocation" checked
@@ -31,7 +31,7 @@
         <input type="hidden" name="lat" id="latDemand" value="<%- (undefined !== typeof lat ? lat : "") %>"/>
         <input type="hidden" name="lng" id="lonDemand" value="<%- (undefined !== typeof lng ? lng : "") %>"/>
       </li>
-      <li id="addressContainer" class="ui-widget rightCol odd">
+      <li id="addressContainer" class="ui-widget rightCol">
         <label for="address" id="addressLabel"><%= i18n('Address') %></label>
         <input type="text" id="address" name="address" autocomplete="off">
         <small class="inputMissing" id="errorLoc"><%= i18n('Please enter a location') %></small>
@@ -42,10 +42,10 @@
         <span class="inputError"><%= validationMessages.lng %></span>
         <% } %>
       </li>
-      <li class="even">
+      <li>
         <input id="showUpload" type="button" value="<%= i18n("Add images") %>">
       </li>
-      <li id="imgUploadStep" class="clear hideLi odd">
+      <li id="imgUploadStep" class="clear hideLi">
         <label for="images[]"><%= i18n("Image upload") %></label>
         <%- partial('./offer-fileupload.ejs', { renderMessages: false, renderPreviewImages: false }) %>
         <% if (undefined !== images && typeof images.getImages === 'function') { images.getImages().forEach(function(image) { %>
@@ -58,7 +58,7 @@
         <span class="inputError"><%= validationMessages.images %></span>
         <% } %>
       </li>
-      <li id="submitBtn" class="clear even">
+      <li id="submitBtn" class="clear">
         <button id="createOfferBtn" onclick="return validateOfferForm()" class="neeedoBtn neeedoBtn--nuka"><%= i18n('Send') %></button>
       </li>
     </ul>

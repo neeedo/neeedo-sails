@@ -108,7 +108,7 @@
   "The given image could not be found.": "Das angegebene Bild konnte nicht gefunden werden.",
   "The image couldn't be deleted." : "Das angegebene Bild konnte nicht gelöscht werden.",
   "Use my current location" : "Meinen aktuellen Standort verwenden",
-  "Address" : "Adresse",
+  "Address" : "Adresse eingeben",
   "We couldn't determine your location. Please check your browser settings or type in your desired address directly." : "Wir konnten deinen Standort leider nicht bestimmen. Bitte prüfe deine Browser-Einstellungen oder gib deine bevorzugte Adresse direkt ein.",
   "Please enter an valid address." : "Bitte gib eine gültige Adresse ein.",
   "Create and find matching offers" : "Passende Angebote finden",
@@ -147,7 +147,7 @@
   "Use current location" : "Aktuelle Position nutzen",
   "Type in your address" : "Geben Sie Ihre Adresse ein",
   "Maximum distance in km" : "Maximale Distanz in km",
-  "Location" : "Standort",
+  "Location" : "Standort verwenden",
   "You didn't add any favorite offer yet. Have a look at the most recent offers below or create a demand." : "Du hast bisher noch keine Angebote favorisiert. Sieh dir unten die aktuellsten Angebote an oder erstelle ein neues Gesuch.",
   "Favorite Offers" : "Favoriten",
   "Favorites" : "Favoriten",
@@ -254,5 +254,6 @@
   "Read messages" : "Gelesene Nachrichten",
   "The username must consist of alphanumerical characters, '-' or '_' and must contain at least one alpha character." : "Der Benutzername muss aus mind. einem Buchstaben bestehen und darf nur Ziffern sowie '-', '_' enthalten.",
   "I offer": "Ich biete",
-  "Often entered together:" : "Häufig zusammen eingegeben:"
+  "Often entered together:" : "Häufig zusammen eingegeben:",
+  "Price Placeholder" : "z.B. 14 oder 11,99"
 }

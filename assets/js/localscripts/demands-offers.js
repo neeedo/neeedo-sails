@@ -32,8 +32,6 @@ var setLocationIfChecked = function (event) {
         alert(geolocationCheckbox.data('translationnogeolocation'));
       } else {
         setLatitudeAndLongitudeInHiddenField(location);
-
-        addTitleToTags();
         fadeOutForm();
         form.submit();
       }
@@ -44,18 +42,9 @@ var setLocationIfChecked = function (event) {
     if (!locationIsValid(latInput, lngInput)) {
       alert(geolocationCheckbox.data('translationnoaddress'));
     } else {
-      addTitleToTags();
       fadeOutForm();
       form.submit();
     }
-  }
-};
-
-var addTitleToTags = function() {
-  if (null !== document.getElementById('tagsOffer')
-    && null !== document.getElementById('title')) {
-    var tags = document.getElementById('tagsOffer').value;
-    document.getElementById('tagsOffer').value = document.getElementById('title').value + ", " + tags;
   }
 };
 
@@ -82,7 +71,6 @@ var toggleGeolocationAndAdressFields = function (useGeolocation) {
     document.getElementById("address").disabled = true;
     $('#address').addClass('hide');
     $('#addressLabel').addClass('hide');
-    $('#address').removeClass('errorGlow');
     classie.removeClass(document.getElementById('errorLoc'), 'showError' );
   } else {
     document.getElementById("address").disabled = false;
@@ -149,8 +137,6 @@ var validateOfferForm = function(){
   classie.removeClass(document.getElementById('errorTag'), 'showError' );
   classie.removeClass(document.getElementById('errorPrice'), 'showError' );
   classie.removeClass(document.getElementById('errorLoc'), 'showError' );
-  classie.removeClass(document.getElementById('priceOffer'), 'errorGlow' );
-  classie.removeClass(document.getElementById('address'), 'errorGlow' );
   var bool = true;
   var price = document.getElementById('priceOffer').value.toString();
   if(document.getElementById('tagsOffer').value == ""){
@@ -160,13 +146,11 @@ var validateOfferForm = function(){
   var regex = /^[0-9]+([\,|\.][0-9]{1,2})?$/;
   if(price == "" || !price.match(regex)){
     classie.addClass(document.getElementById('errorPrice'), 'showError' );
-    classie.addClass(document.getElementById('priceOffer'), 'errorGlow' );
     bool = false;
   }
   if(!document.getElementById('useGeolocation').checked){
     if(document.getElementById('address').value == ""){
       classie.addClass(document.getElementById('errorLoc'), 'showError' );
-      classie.addClass(document.getElementById('address'), 'errorGlow' );
       bool = false;
     }
   }
@@ -317,7 +301,7 @@ $(document).ready(function () {
       },
       minLength: 2
     },
-    placeholderText : "iPhone, Smart-TV",
+    placeholderText : "z.B. iPhone, 6, schwarz",
     afterTagAdded: function (event, ui) {
       getSuggests($(this));
     },

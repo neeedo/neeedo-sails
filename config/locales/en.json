@@ -53,7 +53,7 @@
   "Your demand was updated successfully." : "Your demand was updated successfully.",
   "Your demand was deleted successfully." : "Your demand was deleted successfully.",
   "I'm looking for" : "I'm looking for",
-  "must have" : "I offer",
+  "I offer" : "I offer",
   "should have" : "should have",
   "Price from" : "Price from",
   "Price to" : "Price to",
@@ -99,7 +99,7 @@
   "The image couldn't be deleted." : "The image couldn't be deleted.",
   "Could not upload the given image. Please contact Neeedo customer care" : "Could not upload the given image. Please contact Neeedo customer care",
   "Use my current location" : "Use my current location",
-  "Address" : "Address",
+  "Address" : "Enter address",
   "We couldn't determine your location. Please check your browser settings or type in your desired address directly." : "We couldn't determine your location. Please check your browser settings or type in your desired address directly.",
   "Please enter an valid address." : "Please enter an valid address.",
   "Create and find matching offers" : "Find matching offers",
@@ -136,7 +136,7 @@
   "Use current location" : "Use current location",
   "Type in your address" : "Type in your address",
   "Maximum distance in km" : "Maximum distance in km",
-  "Location" : "Location",
+  "Location" : "Use location",
   "You didn't add any favorite offer yet. Have a look at the most recent offers below or create a demand." : "You didn't add any favorite offer yet. Have a look at the most recent offers below or create a demand.",
   "Favorite Offers" : "Favorite Offers",
   "Create offers your customers will find" : "Create offers your customers will find",
@@ -239,5 +239,6 @@
   "Unread messages" : "Unread messages",
   "Read messages" : "Read messages",
   "The username must consist of alphanumerical characters, '-' or '_' and must contain at least one alpha character." : "The username must consist of alphanumerical characters, '-' or '_' and must contain at least one alpha character.",
-  "Often entered together:" : "Often entered together:"
+  "Often entered together:" : "Often entered together:",
+  "Price Placeholder" : "e.g. 14 or 11.99"
 }
