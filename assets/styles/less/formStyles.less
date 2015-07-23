@@ -43,8 +43,27 @@
 }
 
 .form-style .priceCol{
-  width: 50%;
+  width: 40%;
   float: left;
+}
+
+.leftCol{
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  margin-left: 10%;
+  margin-right: 1%;
+}
+
+#minPriceDemand, #maxPriceDemand{
+  width: 100%;
+}
+
+.rightCol{
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  margin-left: 1%;
 }
 
 .form-style #locationCol{
@@ -74,18 +93,6 @@
 
 .form-style .clear{
   clear: both;
-}
-
-.leftCol{
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-}
-
-.rightCol{
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
 }
 
 .setBorder{
@@ -445,11 +452,21 @@ ul.tagit li.tagit-choice .tagit-close{
 }
 
 .ui-slider-range{
-  background: @DarkerMetroGreen !important;
+  background: @DarkerMetroPink !important;
 }
 
 #slider-range{
   background: @MetroGreen !important;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.priceDemandLabel{
+  width: 100%;
+}
+
+#addressLabel, .priceDemandLabel{
+  margin: 0 0 5px !important;
 }
 
 .suggestedTags{

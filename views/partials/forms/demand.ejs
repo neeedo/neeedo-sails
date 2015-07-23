@@ -8,8 +8,6 @@
         <% if ('mustTags' in validationMessages) { %>
         <span class="inputError"><%= validationMessages.mustTags %></span>
         <% } %>
-
-        <span><%= i18n('What are you looking for?') %></span>
         <div class="suggestedTags" data-limit="<%= tagOptions.suggestions.limit %>"></div>
       </li>
       <li>
@@ -19,23 +17,19 @@
         <% if ('shouldTags' in validationMessages) { %>
         <span class="inputError"><%= validationMessages.shouldTags %></span>
         <% } %>
-
-        <span><%= i18n('Feature list') %></span>
         <div class="suggestedTags" data-limit="<%= tagOptions.suggestions.limit %>"></div>
       </li>
       <li class="priceCol leftCol">
-        <label for="minPriceDemand"><%= i18n("Price from") %></label>
+        <label for="minPriceDemand" class="priceDemandLabel"><%= i18n("Price from") %></label>
         <input type="number" id="minPriceDemand" step="any" min="0" name="minPrice" value="<%- (undefined !== typeof minPrice ? minPrice : "") %>"/>
         <small class="inputMissing" id="errorMinPrice"><%= i18n("Please enter a min price") %></small>
 
         <% if ('minPrice' in validationMessages) { %>
         <span class="inputError"><%= validationMessages.minPrice %></span>
         <% } %>
-
-        <span><%= i18n('Minimum price in €') %></span>
       </li>
       <li class="priceCol rightCol">
-        <label for="maxPriceDemand"><%= i18n("Price to") %></label>
+        <label for="maxPriceDemand" class="priceDemandLabel"><%= i18n("Price to") %></label>
         <input type="number" id="maxPriceDemand" step="any" min="0" name="maxPrice" value="<%- (undefined !== typeof maxPrice ? maxPrice : "") %>" />
         <small class="inputMissing" id="errorMaxPrice"><%= i18n("Please enter a max price") %></small>
         <small class="inputMissing" id="errorMaxMin"><%= i18n("Min price must be smaller than max price") %></small>
@@ -43,26 +37,23 @@
         <% if ('maxPrice' in validationMessages) { %>
         <span class="inputError"><%= validationMessages.maxPrice %></span>
         <% } %>
-
-        <span><%= i18n('Maximum price in €') %></span>
       </li>
       <li class="clear">
         <div id="slider-range"></div>
       </li>
       <li id="locationCol" class="leftCol">
-        <label for="useGeolocation"><%= i18n("Location") %></label>
+        <label for="useGeolocation" id="useGeoLocLabel"><%= i18n("Location") %></label>
         <div class="checkboxContainer">
           <input type="checkbox" id="useGeolocation" checked
                  data-translationNoGeolocation="<%= i18n("We couldn't determine your location. Please check your browser settings or type in your desired address directly.") %>"
                  data-translationNoAddress="<%= i18n("Please enter an valid address.") %>">
         </div>
-        <span><%= i18n("Use current location") %></span>
         <input type="hidden" name="lat" id="latDemand" value="<%- (undefined !== typeof lat ? lat : "") %>"/>
         <input type="hidden" name="lng" id="lonDemand" value="<%- (undefined !== typeof lng ? lng : "") %>"/>
       </li>
       <li id="addressContainer" class="ui-widget rightCol">
         <label for="address" id="addressLabel"><%= i18n('Address') %></label>
-        <input type="text" id="address" class="disabled" name="address" autocomplete="off">
+        <input type="text" id="address" name="address" autocomplete="off">
         <small class="inputMissing" id="errorLoc"><%= i18n('Please enter a location') %></small>
 
         <% if ('lat' in validationMessages) { %>
@@ -72,8 +63,6 @@
         <% if ('lng' in validationMessages) { %>
         <span class="inputError"><%= validationMessages.lng %></span>
         <% } %>
-
-        <span><%= i18n("Type in your address") %></span>
       </li>
       <li id="distCol" class="clear">
         <label for="maxDistanceDemand"><%= i18n("Maximum distance") %></label>
@@ -83,8 +72,6 @@
         <% if ('distance' in validationMessages) { %>
         <span class="inputError"><%= validationMessages.distance %></span>
         <% } %>
-
-        <span><%= i18n('Maximum distance in km') %></span>
       </li>
       <li id="submitBtn">
         <button id="createDemandBtn" onclick="return validateDemandForm()" class="neeedoBtn neeedoBtn--nuka"><%= i18n('Send') %></button>
