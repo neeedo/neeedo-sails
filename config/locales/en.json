@@ -55,9 +55,9 @@
   "I'm looking for" : "I'm looking for",
   "I offer" : "I offer",
   "should have" : "should have",
-  "Price from" : "Price from",
-  "Price to" : "Price to",
-  "Maximum distance" : "Distance",
+  "Price from" : "Price (€) from",
+  "Price to" : "to",
+  "Maximum distance" : "In a distance (km)",
   "The offers couldn't be loaded. Please contact Neeedo customer care." : "The offers couldn't be loaded. Please contact Neeedo customer care.",
   "The demands couldn't be loaded. Please contact Neeedo customer care." : "The demands couldn't be loaded. Please contact Neeedo customer care.",
   "The offer couldn't be loaded. Please contact Neeedo customer care." : "The offer couldn't be loaded. Please contact Neeedo customer care.",
@@ -240,5 +240,8 @@
   "Read messages" : "Read messages",
   "The username must consist of alphanumerical characters, '-' or '_' and must contain at least one alpha character." : "The username must consist of alphanumerical characters, '-' or '_' and must contain at least one alpha character.",
   "Often entered together:" : "Often entered together:",
-  "Price Placeholder" : "e.g. 14 or 11.99"
+  "Price Placeholder" : "e.g. 14 or 11.99",
+  "I'm really looking for" : "I'm really looking for",
+  "Nice to have would be" : "Nice to have would be",
+  "Please enter a distance" : "Please enter a distance"
 }

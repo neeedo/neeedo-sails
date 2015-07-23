@@ -1,7 +1,7 @@
   <form id="createDemand" method="POST" class="form-style">
     <ul>
       <li id="mustTagsContainer">
-        <label for="mustTagsDemand"><%= i18n('must have') %></label>
+        <label for="mustTagsDemand"><%= i18n("I'm really looking for") %></label>
         <input type="text" class="providesTagCompletion" id="mustTagsDemand" name="mustTags" value="<%- (undefined !== typeof mustTags ? mustTags : "") %>" placeholder="<%= i18n('Bicycle, iPhone') %>" autofocus  autocomplete="off">
         <small class="inputMissing" id="errorTag"><%= i18n("Please enter at least one tag") %></small>
 
@@ -11,7 +11,7 @@
         <div class="suggestedTags" data-limit="<%= tagOptions.suggestions.limit %>"></div>
       </li>
       <li>
-        <label for="shouldTagsDemand"><%= i18n('should have') %></label>
+        <label for="shouldTagsDemand"><%= i18n('Nice to have would be') %></label>
         <input type="text" class="providesTagCompletion" id="shouldTagsDemand" name="shouldTags" value="<%- (undefined !== typeof shouldTags ? shouldTags : "") %>" placeholder="<%= i18n('blue, screen protector') %>" autocomplete="off">
 
         <% if ('shouldTags' in validationMessages) { %>
@@ -67,7 +67,7 @@
       <li id="distCol" class="clear">
         <label for="maxDistanceDemand"><%= i18n("Maximum distance") %></label>
         <input type="number" id="maxDistanceDemand" name="distance" min="0" value="<%- (undefined !== typeof distance ? distance : "") %>" placeholder="15"/>
-        <small class="inputMissing" id="errorDistance">Please enter a distance</small>
+        <small class="inputMissing" id="errorDistance"><%= i18n('Please enter a distance') %></small>
 
         <% if ('distance' in validationMessages) { %>
         <span class="inputError"><%= validationMessages.distance %></span>
