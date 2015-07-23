@@ -238,5 +238,6 @@
   "There aren't any read messages." : "There aren't any read messages.",
   "Unread messages" : "Unread messages",
   "Read messages" : "Read messages",
-  "The username must consist of alphanumerical characters, '-' or '_' and must contain at least one alpha character." : "The username must consist of alphanumerical characters, '-' or '_' and must contain at least one alpha character."
+  "The username must consist of alphanumerical characters, '-' or '_' and must contain at least one alpha character." : "The username must consist of alphanumerical characters, '-' or '_' and must contain at least one alpha character.",
+  "Often entered together:" : "Often entered together:"
 }

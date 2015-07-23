@@ -7,7 +7,9 @@
 
         <% if ('tags' in validationMessages) { %>
         <span class="inputError"><%= validationMessages.tags %></span>
-        <% } %>
+        <% } %><small id="suggestedTagsHeader" class="hide">
+          <%= i18n('Often entered together:') %>
+        </small>
         <div class="suggestedTags" data-limit="<%= tagOptions.suggestions.limit %>"></div>
       </li>
       <li class="even">

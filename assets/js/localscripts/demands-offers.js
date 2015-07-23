@@ -384,7 +384,7 @@ $(document).ready(function () {
         for (var i=0; i < data.suggestedTags.length; i++) {
           html += '<span class="tagit-label suggestedTag">' + data.suggestedTags[i] + '</span><span>&nbsp;</span>'
         }
-
+        classie.removeClass(document.getElementById('suggestedTagsHeader'), 'hide' );
         tagSuggestionElements.html(html);
       }
     });
@@ -393,6 +393,7 @@ $(document).ready(function () {
   function clearSuggests(tagInputElement) {
     var tagSuggestionElements = tagInputElement.parent().find(suggestedTagsClass);
     tagSuggestionElements.empty();
+    classie.addClass(document.getElementById('suggestedTagsHeader'), 'hide' );
   };
 
   suggestedTagsEl.on('click', suggestedTagClass, function(event) {
