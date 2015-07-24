@@ -246,10 +246,12 @@
   "Please enter a distance" : "Please enter a distance",
   "Link to Android App" : "Link to Android App",
   "subtitle": "The market place for everything and everone",
-  "Description1": "Für uns als Einkäufer gibt es nichts nervigeres als sich erst durch Seiten von Angeboten zu klicken bevor man das findet was man sucht. Wir haben daher unsere Suche so aufgebaut, dass der Kunde exakt das eingeben kann was für ihn wichtig ist,und das auch findet.",
-  "Description2": "Wir nutzen verschiedene Methoden um das Einkaufen für unsere Nutzer zu vereinfachen. Das bedeutet für uns auch, dass ihm in erster Linie die Sachen angeboten werden die er auch finden möchte.",
-  "Description3": "Es lag uns von Beginn an am Herzen den regionalen Markt zu unsterstützen. Daher legen wir besonderen Wert darauf, dass die angebotenen Waren so gut erreichbar wie möglich sind.",
-  "AppDescriptionTitle":"Gibt's das auch als App?",
-  "AppDescription": " Wir arbeiten hart an der Umsetzung unsere Mobile App. Einen Prototyp können Sie hier am Stand bereits betrachten"
-
+  "Description1": "For us as Consumers there is nothing more nervewrecking than reading countless pages of articles, before finding what we were looking for.That's why we designed our search in a way,that allows our customers to specify exactly what's important for them.",
+  "Description2": "We are using a variety of methods for simplifying the buying process for our users. For us that means especially, that we are only presenting offers that our user wants to find.",
+  "Description3": "From the beginning it was of great importance to us, to support the local market. That's why we put a high value on bringing together people in areas as small as possible",
+  "AppDescriptionTitle":"Is there an app for that?",
+  "AppDescription": " You can find our app in the Playstore by clicking here",
+  "descriptionBtn1":"Search for what you really need",
+  "descriptionBtn2":"Find what you`re really looking for",
+  "descriptionBtn3":"Everything at your nearest"
 }
