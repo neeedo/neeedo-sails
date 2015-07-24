@@ -3,9 +3,7 @@
     <% if (undefined !== images && typeof images.getImages === 'function') { images.getImages().forEach(function(image) { %>
     <li class="previewImages"><img src="<%= FileService.filterGetImageUrl(image.getUrl()) %>"
                                    alt="<%= image.getFileName() %>">
-      <input type="button" class="fileupload-deleteImage"
-             value="<%= i18n('Delete') %>"
-             data-imageName="<%= image.getFileName() %>">
+      <div class="fileupload-delImg icon-cancel-circle" data-imageName="<%= image.getFileName() %>"></div>
     </li>
     <% }) } %>
   </ul>

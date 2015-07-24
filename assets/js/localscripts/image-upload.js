@@ -185,8 +185,8 @@ var hideProgress = function(){
 };
 
 var showUploadedFiles = function(allUploadedFiles) {
-  resetImagesInPreviewList();
-  resetImagesInOfferHiddenField();
+  //resetImagesInPreviewList();
+  //resetImagesInOfferHiddenField();
 
   for (var i = 0; i < allUploadedFiles.images.length; i++ ) {
     var file = allUploadedFiles.images[i];
@@ -235,7 +235,7 @@ var addToPreviewList = function (file) {
 };
 
 var addToHiddenFields = function (file) {
-  offerForm.append('<input type="hidden" name="images[]" value="' + file.fileName + '">');
+  $('#offerImages').append('<option value="'+ file.fileName+'" selected="selected"></option>');
 };
 
 var deactivateOfferSubmit = function() {
@@ -254,7 +254,7 @@ var deleteImage = function(event) {
   var imageName = _this.attr('data-imageName');
 
   // remove from hidden input fields
-  $("input[value='" + imageName + "']").remove();
+  $("option[value='" + imageName + "']").remove();
 
   // delete input files selection
   inputFiles.val('');
@@ -284,6 +284,6 @@ $(document).ready(function () {
     prepareImages(event);
     uploadImages(event);
   });
-  //$('#fileupload-submit').on('click', uploadImages);
-  deleteFileButtons.on('click', deleteImage);
+  // bind events
+  $('.fileupload-delImg').on('click', deleteImage);
 });

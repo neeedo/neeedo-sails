@@ -48,9 +48,13 @@
       <li id="imgUploadStep" class="clear hideLi">
         <label for="images[]"><%= i18n("Image upload") %></label>
         <%- partial('./offer-fileupload.ejs', { renderMessages: false, renderPreviewImages: false }) %>
-        <% if (undefined !== images && typeof images.getImages === 'function') { images.getImages().forEach(function(image) { %>
-        <input type="hidden" id="images[]" name="images[]" value="<%= image.getFileName() %>">
-        <% })} %>
+        <select multiple name="images[]" style="display: none" id="offerImages">
+        <% if (undefined !== images && typeof images.getImages === 'function') { number = 0;
+          images.getImages().forEach(function(image) { %>
+          <% /* we have to use a multiselect here, hidden input field with name images[] won't work in the javascript */%>
+          <option value="<%= image.getFileName() %>" selected="selected"></option>
+        <% number++; })} %>
+        </select>
         <% // Tag suggestion will be rendered here %>
         <div class="fileupload-validation-messages"><%- partial('./offer-fileupload-messages.ejs') %></div>
         <div class="fileupload-preview-images"><%- partial('./offer-fileupload-previewimages.ejs') %></div>
