@@ -7,6 +7,7 @@
 var files = [],
     uploadTargetUrl,
     errors = [],
+    inputFiles,
     fileuploadForm,
     fileuploadFiles,
     offerForm,
@@ -255,6 +256,9 @@ var deleteImage = function(event) {
   // remove from hidden input fields
   $("input[value='" + imageName + "']").remove();
 
+  // delete input files selection
+  inputFiles.val('');
+
   // remove from display list
   _this.parent().remove();
 };
@@ -265,7 +269,7 @@ var deleteImage = function(event) {
  * #############
  */
 $(document).ready(function () {
-  var inputFiles = $('#fileupload-input');
+  inputFiles = $('#fileupload-input');
   fileuploadForm = $('#fileupload');
   fileuploadFiles = $('#fileupload-files');
   errorMessageTarget = $('#fileupload-messages');
