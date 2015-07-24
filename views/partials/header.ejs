@@ -4,7 +4,7 @@
       <div class="navbar-header">
         <a class="navbar-brand" href="<%- UrlService.to('/') %>">
           <img alt="Brand" src="/images/neeedo_Logo.png">
-          <span id="brand" class="hidden-xs">Neeedo</span>
+          <span id="brand">Neeedo</span>
         </a>
 
         <div class="visible-xs collapseheader">
@@ -45,7 +45,7 @@
               <a href="<%= UrlService.to('/demands/create') %>"><span
                   class="icon-search"></span>
 
-                <p><%= i18n('Create demand') %></p>
+                <p ><%= i18n('Create demand') %></p>
               </a>
             </div>
           </li>
@@ -55,7 +55,7 @@
               <a href="<%= UrlService.to('/register') %>">
                 <span class="icon-user-plus"></span>
 
-                <p><%= i18n('Register') %></p></a>
+                <p ><%= i18n('Register') %></p></a>
             </div>
           </li>
           <% } %>
