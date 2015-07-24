@@ -3,7 +3,8 @@
   <div class="contentContainer">
 
     <div class="description">
-        <h1 id="welcome"class="text-center"><%= i18n('Hello, %s!', LoginService.getCurrentUser(req).getUsername()) %></h1>
+      <h1 id="welcome"
+          class="text-center"><%= i18n('Hello, %s!', LoginService.getCurrentUser(req).getUsername()) %></h1>
     </div>
     <% /* TODO this is not nice and should be refactored -> split homepage.ejs, offer dashboard.ejs for logged-in users and homepage.ejs for not-logged in ones */ %>
     <div id="mapContainer">
@@ -19,43 +20,47 @@
       <% } %>
     </div>
   </div>
-  <div class="hidden-xs contentContainer">
-    <h1><%= i18n('Your Offers') %> <a class="createLink" href="<%= OfferService.getCreateUrl() %>"></a></h1>
-    <ul id="lightSliderOffer"
-        data-itemLimit="<%- pagination.limit %>"
-        data-currentPage="<%- pagination.firstPageNumber %>"
-        data-sourceUrl="<%- offerSourceUrl %>"
-        data-viewUrl="<%- OfferService.getViewUrl() %>"
-        data-translationPrice="<%= i18n('Price') %>"
-        data-displayFavorite="false"
-      >
-      <% if(offers.length == 0){ %>
-      <div class="noitemSlider">
-        <%= i18n('You did not create any offers,yet. Click the "+"-button above to create your first offer') %>
-      </div>
-      <% }
-        offers.forEach(function(offer) { %>
-      <%- partial('./partials/offersForList.ejs', {offer: offer, displayFavorite: false}) %>
-      <% }); %>
-    </ul>
-    <h1><%= i18n('Your Demands') %><a class="createLink" href="<%= DemandService.getCreateUrl() %>"></a>
-    </h1>
-    <ul id="lightSliderDemand" data-itemLimit="<%- pagination.limit %>"
-        data-currentPage="<%- pagination.firstPageNumber %>"
-        data-sourceUrl="<%- demandSourceUrl %>"
-        data-viewUrl="<%- DemandService.getViewUrl() %>"
-        data-translationPrice="<%= i18n('Price') %>"
-        data-translationDistance="<%= i18n('Distance') %>"
-      >
-      <% if(demands.length == 0){ %>
-      <div class="noitemSlider">
-        <%= i18n('You did not create any demands,yet. Click the "+"-button above to create your first demand') %>
-      </div>
-      <% }
-        demands.forEach(function(demand) { %>
-      <%- partial('./partials/demandsForList.ejs', {demand: demand}) %>
-      <% }); %>
-    </ul>
+  <div class="hidden-xs ">
+    <div class="contentContainer">
+      <h1><%= i18n('Your Offers') %> <a class="createLink" href="<%= OfferService.getCreateUrl() %>"></a></h1>
+      <ul id="lightSliderOffer"
+          data-itemLimit="<%- pagination.limit %>"
+          data-currentPage="<%- pagination.firstPageNumber %>"
+          data-sourceUrl="<%- offerSourceUrl %>"
+          data-viewUrl="<%- OfferService.getViewUrl() %>"
+          data-translationPrice="<%= i18n('Price') %>"
+          data-displayFavorite="false"
+        >
+        <% if(offers.length == 0){ %>
+        <div class="noitemSlider">
+          <%= i18n('You did not create any offers,yet. Click the "+"-button above to create your first offer') %>
+        </div>
+        <% }
+          offers.forEach(function(offer) { %>
+        <%- partial('./partials/offersForList.ejs', {offer: offer, displayFavorite: false}) %>
+        <% }); %>
+      </ul>
+    </div>
+    <div class="contentContainer">
+      <h1><%= i18n('Your Demands') %><a class="createLink" href="<%= DemandService.getCreateUrl() %>"></a>
+      </h1>
+      <ul id="lightSliderDemand" data-itemLimit="<%- pagination.limit %>"
+          data-currentPage="<%- pagination.firstPageNumber %>"
+          data-sourceUrl="<%- demandSourceUrl %>"
+          data-viewUrl="<%- DemandService.getViewUrl() %>"
+          data-translationPrice="<%= i18n('Price') %>"
+          data-translationDistance="<%= i18n('Distance') %>"
+        >
+        <% if(demands.length == 0){ %>
+        <div class="noitemSlider">
+          <%= i18n('You did not create any demands,yet. Click the "+"-button above to create your first demand') %>
+        </div>
+        <% }
+          demands.forEach(function(demand) { %>
+        <%- partial('./partials/demandsForList.ejs', {demand: demand}) %>
+        <% }); %>
+      </ul>
+    </div>
   </div>
   <!-- Big Screen-->
   <div class="visible-xs">
