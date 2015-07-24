@@ -30,6 +30,7 @@ $(document).ready(function() {
   lightSliderOffer = $("#lightSliderOffer").lightSlider({
     loop:false,
     autoWidth: false,
+    pager: false,
     adaptiveHeight: false,
     easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
     responsive : [
@@ -82,6 +83,7 @@ $(document).ready(function() {
     loop:false,
     autoWidth: false,
     adaptiveHeight: false,
+    pager: false,
     easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
     responsive : [
       {
