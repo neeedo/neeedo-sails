@@ -4,36 +4,30 @@
       <div class="col-md-6" id="registrationContainer">
         <form method="POST" id="register" class="form form-style">
           <h1><%= i18n('Registration') %></h1>
+          <label for="username"><%= i18n('Username') %></label>
           <div class="row">
-            <div class="col-md-3">
-              <label for="username"><%= i18n('Username') %></label>
-            </div>
-            <div class="col-md-7">
-              <input class="glowing-border" type="text" name="username" value="<%- (undefined !== typeof username ? username : "") %>" autofocus required/>
+            <div class="col-md-12">
+              <input class="glowing-border" type="text" name="username" value="<%- (undefined !== typeof username ? username : "") %>" autofocus/>
 
               <% if ('username' in validationMessages) { %>
               <span class="inputError"><%= validationMessages.username %></span>
               <% } %>
             </div>
           </div>
+          <label for="email"><%= i18n('E-Mail') %></label>
           <div class="row">
-            <div class="col-md-3">
-              <label for="email"><%= i18n('E-Mail') %></label>
-            </div>
-            <div class="col-md-7">
-              <input class="glowing-border" type="email" name="email"  value="<%- (undefined !== typeof email ? email : "") %>" required/>
+            <div class="col-md-12">
+              <input class="glowing-border" type="email" name="email"  value="<%- (undefined !== typeof email ? email : "") %>"/>
 
               <% if ('email' in validationMessages) { %>
               <span class="inputError"><%= validationMessages.email %></span>
               <% } %>
             </div>
           </div>
+          <label for="password"><%= i18n('Password') %></label>
           <div class="row">
-            <div class="col-md-3">
-              <label for="password"><%= i18n('Password') %></label>
-            </div>
-            <div class="col-md-7">
-              <input class="glowing-border" type="password" name="password" required/>
+            <div class="col-md-12">
+              <input class="glowing-border" type="password" name="password"/>
 
               <% if ('password' in validationMessages) { %>
               <span class="inputError"><%= validationMessages.password %></span>
@@ -41,33 +35,30 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-7 col-md-offset-3">
+            <div class="col-md-12">
               <button id="registerBtn" class="neeedoBtn neeedoBtn--nuka"><%= i18n('Register') %></button>
             </div>
           </div>
         </form>
       </div>
+
       <div class="col-md-6" id="loginContainer">
         <form method="POST" id="loginForm" class="form form-style" action="<%= UrlService.to('/login') %>">
           <h1><%= i18n('Login Header') %></h1>
+          <label for="email"><%= i18n('E-Mail') %></label>
           <div class="row">
-            <div class="col-md-3">
-              <label for="email"><%= i18n('E-Mail') %></label>
-            </div>
-            <div class="col-md-7">
+            <div class="col-md-12">
               <input id="email" class="glowing-border" type="email" name="email" required/>
             </div>
           </div>
+          <label for="password"><%= i18n('Password') %></label>
           <div class="row">
-            <div class="col-md-3">
-              <label for="password"><%= i18n('Password') %></label>
-            </div>
-            <div class="col-md-7">
+            <div class="col-md-12">
               <input id="password" class="glowing-border" type="password" name="password" required/>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-7 col-md-offset-3">
+            <div class="col-md-12">
               <button id="loginBtn" class="neeedoBtn neeedoBtn--nuka"><%= i18n('Login') %></button>
             </div>
           </div>

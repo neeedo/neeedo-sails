@@ -1,20 +1,26 @@
 /* /register Styles */
 
 #registrationForms {
+  padding: 2em;
+
   h1, label {
-    color: @HeaderFontColor;
+    color: @MetroLightBlue;
   }
   label, input {
     margin-bottom: 5px;
   }
-}
-  #registrationForms input{
+  .inputError{
     width: 100%;
   }
+}
+#registrationForms input{
+  width: 100%;
+  margin-bottom: 0 !important;
+}
 
- #register p{
-   padding-top: 1em;
- }
+#register p{
+  padding-top: 1em;
+}
 
 #register img{
   max-width: 100%;
@@ -22,4 +28,9 @@
 
 #register div{
   margin-bottom: 10px;
+}
+
+#register, #loginForm{
+  width: 100%;
+  max-width: 100%;
 }
