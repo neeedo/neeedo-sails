@@ -23,6 +23,11 @@
   <div class="hidden-xs ">
     <div class="contentContainer">
       <h1><%= i18n('Your Offers') %> <a class="createLink" href="<%= OfferService.getCreateUrl() %>"></a></h1>
+      <% if(offers.length == 0){ %>
+      <div class="noItemSlider">
+        <%= i18n('nooffers') %>
+      </div>
+      <% } %>
       <ul id="lightSliderOffer"
           data-itemLimit="<%- pagination.limit %>"
           data-currentPage="<%- pagination.firstPageNumber %>"
@@ -31,12 +36,8 @@
           data-translationPrice="<%= i18n('Price') %>"
           data-displayFavorite="false"
         >
-        <% if(offers.length == 0){ %>
-        <div class="noitemSlider">
-          <%= i18n('You did not create any offers,yet. Click the "+"-button above to create your first offer') %>
-        </div>
-        <% }
-          offers.forEach(function(offer) { %>
+
+        <% offers.forEach(function(offer) { %>
         <%- partial('./partials/offersForList.ejs', {offer: offer, displayFavorite: false}) %>
         <% }); %>
       </ul>
@@ -44,6 +45,11 @@
     <div class="contentContainer">
       <h1><%= i18n('Your Demands') %><a class="createLink" href="<%= DemandService.getCreateUrl() %>"></a>
       </h1>
+      <% if(demands.length == 0){ %>
+      <div class="noItemSlider">
+        <%= i18n('nodemands') %>
+      </div>
+      <% } %>
       <ul id="lightSliderDemand" data-itemLimit="<%- pagination.limit %>"
           data-currentPage="<%- pagination.firstPageNumber %>"
           data-sourceUrl="<%- demandSourceUrl %>"
@@ -51,12 +57,7 @@
           data-translationPrice="<%= i18n('Price') %>"
           data-translationDistance="<%= i18n('Distance') %>"
         >
-        <% if(demands.length == 0){ %>
-        <div class="noitemSlider">
-          <%= i18n('You did not create any demands,yet. Click the "+"-button above to create your first demand') %>
-        </div>
-        <% }
-          demands.forEach(function(demand) { %>
+        <% demands.forEach(function(demand) { %>
         <%- partial('./partials/demandsForList.ejs', {demand: demand}) %>
         <% }); %>
       </ul>
@@ -77,14 +78,20 @@
           </li>
         </ul>
       </nav>
-      <div class="content">
+      <div class="content contentContainer">
         <section id="section-1">
-          <% offers.forEach(function(offer) { %>
+          <% if(offers.length == 0){ %>
+          <%= i18n('nooffers') %>
+          <% }
+            offers.forEach(function(offer) { %>
           <%- partial('./partials/offersForList.ejs', {offer: offer, displayFavorite: false}) %>
           <% }); %>
         </section>
         <section id="section-2">
-          <% demands.forEach(function(demand) { %>
+          <% if(demands.length == 0){ %>
+          <%= i18n('nodemands') %>
+          <% }
+            demands.forEach(function(demand) { %>
           <%- partial('./partials/demandsForList.ejs', {demand: demand}) %>
           <% }); %>
         </section>

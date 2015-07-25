@@ -272,5 +272,11 @@
   "Find what you`re really looking for" : "Finde was du wirklich suchst",
   "Your message" : "Deine Nachricht",
   "Student project" : "neeedo ist ein Studentenprojekt, umgesetzt von Studenten des Master-Studiengangs Internationale Medieninformatik an der HTW Berlin.",
-  "Distance" : "Distanz"
+  "Distance" : "Distanz",
+  "nooffers": "Du hast bisher noch keine Angebote erstellt. Klicke auf das Plus um dein erstes Angebot zu erstellen.",
+  "nodemands":"Du hast bisher noch keine Gesuche erstellt. Klicke auf das Plus um dein erstes Gesuch zu erstellen.",
+  "norecentoffers":"Wir konnten keine Angebote finden, die wir dir anzeigen können. Du kannst jetzt deine eigenen erstellen.",
+  "norecentdemands":"Es wurden bisher keine Gesuche erstellt. Du kannst jetzt deine eigenen erstellen.",
+  "noGPS":"Neeedo.com nutzt deine position um Angebote zu finden, die sich in deiner Umgebung befinden. Diese werden an dieser Stelle in einer Karte angezeigt."
+
 }

@@ -260,5 +260,10 @@
   "Everything you want at your nearest" : "Everything you want at your nearest",
   "Find what you`re really looking for" : "Find what you`re really looking for",
   "Student project" : "neeedo is student project done by students for the Master's degree course International Media and Computing at the HTW Berlin.",
-  "Distance" : "Distance"
+  "Distance" : "Distance",
+  "nooffers": "You did not create any offers,yet. Click the + - button above to create your first offer",
+  "nodemands":"You did not create any demands,yet. Click the + - button above to create your first demand",
+  "norecentoffers":"We could not find any offers to present to you. You can create your own one now",
+  "norecentdemands":"No demands have been created recently. You can create your own one now",
+  "noGPS":"Neeedo.com uses your location to find offers that are in your immediate vicinity. These are displayed in a map at this position "
 }

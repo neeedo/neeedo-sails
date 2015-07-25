@@ -1,6 +1,32 @@
-.login-inputs{
+.login-inputs {
   margin-bottom: 0.2em;
 }
 
 /* Bugfix for content shifting from right to left when modal opens */
-body.modal-open { overflow:inherit; padding-right:inherit !important; }
+body.modal-open {
+  overflow: inherit;
+  padding-right: inherit !important;
+}
+
+#loginModal {
+  padding-top: 10%;
+  .modal-content {
+    border-radius: 0 !important;
+    background-image: url("/images/cardBG.png") !important ;
+    .modal-header {
+      background-color:@MetroGreyBlue ;
+    }
+    .modal-body {
+      .input-group-addon{
+        background-color:@MetroGreyBlue ;
+        border-radius: 0;
+      }
+      .form-control{
+        border-radius: 0 ;
+      }
+    }
+    .modal-footer{
+
+    }
+  }
+}
