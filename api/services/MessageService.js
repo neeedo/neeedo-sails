@@ -13,6 +13,9 @@ module.exports = {
   newClientConversationListService: function() {
     return new ConversationListService();
   },
+  newClientMessageListService: function() {
+    return new MessageListService();
+  },
   create: function (req, res, onSuccessCallback, onErrorCallBack) {
     try {
       var messageModel = ApiClientService.validateAndCreateNewMessageFromRequest(req, res,onErrorCallBack);
@@ -125,7 +128,7 @@ module.exports = {
       var conversation = ApiClientService.validateAndCreateNewConversationFromRequest(req, res, onErrorCallBack);
 
       if (undefined !== conversation) {
-        var messageListService = new MessageListService();
+        var messageListService = this.newClientMessageListService();
         messageListService.loadByConversation(conversation, onLoadedCallback, onErrorCallBack);
       }
     } catch (e) {
@@ -169,9 +172,12 @@ module.exports = {
           }
         };
 
-        var conversation = ApiClientService.newConversationFromRequest(req);
-        var messageService = new MessageService();
-        messageService.loadBySender(conversation.getSender(), conversation, onApiLoadedCallback, onErrorCallback);
+        var conversation = ApiClientService.validateAndCreateNewConversationFromRequest(req, res, onErrorCallback);
+
+        if (undefined !== conversation) {
+          var conversationListService = this.newClientConversationListService();
+          conversationListService.loadBySender(conversation.getSender(), conversation, onApiLoadedCallback, onErrorCallback);
+        }
       }
     }
   },

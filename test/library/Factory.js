@@ -106,5 +106,25 @@ module.exports  = {
     var fav = new apiNodeJsClient.models.Favorite();
 
     return fav.setOffer(this.newOfferStub()).setUser(this.newUserStub());
+  },
+
+  newConversationStub: function() {
+    var conversation = new apiNodeJsClient.models.Conversation();
+
+    return conversation.setSender(this.newUserStub());
+  },
+
+  newMessageStub: function() {
+    var message = new apiNodeJsClient.models.Message();
+
+    return message.setId("message1234");
+  },
+
+  newMessageListStub: function() {
+    var messageList = new apiNodeJsClient.models.MessageList();
+
+    messageList.addMessage(this.newMessageStub());
+
+    return messageList;
   }
 };
