@@ -93,10 +93,10 @@
   "Could not resize image %s. Please contact Neeedo customer care.": "Dein Bild %s konnte leider nicht verkleinert werden. Bitte kontaktiere den Neeedo-Kundenservice.",
   "Your files were uploaded successfully": "Deine Dateien wurden erfolgreich hochgeladen",
   "offers": "Angebote",
-  "Your Offers": "Meine Angebote",
+  "My Offers": "Meine Angebote",
   "Recent Offers": "Die neuesten Angebote",
   "demands": "Gesuche",
-  "Your Demands": "Meine Gesuche",
+  "My Demands": "Meine Gesuche",
   "Recent Demands": "Die neuesten Gesuche",
   "The most recent offers couldn't be loaded. Please contact Neeedo customer care.": "Leider konnten die letzten Angebote nicht geladen werden. Bitte kontaktiere den Neeedo-Kundenservice.",
   "The most recent demands couldn't be loaded. Please contact Neeedo customer care.": "Leider konnten die letzten Gesuche nicht geladen werden. Bitte kontaktiere den Neeedo-Kundenservice.",
@@ -286,5 +286,7 @@
   "demandText3" : "Bei deiner Suche wirst durch durchgehend von uns unterstützt und erhälst Vorschläge, um deine Muss- und Kann-Suchkriterien durch sinnvolle Eingaben zu erweitern.",
   "locText1" : "Du suchst Angebote in deiner Nähe und willst den lokalen Handel unterstützen?",
   "locText2" : "Dann bieten wir die perfekte Lösung für dich!",
-  "locText3" : "Eine unserer Besonderheiten ist der Fokus auf standortabhängige Angebote. Beim Erstellen von Angeboten oder beim Suchen kannst du deine aktuelle Position übermitteln, um Treffer in deiner Nähe anzuzeigen."
+  "locText3" : "Eine unserer Besonderheiten ist der Fokus auf standortabhängige Angebote. Beim Erstellen von Angeboten oder beim Suchen kannst du deine aktuelle Position übermitteln, um Treffer in deiner Nähe anzuzeigen.",
+  "status": "Du hast aktuell:"
+
 }

@@ -270,9 +270,11 @@
   "locText1" : "You are looking for offers near you or want to support hte local business?",
   "locText2" : "We offer the perfect solution for you!",
   "locText3" : "One of our features is the focus on locationbased offers. When creating an offer or searching you can add your current location, to show hits in your area.",
-  "nooffers": "You did not create any offers,yet. Click the + - button above to create your first offer",
-  "nodemands":"You did not create any demands,yet. Click the + - button above to create your first demand",
-  "norecentoffers":"We could not find any offers to present to you. You can create your own one now",
-  "norecentdemands":"No demands have been created recently. You can create your own one now",
-  "noGPS":"Neeedo.com uses your location to find offers that are in your immediate vicinity. These are displayed in a map at this position "
+  "nooffers": "You did not create any offers,yet. Click the + - button above to create your first offer.",
+  "nodemands":"You did not create any demands,yet. Click the + - button above to create your first demand.",
+  "norecentoffers":"We could not find any offers to present to you. You can create your own one now.",
+  "norecentdemands":"No demands have been created recently. You can create your own one now.",
+  "noGPS":"Neeedo.com uses your location to find offers that are in your immediate vicinity. These are displayed in a map at this position. ",
+  "status": "So far you created:"
+
 }
