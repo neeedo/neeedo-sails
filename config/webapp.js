@@ -109,7 +109,7 @@ module.exports.webapp = {
       // prices in €
       price: {
         minimum: 0,
-        maximum: 500
+        maximum: 99999999
       },
       images: {
         minCount: 0,
@@ -130,12 +130,12 @@ module.exports.webapp = {
         // mininum and maximum price for minimum demand price
         min: {
           minimum: 0,
-          maximum: 500
+          maximum: 99999999
         },
         // minimum and maximum price for maximum demand price
         max: {
           minimum: 0,
-          maximum: 500
+          maximum: 99999999
         }
       },
       distance: {
