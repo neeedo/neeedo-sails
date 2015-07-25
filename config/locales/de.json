@@ -272,5 +272,14 @@
   "Find what you`re really looking for" : "Finde was du wirklich suchst",
   "Your message" : "Deine Nachricht",
   "Student project" : "neeedo ist ein Studentenprojekt, umgesetzt von Studenten des Master-Studiengangs Internationale Medieninformatik an der HTW Berlin.",
-  "Distance" : "Distanz"
+  "Distance" : "Distanz",
+  "offerText1" : "Du willst dein Fahrrad oder altes Smartphone verkaufen, hast aber Angst das dein Angebot auf anderen Marktplätzen untergeht?",
+  "offerText2" : "Dann bist du bei uns genau richtig!",
+  "offerText3" : "Wir unterstützen dich beim Erstellen von Angeboten und helfen mit unserem Tag-System die Angebote zu erstellen, die auch gefunden werden.",
+  "demandText1" : "Du bist es leid dich durch Listen von Angeboten zu klicken, bis du endlich findes was du wirklich suchst?",
+  "demandText2" : "Wir schaffen Abhilfe!",
+  "demandText3" : "Bei deiner Suche wirst durch durchgehend von uns unterstützt und erhälst Vorschläge, um deine Muss- und Kann-Suchkriterien durch sinnvolle Eingaben zu erweitern.",
+  "locText1" : "Du suchst Angebote in deiner Nähe und willst den lokalen Handel unterstützen?",
+  "locText2" : "Dann bieten wir die perfekte Lösung für dich!",
+  "locText3" : "Eine unserer Besonderheiten ist der Fokus auf standortabhängige Angebote. Beim Erstellen von Angeboten oder beim Suchen kannst du deine aktuelle Position übermitteln, um Treffer in deiner Nähe anzuzeigen."
 }
