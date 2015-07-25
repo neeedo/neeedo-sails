@@ -2,7 +2,7 @@
     <ul>
       <li>
         <label for="tagsOffer"><%= i18n('I offer') %></label>
-        <input type="text" class="providesTagCompletion" id="tagsOffer" name="tags" value="<%- (undefined !== typeof tags ? tags : "") %>" autocomplete="off">
+        <input type="text" class="providesTagCompletion" id="tagsOffer" name="tags" value="<%- (undefined !== typeof tags ? tags : "") %>" autocomplete="off" data-placeholder="<%- i18n('e.g. iPhone, 6, black') %>">
         <small class="inputMissing" id="errorTag"><%= i18n('Please enter at least one tag') %></small>
 
         <% if ('tags' in validationMessages) { %>

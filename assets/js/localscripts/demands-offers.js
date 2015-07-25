@@ -284,9 +284,18 @@ $(document).ready(function () {
   var tagInputsClassName = '.providesTagCompletion';
   var tagInputs = $(tagInputsClassName);
 
+  // set placeholder texts
+  tagInputs.each(function (index) {
+    var _this = $(this);
+    _this.tagit({
+      placeholderText: _this.data('placeholder')
+    });
+  });
+
   tagInputs.tagit({
     autocomplete: {
       source: function (request, response) {
+        currentInput = $(this);
         $.ajax({
           url: neeedo.getApiHttpUrl() + "/completion/tag/" + request.term,
           success: function (data) {
@@ -301,7 +310,6 @@ $(document).ready(function () {
       },
       minLength: 2
     },
-    placeholderText : "z.B. iPhone, 6, schwarz",
     afterTagAdded: function (event, ui) {
       getSuggests($(this));
     },
@@ -317,75 +325,7 @@ $(document).ready(function () {
     }
   });
 
-  var shouldTags = $('#shouldTagsDemand');
 
-  shouldTags.tagit({
-    autocomplete: {
-      source: function (request, response) {
-        $.ajax({
-          url: neeedo.getApiHttpUrl() + "/completion/tag/" + request.term,
-          success: function (data) {
-            response($.map(data.completedTags, function (item) {
-              return {
-                label: item,
-                value: item
-              }
-            }));
-          }
-        });
-      },
-      minLength: 2
-    },
-    placeholderText : "z.B. schwarz, Displayfolie",
-    afterTagAdded: function (event, ui) {
-      getSuggests($(this));
-    },
-    afterTagRemoved: function (event, ui) {
-      var tagEl = $(this);
-      var tags = tagEl.tagit("assignedTags");
-
-      if (tags.length > 0) {
-        getSuggests(tagEl);
-      } else {
-        clearSuggests(tagEl);
-      }
-    }
-  });
-
-  var demandMustTags = $('#mustTagsDemand');
-
-  demandMustTags.tagit({
-    autocomplete: {
-      source: function (request, response) {
-        $.ajax({
-          url: neeedo.getApiHttpUrl() + "/completion/tag/" + request.term,
-          success: function (data) {
-            response($.map(data.completedTags, function (item) {
-              return {
-                label: item,
-                value: item
-              }
-            }));
-          }
-        });
-      },
-      minLength: 2
-    },
-    placeholderText : "z.B. iPhone, 6s",
-    afterTagAdded: function (event, ui) {
-      getSuggests($(this));
-    },
-    afterTagRemoved: function (event, ui) {
-      var tagEl = $(this);
-      var tags = tagEl.tagit("assignedTags");
-
-      if (tags.length > 0) {
-        getSuggests(tagEl);
-      } else {
-        clearSuggests(tagEl);
-      }
-    }
-  });
   /* ##################
    * #
    * # Tag suggestion

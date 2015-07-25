@@ -253,5 +253,8 @@
   "AppDescription": " You can find our app in the Playstore by clicking here",
   "descriptionBtn1":"Search for what you really need",
   "descriptionBtn2":"Find what you`re really looking for",
-  "descriptionBtn3":"Everything at your nearest"
+  "descriptionBtn3":"Everything at your nearest",
+  "e.g. iPhone, 6, black" : "e.g. iPhone, 6, black",
+  "e.g. iPhone, 6s" : "e.g. iPhone, 6s",
+  "e.g. black" : "e.g. black"
 }

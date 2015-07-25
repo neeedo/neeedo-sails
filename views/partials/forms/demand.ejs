@@ -2,7 +2,7 @@
     <ul>
       <li id="mustTagsContainer">
         <label for="mustTagsDemand"><%= i18n("I'm really looking for") %></label>
-        <input type="text" id="mustTagsDemand" name="mustTags" value="<%- (undefined !== typeof mustTags ? mustTags : "") %>" placeholder="<%= i18n('Bicycle, iPhone') %>" autofocus  autocomplete="off">
+        <input type="text" id="mustTagsDemand" class="providesTagCompletion" name="mustTags" value="<%- (undefined !== typeof mustTags ? mustTags : "") %>" data-placeholder="<%= i18n('e.g. iPhone, 6s') %>" autofocus  autocomplete="off">
         <small class="inputMissing" id="errorTag"><%= i18n("Please enter at least one tag") %></small>
 
         <% if ('mustTags' in validationMessages) { %>
@@ -12,7 +12,7 @@
       </li>
       <li id="shouldTagsContainer">
         <label for="shouldTagsDemand"><%= i18n('Nice to have would be') %></label>
-        <input type="text" id="shouldTagsDemand" name="shouldTags" value="<%- (undefined !== typeof shouldTags ? shouldTags : "") %>" placeholder="<%= i18n('blue, screen protector') %>" autocomplete="off">
+        <input type="text" id="shouldTagsDemand" class="providesTagCompletion" name="shouldTags" value="<%- (undefined !== typeof shouldTags ? shouldTags : "") %>" data-placeholder="<%= i18n('e.g. black') %>" autocomplete="off">
 
         <% if ('shouldTags' in validationMessages) { %>
         <span class="inputError"><%= validationMessages.shouldTags %></span>
