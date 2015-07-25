@@ -140,7 +140,7 @@
   "You didn't add any favorite offer yet. Have a look at the most recent offers below or create a demand." : "You didn't add any favorite offer yet. Have a look at the most recent offers below or create a demand.",
   "Favorite Offers" : "Favorite Offers",
   "Create offers your customers will find" : "Create offers your customers will find",
-  "Create your first offer now" : "Create your first offer now",
+  "Create your first offer now" : "Create an offer now",
   "Create your first demand now" : "Create a demand now",
   "Landing page offer text" : "create offer marketing text",
   "Landing page demand text" : "create demand marketing text",
@@ -257,6 +257,8 @@
   "e.g. iPhone, 6, black" : "e.g. iPhone, 6, black",
   "e.g. iPhone, 6s" : "e.g. iPhone, 6s",
   "e.g. black" : "e.g. black",
+  "Everything you want at your nearest" : "Everything you want at your nearest",
+  "Find what you`re really looking for" : "Find what you`re really looking for",
   "Student project" : "neeedo is student project done by students for the Master's degree course International Media and Computing at the HTW Berlin.",
   "Distance" : "Distance"
 }
