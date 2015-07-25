@@ -7,12 +7,18 @@ var MessageService = apiClient.services.Message,
   ;
 
 module.exports = {
+  newClientMessageService: function() {
+    return new MessageService();
+  },
+  newClientConversationListService: function() {
+    return new ConversationListService();
+  },
   create: function (req, res, onSuccessCallback, onErrorCallBack) {
     try {
       var messageModel = ApiClientService.validateAndCreateNewMessageFromRequest(req, res,onErrorCallBack);
 
       if (undefined !== messageModel) {
-        var messageService = new MessageService();
+        var messageService = this.newClientMessageService();
         messageService.create(messageModel, onSuccessCallback, onErrorCallBack);
       }
     } catch (e) {
@@ -49,7 +55,7 @@ module.exports = {
           onSuccessCallback(conversationList);
         };
 
-        var conversationService = new ConversationListService();
+        var conversationService = this.newClientConversationListService();
         var conversationQuery = ApiClientService.newConversationQueryForReadConversations();
 
         conversationService.loadBySender(LoginService.getCurrentUser(req), conversationQuery, onLoadedCallback, onErrorCallBack);
@@ -61,7 +67,7 @@ module.exports = {
 
   loadUnReadConversations: function (req, onSuccessCallback, onErrorCallBack) {
     try {
-      var conversationService = new ConversationListService();
+      var conversationService = this.newClientConversationListService();
       var conversationQuery = ApiClientService.newConversationQueryForUnreadConversations();
 
       // unread conversations need to be loaded by the API all the time
