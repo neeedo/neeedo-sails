@@ -288,43 +288,39 @@ $(document).ready(function () {
   tagInputs.each(function (index) {
     var _this = $(this);
     _this.tagit({
-      placeholderText: _this.data('placeholder')
+      placeholderText: _this.data('placeholder'),
+      autocomplete: {
+        source: function (request, response) {
+          currentInput = $(this);
+          $.ajax({
+            url: neeedo.getApiHttpUrl() + "/completion/tag/" + request.term,
+            success: function (data) {
+              response($.map(data.completedTags, function (item) {
+                return {
+                  label: item,
+                  value: item
+                }
+              }));
+            }
+          });
+        },
+        minLength: 2
+      },
+      afterTagAdded: function (event, ui) {
+        getSuggests(_this);
+      },
+      afterTagRemoved: function (event, ui) {
+        var tagEl = _this;
+        var tags = tagEl.tagit("assignedTags");
+
+        if (tags.length > 0) {
+          getSuggests(tagEl);
+        } else {
+          clearSuggests(tagEl);
+        }
+      }
     });
   });
-
-  tagInputs.tagit({
-    autocomplete: {
-      source: function (request, response) {
-        currentInput = $(this);
-        $.ajax({
-          url: neeedo.getApiHttpUrl() + "/completion/tag/" + request.term,
-          success: function (data) {
-            response($.map(data.completedTags, function (item) {
-              return {
-                label: item,
-                value: item
-              }
-            }));
-          }
-        });
-      },
-      minLength: 2
-    },
-    afterTagAdded: function (event, ui) {
-      getSuggests($(this));
-    },
-    afterTagRemoved: function (event, ui) {
-      var tagEl = $(this);
-      var tags = tagEl.tagit("assignedTags");
-
-      if (tags.length > 0) {
-        getSuggests(tagEl);
-      } else {
-        clearSuggests(tagEl);
-      }
-    }
-  });
-
 
   /* ##################
    * #
@@ -377,6 +373,7 @@ $(document).ready(function () {
         for (var i=0; i < data.suggestedTags.length; i++) {
           html += '<span class="tagit-label suggestedTag">' + data.suggestedTags[i] + '</span><span>&nbsp;</span>'
         }
+        
         classie.removeClass(document.getElementById('suggestedTagsHeader'), 'hide' );
         tagSuggestionElements.html(html);
       }

@@ -8,6 +8,9 @@
         <% if ('mustTags' in validationMessages) { %>
         <span class="inputError"><%= validationMessages.mustTags %></span>
         <% } %>
+        <small id="suggestedTagsHeader" class="hide">
+          <%= i18n('Often entered together:') %>
+        </small>
         <div class="suggestedTags" data-limit="<%= tagOptions.suggestions.limit %>"></div>
       </li>
       <li id="shouldTagsContainer">
@@ -17,6 +20,9 @@
         <% if ('shouldTags' in validationMessages) { %>
         <span class="inputError"><%= validationMessages.shouldTags %></span>
         <% } %>
+        <small id="suggestedTagsHeader" class="hide">
+          <%= i18n('Often entered together:') %>
+        </small>
         <div class="suggestedTags" data-limit="<%= tagOptions.suggestions.limit %>"></div>
       </li>
       <li class="priceCol leftCol">
