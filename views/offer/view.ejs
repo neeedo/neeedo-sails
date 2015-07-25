@@ -29,7 +29,7 @@
         <% } %>
       </div>
     </div>
-    <div class="container">
+    <div>
       <div class="row">
         <div class="col-xs-8">
           <div class="detail">
@@ -42,8 +42,7 @@
               <% }) %>
             </ul>
 
-            <p><%= i18n('Price') %>:<%= offer.getPrice() %> <span class="glyphicon glyphicon-euro"
-                                                                  aria-hidden="true"></span>
+            <p><%= i18n('Price') %>: <%= offer.getPrice() %>
             </p>
           </div>
         </div>
