@@ -7,6 +7,9 @@ var User = apiClient.models.User;
 var OfferList = apiClient.models.OfferList;
 
 module.exports = {
+  newClientLoginService: function() {
+    return new LoginService();
+  },
   /**
    * Login by querying a given user.
    *
@@ -35,7 +38,7 @@ module.exports = {
       var loginModel = ApiClientService.validateAndCreateNewLoginFromRequest(req, res, onErrorCallBack);
 
       if (undefined !== loginModel) {
-        var loginService = new LoginService();
+        var loginService = this.newClientLoginService();
         loginService.loginUser(loginModel, onUserLoadedSuccess, onErrorCallBack);
       }
     } catch (e) {
@@ -60,7 +63,7 @@ module.exports = {
 
   userIsLoggedIn: function(req) {
     if (undefined !== this.getCurrentUser(req)
-      && undefined !== this.getCurrentUser(req).hasAccessToken()) {
+      && false !== this.getCurrentUser(req).hasAccessToken()) {
       return true;
     }
 
