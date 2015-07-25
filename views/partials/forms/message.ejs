@@ -9,10 +9,9 @@
   <% if (LoginService.userIsLoggedIn(req) && recipientId != LoginService.getCurrentUser(req).getId()) { %>
   <ul>
     <li>
-      <label for="messageBody"><%= i18n('Message') %></label>
+      <label id="messageBodyLabel" for="messageBody"><%= i18n('Your message') %></label>
       <textarea id="messageBody" name="messageBody"><%- defaultMessage %></textarea>
       <small class="inputMissing" id="errorTag"><%= i18n("Please enter a messages") %></small>
-      <span><%= i18n('Your message') %></span>
       <input type="hidden" name="recipientId" value="<%- recipientId %>"/>
     </li>
     <li id="submitBtn">

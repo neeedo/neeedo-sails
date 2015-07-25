@@ -35,14 +35,15 @@
           <div class="detail">
             <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
             <%- partial('../partials/favoriteButtonOffer.ejs', {offer: offer, display: true}) %>
-            <label for="tags"><%= i18n('I offer: ') %></label>
+            <label id="tagLabel" for="tags"><%= i18n('I offer') %>: </label>
             <ul id="tags">
               <% offer.getTags().forEach(function(tag){ %>
               <li><%= tag %></li>
               <% }) %>
             </ul>
 
-            <p><%= i18n('Price') %>: <%= offer.getPrice() %>
+            <p id="priceLabelView">
+              <%= i18n('Price') %>: <%= offer.getPrice() %>
             </p>
           </div>
         </div>
