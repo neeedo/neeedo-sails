@@ -256,4 +256,11 @@ Neeedo.prototype.getLocation = function(onLocationCallback) {
   neeedo.getGeolocation(geoCallback);
 };
 
+Neeedo.prototype.formatTimestamp = function (timestampInMilliSeconds) {
+  var date = new Date(timestampInMilliSeconds);
+
+  return date.getDate() + "." + (date.getMonth() + 1)  + "." + date.getFullYear()
+    + " - " + date.getHours() + ":" + date.getMinutes();
+};
+
 var neeedo = new Neeedo();

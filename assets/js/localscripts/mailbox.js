@@ -97,11 +97,7 @@ $(document).ready(function () {
   };
 
   var formatTimestamp = function (timestampInMilliSeconds) {
-    var date = new Date(timestampInMilliSeconds);
-
-    // TODO the date should be delivered by the backend depending on the current locale in the future. For now, it's hard-coded.
-    return date.getDate() + "." + (date.getMonth() + 1)  + "." + date.getFullYear()
-      + " - " + date.getHours() + ":" + date.getMinutes();
+    return neeedo.formatTimestamp(timestampInMilliSeconds);
   };
 
   var shortenMessageBody = function (messageBody, maxNumberOfCharacters) {

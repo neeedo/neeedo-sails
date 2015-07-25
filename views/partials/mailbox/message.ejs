@@ -2,8 +2,10 @@
   <p> <% if (!message.wasRead()) { %>
     <span class="label label-default"><%- i18n('New') %>&nbsp;</span>
     <% } %>
-    <%- LocaleService.formatTimestamp(message.getTimestamp()) %>
-    - <i><%- message.getSender().getUsername()%></i></p>
+    <span class="timestamp" data-timestamp="<%- message.getTimestamp() %>"><%- LocaleService.formatTimestamp(message.getTimestamp()) %></span>
+      <i><%- message.getSender().getUsername()%></i></p>
 
   <p><%- MessageService.setHyperLinksInMessageBody(res, message.getBody()) %></p>
 </div>
+
+<% block('localScripts', '<script src="/js/localscripts/date.js"></script>') %>
