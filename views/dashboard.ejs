@@ -12,16 +12,15 @@
           <h2 class="statusLable"><%= i18n('status') %></h2>
         </div>
         <div class="btn-group" role="group">
-          <button type="button " onclick="window.location.href='./#moc'" class="neeedoBtn neeedoBtn--nuka"><%= i18n('My Offers') %> <span
+          <button type="button " onclick="window.location.href='#moc'" class="neeedoBtn neeedoBtn--nuka"><%= i18n('My Offers') %> <span
               class="badge numCount"><%= offers.length %></span></button>
         </div>
         <div class="btn-group" role="group">
-          <button type="button" onclick="window.location.href='./#mdc'" class="neeedoBtn neeedoBtn--nuka"><%= i18n('My Demands') %> <span
+          <button type="button" onclick="window.location.href='#mdc'" class="neeedoBtn neeedoBtn--nuka"><%= i18n('My Demands') %> <span
               class="badge numCount"><%= demands.length %></span></button>
         </div>
       </div>
     </div>
-    <% /* TODO this is not nice and should be refactored -> split homepage.ejs, offer dashboard.ejs for logged-in users and homepage.ejs for not-logged in ones */ %>
     <div id="mapContainer">
       <% if (false !== showMap)  { %>
       <h1><%= i18n('Your map') %></h1>

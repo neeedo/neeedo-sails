@@ -263,15 +263,17 @@
   "offerText3" : "We support you during the creation of offers and help you with our Tag system to create the offers, that will be found.",
   "demandText1" : "You are sick of clicking through endless lists of offers, until you finally find what you were really looking for?",
   "demandText2" : "We are here to help!",
-  "demandText3" : "Throughout your whole search we support you and offer you suggestions, to improve you must and should have criteria with useful input",
-  "locText1" : "You are looking for offers near you or want to support hte local business?",
+  "demandText3" : "Throughout your whole search we support you and offer you suggestions, to improve you must provide criteria with useful input",
+  "demandText4" : "Afterwards, we find only those offers for you that match your demand.",
+  "locText1" : "You are looking for offers near you or want to support the local business?",
   "locText2" : "We offer the perfect solution for you!",
-  "locText3" : "One of our features is the focus on locationbased offers. When creating an offer or searching you can add your current location, to show hits in your area.",
+  "locText3" : "One of our features is the focus on locationbased offers, which you can add to your offer. When searching you can also add your current location, to show offers in your area.",
   "nooffers": "You did not create any offers,yet. Click the + - button above to create your first offer.",
   "nodemands":"You did not create any demands,yet. Click the + - button above to create your first demand.",
   "norecentoffers":"We could not find any offers to present to you. You can create your own one now.",
   "norecentdemands":"No demands have been created recently. You can create your own one now.",
   "noGPS":"Neeedo.com uses your location to find offers that are in your immediate vicinity. These are displayed in a map at this position. ",
-  "status": "So far you created:"
-
+  "status": "So far you created:",
+  "Read conversations" : "Read conversations",
+  "Unread conversations" : "Unread conversations"
 }
