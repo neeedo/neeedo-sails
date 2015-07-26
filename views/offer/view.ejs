@@ -1,5 +1,11 @@
-  <div class="contentContainer container">
-    <div class="row">
+<div class="contentContainer container">
+  <div class="detailView">
+    <div class="detailheader ">
+      <h1 class="detailtitle text-center"><span class="icon-offer"></span> <%= i18n('Offer') %></h1>
+      <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
+      <%- partial('../partials/favoriteButtonOffer.ejs', {offer: offer, display: true}) %>
+    </div>
+    <div class="detailimage">
       <div class="col-xs-6">
         <div class="gallery">
           <ul id="offerGallery">
@@ -29,37 +35,37 @@
         <% } %>
       </div>
     </div>
-    <div>
-      <div class="row">
-        <div class="col-xs-8">
-          <div class="detail">
-            <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
-            <%- partial('../partials/favoriteButtonOffer.ejs', {offer: offer, display: true}) %>
-            <label id="tagLabel" for="tags"><%= i18n('I offer') %>: </label>
-            <ul id="tags">
-              <% offer.getTags().forEach(function(tag){ %>
-              <li><%= tag %></li>
-              <% }) %>
-            </ul>
-
-            <p id="priceLabelView">
-              <%= i18n('Price') %>: <%= offer.getPrice() %>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <%- partial('../partials/forms/message.ejs', {
-              offer: offer,
-              title: "Send message to offeror",
-              notLoggedInMessage: 'Please login in order to send message to the offeror',
-              defaultMessage: MessageService.buildDefaultMessageForOffer(offer, req, res),
-              recipientId: offer.getUser().getId()
-            }
-          ) %>
-        </div>
+    <div class="detailcaption">
+      <table class="table-striped">
+        <tr>
+          <td><h3><%= i18n('Description') %></h3></td>
+        </tr>
+        <tr>
+          <td class="tags">
+            <%= offer.getTags().join(", ") %>
+          </td>
+        </tr>
+      </table>
+      <table class="table-striped">
+        <tr>
+          <td><%= i18n('Creator') %>:</td>
+          <td><%= offer.getUser().getUsername() %></td>
+        </tr>
+      </table>
+      <div class="detailsend">
+        <%- partial('../partials/forms/message.ejs', {
+            offer: offer,
+            title: "Send message to offeror",
+            notLoggedInMessage: 'Please login in order to send message to the offeror',
+            defaultMessage: MessageService.buildDefaultMessageForOffer(offer, req, res),
+            recipientId: offer.getUser().getId()
+          }
+        ) %>
       </div>
     </div>
+    <div class="price"> <%= offer.getPrice() %><span
+        class="glyphicon glyphicon-euro" aria-hidden="true"></span>
+    </div>
   </div>
+</div>
 <% block('localScripts', '<script src="/js/localscripts/gallery.js"></script>') %>

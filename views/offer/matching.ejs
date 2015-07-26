@@ -1,12 +1,6 @@
 <div id="main">
   <div class="contentContainer container">
     <div>
-      <h1><%= i18n('Your demand') %></h1>
-
-      <%- partial('../demand/view.ejs', {demand: demand}) %>
-    </div>
-
-    <div>
       <% if (0 == offers.length) { %>
       <p><%- i18n("Sorry, we couldn't find any matching offers for now. We will inform you if a new matching offer was created.") %></p>
       <% } %>

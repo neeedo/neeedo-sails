@@ -1,3 +1,99 @@
-#priceLabelView, #tagLabel{
-  font-size: 1.2em;
+.detailView {
+  position: relative;
+  padding: 1%;
+  background-image: url("/images/cardBG.png");
+  border-radius: 10px;
+  color: @MetroDark;
+//  height: 80em;
+  .crudbtn, .favobtn {
+    position: absolute;
+    font-size: 2em;
+    top: 12%;
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .crudbtn {
+    right: 8%;
+    a {
+      color: @MetroPinK;
+      &:hover {
+        color: @MetroLightBlue;
+      }
+    }
+  }
+
+  .favobtn {
+    right: 3%;
+    a {
+      color: @MetroPinK;
+      &:hover {
+        color: @MetroGreen;
+      }
+    }
+  }
+  .price {
+    position: absolute;
+    padding: 3% 4%;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    background-color: @MetroGreen !important;
+    color: white;
+    font-size: 1.2em;
+    top: 30em;
+    right: 1%;
+  }
 }
+
+.detailheader {
+  position: absolute;
+  width: 100%;
+  height: 5em;
+  top: 0;
+  left: 0;
+  border-top-right-radius: 10px !important;
+  border-top-left-radius: 10px !important;
+  background-color: @MetroGreen;
+  .detailtitle {
+    padding-top: 1%;
+    font-size: 3em;
+    font-weight: bold;
+    color: fadeout(@MetroDark, 20%) !important;
+    span {
+      font-size: 0.8em;
+    }
+  }
+}
+
+.detailimage {
+  margin-top: 5em;
+}
+
+.detailcaption {
+  margin: 5px 20px;
+  width: auto;
+  h3 {
+    padding: 0 5px;
+  }
+  .tags {
+    margin: 0 1%;
+  }
+  table {
+    border: solid 1px grey;
+    width: 100%;
+    margin: 2% 0;
+    tr {
+      height: 2.5em;
+    }
+    td {
+      padding: 0 5px;
+      width: 50% !important;
+    }
+  }
+}
+
+
+
