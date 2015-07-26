@@ -22,6 +22,7 @@ $(document).ready(function() {
   var offerLimit = lightSliderOfferEl.data('itemlimit');
   var offerSourceUrl = lightSliderOfferEl.data('sourceurl');
   var offerDisplayFavorite = lightSliderOfferEl.data('displayfavorite');
+  var offerLoadedPageNumbers = []; // keep page numbers that are loading / were loaded to avoid duplicates
   viewOfferUrl = lightSliderOfferEl.data('viewurl');
   offerTranslations = {
     'price' : lightSliderOfferEl.data('translationprice')
@@ -46,8 +47,10 @@ $(document).ready(function() {
       var nextPageNumber = calculateNextPageNumber(el.getCurrentSlideCount(), offerFirstPageNumber, offerLimit);
 
       // current slide count starts at 1
-      if (el.getCurrentSlideCount() % offerLimit <= 2
+      if (-1 == offerLoadedPageNumbers.indexOf(nextPageNumber)
+        && el.getCurrentSlideCount() % offerLimit <= 2
         && !wasAlreadyLoaded(offerSourceUrl, nextPageNumber)) {
+        offerLoadedPageNumbers.push(nextPageNumber);
         // reload on second-last item
         loadMoreOffers(nextPageNumber, offerLimit, offerSourceUrl, function(returnedData) {
           if (! (offerSourceUrl in alreadyLoaded)) {
@@ -62,6 +65,9 @@ $(document).ready(function() {
       }
 
       console.log('current slide count: ' + el.getCurrentSlideCount());
+    },
+    onAfterSlide: function(el) {
+      refreshOfferImages();
     }
   });
 
@@ -71,6 +77,7 @@ $(document).ready(function() {
   var demandFirstPageNumber = lightSliderDemandEl.data('currentpage');
   var demandLimit = lightSliderDemandEl.data('itemlimit');
   var demandSourceUrl = lightSliderDemandEl.data('sourceurl');
+  var demandLoadedPageNumbers = []; // keep page numbers that are loading / were loaded to avoid duplicates
 
   demandTranslations ={
     'price' : lightSliderDemandEl.data('translationprice'),
@@ -98,8 +105,11 @@ $(document).ready(function() {
       var nextPageNumber = calculateNextPageNumber(el.getCurrentSlideCount(), demandFirstPageNumber, demandLimit);
 
       // current slide count starts at 1
-      if (el.getCurrentSlideCount() % demandLimit <= 2
+      if (-1 == offerLoadedPageNumbers.indexOf(nextPageNumber)
+        && el.getCurrentSlideCount() % demandLimit <= 2
         && !wasAlreadyLoaded(demandSourceUrl, nextPageNumber)) {
+        demandLoadedPageNumbers.push(nextPageNumber);
+
         // reload on second-last item
         loadMoreDemands(nextPageNumber, demandLimit, demandSourceUrl, function(returnedData) {
           if (! (demandSourceUrl in alreadyLoaded)) {
@@ -179,6 +189,13 @@ $(document).ready(function() {
   var addOfferToSlider = function(offer) {
     $("#lightSliderOffer").append(offer.html);
     lightSliderOffer.refresh();
+  };
+
+  var refreshOfferImages = function() {
+    var offerThumbnails = $(".offerImageSmall");
+
+    // bugfix: on offer reload in slider, the images might be too large. So set style attribute directly.
+    offerThumbnails.attr("style", "max-width: 100%; max-height: 100%");
   };
 
   var addDemandToSlider = function(demand) {
