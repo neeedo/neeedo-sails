@@ -79,7 +79,8 @@ module.exports.policies = {
 
     'register' : ['resetUploadedFiles', 'setLocale', 'isNotLoggedIn']
   },
-  StaticController: {
+  StaticViewsController: {
+    '*' : ['setLocale', 'setRedirectUrl'],
     'help' : ['setLocale', 'isLoggedIn']
   },
   FileController: {
