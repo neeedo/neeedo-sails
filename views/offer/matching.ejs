@@ -9,7 +9,7 @@
     <div>
       <h1><%= i18n('Matched offers') %></h1>
 
-      <div>
+      <div class="hidden-xs">
         <ul id="lightSliderOffer"
             data-itemLimit="<%- pagination.limit %>"
             data-currentPage="<%- pagination.firstPageNumber %>"
@@ -24,6 +24,11 @@
         </ul>
       </div>
 
+      <div class=" smallcontainer visible-xs">
+        <% offers.forEach(function(offer) { %>
+        <%- partial('../partials/offersForList.ejs', {offer: offer, displayFavorite: true}) %>
+        <% }); %>
+      </div>
       <div>
         <% if (false !== showMap) { %>
         <%- partial('../partials/map/map.ejs', {

@@ -25,12 +25,6 @@
       class="icon-star-full"></span>
 
     <p><%= i18n('Favorites') %></p></a>
-  <a class="headerIconSmall" href="<%= UrlService.to('/mailbox') %>"><span
-      class="icon-envelop"></span>
-
-    <p><%= i18n('Mailbox') %></p></a>
-
-  <div id="menuMsgCount" class="newMsgCount"></div>
     <a class="headerIconSmall" href="<%=UrlService.to('/dashboard')%>">
       <span class="icon-user"></span>
       <p><%- LoginService.getCurrentUser(req).getUsername() %></p>
