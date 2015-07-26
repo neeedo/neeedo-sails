@@ -5,66 +5,68 @@
       <%- partial('../partials/crudButtonsOffer.ejs', {offer: offer}) %>
       <%- partial('../partials/favoriteButtonOffer.ejs', {offer: offer, display: true}) %>
     </div>
-    <div class="detailimage">
-      <div class="col-xs-6">
-        <div class="gallery">
-          <ul id="offerGallery">
-            <% if(offer.getImages().length > 0){
-              offer.getImages().forEach(function(image){ %>
-            <li data-thumb=<%- FileService.filterGetImageUrl(image.getUrl()) %> data-src="img/largeImage.jpg">
-              <img src=<%- FileService.filterGetImageUrl(image.getUrl()) %> alt="<%- image.getUrl() %>">
-            </li>
-            <% })}else{ %>
-            <li data-thumb="<%- OfferService.getFirstImage(offer).path %>" data-src="img/largeImage.jpg">
-              <img
-                src=<%- OfferService.getFirstImage(offer).path %> alt="<%- OfferService.getFirstImage(offer).altText %>">
-            </li>
-            <% } %>
-          </ul>
+    <div class="row">
+      <div class="detailimage">
+        <div class="col-xs-6">
+          <div class="gallery">
+            <ul id="offerGallery">
+              <% if(offer.getImages().length > 0){
+                offer.getImages().forEach(function(image){ %>
+              <li data-thumb=<%- FileService.filterGetImageUrl(image.getUrl()) %> data-src="img/largeImage.jpg">
+                <img src=<%- FileService.filterGetImageUrl(image.getUrl()) %> alt="<%- image.getUrl() %>">
+              </li>
+              <% })}else{ %>
+              <li data-thumb="<%- OfferService.getFirstImage(offer).path %>" data-src="img/largeImage.jpg">
+                <img
+                  src=<%- OfferService.getFirstImage(offer).path %> alt="<%- OfferService.getFirstImage(offer).altText %>">
+              </li>
+              <% } %>
+            </ul>
+          </div>
+          <div class="detailcaption">
+            <table class="table-striped">
+              <tr>
+                <td><h3><%= i18n('Tags') %></h3></td>
+              </tr>
+              <tr>
+                <td class="tags">
+                  <%= offer.getTags().join(", ") %>
+                </td>
+              </tr>
+            </table>
+            <table class="table-striped">
+              <tr>
+                <td><%= i18n('Creator') %>:</td>
+                <td><%= offer.getUser().getUsername() %></td>
+              </tr>
+            </table>
+          </div>
+          <div class="price"> <%= offer.getPrice() %><span
+              class="glyphicon glyphicon-euro" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <% if (false !== showMap)  { %>
+          <%- partial('../partials/map/map.ejs', {
+            mapType: showMap.mapType,
+            demandSourceUrl: undefined,
+            offerSourceUrl: showMap.offerSourceUrl,
+            demandMatchingSourceUrl: undefined,
+            showDetailsLink: false
+          }) %>
+          <% } %>
         </div>
       </div>
-      <div class="col-xs-6">
-        <% if (false !== showMap)  { %>
-        <%- partial('../partials/map/map.ejs', {
-          mapType: showMap.mapType,
-          demandSourceUrl: undefined,
-          offerSourceUrl: showMap.offerSourceUrl,
-          demandMatchingSourceUrl: undefined,
-          showDetailsLink: false
-        }) %>
-        <% } %>
-      </div>
     </div>
-    <div class="detailcaption">
-      <table class="table-striped">
-        <tr>
-          <td><h3><%= i18n('Description') %></h3></td>
-        </tr>
-        <tr>
-          <td class="tags">
-            <%= offer.getTags().join(", ") %>
-          </td>
-        </tr>
-      </table>
-      <table class="table-striped">
-        <tr>
-          <td><%= i18n('Creator') %>:</td>
-          <td><%= offer.getUser().getUsername() %></td>
-        </tr>
-      </table>
-      <div class="detailsend">
-        <%- partial('../partials/forms/message.ejs', {
-            offer: offer,
-            title: "Send message to offeror",
-            notLoggedInMessage: 'Please login in order to send message to the offeror',
-            defaultMessage: MessageService.buildDefaultMessageForOffer(offer, req, res),
-            recipientId: offer.getUser().getId()
-          }
-        ) %>
-      </div>
-    </div>
-    <div class="price"> <%= offer.getPrice() %><span
-        class="glyphicon glyphicon-euro" aria-hidden="true"></span>
+    <div class="detailsend">
+      <%- partial('../partials/forms/message.ejs', {
+          offer: offer,
+          title: "Send message to offeror",
+          notLoggedInMessage: 'Please login in order to send message to the offeror',
+          defaultMessage: MessageService.buildDefaultMessageForOffer(offer, req, res),
+          recipientId: offer.getUser().getId()
+        }
+      ) %>
     </div>
   </div>
 </div>
