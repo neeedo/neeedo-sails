@@ -1,7 +1,7 @@
 .listItem {
   height: 30em;
   position: relative;
-  box-shadow: 0 1px 2px sandybrown;
+//  box-shadow: 0 1px 2px sandybrown;
   border-radius: 10px;
   background-color: transparent;
   background-image: url("/images/cardBG.png");
@@ -21,7 +21,7 @@
     .cardTitle {
       margin-top: 0 !important;
       font-size: 2em;
-      color: white;
+      font-weight: bold;
       span {
         font-size: 0.8em;
       }
@@ -33,6 +33,8 @@
     height: 15em;
     border: solid 1px grey;
     background-color: white;
+    color: @MetroDark;
+    padding: 0 5px;
     .tagTable {
       height: 50%;
       width: 100%;
@@ -40,12 +42,14 @@
       .title {
         height: 2em;
         h4 {
+          font-weight: bold;
           margin: 0;
         }
       }
     }
   }
   .tags {
+    padding: 0 5px;
     font-size: 1.1em;
   }
   .crudbtn, .favobtn {
@@ -63,6 +67,9 @@
     margin: 5px 20px;
     height: 10em;
     width: auto;
+    h3{
+      padding: 0 5px;
+    }
     .tags {
       margin: 0 1%;
     }
@@ -74,6 +81,7 @@
         height: 2.5em;
       }
       td {
+        padding: 0 5px;
         width: 50% !important;
       }
     }
@@ -84,6 +92,7 @@
   &:extend(.listItem);
   .cardHeader {
     background-color: @MetroGreen;
+    color: fadeout(@MetroDark,20%);
 
   }
   .cardImage {
@@ -129,6 +138,7 @@
   &:extend(.listItem);
   .cardHeader {
     background-color: @MetroPinK;
+    color: fadeout(@MetroDark,20%);
   }
   .crudbtn {
     right: 3%;
@@ -165,6 +175,5 @@
 }
 
 .noItemSlider {
-  color: @MetroDark;
   font-size: 1.5em;
 }
