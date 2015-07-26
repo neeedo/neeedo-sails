@@ -5,7 +5,7 @@
     <p><%- i18n("You didn't recieve any message yet.") %></p>
     <% } %>
     <div>
-      <h2><%- i18n("Unread messages") %></h2>
+      <h2><%- i18n("Unread conversations") %></h2>
 
       <% if (0 == unreadConversationList.getConversations().length) { %>
       <p><%- i18n("There aren't any unread messages.") %></p>
@@ -23,7 +23,7 @@
       </div>
     </div>
     <div>
-      <h2><%- i18n("Read messages") %></h2>
+      <h2><%- i18n("Read conversations") %></h2>
       <% if (0 == readConversationList.getConversations().length) { %>
       <p><%- i18n("There aren't any read messages.") %></p>
       <% } %>

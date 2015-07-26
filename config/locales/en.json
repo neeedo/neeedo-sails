@@ -272,6 +272,7 @@
   "norecentoffers":"We could not find any offers to present to you. You can create your own one now.",
   "norecentdemands":"No demands have been created recently. You can create your own one now.",
   "noGPS":"Neeedo.com uses your location to find offers that are in your immediate vicinity. These are displayed in a map at this position. ",
-  "status": "So far you created:"
-
+  "status": "So far you created:",
+  "Read conversations" : "Read conversations",
+  "Unread conversations" : "Unread conversations"
 }

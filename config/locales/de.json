@@ -284,6 +284,7 @@
   "locText1" : "Du suchst Angebote in deiner Nähe und willst den lokalen Handel unterstützen?",
   "locText2" : "Dann bieten wir die perfekte Lösung für dich!",
   "locText3" : "Eine unserer Besonderheiten ist der Fokus auf standortabhängige Angebote. Beim Erstellen von Angeboten oder beim Suchen kannst du deine aktuelle Position übermitteln, um Treffer in deiner Nähe anzuzeigen.",
-  "status": "Du hast aktuell:"
-
+  "status": "Du hast aktuell:",
+  "Read conversations" : "Gelesene Konversationen",
+  "Unread conversations" : "Ungelesene Konversationen"
 }
