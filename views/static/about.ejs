@@ -2,21 +2,32 @@
   <div class="contentContainer" id="about">
     <div class="row">
       <div class="col-lg-1 col-lg-offset-3">
-        <img src="/images/neeedo_Logo.png" alt="Neeedo Logo"/>
+        <img id="neeedoLogo" src="/images/neeedo_Logo.png" alt="Neeedo Logo"/>
       </div>
       <div class="col-lg-5">
         <h1>neeedo</h1>
         <h3 class="text-center">next generation e-commerce</h3>
       </div>
     </div>
-    <div class="row">
+    <div class="row borderBottom">
       <div class="col-lg-12 text-center">
         <p>
           <%= i18n('Student project') %>
         </p>
       </div>
     </div>
-    <div class="row">
+    <div class="row borderBottom">
+      <div class="col-lg-12">
+        <h4 class="text-center">powered by</h4>
+      </div>
+      <div class="col-lg-6">
+        <a class="aboutLink" href="http://www.commercetools.com/" target="_blank"><img src="/images/about/CT-logo.svg" alt="Commerce Tools" /></a>
+      </div>
+      <div class="col-lg-6">
+        <a class="aboutLink" href="http://dev.sphere.io/" target="_blank"><img src="/images/about/sphere-io-logo.png" alt="sphere.io Logo" /></a>
+      </div>
+    </div>
+    <div class="row borderBottom">
       <div class="col-lg-4">
         <img src="/images/about/github_logo.png" id="gitlogo" alt="Github Logo"/>
 
@@ -56,17 +67,17 @@
       </div>
     </div>
     <div class="row" id="thmbs">
-      <div class="col-lg-3 col-lg-offset-2">
+      <div class="col-lg-4">
         <button type="button" class="hvr-float-shadow thmbBtn" data-toggle="modal" data-target="#arch">
           <img src="/images/about/archThmb.jpg"
         </button>
       </div>
-      <div class="col-lg-3">
+      <div class="col-lg-4">
         <button type="button" class="hvr-float-shadow thmbBtn" data-toggle="modal" data-target="#next">
           <img src="/images/about/nextThmb.jpg"
         </button>
       </div>
-      <div class="col-lg-3">
+      <div class="col-lg-4">
         <button type="button" class="hvr-float-shadow thmbBtn" data-toggle="modal" data-target="#sphere">
           <img src="/images/about/sphereThmb.jpg"
         </button>
