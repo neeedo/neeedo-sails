@@ -167,6 +167,17 @@ var restoreApiClientValidateAndSetDemandFromRequestStub = function () {
   sails.services.apiclientservice.validateAndSetDemandFromRequest.restore();
 };
 
+var givenApiClientValidateAndCreateNewDemandIdFromRequestStub = function () {
+  return sinon.stub(sails.services.apiclientservice, "validateAndCreateNewDemandIdFromRequest",
+    function (req, res, onErrorCallback) {
+      return "demand1";
+    });
+};
+
+var restoreApiClientValidateAndCreateNewDemandIdFromRequestStub = function () {
+  sails.services.apiclientservice.validateAndCreateNewDemandIdFromRequest.restore();
+};
+
 var givenApiClientNewDemandQueryRequestStub = function () {
   return sinon.stub(sails.services.apiclientservice, "newDemandQueryFromRequest",
     function (req, res, onErrorCallback) {
@@ -210,6 +221,14 @@ var restoreClientMatchDemandStub = function () {
   clientMatchingService.matchDemand.restore();
 };
 
+var givenClientDemandLoadStub = function () {
+  return sinon.stub(clientDemandService, 'load');
+};
+
+var restoreClientDemandLoadStub = function () {
+  clientDemandService.load.restore();
+};
+
 var givenApiClientNewErrorStub = function () {
   return sinon.stub(sails.services.apiclientservice, "newError", function (logMessage, userMessage) {
     return {};
@@ -218,6 +237,14 @@ var givenApiClientNewErrorStub = function () {
 
 var restoreApiClientNewErrorStub = function () {
   sails.services.apiclientservice.newError.restore();
+};
+
+var givenAnIsInSessionStub = function(isInSession) {
+  return sinon.stub(DemandService, 'isInSession', function(req, offerId) { return isInSession});
+};
+
+var restoreIsInSessionStub = function() {
+  DemandService.isInSession.restore();
 };
 //#############################
 // TESTS
@@ -621,6 +648,105 @@ describe('[UNIT TEST] DemandService', function () {
 
       newErrorStub.called.should.be.true;
       onErrorCallback.called.should.be.true;
+
+      done();
+    });
+  });
+
+  /* ###########################################
+   * #
+   * # loadDemand
+   * #
+   * ###########################################
+   */
+  describe('loadDemand if demand is in session', function () {
+    var loadMostRecentStub;
+    before(function (done) {
+      givenAnIsInSessionStub(true);
+      givenApiClientValidateAndCreateNewDemandIdFromRequestStub();
+
+      done();
+    });
+
+    after(function (done) {
+      restoreIsInSessionStub();
+      restoreApiClientValidateAndCreateNewDemandIdFromRequestStub();
+
+      done();
+    });
+
+    it("it should call onSuccessCallback with serialized demandModel", function (done) {
+      var demandStub = Factory.newDemandStub(),
+        req = {
+          session: {
+            demands: {
+              "demand1" : demandStub
+            }
+          }
+        }, res = {},
+        onSuccessCallback = sinon.spy(),
+        onErrorCallback = sinon.spy();
+
+      DemandService.loadDemand(req, res, onSuccessCallback, onErrorCallback);
+
+      onSuccessCallback.called.should.be.true;
+
+      done();
+    });
+  });
+
+  describe('loadDemand if demand is not in session', function () {
+    var loadDemandStub;
+    before(function (done) {
+      givenStubbedNewClientDemandServiceCall();
+      givenAnIsInSessionStub(false);
+      givenApiClientValidateAndCreateNewDemandIdFromRequestStub();
+      loadDemandStub = givenClientDemandLoadStub();
+
+      done();
+    });
+
+    after(function (done) {
+      restoreIsInSessionStub();
+      restoreApiClientValidateAndCreateNewDemandIdFromRequestStub();
+      restoreNewDemandStubCall();
+      restoreClientDemandLoadStub();
+
+      done();
+    });
+
+    it("it should call onSuccessCallback with serialized demandModel", function (done) {
+      var demandStub = Factory.newDemandStub(),
+        req = {
+          session: {
+            demands: {
+              "demand1" : demandStub
+            }
+          }
+        }, res = {},
+        onSuccessCallback = sinon.spy(),
+        onErrorCallback = sinon.spy();
+
+      DemandService.loadDemand(req, res, onSuccessCallback, onErrorCallback);
+
+      loadDemandStub.called.should.be.true;
+
+      done();
+    });
+  });
+
+  describe('isInSession', function () {
+    it("should return true if a demand with id is in session", function (done) {
+      var
+        demand = Factory.newDemandStub(),
+        req = {
+          session: {
+            demands: {
+              "demand1": demand
+            }
+          }};
+
+      DemandService.isInSession(req, "demand1").should.be.true;
 
       done();
     });

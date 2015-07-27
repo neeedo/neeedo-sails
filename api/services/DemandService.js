@@ -213,13 +213,13 @@ module.exports = {
 
           onLoadCallback(demand);
         } catch (e) {
-          onErrorCallBack(ApiClientService.newError("loadDemand:" + e.message, 'Could not restore demand from session.'));
+          onErrorCallback(ApiClientService.newError("loadDemand:" + e.message, 'Could not restore demand from session.'));
         }
       } else {
         // load via API
         sails.log.info('Attempt to load demand with ID ' + demandId + " via API.");
 
-        var demandService = new ClientDemandService();
+        var demandService = this.newClientDemandService();
         demandService.load(demandId, LoginService.getCurrentUser(req), onLoadCallback, onErrorCallback);
       }
     }

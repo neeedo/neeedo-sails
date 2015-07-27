@@ -88,6 +88,7 @@ module.exports  = {
       .setPrice(this.newDemandPrice(10, 20))
       .setLocation(this.newLocationStub(55.321, 41.23))
       .setVersion(1)
+      .setDistance(10)
       .setUser(this.newUserStub());
 
     return offer;
