@@ -735,6 +735,12 @@ describe('[UNIT TEST] DemandService', function () {
     });
   });
 
+  /* ###########################################
+   * #
+   * # session
+   * #
+   * ###########################################
+   */
   describe('isInSession', function () {
     it("should return true if a demand with id is in session", function (done) {
       var
@@ -747,6 +753,55 @@ describe('[UNIT TEST] DemandService', function () {
           }};
 
       DemandService.isInSession(req, "demand1").should.be.true;
+
+      done();
+    });
+  });
+
+  describe('storeInSession', function () {
+    it("it should store the demand as expected in session object", function (done) {
+      var req = { session: {}},
+        demand = Factory.newDemandStub();
+
+      DemandService.storeInSession(req, demand);
+
+      ("demands" in req.session).should.be.true;
+      ("demand1" in req.session.demands).should.be.true;
+      req.session.demands["demand1"].should.be.Object;
+
+      done();
+    });
+  });
+
+  describe('storeListInSession', function () {
+    it("it should store the demand as expected in session object", function (done) {
+      var req = { session: {}},
+        demandList = Factory.newDemandList(true);
+
+      DemandService.storeListInSession(req, demandList);
+
+      ("demands" in req.session).should.be.true;
+      ("demand1" in req.session.demands).should.be.true;
+      req.session.demands["demand1"].should.be.Object;
+
+      done();
+    });
+  });
+
+  describe('removeFromSession', function () {
+    it("it should have been set to undefined", function (done) {
+      var
+        demand = Factory.newDemandStub(),
+        req = {
+          session: {
+            demands: {
+              "demand1": demand
+            }
+          }};
+
+      DemandService.removeFromSession(req, demand);
+
+      (undefined === req.session.demands.demand1).should.be.true;
 
       done();
     });

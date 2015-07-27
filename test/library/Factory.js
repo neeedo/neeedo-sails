@@ -82,7 +82,7 @@ module.exports  = {
   newDemandStub: function() {
     var demand = new apiNodeJsClient.models.Demand();
 
-    return demand.setId("offer1")
+    return demand.setId("demand1")
       .setMustTags(["tag1", "tag2"])
       .setShouldTags(["tag3", "tag4"])
       .setPrice(this.newDemandPrice(10, 20))
@@ -107,6 +107,16 @@ module.exports  = {
     }
 
     return offerList;
+  },
+
+  newDemandList: function(withDemands) {
+    var demandList = new apiNodeJsClient.models.DemandList();
+
+    if (withDemands) {
+      demandList.addDemand(this.newDemandStub());
+    }
+
+    return demandList;
   },
 
   newFavoriteListSub: function() {
