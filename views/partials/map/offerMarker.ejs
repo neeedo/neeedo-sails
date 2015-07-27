@@ -1,19 +1,23 @@
 <div id="offerMarker">
   <h4 class="media-heading title">{{translations.offering}} {{tags}}</h4>
-  <i>{{user.username}}</i>
+  <div class="row">
+    <div class="col-lg-6">
+      <i>{{user.username}}</i>
 
-  <p>
-    {{translations.price}}: {{price}} &euro;
-  </p>
-
-  <p>
-    {{{imageHtml}}}
-  </p>
-
-  {{#if showDetailsLink}}
-  <p>
-    <a href="{{viewUrl}}" title="Details">{{translations.details}}</a>
-  </p>
-  {{/if}}
+      <p>
+        {{translations.price}}: {{price}}
+      </p>
+      {{#if showDetailsLink}}
+      <p>
+        <a href="{{viewUrl}}" title="Details">{{translations.details}}</a>
+      </p>
+      {{/if}}
+    </div>
+    <div class="col-lg-6">
+      <p>
+        {{{imageHtml}}}
+      </p>
+    </div>
+  </div>
 </div>
 

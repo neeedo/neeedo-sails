@@ -17,9 +17,15 @@
 }
 
 .offerMarkerImage {
-  max-height: @thumbnailImagesMaxHeight
+  max-height: @thumbnailImagesMaxHeight;
+  display: block;
+  margin: 0 auto;
 }
 
 .leaflet-popup {
   color: @MetroDark;
+}
+
+.leaflet-popup-content{
+  width: 250px !important;
 }
