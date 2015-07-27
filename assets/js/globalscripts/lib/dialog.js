@@ -70,7 +70,7 @@ $(document).ready(function () {
     dialogs.activateEventHandler();
 
     //autofocus for email input field in login modal
-    $('#myModal').on('shown.bs.modal', function () {
+    $('#loginModal').on('shown.bs.modal', function () {
       $('#email').focus();
     });
 }
