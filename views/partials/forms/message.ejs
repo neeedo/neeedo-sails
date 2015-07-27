@@ -11,11 +11,11 @@
     <li>
       <label id="messageBodyLabel" for="messageBody"><%= i18n('Your message') %></label>
       <textarea id="messageBody" name="messageBody"><%- defaultMessage %></textarea>
-      <small class="inputMissing" id="errorTag"><%= i18n("Please enter a messages") %></small>
+      <small class="inputMissing" id="errorMessage"><%= i18n("Please enter a message") %></small>
       <input type="hidden" name="recipientId" value="<%- recipientId %>"/>
     </li>
     <li id="submitBtn">
-      <button type="submit" data-dismiss="modal" class="neeedoBtn neeedoBtn--nuka"><%= i18n('Senden') %></button>
+      <button onclick="return validateMessageForm()" type="submit" data-dismiss="modal" class="neeedoBtn neeedoBtn--nuka"><%= i18n('Senden') %></button>
     </li>
   </ul>
 </form>

@@ -7,7 +7,8 @@
           <label for="username"><%= i18n('Username') %></label>
           <div class="row">
             <div class="col-md-12">
-              <input class="glowing-border" type="text" name="username" value="<%- (undefined !== typeof username ? username : "") %>" autofocus/>
+              <input id="username" class="glowing-border" type="text" name="username" value="<%- (undefined !== typeof username ? username : "") %>" autofocus/>
+              <small class="inputMissing" id="errorRegisterName"><%= i18n("Please enter a name") %></small>
 
               <% if ('username' in validationMessages) { %>
               <span class="inputError"><%= validationMessages.username %></span>
@@ -17,7 +18,8 @@
           <label for="email"><%= i18n('E-Mail') %></label>
           <div class="row">
             <div class="col-md-12">
-              <input class="glowing-border" type="email" name="email"  value="<%- (undefined !== typeof email ? email : "") %>"/>
+              <input id="email" class="glowing-border" type="email" name="email"  value="<%- (undefined !== typeof email ? email : "") %>"/>
+              <small class="inputMissing" id="errorRegisterMail"><%= i18n("Please enter an e-mail") %></small>
 
               <% if ('email' in validationMessages) { %>
               <span class="inputError"><%= validationMessages.email %></span>
@@ -27,7 +29,8 @@
           <label for="password"><%= i18n('Password') %></label>
           <div class="row">
             <div class="col-md-12">
-              <input class="glowing-border" type="password" name="password"/>
+              <input id="password" class="glowing-border" type="password" name="password"/>
+              <small class="inputMissing" id="errorRegisterPassword"><%= i18n("Please enter a password") %></small>
 
               <% if ('password' in validationMessages) { %>
               <span class="inputError"><%= validationMessages.password %></span>
@@ -36,7 +39,7 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <button id="registerBtn" class="neeedoBtn neeedoBtn--nuka"><%= i18n('Register') %></button>
+              <button onclick="return validateRegisterForm()" id="registerBtn" class="neeedoBtn neeedoBtn--nuka"><%= i18n('Register') %></button>
             </div>
           </div>
         </form>
@@ -48,18 +51,20 @@
           <label for="email"><%= i18n('E-Mail') %></label>
           <div class="row">
             <div class="col-md-12">
-              <input id="email" class="glowing-border" type="email" name="email" required/>
+              <input id="email" class="glowing-border" type="email" name="email" />
+              <small class="inputMissing" id="errorFormMail"><%= i18n("Please enter an e-mail") %></small>
             </div>
           </div>
           <label for="password"><%= i18n('Password') %></label>
           <div class="row">
             <div class="col-md-12">
-              <input id="password" class="glowing-border" type="password" name="password" required/>
+              <input id="password" class="glowing-border" type="password" name="password" />
+              <small class="inputMissing" id="errorFormPassword"><%= i18n("Please enter a password") %></small>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <button id="loginBtn" class="neeedoBtn neeedoBtn--nuka"><%= i18n('Login') %></button>
+              <button onclick="return validateLoginForm()" id="loginBtn" class="neeedoBtn neeedoBtn--nuka"><%= i18n('Login') %></button>
             </div>
           </div>
         </form>
@@ -67,3 +72,5 @@
     </div>
   </div>
 </div>
+
+<% block('localScripts', '<script src="/js/localscripts/frontendValidation.js"></script>') %>

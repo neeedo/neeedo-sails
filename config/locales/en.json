@@ -12,7 +12,7 @@
   "Delete": "Delete",
   "Favorites" : "Favorites",
   "Mailbox" : "Mailbox",
-  "Login Header" : "Login Header",
+  "Login Header" : "Login",
   "Could not connect to the Neeedo service hub. Please try again later.": "Could not connect to the Neeedo service hub. Please try again later.",
   "Neeedo Member Area": "Neeedo Member Area",
   "technical_error_on_registration": "There was an error during registration. Please try again in several minutes. Sorry for the inconvenience.",
@@ -276,5 +276,8 @@
   "status": "So far you created:",
   "Read conversations" : "Read conversations",
   "Unread conversations" : "Unread conversations",
-  "You can try to improve your search tags to find matches." : "You can try to improve your search tags to find matches."
+  "You can try to improve your search tags to find matches." : "You can try to improve your search tags to find matches.",
+  "Please enter a message" : "Please enter a message",
+  "Please enter an e-mail" : "Please enter a valid e-mail",
+  "Please enter a name" : "Please enter a name"
 }

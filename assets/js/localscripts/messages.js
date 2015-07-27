@@ -21,3 +21,13 @@ $(document).ready(function () {
 
   setUnreadMsgCount();
 });
+
+var validateMessageForm = function(){
+  classie.removeClass(document.getElementById('errorMessage'), 'showError' );
+
+  if(document.getElementById('messageBody').value.toString() == ""){
+    classie.addClass(document.getElementById('errorMessage'), 'showError' );
+    return false;
+  }
+  return true;
+};

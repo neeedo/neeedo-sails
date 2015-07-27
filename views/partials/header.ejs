@@ -125,16 +125,18 @@
           <div class="input-group input-group-lg login-inputs">
             <span class="input-group-addon" id="sizing-addon1"><%= i18n('E-Mail') %></span>
             <input id="email" type="email" name="email" class="form-control glowing-border"
-                   placeholder="<%= i18n('E-Mail') %>" aria-describedby="sizing-addon1" required/>
+                   placeholder="<%= i18n('E-Mail') %>" aria-describedby="sizing-addon1" />
+            <small class="inputMissing" id="errorMail"><%= i18n("Please enter an e-mail") %></small>
           </div>
           <div class="input-group input-group-lg login-inputs">
             <span class="input-group-addon" id="sizing-addon2"><%= i18n('Password') %></span>
             <input id="password" type="password" name="password" class="form-control"
-                   placeholder="<%= i18n('Password') %>" aria-describedby="sizing-addon2" required/>
+                   placeholder="<%= i18n('Password') %>" aria-describedby="sizing-addon2" />
+            <small class="inputMissing" id="errorPassword"><%= i18n("Please enter a password") %></small>
           </div>
         </div>
         <div class="modal-footer">
-          <button class="neeedoBtn neeedoBtn--nuka"><%= i18n('Login') %></button>
+          <button onclick="return validateLoginModal()" class="neeedoBtn neeedoBtn--nuka"><%= i18n('Login') %></button>
         </div>
       </div>
     </div>
@@ -143,5 +145,7 @@
 
 <% if (LoginService.userIsLoggedIn(req)) { %>
 <% block('localScripts', '<script src="/js/localscripts/messages.js"></script>') %>
+<% } else { %>
+<% block('localScripts', '<script src="/js/localscripts/frontendValidation.js"></script>') %>
 <% } %>
 
