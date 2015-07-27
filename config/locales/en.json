@@ -275,5 +275,6 @@
   "noGPS":"Neeedo.com uses your location to find offers that are in your immediate vicinity. These are displayed in a map at this position. ",
   "status": "So far you created:",
   "Read conversations" : "Read conversations",
-  "Unread conversations" : "Unread conversations"
+  "Unread conversations" : "Unread conversations",
+  "You can try to improve your search tags to find matches." : "You can try to improve your search tags to find matches."
 }

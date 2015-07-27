@@ -287,5 +287,6 @@
   "locText3" : "Eine unserer Besonderheiten ist der Fokus auf standortabhängige Angebote, den du beim Erstellen hinzufügen kannst. Auch beim Suchen kannst du deine aktuelle Position übermitteln, um Angebote in deiner Nähe anzuzeigen.",
   "status": "Du hast aktuell:",
   "Read conversations" : "Gelesene Konversationen",
-  "Unread conversations" : "Ungelesene Konversationen"
+  "Unread conversations" : "Ungelesene Konversationen",
+  "You can try to improve your search tags to find matches." : "Du kannst deine Tags anpassen, um Treffer zu finden."
 }

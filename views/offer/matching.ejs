@@ -2,7 +2,11 @@
   <div class="contentContainer container">
     <div>
       <% if (0 == offers.length) { %>
-      <p><%- i18n("Sorry, we couldn't find any matching offers for now. We will inform you if a new matching offer was created.") %></p>
+      <img src="/images/neeedo_Logo_grey.png" alt="neeedo logo" class="greyLogo" />
+      <p class="text-center"><%- i18n("Sorry, we couldn't find any matching offers for now. We will inform you if a new matching offer was created.") %></p>
+      <p class="text-center"><%- i18n('You can try to improve your search tags to find matches.') %></p>
+      <button class="neeedoBtn neeedoBtn--nuka" onclick="window.open('/dashboard','_parent');"
+              ;><%= i18n('Dashboard') %></button>
       <% } %>
     </div>
     <% if (0 < offers.length) { %>
