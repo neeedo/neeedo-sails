@@ -79,6 +79,25 @@ module.exports  = {
     return offer;
   },
 
+  newDemandStub: function() {
+    var demand = new apiNodeJsClient.models.Demand();
+
+    return demand.setId("offer1")
+      .setMustTags(["tag1", "tag2"])
+      .setShouldTags(["tag3", "tag4"])
+      .setPrice(this.newDemandPrice(10, 20))
+      .setLocation(this.newLocationStub(55.321, 41.23))
+      .setVersion(1)
+      .setUser(this.newUserStub());
+
+    return offer;
+  },
+
+  newDemandPrice: function(min, max) {
+    var demandPrice = new apiNodeJsClient.models.DemandPrice();
+    return demandPrice.setMin(min).setMax(max);
+  },
+
   newOfferListStub: function(withOffers) {
     var offerList = new apiNodeJsClient.models.OfferList();
 

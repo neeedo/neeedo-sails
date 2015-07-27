@@ -12,6 +12,10 @@ module.exports = {
     return new DemandListService();
   },
 
+  newClientMatchingService: function () {
+    return new MatchingService();
+  },
+
   /**
    * Load the currently logged in user's demands.
    * @param req
@@ -143,7 +147,7 @@ module.exports = {
 
   deleteDemand: function (demandModel, onSuccessCallback, onErrorCallBack) {
     try {
-      var demandService = new ClientDemandService();
+      var demandService = this.newClientDemandService();
       demandService.deleteDemand(demandModel, onSuccessCallback, onErrorCallBack);
     } catch (e) {
       onErrorCallBack(ApiClientService.newError("deleteDemand:" + e.message, 'Your inputs were not valid.'));
@@ -166,7 +170,7 @@ module.exports = {
     try {
       var demandQuery = ApiClientService.newDemandQueryFromRequest(req, res);
 
-      var matchingService = new MatchingService();
+      var matchingService = this.newClientMatchingService();
       matchingService.matchDemand(demandModel, demandQuery, onSuccessCallback, onErrorCallback);
     } catch (e) {
       onErrorCallback(ApiClientService.newError("matchOffers:" + e.message, 'Your inputs were not valid.'));

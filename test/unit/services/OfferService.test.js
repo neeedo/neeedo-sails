@@ -2,8 +2,8 @@
  * dependencies
  */
 var OfferService = require('../../../api/services/OfferService'),
-  Factory = require('../../library/Factory')
-sinon = require('sinon'),
+  Factory = require('../../library/Factory'),
+  sinon = require('sinon'),
   should = require('should');
 
 var newOfferListServiceStub = OfferService.newClientOfferListService(),
