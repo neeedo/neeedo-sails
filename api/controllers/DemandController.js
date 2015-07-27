@@ -42,8 +42,8 @@ module.exports = {
         DemandService.getDefaultViewAndEditViewParameters(), {
           mustTags: "",
           shouldTags: "",
-          minPrice: "",
-          maxPrice: "",
+          minPrice: "50",
+          maxPrice: "300",
           lat: "",
           lng: "",
           distance: 10,

@@ -214,11 +214,14 @@ $(document).ready(function () {
   address = $('#address');
   addressContainer = $('#addressContainer');
 
+  console.log($("#minPriceDemand").val());
+  console.log($("#maxPriceDemand").val());
+
   $( "#slider-range" ).slider({
     range: true,
     min: 0,
     max: 500,
-    values: [ 25, 300 ],
+    values: [ $( "#minPriceDemand").val(), $( "#maxPriceDemand").val() ],
     slide: function( event, ui ) {
       $( "#minPriceDemand").val(ui.values[ 0 ] + ".00");
       $( "#maxPriceDemand").val(ui.values[ 1 ] + ".00");
@@ -373,7 +376,7 @@ $(document).ready(function () {
         for (var i=0; i < data.suggestedTags.length; i++) {
           html += '<span class="tagit-label suggestedTag">' + data.suggestedTags[i] + '</span><span>&nbsp;</span>'
         }
-        
+
         classie.removeClass(document.getElementById('suggestedTagsHeader'), 'hide' );
         tagSuggestionElements.html(html);
       }
