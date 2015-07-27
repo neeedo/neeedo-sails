@@ -41,3 +41,29 @@
     font-size: 14px !important;
   }
 }
+
+.statusSmall{
+  padding-bottom: 20px;
+}
+
+.statusSmall .neeedoBtn{
+  margin-bottom: 20px;
+}
+
+.statusSmall .neeedoBtn--nuka::before,
+.statusSmall .neeedoBtn--nuka::after {
+  background: @DarkerMetroGreen;
+}
+
+.statusSmall .neeedoBtn--nuka:hover::after {
+  background-color: @NeeedoBtnColor;
+  color: @DarkerMetroGreen;
+}
+
+.statusSmall .neeedoBtn--nuka {
+  color: @MetroLightBlue;
+}
+
+.statusSmall .neeedoBtn--nuka:hover {
+  color: @DARK;
+}

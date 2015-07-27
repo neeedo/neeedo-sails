@@ -7,7 +7,7 @@
           class="text-left"><%= i18n('Hello %s!', LoginService.getCurrentUser(req).getUsername()) %></h1>
 
 
-      <div class="btn-group btn-group-justified status" role="group" aria-label="...">
+      <div class="btn-group btn-group-justified status hidden-xs" role="group" aria-label="...">
         <div class="btn-group " role="group">
           <h2 class="statusLable"><%= i18n('status') %></h2>
         </div>
@@ -19,6 +19,14 @@
           <button type="button" onclick="window.location.href='#mdc'" class="neeedoBtn neeedoBtn--nuka"><%= i18n('My Demands') %> <span
               class="badge numCount"><%= demands.length %></span></button>
         </div>
+      </div>
+
+      <div class="status visible-xs statusSmall">
+        <h2 class="statusLable"><%= i18n('status') %></h2>
+        <button type="button " onclick="window.location.href='#tabs'" class="neeedoBtn neeedoBtn--nuka"><%= i18n('My Offers') %> <span
+            class="badge numCount"><%= offers.length %></span></button>
+        <button type="button" onclick="window.location.href='#tabs'" class="neeedoBtn neeedoBtn--nuka"><%= i18n('My Demands') %> <span
+            class="badge numCount"><%= demands.length %></span></button>
       </div>
     </div>
     <div id="mapContainer">
@@ -82,13 +90,9 @@
     <div id="tabs" class="tabs">
       <nav>
         <ul>
-          <li><a href="#section-1" class="icon-offer"><span>
-                    <%= i18n('My Offers') %>
-                  </span></a>
+          <li><a href="#section-1" class="icon-offer text-center"></a>
           </li>
-          <li><a href="#section-2" class="icon-newspaper"><span>
-                    <%= i18n('My Demands') %>
-                  </span></a>
+          <li><a href="#section-2" class="icon-search text-center"></a>
           </li>
         </ul>
       </nav>
