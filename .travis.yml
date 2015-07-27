@@ -4,6 +4,7 @@ node_js:
 env:
   global:
     - NODE_ENV=travisci
+    - CODECOV_TOKEN=f85d348b-b994-4eeb-bd32-e8699b112f26
 before_install:
   - npm install -g grunt-cli
 notifications:
