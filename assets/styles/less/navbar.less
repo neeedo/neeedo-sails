@@ -1,12 +1,12 @@
 .navbar {
   height: @headerHeight !important;
   background-color: @HeaderBG !important;
-
 }
 
 .navbar-default {
-  background-image: url("/images/HBG.png") !important;//linear-gradient(to bottom, @HeaderBG 0%, #333 100%) !important;
+  background: @HeaderBG !important;//linear-gradient(to bottom, @HeaderBG 0%, #333 100%) !important;
   border: none !important;
+  background-image: none !important;
 }
 .navbar-brand{
   padding: 0 !important;
@@ -95,4 +95,8 @@ nav img {
       line-height: 1em;
     }
   }
+}
+
+.navbar-nav li a:focus{
+  color: @MetroGreen;
 }
