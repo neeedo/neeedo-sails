@@ -7,6 +7,91 @@
  */
 
 $(document).ready(function() {
+
+
+  var wasAlreadyLoaded = function(dataSourceUrl, nextPageNumber) {
+    return dataSourceUrl in alreadyLoaded &&  -1 !== alreadyLoaded[dataSourceUrl].indexOf(nextPageNumber);
+  };
+
+  var calculateNextPageNumber = function(currentItemNumber, firstPageNumber, limit) {
+    return Math.floor(currentItemNumber / limit) + firstPageNumber + 1;
+  };
+
+  var loadMoreOffers = function(nextPageNumber, limit, dataSourceUrl, onLoadedCallback) {
+    var offerService = new Offers(dataSourceUrl);
+    offerService.getOffersByCriteria({
+        page : nextPageNumber,
+        limit : limit,
+        getHtml : true,
+        displayFavorite : offerDisplayFavorite
+      }, onLoadedCallback
+    );
+  };
+
+  var loadMoreDemands = function(nextPageNumber, limit, dataSourceUrl, onLoadedCallback) {
+    var demandService = new Demands(dataSourceUrl);
+    demandService.getDemandsByCriteria({
+        page : nextPageNumber,
+        limit : limit,
+        getHtml : true
+      }, onLoadedCallback
+    );
+  };
+
+  var addDemandsToSlider = function(returnedData) {
+    console.log('adding demands to slider: ' + returnedData);
+
+    if ('demandList' in returnedData) {
+      if ('demands' in returnedData['demandList']) {
+        for (var i=0; i < returnedData['demandList']['demands'].length; i++) {
+          var demand = returnedData['demandList']['demands'][i];
+          addDemandToSlider(demand);
+        }
+      }
+    }
+  };
+
+  var addOffersToSlider = function(returnedData) {
+    console.log('adding offers to slider: ' + returnedData);
+
+    if ('offerList' in returnedData) {
+      if ('offers' in returnedData['offerList']) {
+        for (var i=0; i < returnedData['offerList']['offers'].length; i++) {
+          var offer = returnedData['offerList']['offers'][i];
+          addOfferToSlider(offer);
+        }
+      }
+    }
+
+    onOffersAdded();
+  };
+
+  var addOfferToSlider = function(offer) {
+    $("#lightSliderOffer").append(offer.html);
+    lightSliderOffer.refresh();
+  };
+
+  var refreshOfferImages = function() {
+    var offerThumbnails = $(".offerImageSmall");
+
+    // bugfix: on offer reload in slider, the images might be too large. So set style attribute directly.
+    offerThumbnails.attr("style", "max-width: 100%; max-height: 100%");
+  };
+
+  var addDemandToSlider = function(demand) {
+    $("#lightSliderDemand").append(demand.html);
+    lightSliderDemand.refresh();
+  };
+  // $(".map").css("min-height",$(window).height()-50);
+//  $(".contentContainer").css("min-height",$(window).height()*0.8);
+
+  var onOffersAdded = function() {
+    // activate favorites event handler for favorite icon elements
+    favorites.activateEventHandler();
+    // activate delete dialog event handler
+    dialogs.activateEventHandler();
+  };
+  
   /**
    * Object of URL -> page number to keep info if the page number was already AJAX-requested.
    * @type {{}}
@@ -127,88 +212,4 @@ $(document).ready(function() {
     }
   });
   new CBPFWTabs( document.getElementById( 'tabs' ) );
-
-
-  var wasAlreadyLoaded = function(dataSourceUrl, nextPageNumber) {
-    return dataSourceUrl in alreadyLoaded &&  -1 !== alreadyLoaded[dataSourceUrl].indexOf(nextPageNumber);
-  };
-
-  var calculateNextPageNumber = function(currentItemNumber, firstPageNumber, limit) {
-    return Math.floor(currentItemNumber / limit) + firstPageNumber + 1;
-  };
-
-  var loadMoreOffers = function(nextPageNumber, limit, dataSourceUrl, onLoadedCallback) {
-    var offerService = new Offers(dataSourceUrl);
-    offerService.getOffersByCriteria({
-        page : nextPageNumber,
-        limit : limit,
-        getHtml : true,
-        displayFavorite : offerDisplayFavorite
-      }, onLoadedCallback
-    );
-  };
-
-  var loadMoreDemands = function(nextPageNumber, limit, dataSourceUrl, onLoadedCallback) {
-    var demandService = new Demands(dataSourceUrl);
-    demandService.getDemandsByCriteria({
-        page : nextPageNumber,
-        limit : limit,
-        getHtml : true
-      }, onLoadedCallback
-    );
-  };
-
-  var addDemandsToSlider = function(returnedData) {
-    console.log('adding demands to slider: ' + returnedData);
-
-    if ('demandList' in returnedData) {
-      if ('demands' in returnedData['demandList']) {
-        for (var i=0; i < returnedData['demandList']['demands'].length; i++) {
-          var demand = returnedData['demandList']['demands'][i];
-          addDemandToSlider(demand);
-        }
-      }
-    }
-  };
-
-  var addOffersToSlider = function(returnedData) {
-    console.log('adding offers to slider: ' + returnedData);
-
-    if ('offerList' in returnedData) {
-      if ('offers' in returnedData['offerList']) {
-        for (var i=0; i < returnedData['offerList']['offers'].length; i++) {
-          var offer = returnedData['offerList']['offers'][i];
-          addOfferToSlider(offer);
-        }
-      }
-    }
-
-    onOffersAdded();
-  };
-
-  var addOfferToSlider = function(offer) {
-    $("#lightSliderOffer").append(offer.html);
-    lightSliderOffer.refresh();
-  };
-
-  var refreshOfferImages = function() {
-    var offerThumbnails = $(".offerImageSmall");
-
-    // bugfix: on offer reload in slider, the images might be too large. So set style attribute directly.
-    offerThumbnails.attr("style", "max-width: 100%; max-height: 100%");
-  };
-
-  var addDemandToSlider = function(demand) {
-    $("#lightSliderDemand").append(demand.html);
-    lightSliderDemand.refresh();
-  };
- // $(".map").css("min-height",$(window).height()-50);
-//  $(".contentContainer").css("min-height",$(window).height()*0.8);
-
-  var onOffersAdded = function() {
-    // activate favorites event handler for favorite icon elements
-    favorites.activateEventHandler();
-    // activate delete dialog event handler
-    dialogs.activateEventHandler();
-  };
 });
