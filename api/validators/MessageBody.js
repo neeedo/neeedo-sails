@@ -8,6 +8,11 @@ function MessageBody(translator, maxLength) {
 }
 
 MessageBody.prototype.validateLength = function(givenMessage) {
+   if (0 == givenMessage.trim().length ) {
+    this.errorMessages.push(this.translator("Please enter a message"));
+    return false;
+  }
+  
   if (givenMessage.length > this.maxLength ) {
     this.errorMessages.push(this.translator("The message must not exceed %s characters", this.maxLength));
     return false;
