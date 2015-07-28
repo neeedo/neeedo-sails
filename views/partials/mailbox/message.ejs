@@ -1,5 +1,6 @@
-<div>
-  <p> <% if (!message.wasRead()) { %>
+<div class="<%= (LoginService.getCurrentUser(req).getId() == message.getSender().getId())
+    ? 'messageRed' : 'messageGreen' %>">
+  <p class="messageHeader"> <% if (!message.wasRead()) { %>
     <span class="label label-default"><%- i18n('New') %>&nbsp;</span>
     <% } %>
     <span class="timestamp" data-timestamp="<%- message.getTimestamp() %>"><%- LocaleService.formatTimestamp(message.getTimestamp()) %></span>
@@ -8,4 +9,5 @@
   <p><%- MessageService.setHyperLinksInMessageBody(res, message.getBody()) %></p>
 </div>
 
+<div class="clearfix"></div>
 <% block('localScripts', '<script src="/js/localscripts/date.js"></script>') %>

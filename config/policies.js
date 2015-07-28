@@ -66,7 +66,8 @@ module.exports.policies = {
     'ajaxGetOffers' : ['resetUploadedFiles', 'setLocale', 'isLoggedIn'],
     'ajaxGetDemands' : ['resetUploadedFiles', 'setLocale', 'isLoggedIn'],
     // setLocale can be accessed public and logged-in
-    'setLocale': ['resetUploadedFiles', 'setLocale']
+    'setLocale': ['resetUploadedFiles', 'setLocale'],
+    'dashboard': ['resetUploadedFiles', 'setLocale', 'isLoggedIn', 'setRedirectUrl']
   },
   LoginController: {
     '*': ['resetUploadedFiles', 'setLocale', false], // default policy for login controller actions
@@ -77,7 +78,7 @@ module.exports.policies = {
   RegistrationController: {
     '*': ['resetUploadedFiles', 'setLocale', false], // default policy for registration controller actions
 
-    'register' : ['resetUploadedFiles', 'setLocale', 'isNotLoggedIn']
+    'register' : ['resetUploadedFiles', 'setLocale', 'isNotLoggedIn', 'setRedirectUrl']
   },
   StaticViewsController: {
     '*' : ['setLocale', 'setRedirectUrl'],
