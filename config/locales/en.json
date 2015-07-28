@@ -279,5 +279,7 @@
   "You can try to improve your search tags to find matches." : "You can try to improve your search tags to find matches.",
   "Please enter a message" : "Please enter a message",
   "Please enter an e-mail" : "Please enter a valid e-mail",
-  "Please enter a name" : "Please enter a name"
+  "Please enter a name" : "Please enter a name",
+  "%s Offers" : "%s Offers",
+  "%s Demands" : "%s Demands"
 }

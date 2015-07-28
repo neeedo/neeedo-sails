@@ -291,5 +291,7 @@
   "You can try to improve your search tags to find matches." : "Du kannst deine Tags anpassen, um Treffer zu finden.",
   "Please enter a message" : "Bitte gib eine Nachricht ein",
   "Please enter an e-mail" : "Bitte gib eine valide E-Mail Adresse an",
-  "Please enter a name" : "Bitte gib einen Namen ein"
+  "Please enter a name" : "Bitte gib einen Namen ein",
+  "%s Offers" : "%s Angebote",
+  "%s Demands" : "%s Gesuche"
 }

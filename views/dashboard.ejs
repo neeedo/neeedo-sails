@@ -12,21 +12,17 @@
           <h2 class="statusLable"><%= i18n('status') %></h2>
         </div>
         <div class="btn-group" role="group">
-          <button type="button " onclick="window.location.href='#moc'" class="neeedoBtn neeedoBtn--nuka"><%= i18n('My Offers') %> <span
-              class="badge numCount"><%= offers.length %></span></button>
+          <button type="button " onclick="window.location.href='#moc'" class="neeedoBtn neeedoBtn--nuka"><%= i18n('%s Offers', offers.length) %></button>
         </div>
         <div class="btn-group" role="group">
-          <button type="button" onclick="window.location.href='#mdc'" class="neeedoBtn neeedoBtn--nuka"><%= i18n('My Demands') %> <span
-              class="badge numCount"><%= demands.length %></span></button>
+          <button type="button" onclick="window.location.href='#mdc'" class="neeedoBtn neeedoBtn--nuka"><%= i18n('%s Demands', demands.length) %></button>
         </div>
       </div>
 
       <div class="status visible-xs statusSmall">
         <h2 class="statusLable"><%= i18n('status') %></h2>
-        <button type="button " onclick="window.location.href='#tabs'" class="neeedoBtn neeedoBtn--nuka"><%= i18n('My Offers') %> <span
-            class="badge numCount"><%= offers.length %></span></button>
-        <button type="button" onclick="window.location.href='#tabs'" class="neeedoBtn neeedoBtn--nuka"><%= i18n('My Demands') %> <span
-            class="badge numCount"><%= demands.length %></span></button>
+        <button type="button " onclick="window.location.href='#tabs'" class="neeedoBtn neeedoBtn--nuka"><%= i18n('%s Offers', offers.length) %></button>
+        <button type="button" onclick="window.location.href='#tabs'" class="neeedoBtn neeedoBtn--nuka"><%= i18n('%s Demands', demands.length) %></button>
       </div>
     </div>
     <div id="mapContainer">
