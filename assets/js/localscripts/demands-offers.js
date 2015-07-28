@@ -309,6 +309,7 @@ $(document).ready(function () {
         },
         minLength: 2
       },
+      allowSpaces: true,
       afterTagAdded: function (event, ui) {
         getSuggests(_this);
       },
