@@ -37,18 +37,26 @@ html, body {
   }
 }
 
-.pin{
+.pin {
   position: absolute;
   top: 0;
   background-size: contain;
 }
+
 .pinLeft {
-  &:extend{.pin};
+  &:extend {
+    .pin
+  }
+;
   left: 0;
   background-image: url("/images/pin_left.png");
 }
+
 .pinRight {
-  &:extend{.pin};
+  &:extend {
+    .pin
+  }
+;
   right: 0;
   background-image: url("/images/pin_right.png");
 }
