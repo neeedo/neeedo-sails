@@ -282,5 +282,7 @@
   "Please enter a name" : "Please enter a name",
   "%s Offers" : "%s Offers",
   "%s Demands" : "%s Demands",
+  "%s Offer" : "%s Offer",
+  "%s Demand" : "%s Demand",
   "View matched offer" : "We found a matching offer for you"
 }

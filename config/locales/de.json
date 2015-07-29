@@ -294,5 +294,7 @@
   "Please enter a name" : "Bitte gib einen Namen ein",
   "%s Offers" : "%s Angebote",
   "%s Demands" : "%s Gesuche",
+  "%s Offer" : "%s Angebot",
+  "%s Demand" : "%s Gesuch",
   "View matched offer" : "Wir haben hier ein passendes Angebot für dich"
 }
