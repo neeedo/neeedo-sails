@@ -293,5 +293,6 @@
   "Please enter an e-mail" : "Bitte gib eine valide E-Mail Adresse an",
   "Please enter a name" : "Bitte gib einen Namen ein",
   "%s Offers" : "%s Angebote",
-  "%s Demands" : "%s Gesuche"
+  "%s Demands" : "%s Gesuche",
+  "View matched offer" : "Wir haben hier ein passendes Angebot für dich"
 }

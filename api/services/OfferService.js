@@ -373,6 +373,14 @@ module.exports = {
       tagOptions: sails.config.webapp.tags,
       validationMessages: []
     }
+  },
+
+  isOfferId: function(translator, offerId) {
+    return ValidationService.newIdValidator(translator).isValid(offerId);
+  },
+
+  getOfferIdRegex: function () {
+    return "[a-zA-Z0-9-]*";
   }
 };
 

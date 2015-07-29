@@ -1,4 +1,4 @@
-<div class="<%= (LoginService.getCurrentUser(req).getId() == message.getSender().getId())
+<div class="<%= (MessageService.currentUserIsSender(req, message))
     ? 'messageRed' : 'messageGreen' %>">
   <p class="messageHeader"> <% if (!message.wasRead()) { %>
     <span class="label label-default"><%- i18n('New') %>&nbsp;</span>
@@ -6,7 +6,7 @@
     <span class="timestamp" data-timestamp="<%- message.getTimestamp() %>"><%- LocaleService.formatTimestamp(message.getTimestamp()) %></span>
       <i><%- message.getSender().getUsername()%></i></p>
 
-  <p><%- MessageService.setHyperLinksInMessageBody(res, message.getBody()) %></p>
+  <p><%- MessageService.prepareMessageForView(res, message) %></p>
 </div>
 
 <div class="clearfix"></div>

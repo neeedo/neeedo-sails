@@ -650,4 +650,41 @@ describe('[UNIT TEST] MessageService', function () {
       done();
     });
   });
+
+  /* ###########################################
+   * #
+   * # parseOfferIdsAndSetHyperLinks
+   * #
+   * ###########################################
+   */
+  describe('parseOfferIdsAndSetHyperLinks', function () {
+    var resStub;
+    before(function (done) {
+      givenAWebAppBaseUrl("http://testing.neeedo.com");
+      resStub = {
+        i18n: function(translationString) {
+          return translationString;
+        }
+      };
+
+      done();
+    });
+
+    after(function (done) {
+      restoreWebAppBaseUrl();
+
+      done();
+    });
+
+    it("replaces links to offers in given string by HTML hyperlinks", function (done) {
+     var messageBody = "0e82c3f1-59fe-4930-8305-418512de03a9";
+
+      MessageService.parseOfferIdsAndSetHyperLinks(resStub, messageBody).should.be.equal(
+        '<a href="http://testing.neeedo.com'
+        + OfferService.getViewUrl().replace("%%offerId%%", "0e82c3f1-59fe-4930-8305-418512de03a9") + '">View matched offer</a>'
+      );
+
+      done();
+    });
+  });
 });

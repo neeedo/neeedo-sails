@@ -326,6 +326,26 @@ module.exports = {
     return msg;
   },
 
+  prepareMessageForView: function (res, message) {
+    if (message.getSender().getId() === sails.config.webapp.notifications.user.id) {
+      return this.parseOfferIdsAndSetHyperLinks(res, message.getBody());
+    } else {
+      return this.setHyperLinksInMessageBody(res, message.getBody());
+    }
+  },
+
+  parseOfferIdsAndSetHyperLinks: function (res, messageBody) {
+    var trimmedMessageBody = messageBody.trim();
+
+    if (OfferService.isOfferId(res.i18n, trimmedMessageBody)) {
+      var urlToOffer = UrlService.getBaseUrl() + OfferService.getViewUrl().replace("%%offerId%%", trimmedMessageBody);
+      return  '<a href="' +  urlToOffer + '">'
+        + res.i18n("View matched offer")+ '</a>';
+    }
+
+    return trimmedMessageBody;
+  },
+
   /**
    * Replace URLs to offers in message body by hyperlinks.
    * @param res
@@ -335,7 +355,7 @@ module.exports = {
   setHyperLinksInMessageBody: function (res, messageBody) {
     var urlToOffer = UrlService.getBaseUrl() + OfferService.getViewUrl().replace("%%offerId%%", "");
 
-    var offerUrlRegex = new RegExp("(" + urlToOffer + "[a-zA-Z0-9-]*)");
+    var offerUrlRegex = new RegExp("(" + urlToOffer + OfferService.getOfferIdRegex() + ")");
     return messageBody.replace(offerUrlRegex, '<a href="$1">' + res.i18n("View Offer") + '</a>');
   },
 

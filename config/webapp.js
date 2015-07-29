@@ -152,5 +152,12 @@ module.exports.webapp = {
   },
   android: {
     playStore: "https://play.google.com/store/apps/details?id=neeedo.imimaprx.htw.de.neeedo"
+  },
+  notifications: {
+    // user who sends notifications on new offers
+    user: {
+      name: "Neeedo",
+      id: "Neeedo"
+    }
   }
 };
