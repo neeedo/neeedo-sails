@@ -15,10 +15,14 @@ html, body {
   height: 100%;
   margin: 0 auto -4em;
   background-image: url("/images/BG5.png");
+  //border-left: 20px solid brown;
+  //border-right: 20px solid brown;
 }
 
 .container {
   font-family: sen;
+  position: relative;
+
 }
 
 .contentContainer {
@@ -31,12 +35,27 @@ html, body {
     margin-bottom: 10px;
     color: @MetroGreen;
   }
-;
+}
+
+.pin{
+  position: absolute;
+  top: 0;
+  background-size: contain;
+}
+.pinLeft {
+  &:extend{.pin};
+  left: 0;
+  background-image: url("/images/pin_left.png");
+}
+.pinRight {
+  &:extend{.pin};
+  right: 0;
+  background-image: url("/images/pin_right.png");
 }
 
 .smallcontainer {
   margin-bottom: 5px;
-  .listItem{
+  .listItem {
     margin: 2px;
   }
 }
