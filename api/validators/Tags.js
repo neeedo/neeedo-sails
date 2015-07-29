@@ -3,7 +3,8 @@ var _ = require('underscore');
 function Tags(translator, minTagCount, maxTagCount) {
   this.errorMessages = [];
   this.translator = translator;
-  this.regex = /^[a-zA-Z0-9-_\s]+$/;
+  // forbidden characters
+  this.regex = /^[^%$§"!\/()=?`´*+\-;:#~]+$/;
   this.minTagCount = minTagCount;
   this.maxTagCount = maxTagCount;
 }
