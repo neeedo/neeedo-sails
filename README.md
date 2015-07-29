@@ -4,8 +4,6 @@ a [Sails](http://sailsjs.org) application
 
 [![Travis Build Status][travis-image]][travis-url]
 
-[![Dependency Status][dependencies-image]][dependencies-url]
-
 [![codecov.io][codecov-image]][codecov-url]
 
 ![codecov.io][codecov-report]
