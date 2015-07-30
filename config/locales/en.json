@@ -204,7 +204,7 @@
   "Cancel" : "Cancel",
   "Drop files here or click to upload." : "Drop files below or click to upload.",
   "You didn't recieve any message yet. Have a look at the most recent offers below or create a demand in order to contact the offerors." : "You didn't recieve any message yet. Have a look at the most recent offers below or create a demand in order to contact the offerors.",
-  "Sorry, we couldn't find any matching offers for now. We will inform you if a new matching offer was created." : "Sorry, we couldn't find any matching offers for now. We will inform you if a new matching offer was created",
+  "Sorry, we couldn't find any matching offers for now. We will inform you if a new matching offer was created." : "Sorry, we couldn't find any matching offers for now. We will inform you if a new matching offer was created.",
   "Invalid value for demand price.": "Invalid value for demand price.",
   "Invalid value for demand minimum price.": "Invalid value for demand minimum price.",
   "Invalid value for demand maximum price.": "Invalid value for demand maximum price.",
@@ -232,7 +232,7 @@
   "The username must not contain a whitespace.": "The username must not contain a whitespace.",
   "I am looking for:" : "I am looking for:",
   "It should have:" : "It should have:",
-  "Description" : "Description:",
+  "Description" : "Tags:",
   "Creator" : "Creator",
   "There aren't any unread messages." : "There aren't any unread messages.",
   "There aren't any read messages." : "There aren't any read messages.",
@@ -285,6 +285,6 @@
   "%s Offer" : "%s Offer",
   "%s Demand" : "%s Demand",
   "View matched offer" : "We found a matching offer for you",
-  "Separate your Tags by typing in a ',' or by using tabulator" : "Separate your Tags by typing in a ',' or by using tabulator",
+  "Separate your Tags by typing in a ',' or by using tabulator" : "Separate your tags by typing in a ',' or by using tabulator",
   "Please enter a password" : "Please enter a password"
 }
