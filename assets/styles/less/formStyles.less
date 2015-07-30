@@ -517,3 +517,38 @@ ul.tagit li:not(:first-child) ::placeholder {opacity: 0;}
 #errorFormPassword, #errorFormMail, #errorRegisterName, #errorRegisterMail, #errorRegisterPassword{
   width: 100%;
 }
+
+.tagRelative{
+  position: relative;
+}
+
+.helper{
+  position: absolute;
+  top: 2.4em;
+  right: 7%;
+  font-size: 14px;
+  width: 20px;
+  height: 20px;
+  display: block;
+  background-color: @LighterMetroGreen;
+  color: @DarkerMetroGreen;
+  border-radius: 50%;
+  text-align: center;
+  font-weight: bold;
+  cursor: help
+}
+
+#helpText{
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 10%;
+  border-radius: 10px;
+  padding: 3px;
+  background-color: @LighterMetroGreen;
+  color: @DarkerMetroGreen;
+}
+
+.helpTextShow{
+  display: block !important;
+}

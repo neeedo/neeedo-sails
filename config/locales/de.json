@@ -296,5 +296,7 @@
   "%s Demands" : "%s Gesuche",
   "%s Offer" : "%s Angebot",
   "%s Demand" : "%s Gesuch",
-  "View matched offer" : "Wir haben hier ein passendes Angebot für dich"
+  "View matched offer" : "Wir haben hier ein passendes Angebot für dich",
+  "Separate your Tags by typing in a ',' or by using tabulator" : "Trenne deine Tags mit einem ',' oder indem du Tabulator drückst",
+  "Please enter a password" : "Bitte gib ein Passwort an"
 }

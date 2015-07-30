@@ -284,5 +284,7 @@
   "%s Demands" : "%s Demands",
   "%s Offer" : "%s Offer",
   "%s Demand" : "%s Demand",
-  "View matched offer" : "We found a matching offer for you"
+  "View matched offer" : "We found a matching offer for you",
+  "Separate your Tags by typing in a ',' or by using tabulator" : "Separate your Tags by typing in a ',' or by using tabulator",
+  "Please enter a password" : "Please enter a password"
 }

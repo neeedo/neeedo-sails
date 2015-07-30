@@ -1,6 +1,6 @@
   <form id="createDemand" method="POST" class="form-style">
     <ul>
-      <li id="mustTagsContainer">
+      <li class="tagRelative" id="mustTagsContainer">
         <label for="mustTagsDemand"><%= i18n("I'm really looking for") %></label>
         <input type="text" id="mustTagsDemand" class="providesTagCompletion" name="mustTags" value="<%- (undefined !== typeof mustTags ? mustTags : "") %>" data-placeholder="<%= i18n('e.g. iPhone, 6s') %>" autofocus  autocomplete="off">
         <small class="inputMissing" id="errorTag"><%= i18n("Please enter at least one tag") %></small>
@@ -12,6 +12,10 @@
           <%= i18n('Often entered together:') %>
         </small>
         <div class="suggestedTags" data-limit="<%= tagOptions.suggestions.limit %>"></div>
+        <div id="helpTags" class="helper">
+          ?
+        </div>
+        <small id="helpText"><%= i18n('Separate your Tags by typing in a \',\' or by using tabulator') %></small>
       </li>
       <li id="shouldTagsContainer">
         <label for="shouldTagsDemand"><%= i18n('Nice to have would be') %></label>

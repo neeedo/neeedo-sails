@@ -214,8 +214,12 @@ $(document).ready(function () {
   address = $('#address');
   addressContainer = $('#addressContainer');
 
-  console.log($("#minPriceDemand").val());
-  console.log($("#maxPriceDemand").val());
+  document.getElementById('helpTags').onmouseover = function(){
+    classie.addClass(document.getElementById('helpText'), 'helpTextShow' );
+  }
+  document.getElementById('helpTags').onmouseout = function(){
+    classie.removeClass(document.getElementById('helpText'), 'helpTextShow' );
+  }
 
   $( "#slider-range" ).slider({
     range: true,
