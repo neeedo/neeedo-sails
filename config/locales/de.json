@@ -117,7 +117,7 @@
   "Senden": "Senden",
   "Please Login": "Bitte melde dich an.",
   "Please login in order to send message to the offeror": "Melde dich an, um eine Nachricht zu schreiben.",
-  "Greetings, %s": "Gruß, %s",
+  "Greetings, %s": "Gruß, \n%s",
   "Your message was sent successfully.": "Deine Nachricht wurde erfolgreich gesendet.",
   "Could not load the conversations. Please contact Neeedo customer care.": "Deine Unterhaltungen konnten nicht geladen werden. Bitte kontaktiere den Neeedo Kundenservice.",
   "Could not mark the message as read / unread. Please contact Neeedo customer care.": "Die Nachricht konnte nicht geladen werden. Bitte kontaktiere den Neeedo Kundenservice.",

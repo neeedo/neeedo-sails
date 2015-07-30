@@ -101,6 +101,14 @@ $(document).ready(function () {
   };
 
   var shortenMessageBody = function (messageBody, maxNumberOfCharacters) {
-    return messageBody.substring(0, maxNumberOfCharacters) + "...";
+    var textOnly;
+
+    try {
+      textOnly = $(messageBody).text();
+    } catch (e) {
+      textOnly = messageBody;
+    }
+
+    return textOnly.substring(0, maxNumberOfCharacters) + "...";
   };
 });

@@ -310,12 +310,12 @@ module.exports = {
 
   buildDefaultMessageForOffer: function (offer, req, res) {
     var msg = res.i18n("Hello %s", offer.getUser().getUsername())
-      + ", \n"
+      + ", \n\n"
       + res.i18n("I'm interested in your offer %s.",
         UrlService.getBaseUrl() + OfferService.getViewUrl().replace("%%offerId%%", offer.getId()))
       + "\n"
       + res.i18n("Can you tell me something about it?")
-      + "\n";
+      + "\n\n";
 
     if (LoginService.userIsLoggedIn(req)) {
       msg += res.i18n("Greetings, %s", LoginService.getCurrentUser(req).getUsername())
@@ -402,8 +402,10 @@ module.exports = {
     var isRead = (req.param('isRead') == 'true' ? true : false);
 
     if (!isRead) {
-      this.filterForReadFlag(messageList, isRead);
+      this.filterForReadFlag(res, messageList, isRead);
     }
+
+    this.prepareMessageBodiesInList(res, messageList);
 
     res.json({
       messageList: messageList,
@@ -413,7 +415,14 @@ module.exports = {
     });
   },
 
-  filterForReadFlag: function (messageList, isReadFlag) {
+  prepareMessageBodiesInList: function(res, messageList) {
+    for (var i = 0; i < messageList.getMessages().length; i++) {
+      var message = messageList.getMessages()[i];
+      message.setBody(this.parseOfferIdsAndSetHyperLinks(res, message.getBody()));
+    }
+  },
+
+  filterForReadFlag: function (res, messageList, isReadFlag) {
     var messages = [];
     for (var i = 0; i < messageList.getMessages().length; i++) {
       var message = messageList.getMessages()[i];

@@ -111,7 +111,7 @@
   "Send message to offeror" : "Send message to offerer",
   "Send" : "Send",
   "Please login in order to send message to the offeror" : "Please login in order to send message to the offeror",
-  "Greetings, %s" : "Greetings, %s",
+  "Greetings, %s" : "Greetings, \n%s",
   "Your message was sent successfully." : "Your message was sent successfully.",
   "Could not load the conversations. Please contact Neeedo customer care." : "Could not load the conversations. Please contact Neeedo customer care.",
   "Could not mark the message as read / unread. Please contact Neeedo customer care." : "Could not mark the message as read / unread. Please contact Neeedo customer care.",
