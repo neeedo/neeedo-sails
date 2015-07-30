@@ -67,23 +67,25 @@
       </div>
     </div>
     <div class="row" id="thmbs">
-      <div class="col-lg-4 text-center">
-        <a class="hvr-float-shadow thmbBtn" data-toggle="modal" data-target="#arch">
-          <img src="/images/about/archThmb.jpg" />
-        </a>
-      </div>
-      <div class="col-lg-4 text-center">
-        <a class="hvr-float-shadow thmbBtn" data-toggle="modal" data-target="#next">
-          <img src="/images/about/nextThmb.jpg" />
-        </a>
-      </div>
-      <div class="col-lg-4 text-center">
-        <a class="hvr-float-shadow thmbBtn" data-toggle="modal" data-target="#sphere">
-          <img src="/images/about/sphereThmb.jpg" />
-        </a>
-      </div>
+        <div class="col-xs-6 col-xs-offset-3">
+          <a class="hvr-float-shadow thmbBtn" data-toggle="modal" data-target="#webapp">
+            <img src="/images/about/thumbnails/thmb_poster_webapp.jpg" />
+          </a>
+          <a class="hvr-float-shadow thmbBtn" data-toggle="modal" data-target="#backend">
+            <img src="/images/about/thumbnails/thmb_poster_backend.jpg" />
+          </a>
+          <a class="hvr-float-shadow thmbBtn" data-toggle="modal" data-target="#android">
+            <img src="/images/about/thumbnails/thmb_poster_android.jpg" />
+          </a>
+          <a class="hvr-float-shadow thmbBtn" data-toggle="modal" data-target="#arch">
+            <img src="/images/about/thumbnails/thmb_poster_architektur.jpg" />
+          </a>
+          <a class="hvr-float-shadow thmbBtn" data-toggle="modal" data-target="#usability">
+            <img src="/images/about/thumbnails/thmb_poster_usability.jpg" />
+          </a>
+        </div>
     </div>
-    <div class="row">
+    <div class="row clearfix">
       <div class="col-lg-12" id="teamContainer">
         <h2 class="text-center"><%= i18n('The Team') %></h2>
         <img src="/images/about/team.png" alt="Team picture"/>
@@ -91,6 +93,54 @@
     </div>
 
     <!-- Modal -->
+    <div class="modal fade" id="webapp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel"><%= i18n('Webapp Poster') %></h4>
+          </div>
+          <div class="modal-body">
+            <img src="/images/about/poster_webapp.jpg" alt="Webapp Poster"/>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="backend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel"><%= i18n('Backend Poster') %></h4>
+          </div>
+          <div class="modal-body">
+            <img src="/images/about/poster_backend.jpg" alt="Backend Poster"/>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="android" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel"><%= i18n('SPHERE.IO Poster') %></h4>
+          </div>
+          <div class="modal-body">
+            <img src="/images/about/poster_android.jpg" alt="Android Poster"/>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="modal fade" id="arch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -100,39 +150,23 @@
             <h4 class="modal-title" id="myModalLabel"><%= i18n('Architecture Poster') %></h4>
           </div>
           <div class="modal-body">
-            <img src="/images/about/PosterArchitektur.jpg" alt="Architektur Poster"/>
+            <img src="/images/about/poster_architektur.jpg" alt="Architektur Poster"/>
           </div>
           <div class="modal-footer">
           </div>
         </div>
       </div>
     </div>
-    <div class="modal fade" id="next" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="usability" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                 aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel"><%= i18n('Next-Gen Poster') %></h4>
+            <h4 class="modal-title" id="myModalLabel"><%= i18n('Usability Poster') %></h4>
           </div>
           <div class="modal-body">
-            <img src="/images/about/PosterNextGen.jpg" alt="NextGen Poster"/>
-          </div>
-          <div class="modal-footer">
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="sphere" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel"><%= i18n('SPHERE.IO Poster') %></h4>
-          </div>
-          <div class="modal-body">
-            <img src="/images/about/PosterSphere.jpg" alt="SPHERE.IO Poster"/>
+            <img src="/images/about/poster_usability.jpg" alt="Usability Poster"/>
           </div>
           <div class="modal-footer">
           </div>
